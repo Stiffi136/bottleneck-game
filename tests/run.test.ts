@@ -3,10 +3,12 @@ import {
   newRun, startBenchmark, playCards, discardCards, collectReceipt, buyHardware, installPart, leaveWorkbench, goWorkbench,
   sellPart, rerollShop, rerollCost, buyPack, choosePack, generationBenches, statsOf, useTool,
 } from '../src/core/run';
-import { baseScore, interestFor, round2, targetFor, tierWeights, sellValue } from '../src/core/difficulty';
+import { CURVE, baseScore, interestFor, round2, targetFor, tierWeights, sellValue } from '../src/core/difficulty';
 
 describe('difficulty curve (GDD 15.1)', () => {
-  it('matches the target table', () => {
+  it('formula reproduces the GDD target table with the GDD start values', () => {
+    const saved = CURVE.growth;
+    CURVE.growth = 2.2;
     const table: [number, number, number, number][] = [
       [1, 300, 450, 600], [2, 660, 990, 1300], [3, 1500, 2200, 2900], [4, 3200, 4800, 6400],
       [5, 7000, 11000, 14000], [6, 15000, 23000, 31000], [7, 34000, 51000, 68000], [8, 75000, 110000, 220000],
@@ -16,9 +18,17 @@ describe('difficulty curve (GDD 15.1)', () => {
     for (const [g, o, ga, bo] of table) {
       expect([targetFor(g, 'office'), targetFor(g, 'gaming'), targetFor(g, 'boss')]).toEqual([o, ga, bo]);
     }
+    CURVE.growth = saved;
+  });
+  it('tuned curve (growth 1.8): gentle start, finale x3, accelerating after gen 8', () => {
+    expect(targetFor(1, 'office')).toBe(300);
+    expect(targetFor(2, 'boss')).toBe(1100);
+    expect(targetFor(8, 'boss')).toBe(Math.round(round2(300 * 1.8 ** 7 * 3)));
+    expect(baseScore(9) / baseScore(8)).toBeCloseTo(2.2);
+    expect(baseScore(12) / baseScore(11)).toBeCloseTo(3.4);
   });
   it('growth accelerates after gen 8', () => {
-    expect(baseScore(10) / baseScore(9)).toBeCloseTo(3.0);
+    expect(baseScore(10) / baseScore(9)).toBeCloseTo(CURVE.growth + 0.8);
     expect(round2(1234)).toBe(1200);
   });
   it('tier weights sum to 100', () => {

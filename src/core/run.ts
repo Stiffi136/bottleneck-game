@@ -118,6 +118,7 @@ export interface RunStats {
   bluescreens: number;
   maxTemp: number;
   bought: Record<string, number>;
+  profiles: Partial<Record<ProfileId, number>>;
 }
 
 export interface GameOver {
@@ -266,7 +267,7 @@ export function newRun(seed: string): RunState {
     shop: null,
     pack: null,
     shopCards: [],
-    stats: { bestPlay: 0, plays: 0, benchesWon: 0, moneyEarned: 0, bluescreens: 0, maxTemp: IDLE_TEMP, bought: {} },
+    stats: { bestPlay: 0, plays: 0, benchesWon: 0, moneyEarned: 0, bluescreens: 0, maxTemp: IDLE_TEMP, bought: {}, profiles: {} },
     gameOver: null,
   };
   run.build = starterBuild(run);
@@ -503,6 +504,7 @@ export function playCards(run: RunState, ids: readonly number[]): Result<{ out: 
     run.money += out.money;
     run.stats.moneyEarned += out.money;
     run.stats.bestPlay = Math.max(run.stats.bestPlay, out.score);
+    run.stats.profiles[ev.profile] = (run.stats.profiles[ev.profile] ?? 0) + 1;
     for (const s of activeSoftware(run)) if (s.id === 'sw12') s.counter += ev.gpuCards;
   }
   // played cards → discard pile, destroyed cards leave the deck

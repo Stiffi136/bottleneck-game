@@ -1,10 +1,21 @@
 import type { BenchKind } from './types';
 
-/** GDD 15.1 – base score of a generation (unrounded). */
+/**
+ * Difficulty curve (GDD 15.1). The constants are tunable; see
+ * docs/implementation-notes.md for the balancing history.
+ */
+export const CURVE = {
+  start: 300,
+  growth: 1.8, // per generation up to the acceleration point (GDD start value: 2.2)
+  accelFrom: 8,
+  accelStep: 0.4, // growth += accelStep per generation after accelFrom
+};
+
+/** Base score of a generation (unrounded). */
 export function baseScore(gen: number): number {
-  let b = 300;
+  let b = CURVE.start;
   for (let g = 2; g <= gen; g++) {
-    b *= g <= 8 ? 2.2 : 2.2 + 0.4 * (g - 8);
+    b *= g <= CURVE.accelFrom ? CURVE.growth : CURVE.growth + CURVE.accelStep * (g - CURVE.accelFrom);
   }
   return b;
 }
