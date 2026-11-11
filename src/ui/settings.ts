@@ -1,3 +1,4 @@
+import { saveRun } from '../game/storage';
 import { game } from '../game/game';
 import { L, LANGS, type Lang } from '../i18n';
 import { button, confirmSheet, h, sheet } from './dom';
@@ -45,8 +46,7 @@ export function openSettings(opts: { inRun?: boolean } = {}): void {
           close();
           confirmSheet(t.ui.confirmNewRun, t.ui.yes, t.ui.no, () => {
             game.run = null;
-            game.save();
-            localStorage.removeItem('bottleneck.run.v1');
+            saveRun(null);
             game.show('title');
           });
         }, { color: 'red' }))
