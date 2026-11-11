@@ -15,6 +15,7 @@ Abweichungen vom GDD (`docs/game-design.md`) und Annahmen der Umsetzung. Das GDD
   - Menü- und Fließtext (Buttons, Tooltips, Bottom-Sheets, Listen, Einstellungen, Kassenbon, BIOS, Bluescreen) ist ein **DOM/CSS-Overlay** im selben virtuellen Koordinatensystem (`#ui`, skaliert mit `transform: scale(s)`). Vorteil: Zeilenumbruch, Scrollen, Eingaben, Barrierefreiheit und lange Übersetzungen ohne eigenen Layout-Code. Buttons/Panels nutzen die Atlas-9-Slices als `border-image`.
   - Regel: Unter undurchsichtigen DOM-Elementen liegt kein three.js-Inhalt; Panels hinter Sprites werden deshalb als 9-Slice in three.js gezeichnet.
 - **Schriften:** `monogram` ist nicht als Paket verfügbar. Ersatz (alle SIL OFL 1.1, über `@fontsource`): **Pixelify Sans** (Fließtext), **Silkscreen** (Titel, Ziffern), **VT323** (BIOS, Bluescreen, Kassenbon). Umlaute und ß sind enthalten. Credits stehen in den Einstellungen.
+  - **Ziffern-Schrift:** In Pixelify Sans sehen „8“, „5“ und „B“ wie „S“/„8“ aus. Darum kommen Ziffern, Zahlzeichen und „B“ aus **Jersey 15** (OFL): eigene Familie „BN Digits“ (registriert in `src/render/font.ts` per `FontFace`, `unicode-range`, `size-adjust 125 %`), steht vor Pixelify Sans in `--font-body` und `FONT_FAMILY.body`.
 - **Viewport:** Hochformat, wenn Breite/Höhe < 1,05. Faktor `s = min(W/360, H/640)` bzw. `min(W/640, H/360)`; die virtuelle Fläche wird auf max. 400×900 bzw. 720×400 begrenzt, der Rest ist Letterbox mit Hintergrund. Safe-Area-Insets werden berücksichtigt. Umschalten bei `resize`/`orientationchange`.
 - **Speichern:** Der komplette `RunState` (JSON) liegt nach jeder Aktion in `localStorage` (`bottleneck.run.v1`). Einstellungen und Bestenliste (Top 5, höchste Gen) separat. Spielzustand ist deterministisch (mulberry32, Zustand im Run gespeichert).
 - **Autoplay-Selbsttest:** `?autoplay=4` oder `__autoplay(4)` in der Konsole spielt einen Run mit der Bot-Strategie über die echte UI bis zum Game Over.
@@ -50,3 +51,10 @@ Abweichungen vom GDD (`docs/game-design.md`) und Annahmen der Umsetzung. Das GDD
 - **Workload-Paket:** Verbesserung (30 %) gleichverteilt aus Übertaktet/Optimiert/Effizient/Instabil.
 - **Darstellung kleiner Handys:** Ist der Skalierungsfaktor < 1,5, zeigen Karten statt des Flavor-Namens den Typ groß an (Name per Long-Press/Tooltip).
 - **Score-Vorschau** ist standardmäßig aus (Einstellung), wie im GDD.
+
+## 4. Benchmark-Screen (P2)
+
+- **Profil-Hervorhebung:** Alle gespielten Karten werden gewertet (GDD 6.1); Gold markiert nur die Karten, die das Profil bilden (`profileCards`).
+- **Hitzeflimmern** (GDD 18.1 „Shader-Effekt“) ist als Overlay umgesetzt, nicht als Shader: eine warm getönte Kopie der Tischkacheln in 8-px-Streifen, die zeilenweise wabert, plus Hitzepartikel. Grund: kein Eingriff in Engine/Batch nötig.
+- **Gespielte Karten** werden im Spielfeld bis ×1,5 (hoch) bzw. ×1,25 (quer) skaliert, wenn Platz ist.
+- **Zweireihige Hand:** Entscheidung beim Aufbau des Screens nach max(Handgröße, Handkarten) ≥ 9 (nur Hochformat).

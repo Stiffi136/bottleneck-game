@@ -26,6 +26,30 @@ Siehe Pakete P1–P7 in `docs/handoff.md` (P1 Balancing, P2 Benchmark-Politur, P
 ## Bekannte Probleme
 
 - Balancing unter GDD-Ziel (Gen 10–14); Bot schwach (kauft v. a. Treiber-Packs).
-- Querformat-Laden, POST-Fehlerdialog, zweireihige Hand, Touch-Long-Press nicht vollständig im Browser geprüft.
+- Querformat-Laden, POST-Fehlerdialog, Touch-Long-Press (echtes Gerät) nicht vollständig im Browser geprüft.
 - Bundle 877 kB ohne Code-Splitting.
 - Werkbank-Positionen (`CASE_LAYOUT`) handgemessen, GPU-Blende nicht exakt an Gehäuseblenden.
+
+## P2 Benchmark-Screen-Politur (Agent B)
+
+Erledigt (Dateien: `bench.ts`, `cards.ts`, `hud.ts`, `fx.ts`; Commit 0c66b39):
+- Profil-Karten: Die Karten des erkannten Profils leuchten gold (schon bei der Auswahl in der Hand); beim Werten springen sie hoch und sprühen Funken, die übrigen nicken nur.
+- Hand ab 9 Karten im Hochformat zweireihig (Reihenabstand 68 px, Handbereich 150 px), Trefferbreite ≥ 52 px. Geprüft mit 10 Karten bei 360×640 und 390×844.
+- Hover (Desktop) / Long-Press (Touch): vergrößerte Karte (bis ×2,4, mit Kartennamen) im leeren Spielfeld, Tooltip darüber (hoch) bzw. rechts daneben (quer); Long-Press schließt beim Loslassen.
+- Gespielte Karten werden im Spielfeld bis ×1,5 größer, wenn Platz ist.
+- Hitzeflimmern ab 70 °C (voll bei 100 °C): `HeatShimmer` in `fx.ts` (wabernde Geisterkopie der Tischkacheln in 8-px-Streifen, aufsteigende Hitzepartikel, Glut von unten).
+- Boss-Intro-Banner: Abdunkeln, Warnband mit laufenden Warnstreifen, Boss-Icon schlägt ein (Shake, Funken), Name + Regel; Finale in Gelb.
+- Glitch: `Fx.glitch()` (RGB-Streifen, verschobene Rauschstreifen); instabile Karten glitchen ab und zu von selbst (chromatische Geister); Bluescreen: Glitch über dem Spielfeld + Mini-Bluescreen mit `:(`, Stop-Zeile mit dem Bauteil (neuer Text `bench.bsodStop`), Prozent-Zähler, CRT-Aus.
+- Score-Zählwerk: Durchlauf-Score rollt hoch (Ticks) und schlägt dann ein (Konfetti, wenn das Ziel damit erreicht ist); Header-Score als Odometer (`Odometer` in `hud.ts`, rollende Ziffernstreifen) mit Pop.
+- Banner allgemein: Farblinien, Text gleitet ein, zu lange Texte werden verkleinert. Score-Balken im Hochformat beginnt hinter dem gemessenen Ziel-Text (keine Überlappung bei großen Zielen).
+- Kartennamen: neue Einpassung (`fitName`): größte Schrift, bei der jedes Wort in 34 px passt und der Name in 2 Zeilen; ein langes Wort mit Bindestrich bricht nach dem Bindestrich. Alle 40 Namen EN und DE bei 1280×720 geprüft.
+
+Zusatz Lesbarkeit (Commit f3c9d99): Ziffern, Zahlzeichen (`$ % + , - . ± × −`) und „B“ der Body-Schrift kommen aus **Jersey 15** (OFL, `@fontsource/jersey-15`), per `FontFace` mit `unicode-range` und `size-adjust 125 %` vor Pixelify Sans (DOM `--font-body` und Bitmap-Font). „8“ ≠ „S“, „5“ ≠ „S“, „B“ ≠ „8“. HW-Chip-Badge („OC1“) nutzt jetzt die Body-Schrift.
+
+Geprüft: Screenshots 360×640, 390×844 (auch 720×1280 = 2×), 1280×720; Autoplay-Runs hoch (360×640, Gen 10) und quer (1280×720, Gen 10) ohne Konsolenfehler; Bluescreen-Pfad über `animatePlay` mit erzwungenem Ergebnis.
+
+Offen:
+- Silkscreen (Titel-Schrift): „0“ und „O“ sind fast gleich (nur in Zahlen-Kontexten, unkritisch). Pixelify „l“/„I“ gleich.
+- Hitzeflimmern ist ein Overlay (kein echter Verzerrungs-Shader).
+- Long-Press-Zoom nur per Code/Maus geprüft, nicht auf echtem Touch-Gerät.
+- „NEU PRIORISIEREN“ (DE) ist bei 360 px im Button zu breit (P5/P6).
