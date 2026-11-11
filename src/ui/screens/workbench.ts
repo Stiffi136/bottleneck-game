@@ -20,14 +20,31 @@ import { installed, findSlotOf } from '../../core/build';
 import type { PartInst, SlotRef } from '../../core/types';
 import { issueText, partCard, partName } from '../describe';
 import { openBios } from '../bios';
+import { LED_ORDER, openPostError } from '../postDialog';
 import { openDeck } from '../deckSheet';
 import { openSettings } from '../settings';
 import { sfx } from '../../audio/sfx';
 import { ease, tween, wait } from '../../render/tween';
 import { sellValue } from '../../core/difficulty';
+import { STORAGE_SLOTS } from '../../core/data/content';
 import { hexToRgb } from '../../render/fx';
 
-const LED_ORDER = ['cpu', 'dram', 'vga', 'boot'] as const;
+
+const CABLE_KEY = 'bottleneck.cables';
+function cablesOn(): boolean {
+  try {
+    return localStorage.getItem(CABLE_KEY) !== '0';
+  } catch {
+    return true;
+  }
+}
+function setCables(on: boolean): void {
+  try {
+    localStorage.setItem(CABLE_KEY, on ? '1' : '0');
+  } catch {
+    /* private mode: ignore */
+  }
+}
 
 export class WorkbenchScreen extends BaseScreen {
   private pc = new PcView();
@@ -85,6 +102,7 @@ export class WorkbenchScreen extends BaseScreen {
 
     // PC view
     this.pc = new PcView();
+    this.pc.cables = cablesOn();
     this.pc.rebuildFrom(run.build);
     const k = Math.min(this.caseArea.w / this.pc.cw, this.caseArea.h / this.pc.ch);
     this.pc.scale(k);
@@ -124,7 +142,14 @@ export class WorkbenchScreen extends BaseScreen {
     const menuBtns = h('div', { style: 'display:flex;gap:3px' }, button('', () => openDeck(), { color: 'gray', cls: 'iconbtn', icon: 'icon16_deck' }), button('', () => openSettings({ inRun: true }), { color: 'gray', cls: 'iconbtn', icon: 'icon16_einstellungen' }));
     placeEl(menuBtns, { x: stats.x + stats.w - 60, y: stats.y });
     if (!P) placeEl(menuBtns, { x: stats.x + stats.w - 60, y: stats.y + 32 });
-    this.dom.append(wattTxt, chips, menuBtns);
+    // cables are cosmetic: toggle
+    const cab = button(t.wbx.cables, () => {
+      setCables(!cablesOn());
+      this.rebuild();
+    }, { color: cablesOn() ? 'green' : 'gray', cls: 'small', title: t.wbx.cablesTip });
+    cab.style.minWidth = '0';
+    placeEl(cab, { x: stats.x + stats.w - 116, y: P ? stats.y + 2 : stats.y + 34 });
+    this.dom.append(wattTxt, chips, menuBtns, cab);
 
     // POST status line
     const issues = postIssues(run);
@@ -285,6 +310,8 @@ export class WorkbenchScreen extends BaseScreen {
     const P = this.portrait;
     const list = h('div', { class: 'glass scroll pe', style: 'padding:4px 5px;display:flex;flex-direction:column;gap:3px;max-height:100%' });
     list.append(h('div', { class: 't-title', style: 'font-size:8.5px;color:var(--gold-l)' }, `${partName(inst.id)} · ${t.wb.pickSlot}`));
+    // parts that leave the build besides the occupant (e.g. on a board swap)
+    const extra = (o: SlotOption) => o.displaced.filter((p) => p.uid !== o.occupant?.uid);
     if (!this.options.length) list.append(h('div', { class: 'c-warn', style: 'font-size:9px' }, t.wb.noSlot));
     for (const o of this.options) {
       const label = this.slotLabel(o.slot);
@@ -292,7 +319,13 @@ export class WorkbenchScreen extends BaseScreen {
       const b = button(
         [
           img(st === 'ok' ? 'icon16_kompat_ok' : st === 'warn' ? 'icon16_kompat_warn' : 'icon16_kompat_nein', 'ic'),
-          h('span', { style: 'font-family:var(--font-body);font-size:9.5px;white-space:normal;text-align:left;flex:1' }, label + (o.occupant ? ` · ${fmt(t.slot.occupied, { name: partName(o.occupant.id) })}` : ''), o.issue ? h('div', { class: st === 'bad' ? 'c-bad' : 'c-warn', style: 'font-size:8.5px' }, issueText(o.issue)) : null),
+          h(
+            'span',
+            { style: 'font-family:var(--font-body);font-size:9.5px;white-space:normal;text-align:left;flex:1' },
+            label + (o.occupant ? ` · ${fmt(t.slot.occupied, { name: partName(o.occupant.id) })}` : ''),
+            o.issue ? h('div', { class: st === 'bad' ? 'c-bad' : 'c-warn', style: 'font-size:8.5px' }, issueText(o.issue)) : null,
+            extra(o).length ? h('div', { class: 'dim', style: 'font-size:8.5px' }, `${t.wbx.toStorage}: ${extra(o).map((p) => partName(p.id)).join(', ')}`) : null,
+          ),
         ],
         () => void this.tryInstall(o),
         { color: st === 'ok' ? 'green' : st === 'warn' ? 'gray' : 'gray', cls: 'small' },
@@ -361,6 +394,11 @@ export class WorkbenchScreen extends BaseScreen {
       return;
     }
     const uid = this.sel;
+    const over = this.storageOverflow(o);
+    if (over > 0) {
+      this.openStorageFull(o);
+      return;
+    }
     const from = this.storageNodes.find((s) => s.inst.uid === uid);
     const res = installPart(run, uid, o.slot);
     if (!this.g.check(res)) return;
@@ -399,6 +437,60 @@ export class WorkbenchScreen extends BaseScreen {
     }
     if (res.displaced.length) toast(`${L().ui.storage}: ${res.displaced.map((p) => partName(p.id)).join(', ')}`, 'info');
     this.busy = false;
+  }
+
+  /** How many parts too many would land in storage with this placement. */
+  private storageOverflow(o: SlotOption): number {
+    const run = this.g.run!;
+    const fromStorage = run.storage.some((p) => p.uid === this.sel);
+    return run.storage.length - (fromStorage ? 1 : 0) + o.displaced.length - STORAGE_SLOTS;
+  }
+
+  /**
+   * Board/case swap with a full storage: shows which parts would come out and
+   * lets the player sell stored parts right here; installs once it fits.
+   */
+  private openStorageFull(o: SlotOption): void {
+    const run = this.g.run!;
+    const t = L();
+    const sel = this.sel;
+    const body = h('div', {});
+    const handle = sheet((close) => [
+      h('h3', { class: 'c-warn' }, t.wbx.fullTitle),
+      body,
+      h('div', { class: 'actions' }, button(t.ui.cancel, close, { color: 'gray' })),
+    ]);
+    const render = () => {
+      const need = this.storageOverflow(o);
+      if (need <= 0) {
+        handle.close();
+        void this.tryInstall(o);
+        return;
+      }
+      body.replaceChildren(
+        h('div', { style: 'font-size:10px;line-height:1.25;white-space:normal' }, fmt(t.wbx.fullText, { d: o.displaced.length, n: need })),
+        h('div', { class: 'dim', style: 'font-size:9px;margin:3px 0 5px' }, `${t.wbx.toStorage}: ${o.displaced.map((p) => partName(p.id)).join(', ')}`),
+        ...run.storage
+          .filter((p) => p.uid !== sel)
+          .map((p) =>
+            h(
+              'div',
+              { style: 'display:flex;align-items:center;gap:6px;margin-bottom:3px' },
+              img(part(p.id).icon, 'i16'),
+              h('span', { style: 'flex:1;font-size:9.5px' }, partName(p.id)),
+              button(fmt(t.ui.sellFor, { n: sellValue(p.paid) }), () => {
+                if (this.g.check(sellPart(run, p.uid))) {
+                  sfx.coin();
+                  this.g.save();
+                  this.rebuild();
+                  render();
+                }
+              }, { color: 'red', cls: 'small' }),
+            ),
+          ),
+      );
+    };
+    render();
   }
 
   // ------------------------------------------------------------ drag & drop
@@ -499,24 +591,19 @@ export class WorkbenchScreen extends BaseScreen {
       if (i === failAt) {
         // failure: this LED stays lit and blinks
         led.tick = () => (led.flash = Math.floor(performance.now() / 180) % 2 ? 0.7 : 0);
-        sfx.beepCode(1, 3);
         this.g.engine.shake(2, 0.2);
         for (const uid of err!.uids) {
           const n = this.pc.partNode(uid);
           const r = n?.worldRect();
           if (r) this.g.fx.burst(r.x + r.w / 2, r.y + r.h / 2, 'spark', 1.2);
+          this.blinkPart(uid);
         }
         const red = new Rect2(this.caseArea.w, this.caseArea.h, 0xe8432d, 0.0);
         red.pos(this.caseArea.x, this.caseArea.y);
         this.root.add(red);
         await tween(red, { alpha: 0.25 }, { dur: 0.1 });
         void tween(red, { alpha: 0 }, { dur: 0.4 }).then(() => red.destroy());
-        sheet((close) => [
-          h('h3', { class: 'c-bad' }, `${t.wb.postFail} · ${t.led[err!.led]}`),
-          h('div', { class: 't-mono', style: 'font-size:14px;margin:2px 0' }, `${t.wb.beep}: — · · ·`),
-          h('div', { style: 'font-size:10.5px' }, issueText(err!)),
-          h('div', { class: 'actions' }, button(t.ui.ok, close, { color: 'blue' })),
-        ]);
+        openPostError(run.build, err!, issues);
         this.busy = false;
         return;
       }
@@ -534,6 +621,28 @@ export class WorkbenchScreen extends BaseScreen {
     this.g.save();
     toast(t.wb.postOk, 'good', 1500);
     this.g.route();
+  }
+
+  /** Failed part blinks red for a few seconds (POST error). */
+  private blinkPart(uid: number): void {
+    const n = this.pc.partNode(uid);
+    if (!n) return;
+    const sprites: Sprite[] = [];
+    const walk = (x: Node) => {
+      if (x instanceof Sprite) sprites.push(x);
+      x.children.forEach(walk);
+    };
+    walk(n);
+    const base = sprites.map((s) => [...s.tint] as [number, number, number]);
+    let t = 0;
+    const prev = n.tick;
+    n.tick = (dt) => {
+      prev?.(dt);
+      t += dt;
+      const on = t < 3.5 && Math.floor(t / 0.25) % 2 === 0;
+      sprites.forEach((s, i) => (s.tint = on ? [1, 0.35, 0.3] : base[i]!));
+      if (t >= 3.5) n.tick = prev;
+    };
   }
 
   refresh(): void {

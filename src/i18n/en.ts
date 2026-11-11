@@ -547,6 +547,8 @@ export const en = {
   },
   wbx: {
     toStorage: 'To storage',
+    cables: 'Cables',
+    cablesTip: 'Show or hide cables and AIO tubes (cosmetic).',
     fullTitle: 'Not enough storage',
     fullText: 'This swap moves {d} part(s) to storage. Sell {n} stored part(s) first:',
   },

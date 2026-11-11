@@ -544,6 +544,8 @@ export const de: Dict = {
   },
   wbx: {
     toStorage: 'Ins Lager',
+    cables: 'Kabel',
+    cablesTip: 'Kabel und AiO-Schläuche zeigen oder ausblenden (nur Optik).',
     fullTitle: 'Lager zu klein',
     fullText: 'Dieser Tausch legt {d} Teil(e) ins Lager. Verkaufe zuerst {n} Teil(e) aus dem Lager:',
   },

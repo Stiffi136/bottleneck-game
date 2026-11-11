@@ -549,3 +549,100 @@ input[type='range'] {
 .sheet {
   font-size: 10px;
 }
+
+/* ---- P3: POST error dialog ---- */
+.post-leds {
+  display: flex;
+  gap: 4px;
+  margin: 2px 0 6px;
+  padding: 4px 6px;
+  background: #0e0e1c;
+  border: 1px solid var(--steel);
+  border-radius: 4px;
+}
+.post-led {
+  flex: 1;
+  padding: 2px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-family: var(--font-title);
+  font-size: 7px;
+  color: #6c6c88;
+}
+.post-led img {
+  width: 14px;
+  height: 14px;
+}
+.post-led.pass {
+  color: #9b9bb4;
+}
+.post-led.fail {
+  color: #ff6a50;
+  background: rgba(232, 67, 45, 0.18);
+  outline: 1px solid #e8432d;
+  border-radius: 3px;
+}
+.post-led.fail img {
+  animation: postBlink 0.36s steps(1) infinite;
+  filter: drop-shadow(0 0 4px rgba(232, 67, 45, 0.9));
+}
+@keyframes postBlink {
+  50% {
+    opacity: 0.25;
+  }
+}
+.beep-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.beep-syms {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+.beep-sym {
+  display: inline-block;
+  height: 6px;
+  background: #4a4a66;
+  border-radius: 1px;
+  transition: background 0.05s;
+}
+.beep-sym.long {
+  width: 18px;
+}
+.beep-sym.short {
+  width: 6px;
+}
+.beep-sym.hot {
+  background: #ffd23f;
+  box-shadow: 0 0 5px #ffd23f;
+}
+.post-reason {
+  font-size: 10.5px;
+  line-height: 1.25;
+  padding: 4px 5px;
+  background: rgba(232, 67, 45, 0.12);
+  border-left: 2px solid #e8432d;
+}
+.post-more {
+  margin-top: 5px;
+  font-size: 9px;
+  line-height: 1.25;
+}
+
+/* ---- P3: shop counter labels ---- */
+.counter-tag {
+  word-break: break-word;
+}
+.counter-tag .ok-badge,
+.counter-tag .warn-badge,
+.counter-tag .bad-badge {
+  font-size: 7.5px;
+  white-space: nowrap;
+  letter-spacing: -0.2px;
+  line-height: 1.05;
+}
