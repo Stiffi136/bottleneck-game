@@ -740,7 +740,9 @@ SHAPE CHECK: 5 overlays with shape 3 : 4, same size, interiors flat #808080, eac
 Every cell contains exactly what is listed, nothing else.
 ```
 
-**Frames 1–3** (je ein Bild; `v10_card_ov_f0.png` als Referenz anhängen, die passende FRAME-Zeile einsetzen):
+**Frames 1–3** – fertig ausgeschrieben, je ein Bild; immer `v10_card_ov_f0.png` als Referenzbild anhängen:
+
+**Frame 1** (`v10_card_ov_f1.png`, `v10_card_ov_f0.png` als Referenz anhängen):
 
 ```text
 Apply PROMPT 0 and the v0.2 ADDENDUM.
@@ -748,14 +750,30 @@ Apply PROMPT 0 and the v0.2 ADDENDUM.
 EDIT THE ATTACHED REFERENCE IMAGE (v10_card_ov_f0). Output: same image format 9:8, same grid of 3 x 2 cells, same flat #808080 background.
 COPY EXACTLY: size, position and outline of every overlay, all colors, the empty interiors, the empty cell R2C3. R2C1 (RGB strip) stays completely unchanged.
 CHANGE ONLY what this FRAME line says:
-FRAME <n>: <see below>
+FRAME 2 of 4: R1C1 the big white star moves to the top LEFT corner, the other corners get small stars. R1C2 the outer cyan line becomes 1 pixel thicker (pulse). R1C3 the 4 glints move a quarter of the way clockwise along the border. R2C2 the heat-haze lines shift up by about 1/8 of the card height, one ember dot moves up.
 ```
 
-| Frame | FRAME-Zeile |
-|---|---|
-| f1 | `FRAME 2 of 4: R1C1 the big white star moves to the top LEFT corner, the other corners get small stars. R1C2 the outer cyan line becomes 1 pixel thicker (pulse). R1C3 the 4 glints move a quarter of the way clockwise along the border. R2C2 the heat-haze lines shift up by about 1/8 of the card height, one ember dot moves up.` |
-| f2 | `FRAME 3 of 4: R1C1 the big white star moves to the bottom LEFT corner. R1C2 the outer cyan line is 2 pixels thicker and the inner white line brighter (peak of the pulse). R1C3 the glints move another quarter clockwise. R2C2 the heat-haze lines shift up by another 1/8, the ember band glows brighter (more yellow).` |
-| f3 | `FRAME 4 of 4: R1C1 the big white star moves to the bottom RIGHT corner. R1C2 the outer cyan line is 1 pixel thicker than in the reference (pulse going back). R1C3 the glints move another quarter clockwise. R2C2 the heat-haze lines shift up by another 1/8, two ember dots near the top fade out.` |
+**Frame 2** (`v10_card_ov_f2.png`, `v10_card_ov_f0.png` als Referenz anhängen):
+
+```text
+Apply PROMPT 0 and the v0.2 ADDENDUM.
+
+EDIT THE ATTACHED REFERENCE IMAGE (v10_card_ov_f0). Output: same image format 9:8, same grid of 3 x 2 cells, same flat #808080 background.
+COPY EXACTLY: size, position and outline of every overlay, all colors, the empty interiors, the empty cell R2C3. R2C1 (RGB strip) stays completely unchanged.
+CHANGE ONLY what this FRAME line says:
+FRAME 3 of 4: R1C1 the big white star moves to the bottom LEFT corner. R1C2 the outer cyan line is 2 pixels thicker and the inner white line brighter (peak of the pulse). R1C3 the glints move another quarter clockwise. R2C2 the heat-haze lines shift up by another 1/8, the ember band glows brighter (more yellow).
+```
+
+**Frame 3** (`v10_card_ov_f3.png`, `v10_card_ov_f0.png` als Referenz anhängen):
+
+```text
+Apply PROMPT 0 and the v0.2 ADDENDUM.
+
+EDIT THE ATTACHED REFERENCE IMAGE (v10_card_ov_f0). Output: same image format 9:8, same grid of 3 x 2 cells, same flat #808080 background.
+COPY EXACTLY: size, position and outline of every overlay, all colors, the empty interiors, the empty cell R2C3. R2C1 (RGB strip) stays completely unchanged.
+CHANGE ONLY what this FRAME line says:
+FRAME 4 of 4: R1C1 the big white star moves to the bottom RIGHT corner. R1C2 the outer cyan line is 1 pixel thicker than in the reference (pulse going back). R1C3 the glints move another quarter clockwise. R2C2 the heat-haze lines shift up by another 1/8, two ember dots near the top fade out.
+```
 
 ### V11 · `v11_ui.png` – UI-Teile
 
@@ -863,14 +881,36 @@ SHAPE CHECK: passive cooler square, LN2 pot tall, reservoir tall (1 : 2), water 
 Every cell contains exactly what is listed, nothing else.
 ```
 
-**LN2-Frames 1–3** (Kann; je ein Bild, genutzt wird nur R1C2, `v13_coolers.png` als Referenz):
+**LN2-Frames 1–3** (Kann) – fertig ausgeschrieben, je ein Bild; immer `v13_coolers.png` als Referenzbild anhängen. Genutzt wird aus diesen Bildern nur R1C2 (`cooler_ln2pot_1…3`).
+
+**Frame 1** (`v13_coolers_f1.png`):
 
 ```text
 Apply PROMPT 0 and the v0.2 ADDENDUM.
 
 EDIT THE ATTACHED REFERENCE IMAGE (v13_coolers). Output: same image format, same grid, same flat #808080 background.
 COPY EXACTLY all parts in all cells: size, position, outline, colors, frost.
-CHANGE ONLY the two vapor puffs above the copper cylinder in R1C2: FRAME <n>: <the puffs rise by about 1/12 of the cylinder height | the puffs rise further and the left one gets smaller | a new small puff appears at the top edge of the cylinder, the old ones are almost gone>. The puffs stay inside the cell.
+CHANGE ONLY the two vapor puffs above the copper cylinder in R1C2: FRAME 2 of 4: the puffs rise by about 1/12 of the cylinder height. The puffs stay inside the cell.
+```
+
+**Frame 2** (`v13_coolers_f2.png`):
+
+```text
+Apply PROMPT 0 and the v0.2 ADDENDUM.
+
+EDIT THE ATTACHED REFERENCE IMAGE (v13_coolers). Output: same image format, same grid, same flat #808080 background.
+COPY EXACTLY all parts in all cells: size, position, outline, colors, frost.
+CHANGE ONLY the two vapor puffs above the copper cylinder in R1C2: FRAME 3 of 4: the puffs rise further and the left one gets smaller. The puffs stay inside the cell.
+```
+
+**Frame 3** (`v13_coolers_f3.png`):
+
+```text
+Apply PROMPT 0 and the v0.2 ADDENDUM.
+
+EDIT THE ATTACHED REFERENCE IMAGE (v13_coolers). Output: same image format, same grid, same flat #808080 background.
+COPY EXACTLY all parts in all cells: size, position, outline, colors, frost.
+CHANGE ONLY the two vapor puffs above the copper cylinder in R1C2: FRAME 4 of 4: a new small puff appears at the top edge of the cylinder, the old ones are almost gone. The puffs stay inside the cell.
 ```
 
 ### V14 · `v14_case_bench.png` – Gehäuse CA6: offener Prüfstand (Einzelbild)
@@ -1008,7 +1048,9 @@ SHAPE CHECK: 8 identical shield shapes that differ only in color and chevrons, p
 Every cell contains exactly what is listed, nothing else.
 ```
 
-**Frames 1–3** (je ein Bild; `v19_icons16_meta_f0.png` als Referenz; die Schilde bleiben unverändert):
+**Frames 1–3** – fertig ausgeschrieben, je ein Bild; immer `v19_icons16_meta_f0.png` als Referenzbild anhängen:
+
+**Frame 1** (`v19_icons16_meta_f1.png`, `v19_icons16_meta_f0.png` als Referenz anhängen):
 
 ```text
 Apply PROMPT 0 and the v0.2 ADDENDUM.
@@ -1016,14 +1058,30 @@ Apply PROMPT 0 and the v0.2 ADDENDUM.
 EDIT THE ATTACHED REFERENCE IMAGE (v19_icons16_meta_f0). Output: same image format 5:2, same grid of 5 x 2 cells, same flat #808080 background.
 COPY EXACTLY: all 8 shields (R1C1–R2C3) unchanged; the connector and the tube fitting keep their size and position.
 CHANGE ONLY what this FRAME line says:
-FRAME <n>: <see below>
+FRAME 2 of 4: R2C4 the connector stays intact and unchanged in shape; its tip glow becomes brighter orange (#ff8a2e with a #ffd23f center). R2C5 the drop is bigger and hangs from the fitting.
 ```
 
-| Frame | FRAME-Zeile |
-|---|---|
-| f1 | `FRAME 2 of 4: R2C4 the connector stays intact and unchanged in shape; its tip glow becomes brighter orange (#ff8a2e with a #ffd23f center). R2C5 the drop is bigger and hangs from the fitting.` |
-| f2 | `FRAME 3 of 4: R2C4 the connector stays intact; the glow is brightest (yellow center #ffd23f) and two tiny wavy heat lines rise above the tip (inside the cell). R2C5 the drop has detached and is falling, halfway down the cell.` |
-| f3 | `FRAME 4 of 4: R2C4 the connector stays intact; the glow fades back to a soft orange edge, the heat lines are gone. R2C5 the drop hits the bottom of the cell and splashes into 3 tiny droplets.` |
+**Frame 2** (`v19_icons16_meta_f2.png`, `v19_icons16_meta_f0.png` als Referenz anhängen):
+
+```text
+Apply PROMPT 0 and the v0.2 ADDENDUM.
+
+EDIT THE ATTACHED REFERENCE IMAGE (v19_icons16_meta_f0). Output: same image format 5:2, same grid of 5 x 2 cells, same flat #808080 background.
+COPY EXACTLY: all 8 shields (R1C1–R2C3) unchanged; the connector and the tube fitting keep their size and position.
+CHANGE ONLY what this FRAME line says:
+FRAME 3 of 4: R2C4 the connector stays intact; the glow is brightest (yellow center #ffd23f) and two tiny wavy heat lines rise above the tip (inside the cell). R2C5 the drop has detached and is falling, halfway down the cell.
+```
+
+**Frame 3** (`v19_icons16_meta_f3.png`, `v19_icons16_meta_f0.png` als Referenz anhängen):
+
+```text
+Apply PROMPT 0 and the v0.2 ADDENDUM.
+
+EDIT THE ATTACHED REFERENCE IMAGE (v19_icons16_meta_f0). Output: same image format 5:2, same grid of 5 x 2 cells, same flat #808080 background.
+COPY EXACTLY: all 8 shields (R1C1–R2C3) unchanged; the connector and the tube fitting keep their size and position.
+CHANGE ONLY what this FRAME line says:
+FRAME 4 of 4: R2C4 the connector stays intact; the glow fades back to a soft orange edge, the heat lines are gone. R2C5 the drop hits the bottom of the cell and splashes into 3 tiny droplets.
+```
 
 Hinweis: `fx_melt` behält den Sprite-Namen aus dem P3-Plan, zeigt aber nur noch ein pulsierendes Glühen als Warnung (Loop 0 → 1 → 2 → 3 → 0). Der Stecker schmilzt nicht (Regel „Kein Pech“).
 
