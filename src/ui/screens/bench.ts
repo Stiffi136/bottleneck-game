@@ -107,19 +107,19 @@ export class BenchScreen extends BaseScreen {
       const preview = { x: 6, y: hand.y - 18, w: w - 12, h: 16 };
       const swSize = 36;
       return {
-        header: { x: 0, y: 0, w, h: 46 },
-        status: { x: 4, y: 48, w: w - 8, h: 22 },
-        sw: { x: 6, y: 74, w: w - 76, h: swSize },
-        tools: { x: w - 68, y: 78, w: 62, h: 28 },
-        profile: { x: 0, y: 114, w, h: 54 },
-        hw: { x: 4, y: 172, w: w - 8, h: 32 },
-        play: { x: 4, y: 208, w: w - 8, h: preview.y - 208 - 2 },
+        header: { x: 0, y: 0, w, h: 58 },
+        status: { x: 4, y: 60, w: w - 8, h: 22 },
+        sw: { x: 6, y: 86, w: w - 76, h: swSize },
+        tools: { x: w - 68, y: 90, w: 62, h: 28 },
+        profile: { x: 0, y: 126, w, h: 54 },
+        hw: { x: 4, y: 184, w: w - 8, h: 32 },
+        play: { x: 4, y: 220, w: w - 8, h: preview.y - 220 - 2 },
         preview,
         hand,
         buttons,
         deck: { x: w - 22, y: hand.y - 6 },
-        thermo: { x: w / 2 + 6, y: 59, vertical: false, len: 112 },
-        boxes: { x: w / 2, y: 151, vertical: false },
+        thermo: { x: w / 2 + 6, y: 71, vertical: false, len: 112 },
+        boxes: { x: w / 2, y: 163, vertical: false },
         twoRows,
       };
     }
@@ -191,7 +191,7 @@ export class BenchScreen extends BaseScreen {
       onHover: (inside) => (inside && b.boss ? showTip(bossCard(b.boss), this.rectOf(this.bossIcon!), this.bossIcon) : hideTip(this.bossIcon)),
       pad: 4,
     };
-    const title = h('div', { class: 't-title shadow', style: 'font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis' }, `${t.stat.gen} ${run.gen} · ${benchName.toUpperCase()}`);
+    const title = h('div', { class: 't-title shadow', style: 'font-size:9.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis' }, `${t.stat.gen} ${run.gen} · ${benchName.toUpperCase()}`);
     const moneyNum = h('span', { class: 'wallet-n' }, num(run.money));
     const money$ = h('div', { class: this.portrait ? 'wallet compact' : 'wallet' }, img('icon16_geld', 'wallet-ic'), moneyNum);
     this.els.money = money$;
@@ -200,53 +200,52 @@ export class BenchScreen extends BaseScreen {
     const menu = button('', () => openSettings({ inRun: true }), { color: 'gray', cls: 'iconbtn hit44', icon: 'icon16_einstellungen', title: t.ui.settings });
     const combos = button('', () => openProfileHelp((this.lastProfile.split(':')[0] ?? '') as ProfileId | ''), { color: 'gray', cls: 'iconbtn hit44', icon: 'icon16_info', title: t.profileHelpUi.title });
     combos.setAttribute('aria-label', t.profileHelpUi.title);
-    const target = h('div', { class: 'shadow', style: 'font-size:10px;white-space:nowrap' }, img('icon16_leistung'), ` ${t.stat.target} `, h('b', { class: 't-title', style: 'font-weight:400' }, big(b.target)));
+    const target = h('div', { class: 'score-goal shadow' }, img('icon16_leistung'), ` ${t.stat.target} `, h('b', { class: 't-title', style: 'font-weight:400' }, big(b.target)));
+    this.shownScore = b.score; // resuming a saved bench must show the stored score right away
     this.odo = new Odometer(big);
     this.odo.set(this.shownScore, false);
-    const score = h('div', { class: 't-title shadow', style: 'font-size:13px;text-align:right' }, this.odo.el);
-    if (this.shownScore >= b.target) score.classList.add('c-ok');
+    this.odo.el.style.transformOrigin = '50% 60%';
+    const score = h('div', { class: 'scorebox' }, h('span', { class: 'scorebox-n' }, this.odo.el));
+    if (this.shownScore >= b.target) score.classList.add('reached');
     this.els.score = score;
-    // portrait: the bar starts after the (measured) target text, so long targets never run into it
-    let barX = 42 + 82;
-    let barLen = 132;
-    if (this.portrait) {
-      placeEl(target, { x: 42, y: 25 });
-      this.dom.append(target);
-      const barEnd = barX + Math.max(60, lay.header.w - 290);
-      barX = 42 + Math.max(82, target.offsetWidth + 8);
-      barLen = Math.max(40, barEnd - barX);
-    }
-    this.scoreBar = new ScoreBar(barLen);
+    const sw = this.portrait ? 124 : 138; // plaque width; target line + bar sit directly below it
+    this.scoreBar = new ScoreBar(sw - 8);
     this.scoreBar.k = this.shownScore / b.target;
     this.hudLayer.add(this.scoreBar);
 
     if (this.portrait) {
-      this.bossIcon.pos(22, 22);
-      placeEl(title, { x: 42, y: 5, w: lay.header.w - 200 });
-      placeEl(money$, { x: lay.header.w - 150, y: 2, h: 28 });
-      placeEl(combos, { x: lay.header.w - 76, y: 4 });
-      placeEl(menu, { x: lay.header.w - 36, y: 4 });
-      this.scoreBar.pos(barX + this.scoreBar.length / 2, 32);
-      placeEl(score, { x: lay.header.w - 164, y: 30, w: 84 });
+      const cx = lay.header.w / 2;
+      this.bossIcon.pos(22, 29);
+      placeEl(title, { x: 40, y: 8, w: Math.max(60, cx - sw / 2 - 44) });
+      title.style.whiteSpace = 'normal';
+      title.style.textOverflow = 'clip';
+      title.style.lineHeight = '1.15';
+      placeEl(score, { x: cx - sw / 2, y: 2, w: sw, h: 32 });
+      placeEl(target, { x: cx - sw / 2, y: 37, w: sw });
+      this.scoreBar.pos(cx, 52);
+      placeEl(combos, { x: lay.header.w - 76, y: 0 });
+      placeEl(menu, { x: lay.header.w - 36, y: 0 });
+      placeEl(money$, { x: lay.header.w - 4 - 64, y: 35, h: 24 });
     } else {
       this.bossIcon.pos(20, 20);
       placeEl(title, { x: 38, y: 6, w: 108 });
       title.style.whiteSpace = 'normal';
       title.style.fontSize = '9.5px';
-      placeEl(target, { x: 6, y: 42 });
-      this.scoreBar.pos(75, 62);
-      placeEl(score, { x: 6, y: 70, w: 138 });
-      score.style.textAlign = 'center';
-      score.style.fontSize = '15px';
+      placeEl(score, { x: 6, y: 42, w: sw, h: 36 });
+      placeEl(target, { x: 6, y: 82, w: sw });
+      this.scoreBar.pos(6 + sw / 2, 103);
       placeEl(money$, { x: 6, y: this.vp.h - 38, h: 32 });
       placeEl(combos, { x: 72, y: this.vp.h - 38 });
       placeEl(menu, { x: 112, y: this.vp.h - 38 });
     }
     this.dom.append(title, money$, combos, menu, target, score);
     // a long boss name never ends in an ellipsis: drop the generation prefix, then tighten the spacing
-    if (this.portrait && title.scrollWidth > title.clientWidth + 1) {
-      title.textContent = benchName.toUpperCase();
-      if (title.scrollWidth > title.clientWidth + 1) title.style.letterSpacing = '-0.4px';
+    title.title = benchName;
+    if (this.portrait) {
+      for (const fs of [9.5, 9, 8.5, 8]) {
+        title.style.fontSize = `${fs}px`;
+        if (title.scrollHeight <= 36 && title.scrollWidth <= title.clientWidth + 1) break;
+      }
     }
 
     // ---------------------------------------------------------- status
@@ -1181,7 +1180,7 @@ export class BenchScreen extends BaseScreen {
     const reached = to >= target;
     this.odo.bump(1.35, reached ? '#a8f07a' : '#ffe28a');
     void this.g.fx.pulse(this.scoreBar, 1.08, 0.2);
-    if (reached) this.els.score!.classList.add('c-ok');
+    if (reached) this.els.score!.classList.add('reached');
   }
 
   private async playEvent(e: ScoreEvent, played: CardView[], stepN: number, perfPos: () => readonly [number, number], clockPos: () => readonly [number, number]): Promise<void> {
