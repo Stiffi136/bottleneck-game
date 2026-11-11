@@ -1,5 +1,6 @@
 import { frameURL } from '../render/assets';
 import { sfx } from '../audio/sfx';
+import { richLines } from './rich';
 
 type Child = Node | string | number | null | undefined | false;
 type Attrs = Record<string, string | number | boolean | ((e: Event) => void) | undefined>;
@@ -79,8 +80,8 @@ function tipNode(): HTMLElement {
 export function showTip(content: HTMLElement | string, rect: { x: number; y: number; w: number; h: number }, owner: unknown = null): void {
   const el = tipNode();
   el.innerHTML = '';
-  if (typeof content === 'string') el.innerHTML = content;
-  else el.append(content);
+  // strings may carry rich markers ({perf:+8}) and \n line breaks; never HTML
+  el.append(typeof content === 'string' ? richLines(content) : content);
   tipOwner = owner;
   const ui = document.getElementById('ui')!;
   const W = parseFloat(ui.style.width);

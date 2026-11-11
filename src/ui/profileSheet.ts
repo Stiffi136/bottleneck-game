@@ -5,6 +5,7 @@ import { PROFILES, profileValues } from '../core/data/content';
 import { statsOf } from '../core/run';
 import { button, h, img, sheet } from './dom';
 import { profileName } from './describe';
+import { rich } from './rich';
 
 /** Number of cards a profile needs (from 4 on, the core count matters). */
 const MIN_CARDS: Record<ProfileId, number> = {
@@ -49,12 +50,12 @@ export function openProfileHelp(current?: ProfileId | ''): void {
       need >= 4
         ? h('div', { class: ok ? 'ok-badge' : 'warn-badge' }, ok ? '✔ ' : '⚠ ', fmt(t.profileHelpUi.needCores, { n: need }))
         : null,
-      h('div', { class: 'prof-help' }, t.profileHelp[p.id]),
+      h('div', { class: 'prof-help' }, rich(t.profileHelp[p.id])),
     );
   });
   sheet((close) => [
     h('h3', {}, t.profileHelpUi.title),
-    h('p', { class: 'dim', style: 'margin:0 0 5px' }, t.profileHelpUi.intro),
+    h('p', { class: 'dim', style: 'margin:0 0 5px' }, rich(t.profileHelpUi.intro)),
     h('div', { class: 'list' }, ...rows),
     h('div', { class: 'actions' }, button(t.ui.close, close, { color: 'blue' })),
   ], { cls: 'prof-sheet' });

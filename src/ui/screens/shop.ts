@@ -4,6 +4,7 @@ import { ItemCard, CardView, CARD_W } from '../../view/cards';
 import { SwChip } from '../../view/hud';
 import { checkAspectSoon } from '../../view/aspectCheck';
 import { button, h, hideTip, img, sheet, showTip, tip, toast } from '../dom';
+import { rich } from '../rich';
 import { L, fmt, money } from '../../i18n';
 import {
   brokenParts,
@@ -30,7 +31,7 @@ import { shopBadge, type Badge } from '../../core/compat';
 import { part } from '../../core/data/hardware';
 import { PACK_PRICES, profileDef, softwareDef, toolDef } from '../../core/data/content';
 import { installed } from '../../core/build';
-import { driverCard, issueText, packCard, partCard, partLines, partName, softwareCard, toolCard, cardCard } from '../describe';
+import { driverCard, issueNode, packCard, partCard, partLines, partName, softwareCard, toolCard, cardCard } from '../describe';
 import { sellValue } from '../../core/difficulty';
 import { openDeck } from '../deckSheet';
 import { openSettings } from '../settings';
@@ -245,7 +246,7 @@ export class ShopScreen extends BaseScreen {
         i,
         h('div', { class: 'counter-name shadow' }, partName(o.partId)),
         h('div', { style: 'display:flex;flex-wrap:wrap;gap:0 5px;align-items:center;justify-content:center' }, this.badgeEl(badge), priceEl(o.price)),
-        ...(more ? [h('div', { class: 'dim', style: 'font-size:9.5px' }, t.cat[d.cat]), ...partLines(d).slice(0, labelH >= 130 ? 2 : 1).map((l) => h('div', { style: 'font-size:9.5px;line-height:1.12' }, l))] : []),
+        ...(more ? [h('div', { class: 'dim', style: 'font-size:9.5px' }, t.cat[d.cat]), ...partLines(d).slice(0, labelH >= 130 ? 2 : 1).map((l) => h('div', { style: 'font-size:9.5px;line-height:1.12' }, rich(l)))] : []),
       );
       el.addEventListener('click', open);
     });
@@ -258,7 +259,7 @@ export class ShopScreen extends BaseScreen {
         stand(ic, 2, 75);
         const open = () => this.openSoft(so);
         ic.interactive = { onTap: open, onHover: (inside) => this.hoverLift(ic, inside, info.tipEl()) };
-        const el = label(2, h('div', { class: 'counter-name shadow' }, info.name), priceEl(so.price), more ? h('div', { style: 'font-size:9.5px;line-height:1.12' }, info.sub) : h('div', { class: 'dim', style: 'font-size:9.5px' }, t.ui.software));
+        const el = label(2, h('div', { class: 'counter-name shadow' }, info.name), priceEl(so.price), more ? h('div', { style: 'font-size:9.5px;line-height:1.12' }, rich(info.sub)) : h('div', { class: 'dim', style: 'font-size:9.5px' }, t.ui.software));
         el.addEventListener('click', open);
       }
     }
@@ -270,7 +271,7 @@ export class ShopScreen extends BaseScreen {
       stand(sp, i, sp.h);
       const open = () => this.openPackOffer(j, k);
       sp.interactive = { onTap: open, onHover: (inside) => this.hoverLift(sp, inside, packCard(k)) };
-      const el = label(i, h('div', { class: 'counter-name shadow' }, t.packs[k].name), priceEl(PACK_PRICES[k]), more ? h('div', { class: 'dim', style: 'font-size:9.5px;line-height:1.12' }, t.packs[k].desc) : null);
+      const el = label(i, h('div', { class: 'counter-name shadow' }, t.packs[k].name), priceEl(PACK_PRICES[k]), more ? h('div', { class: 'dim', style: 'font-size:9.5px;line-height:1.12' }, rich(t.packs[k].desc)) : null);
       el.addEventListener('click', open);
     });
   }
@@ -304,7 +305,7 @@ export class ShopScreen extends BaseScreen {
     const cls = b.status === 'ok' ? 'ok-badge' : b.status === 'warn' ? 'warn-badge' : 'bad-badge';
     const icon = b.status === 'ok' ? 'icon16_kompat_ok' : b.status === 'warn' ? 'icon16_kompat_warn' : 'icon16_kompat_nein';
     const el = h('div', { class: cls }, img(icon, 'i8'), t.badge[b.status]);
-    if (b.issue) tip(el, () => issueText(b.issue!));
+    if (b.issue) tip(el, () => issueNode(b.issue!));
     return el;
   }
 
@@ -431,10 +432,10 @@ export class ShopScreen extends BaseScreen {
     const cur = installed(run.build).filter((x) => part(x.inst.id).cat === d.cat);
     sheet((close) => [
       partCard(o.partId),
-      h('div', { style: 'margin-top:4px' }, this.badgeEl(badge), badge.issue ? h('div', { class: badge.status === 'bad' ? 'c-bad' : 'c-warn', style: 'font-size:9.5px' }, issueText(badge.issue)) : null),
+      h('div', { style: 'margin-top:4px' }, this.badgeEl(badge), badge.issue ? h('div', { class: badge.status === 'bad' ? 'c-bad' : 'c-warn', style: 'font-size:9.5px' }, issueNode(badge.issue)) : null),
       h('div', { style: 'margin-top:6px;padding-top:4px;border-top:1px solid rgba(255,255,255,.1)' },
         ...(cur.length
-          ? cur.slice(0, 2).map((x) => h('div', { style: 'font-size:9.5px;opacity:.85;margin-bottom:3px' }, h('div', { class: 'dim' }, fmt(t.shop.compare, { name: partName(x.inst.id) })), ...partLines(part(x.inst.id), x.inst).slice(0, 3).map((l) => h('div', {}, l))))
+          ? cur.slice(0, 2).map((x) => h('div', { style: 'font-size:9.5px;opacity:.85;margin-bottom:3px' }, h('div', { class: 'dim' }, fmt(t.shop.compare, { name: partName(x.inst.id) })), ...partLines(part(x.inst.id), x.inst).slice(0, 3).map((l) => h('div', { class: 'fxline' }, rich(l)))))
           : [h('div', { class: 'dim', style: 'font-size:9.5px' }, t.shop.nothingInstalled)]),
       ),
       h(

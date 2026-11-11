@@ -1,6 +1,8 @@
 import { BaseScreen, placeEl } from './base';
 import { Sprite } from '../../render/scene';
-import { button, h, img, statChip } from '../dom';
+import { button, h, img, statChip, tip } from '../dom';
+import { heatTip } from '../describe';
+import { richLines } from '../rich';
 import { L, big, fmt, money } from '../../i18n';
 import { generationBenches, startBenchmark, statsOf } from '../../core/run';
 import { bossDef } from '../../core/data/content';
@@ -49,7 +51,7 @@ export class SelectScreen extends BaseScreen {
         h('div', { class: 't-title shadow', style: 'font-size:11px' }, name),
         h('div', { style: 'font-size:10px' }, img('icon16_leistung'), ' ', fmt(t.bench.targetN, { n: big(b.target) })),
         h('div', { class: 'c-gold', style: 'font-size:10px' }, img('icon8_geld', 'i8'), ' ', fmt(t.bench.reward, { n: b.reward })),
-        b.boss ? h('div', { class: 'c-warn', style: 'font-size:9.5px' }, t.bosses[b.boss].desc) : null,
+        b.boss ? h('div', { style: 'font-size:9.5px' }, richLines(t.bosses[b.boss].desc, {}, 'c-warn')) : null,
         b.done ? h('div', { class: 'c-ok t-title', style: 'font-size:9.5px' }, '✔ ' + t.bench.done) : null,
       );
       placeEl(panel, { x, y, w: chipW, h: chipH });
@@ -69,13 +71,15 @@ export class SelectScreen extends BaseScreen {
     });
 
     const st = statsOf(run);
+    const coolChip = statChip('icon8_kuehlung', `${t.stat.cooling} ${st.cooling}`);
+    tip(coolChip, heatTip);
     const info = h(
       'div',
       { class: 'glass', style: 'padding:4px 6px;font-size:9.5px;display:flex;flex-wrap:wrap;align-items:center;gap:3px 8px' },
       statChip('icon8_kerne', `${t.stat.cores} ${st.cores}`),
       statChip('icon16_handgroesse', `${t.stat.hand} ${st.handSize}`),
       statChip('icon8_neuprio', `${t.stat.rerolls} ${st.rerolls}`),
-      statChip('icon8_kuehlung', `${t.stat.cooling} ${st.cooling}`),
+      coolChip,
       statChip('icon8_watt', `${st.tdp}/${st.watt} W`),
     );
     const startBtn = button(t.bench.startBench + ' ▶', () => {

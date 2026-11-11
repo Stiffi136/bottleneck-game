@@ -11,7 +11,7 @@ const listeners = new Set<() => void>();
 export function setLang(lang: Lang): void {
   currentLang = lang;
   current = LANGS[lang] ?? en;
-  document.documentElement.lang = lang;
+  if (typeof document !== 'undefined') document.documentElement.lang = lang;
   for (const l of listeners) l();
 }
 

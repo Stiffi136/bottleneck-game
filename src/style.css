@@ -899,3 +899,40 @@ img.sc {
 }
 #ui .wallet.compact { height: 24px; padding: 0 6px 0 5px; }
 #ui .wallet.compact .wallet-n { font-size: 21px; top: -2px; }
+
+/* ---- rich text (i18n markers {perf:..} etc., see src/i18n/rich.ts): key values in colour + 8-px icon; one effect per line */
+.rk,
+.rk-type {
+  white-space: nowrap;
+}
+.rk img.i8,
+.rk-type img.i8 {
+  margin-right: 2px;
+}
+.rk-perf {
+  color: #8cc4ff;
+}
+.rk-clock {
+  color: #ff6a55;
+}
+.rk-heat {
+  color: #ffa43a;
+}
+.rk-cool {
+  color: #5fe8e0;
+}
+.rk-watt {
+  color: #ffd23f;
+}
+.rk-money {
+  color: #ffe28a;
+}
+.fxlines > .fxline + .fxline,
+.fxline + .fxline {
+  margin-top: 1px;
+}
+.fxsep {
+  height: 1px;
+  margin: 3px 0;
+  background: rgba(255, 255, 255, 0.14);
+}

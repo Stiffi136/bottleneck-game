@@ -12,6 +12,7 @@ import {
   discardCards,
   playCards,
   previewPlay,
+  forecastHeat,
   reorderHand,
   requiredCards,
   sortHand,
@@ -22,12 +23,14 @@ import {
 import { bossDef, toolDef } from '../../core/data/content';
 import { part, partOf } from '../../core/data/hardware';
 import { caseOf, coolerOf, cpuOf, drives, exps, fans, gpuInst, ramKits } from '../../core/build';
-import { cardCard, partCard, partName, profileName, softwareCard, toolCard, bossCard } from '../describe';
+import { cardCard, heatTip, partCard, partName, profileName, softwareCard, toolCard, bossCard } from '../describe';
+import { rich } from '../rich';
 import { ease, tween, wait } from '../../render/tween';
 import { sfx } from '../../audio/sfx';
 import { openSettings } from '../settings';
 import { openDeck } from '../deckSheet';
 import type { Src, ScoreEvent } from '../../core/scoring';
+import { THROTTLE_TEMP } from '../../core/scoring';
 import type { BossId, CardType, ProfileId } from '../../core/types';
 import { CARD_TYPES } from '../../core/types';
 import { isFinaleGen } from '../../core/difficulty';
@@ -104,7 +107,7 @@ export class BenchScreen extends BaseScreen {
       const handH = twoRows ? 150 : 118;
       const buttons = { x: 6, y: H - 50, w: w - 12, h: 44 };
       const hand = { x: 4, y: buttons.y - handH - 2, w: w - 8, h: handH };
-      const preview = { x: 6, y: hand.y - 18, w: w - 12, h: 16 };
+      const preview = { x: 6, y: hand.y - 31, w: w - 12, h: 29 };
       const swSize = 36;
       return {
         header: { x: 0, y: 0, w, h: 58 },
@@ -128,7 +131,7 @@ export class BenchScreen extends BaseScreen {
     const mid = { x: left, w: w - left - right };
     const buttons = { x: mid.x + 4, y: H - 42, w: mid.w - 8, h: 38 };
     const hand = { x: mid.x, y: buttons.y - 84, w: mid.w, h: 82 };
-    const preview = { x: mid.x + 4, y: hand.y - 15, w: mid.w - 8, h: 14 };
+    const preview = { x: mid.x + 4, y: hand.y - 28, w: mid.w - 8, h: 27 };
     return {
       header: { x: 0, y: 0, w: left, h: 120 },
       status: { x: 4, y: H - 104, w: left - 8, h: 40 },
@@ -257,7 +260,7 @@ export class BenchScreen extends BaseScreen {
     this.els.hands = hands;
     this.els.discards = discards;
     const watt = h('span', { class: 'chip shadow', style: 'font-size:9.5px' }, img('icon8_watt', 'i8'), `${st.tdp} W`);
-    tip(watt, () => `${t.tips.watt} ${st.tdp}/${st.watt} W`);
+    tip(watt, () => h('div', {}, t.tips.watt, ' ', rich('{watt:{a}/{b} W}', { a: st.tdp, b: st.watt })));
     const statusBox = h('div', { style: 'display:flex;gap:4px;align-items:center;flex-wrap:wrap' }, hands, discards);
     this.thermo = new Thermo(lay.thermo.vertical, lay.thermo.len);
     this.thermo.set(b.temp, true);
@@ -265,8 +268,8 @@ export class BenchScreen extends BaseScreen {
     if (!lay.thermo.vertical) this.thermo.x = lay.status.x + 70 + lay.thermo.len / 2;
     this.hudLayer.add(this.thermo);
     this.thermo.interactive = {
-      onHover: (inside) => (inside ? showTip(t.tips.heat, this.rectOf(this.thermo), this.thermo) : hideTip(this.thermo)),
-      onTap: () => showTip(t.tips.heat, this.rectOf(this.thermo), this.thermo),
+      onHover: (inside) => (inside ? showTip(heatTip(), this.rectOf(this.thermo), this.thermo) : hideTip(this.thermo)),
+      onTap: () => showTip(heatTip(), this.rectOf(this.thermo), this.thermo),
     };
     this.thermo.hit = lay.thermo.vertical ? { x: -15, y: -55, w: 30, h: 120 } : { x: -lay.thermo.len / 2, y: -10, w: lay.thermo.len + 40, h: 20 };
     if (this.portrait) {
@@ -310,7 +313,7 @@ export class BenchScreen extends BaseScreen {
     this.buildHwBar();
 
     // ---------------------------------------------------------- preview line
-    const preview = h('div', { class: 'shadow', style: 'font-size:10px;text-align:center;white-space:nowrap' });
+    const preview = h('div', { class: 'shadow', style: 'font-size:10px;line-height:13px;text-align:center;white-space:nowrap;display:flex;flex-direction:column;justify-content:flex-end' });
     placeEl(preview, lay.preview);
     this.els.preview = preview;
     this.dom.append(preview);
@@ -728,23 +731,30 @@ export class BenchScreen extends BaseScreen {
         this.lBox.setValue(pv.events[0]!.k === 'profile' ? pv.events[0]!.l : 0);
         this.tBox.setValue(pv.events[0]!.k === 'profile' ? pv.events[0]!.t : 0);
       }
-      const after = pv.heat.after;
-      const col = after >= 100 ? 'c-bad' : after >= 85 ? 'c-warn' : '';
-      prev.append(
+      // heat outlook (core: forecastHeat = computeHeat + cooling): line 1 peak, line 2 end of the turn
+      const fc = forecastHeat(run, sel)!;
+      const hot = fc.peak >= THROTTLE_TEMP;
+      const line1 = h(
+        'div',
+        {},
         img('icon8_hitze', 'i8'),
-        h('span', { class: col }, ' ' + fmt(t.bench.heatPreview, { add: pv.heat.total, temp: after })),
-        after >= 100 ? h('b', { class: 'c-bad t-title', style: 'font-weight:400' }, '  ' + t.bench.heatShutdown) : after >= 85 ? h('b', { class: 'c-warn t-title', style: 'font-weight:400' }, '  ' + t.bench.heatThrottle) : '',
+        h('span', { class: hot ? 'c-bad' : 'rk-heat' }, ' ' + fmt(t.bench.heatPreview, { from: fc.start, peak: fc.peak })),
+        fc.crash ? h('b', { class: 'c-bad t-title', style: 'font-weight:400' }, '  ' + t.bench.heatShutdown) : fc.throttled ? h('b', { class: 'c-bad t-title', style: 'font-weight:400' }, '  ' + t.bench.heatThrottle) : '',
       );
-      if (this.g.settings.scorePreview) prev.append(h('span', { class: 'c-gold' }, '   ' + fmt(t.bench.scorePreview, { n: big(pv.score) })));
+      if (this.g.settings.scorePreview) line1.append(h('span', { class: 'c-gold' }, '   ' + fmt(t.bench.scorePreview, { n: big(pv.score) })));
+      const coolTxt = fc.crash ? t.bench.coolPreviewCrash : fmt(t.bench.coolPreview, { to: fc.afterCooling, d: fc.cooled > 0 ? `−${fc.cooled}` : '±0' });
+      prev.append(line1, h('div', {}, img('icon8_kuehlung', 'i8'), h('span', { class: fc.crash || fc.afterCooling >= THROTTLE_TEMP ? 'c-bad' : 'rk-cool' }, ' ' + coolTxt)));
+      this.thermo.setForecast(this.busy ? null : { peak: fc.peak, end: fc.afterCooling });
     } else {
       this.profileText.text = '';
       if (!this.busy) {
         this.lBox.setValue(0);
         this.tBox.setValue(0);
       }
-      prev.append(h('span', { class: 'dim' }, req !== null ? fmt(t.bench.mustPlay, { n: req }) : fmt(t.bench.selectCards, { n: b.cores })));
+      prev.append(h('div', { class: 'dim' }, req !== null ? fmt(t.bench.mustPlay, { n: req }) : fmt(t.bench.selectCards, { n: b.cores })));
+      this.thermo.setForecast(null);
     }
-    if (req !== null && pv) prev.append(h('span', { class: sel.length === req ? 'c-ok' : 'c-warn' }, `  (${sel.length}/${req})`));
+    if (req !== null && pv) prev.firstElementChild?.append(h('span', { class: sel.length === req ? 'c-ok' : 'c-warn' }, `  (${sel.length}/${req})`));
     this.thermo.set(b.temp);
     this.heatFeedback(b.temp);
   }

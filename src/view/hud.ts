@@ -1,4 +1,4 @@
-import { Node, Rect2, Sprite, Text } from '../render/scene';
+import { Node, Rect2, Sprite, Text, rgb } from '../render/scene';
 import { big } from '../i18n';
 import { softwareDef } from '../core/data/content';
 import type { SoftwareId } from '../core/types';
@@ -22,6 +22,11 @@ export class Thermo extends Node {
   temp = 35;
   private shown = 35;
   private marks: Rect2[] = [];
+  /** forecast of the selected play: ghost bar (current → peak), peak marker and end-of-turn marker */
+  private ghost: Rect2;
+  private peakMark: Rect2;
+  private endMark: Rect2;
+  private fc: { peak: number; end: number } | null = null;
   constructor(public vertical: boolean, length: number) {
     super();
     if (vertical) {
@@ -53,6 +58,17 @@ export class Thermo extends Node {
       this.add(m);
       this.marks.push(m);
     }
+    const thick = 2;
+    this.ghost = new Rect2(vertical ? this.fill.w * 0.5 : 1, vertical ? 1 : this.fill.h * 0.6, 0xffffff, 0.5);
+    this.ghost.ax = vertical ? 0.5 : 0;
+    this.ghost.ay = vertical ? 1 : 0.5;
+    this.peakMark = new Rect2(vertical ? this.fill.w + 8 : thick, vertical ? thick : this.fill.h + 8, 0xffffff);
+    this.endMark = new Rect2(vertical ? this.fill.w + 8 : thick, vertical ? thick : this.fill.h + 8, 0x5fe8e0);
+    for (const n of [this.ghost, this.peakMark, this.endMark]) {
+      if (n !== this.ghost) n.ax = n.ay = 0.5;
+      n.visible = false;
+      this.add(n);
+    }
     this.label = new Text('35 °C', { font: 'title', size: 9.5, align: vertical ? 'center' : 'left', valign: 'middle' });
     if (vertical) this.label.pos(0, this.frameS.h / 2 + 8);
     else this.label.pos(this.frameS.w / 2 + 5, 0);
@@ -65,6 +81,23 @@ export class Thermo extends Node {
     if (instant) this.shown = t;
   }
 
+  /** Shows the outlook of the selected cards (null hides it): peak after the heat step, end after cooling. */
+  setForecast(fc: { peak: number; end: number } | null): void {
+    this.fc = fc;
+    for (const n of [this.ghost, this.peakMark, this.endMark]) n.visible = !!fc;
+    if (fc) {
+      const col = fc.peak >= 85 ? 0xe8432d : 0xf4f4fa;
+      this.peakMark.tint = rgb(col);
+      this.ghost.tint = rgb(fc.peak >= 85 ? 0xe8432d : heatColor(fc.peak));
+    }
+  }
+
+  private place(n: Rect2, t: number): void {
+    const f = tempFrac(t);
+    if (this.vertical) n.pos(0, this.fill.y + this.fill.h / 2 - this.fill.h * f);
+    else n.pos(this.fill.x + this.fill.w * f, 0);
+  }
+
   get labelNode(): Text {
     return this.label;
   }
@@ -74,6 +107,16 @@ export class Thermo extends Node {
     const f = tempFrac(this.shown);
     if (this.vertical) this.fill.cropT = f;
     else this.fill.cropR = f;
+    if (this.fc) {
+      const a = tempFrac(this.shown);
+      const b = tempFrac(this.fc.peak);
+      this.place(this.peakMark, this.fc.peak);
+      this.place(this.endMark, this.fc.end);
+      this.place(this.ghost, this.shown);
+      if (this.vertical) {
+        this.ghost.h = Math.max(0, this.fill.h * (b - a));
+      } else this.ghost.w = Math.max(0, this.fill.w * (b - a));
+    }
     this.label.text = `${Math.round(this.shown)} °C`;
     this.label.color(heatColor(this.shown));
     const hot = this.shown >= 85;

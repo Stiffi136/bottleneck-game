@@ -2,7 +2,7 @@ import { BaseScreen, placeEl, type Box } from './base';
 import { Node, Rect2, Sprite, Text } from '../../render/scene';
 import { PcView } from '../../view/pcView';
 import { checkAspectSoon } from '../../view/aspectCheck';
-import { button, h, hideTip, img, sheet, showTip, statChip, toast } from '../dom';
+import { button, h, hideTip, img, sheet, showTip, statChip, tip, toast } from '../dom';
 import { L, fmt, money } from '../../i18n';
 import {
   backToShop,
@@ -19,7 +19,7 @@ import { slotOptions, type Issue, type SlotOption } from '../../core/compat';
 import { part } from '../../core/data/hardware';
 import { installed, findSlotOf } from '../../core/build';
 import type { PartInst, SlotRef } from '../../core/types';
-import { issueText, partCard, partName } from '../describe';
+import { heatTip, issueText, partCard, partName } from '../describe';
 import { openBios } from '../bios';
 import { LED_ORDER, openPostError } from '../postDialog';
 import { openDeck } from '../deckSheet';
@@ -129,10 +129,12 @@ export class WorkbenchScreen extends BaseScreen {
     this.root.add(wattNode);
     const wattTxt = h('div', { class: `t-title shadow ${load > 1 ? 'c-bad' : load > 0.9 ? 'c-warn' : ''}`, style: 'font-size:9.5px' }, `${st.tdp}/${st.watt} W`);
     placeEl(wattTxt, { x: stats.x + barW + 8, y: stats.y + 2 });
+    const coolChip = statChip('icon8_kuehlung', `${st.cooling}`);
+    tip(coolChip, heatTip);
     const chips = h(
       'div',
       { style: 'display:flex;flex-wrap:wrap;align-items:center;gap:2px 7px;font-size:9.5px' },
-      statChip('icon8_kuehlung', `${st.cooling}`),
+      coolChip,
       statChip('icon8_lanes', `${st.lanesUsed}/${st.lanesAvail}`),
       statChip('icon8_kerne', `${t.stat.cores} ${st.cores}`),
       statChip('icon16_handgroesse', `${t.stat.hand} ${st.handSize}`),
