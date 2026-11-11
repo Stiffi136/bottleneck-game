@@ -118,6 +118,7 @@ export const de: Dict = {
     noCards: 'Karten wählen',
     disabledPart: 'aus (Brownout)',
     igpu: 'iGPU',
+    bsodStop: 'STOP: INSTABILER_OC ({part})',
   },
   profiles: {
     single: { name: 'Einzeltask', desc: 'Keine Kombination – die höchste Karte zählt' },
@@ -471,7 +472,7 @@ export const de: Dict = {
     off: 'Aus',
     abandon: 'Run aufgeben',
     credits: 'Credits',
-    creditsText: 'Schriften: Pixelify Sans, Silkscreen, VT323 (SIL Open Font License 1.1). Alle Marken sind Parodien.',
+    creditsText: 'Schriften: Pixelify Sans, Jersey 15, Silkscreen, VT323 (SIL Open Font License 1.1). Alle Marken sind Parodien.',
   },
   gameover: {
     title: 'Auf dem PC ist ein Problem aufgetreten. Er muss neu gestartet werden.',

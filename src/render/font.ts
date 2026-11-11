@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { makeTexture } from './assets';
+import digitsUrl from '@fontsource/jersey-15/files/jersey-15-latin-400-normal.woff2?url';
 
 /**
  * Runtime bitmap font: renders the glyphs of a (pixel) web font once into a
@@ -9,8 +10,29 @@ import { makeTexture } from './assets';
 
 export type FontId = 'body' | 'title' | 'mono';
 
+/**
+ * Digits and number signs for the body font. In Pixelify Sans "8" looks like "S" (and "5" like "S"),
+ * so these code points come from Jersey 15 (SIL OFL 1.1). The face only covers this unicode-range and
+ * stands in front of Pixelify Sans in the stack, for the DOM (`--font-body` in style.css) and the
+ * bitmap font alike. `size-adjust` matches the digit height to the Pixelify capitals.
+ */
+export const DIGIT_FAMILY = 'BN Digits';
+const DIGIT_RANGE = 'U+0024-0025, U+002B-002E, U+0030-0039, U+00B1, U+00D7, U+2212';
+
+function registerDigitFont(): void {
+  if (typeof FontFace === 'undefined' || !document.fonts) return;
+  const face = new FontFace(DIGIT_FAMILY, `url(${digitsUrl}) format("woff2")`, {
+    unicodeRange: DIGIT_RANGE,
+    weight: '100 900',
+    display: 'block',
+    sizeAdjust: '125%',
+  } as FontFaceDescriptors);
+  document.fonts.add(face);
+}
+registerDigitFont();
+
 export const FONT_FAMILY: Record<FontId, string> = {
-  body: '"Pixelify Sans", system-ui, sans-serif',
+  body: `"${DIGIT_FAMILY}", "Pixelify Sans", system-ui, sans-serif`,
   title: '"Silkscreen", "Pixelify Sans", monospace',
   mono: '"VT323", monospace',
 };
@@ -61,7 +83,7 @@ function buildFont(id: FontId): BitmapFont {
   ctx.font = `${FONT_WEIGHT[id]} ${RASTER}px ${FONT_FAMILY[id]}`;
   ctx.textBaseline = 'alphabetic';
   ctx.fillStyle = '#fff';
-  const m = ctx.measureText('ÄgjÅ|');
+  const m = ctx.measureText('ÄgjÅ|8');
   const ascent = Math.ceil(m.actualBoundingBoxAscent ?? RASTER * 0.8);
   const descent = Math.ceil(m.actualBoundingBoxDescent ?? RASTER * 0.25);
   const cellH = ascent + descent + PAD * 2;

@@ -25,7 +25,8 @@
   --cyan: #2ef2ff;
   --gold: #e0a848;
   --gold-l: #ffe28a;
-  --font-body: 'Pixelify Sans', system-ui, sans-serif;
+  /* 'BN Digits' = Jersey 15 for digits only (registered in src/render/font.ts) */
+  --font-body: 'BN Digits', 'Pixelify Sans', system-ui, sans-serif;
   --font-title: 'Silkscreen', 'Pixelify Sans', monospace;
   --font-mono: 'VT323', monospace;
 }

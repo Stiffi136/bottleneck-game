@@ -121,6 +121,7 @@ export const en = {
     noCards: 'Select cards',
     disabledPart: 'off (brownout)',
     igpu: 'iGPU',
+    bsodStop: 'STOP: UNSTABLE_OVERCLOCK ({part})',
   },
   profiles: {
     single: { name: 'Single Task', desc: 'No combination – the highest card counts' },
@@ -474,7 +475,7 @@ export const en = {
     off: 'Off',
     abandon: 'Abandon run',
     credits: 'Credits',
-    creditsText: 'Fonts: Pixelify Sans, Silkscreen, VT323 (SIL Open Font License 1.1). All brands are parodies.',
+    creditsText: 'Fonts: Pixelify Sans, Jersey 15, Silkscreen, VT323 (SIL Open Font License 1.1). All brands are parodies.',
   },
   gameover: {
     title: 'Your PC ran into a problem and needs to restart.',
