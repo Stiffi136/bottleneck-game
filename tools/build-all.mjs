@@ -73,6 +73,9 @@ export const CONFIG = [
   { id: 'E08', raw: 'e08.png', name: 'bg_shop_landscape', size: [800, 400], kind: 'background', group: 'single' },
   { id: 'E09', raw: 'e09.png', name: 'bg_title_portrait', size: [400, 900], kind: 'background', group: 'single' },
   { id: 'E10', raw: 'e10.png', name: 'bg_title_landscape', size: [800, 400], kind: 'background', group: 'single' },
+  // L01: Logo-Atlas aus Einzelbildern (BOTTLE, NECK, PC-Frames); pc = Quellen in Animationsreihenfolge (Duplikate werden verworfen)
+  { id: 'L01', raw: 'logo_bottle.png', name: 'logo_v2', size: [1024, 512], kind: 'logo', group: 'single',
+    logo: { words: ['logo_bottle.png', 'logo_neck.png'], pc: ['0', '1', '2', '3', '4', '5', 'extra'] } },
 ];
 export const GROUPS = [
   ['ui', 'UI'], ['icons', 'Icons'], ['cards', 'Karten, Booster, Bosse'], ['hardware', 'Hardware'],
@@ -138,6 +141,7 @@ export const REVIEW = {
   E08: { status: 'ok', note: 'WebP ×2' },
   E09: { status: 'ok', note: 'WebP ×2' },
   E10: { status: 'ok', note: 'WebP ×2' },
+  L01: { status: 'ok', note: 'Logo-Atlas: BOTTLE/NECK/PC-Frames, gleicher Maßstab und Anker' },
 };
 export const DECISIONS = {
   S16: {
@@ -170,6 +174,9 @@ async function runJob(id) {
     const base = { raw: rawPath, name: cfg.name, target: cfg.size, ...common };
     res = kind === 'object' ? await S.processObject(base) : kind === 'overlay' ? await S.processOverlay(base) : await S.processBackground(base);
     res.hdScale = kind === 'background' ? 2 : 4;
+  } else if (kind === 'logo') {
+    const { processLogo } = await import('./logo.mjs');
+    res = await processLogo({ rawDir: RAW, name: cfg.name, outDir: HD, prevDir: PREV, ...cfg.logo });
   } else if (kind === 'gpu') {
     const { processGpu } = await import('./gpu.mjs');
     res = await processGpu({ rawDir: RAW, name: cfg.name, outDir: HD, prevDir: PREV });

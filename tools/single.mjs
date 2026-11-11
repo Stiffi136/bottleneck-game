@@ -9,11 +9,11 @@ import sharp from 'sharp';
 
 const BG_DARK = [0x1a, 0x1a, 0x2e];
 
-async function readRaw(file) {
+export async function readRaw(file) {
   const { data, info } = await sharp(file).removeAlpha().raw().toBuffer({ resolveWithObject: true });
   return { data, W: info.width, H: info.height };
 }
-async function writeOut({ rgba, w, h, name, outDir, prevDir, quality = 92, lossless = false, meta, frames }) {
+export async function writeOut({ rgba, w, h, name, outDir, prevDir, quality = 92, lossless = false, meta, frames }) {
   fs.mkdirSync(outDir, { recursive: true }); fs.mkdirSync(prevDir, { recursive: true });
   const webpPath = path.join(outDir, `${name}.webp`), jsonPath = path.join(outDir, `${name}.json`);
   let img = sharp(rgba, { raw: { width: w, height: h, channels: 4 } });
@@ -38,7 +38,7 @@ const lum = (r, g, b) => 0.299 * r + 0.587 * g + 0.114 * b;
 
 // Hintergrund-Maske: Flood-Fill von den Randpixeln aus über "graue" Pixel (kaum Farbe, mittlere Helligkeit, grob #808080).
 // Ein Objekt mit schwarzer Außenkontur (Pixel-Art-Regel) stoppt den Fill; sitzt es randlos im Bild, bleibt die Maske leer.
-function backgroundMask(data, W, H, opt = {}) {
+export function backgroundMask(data, W, H, opt = {}) {
   const maxChroma = opt.maxChroma ?? 14, lo = opt.lumLo ?? 85, hi = opt.lumHi ?? 200;
   const grayish = new Uint8Array(W * H);
   for (let i = 0; i < W * H; i++) {
@@ -58,7 +58,7 @@ function backgroundMask(data, W, H, opt = {}) {
 }
 
 // größte Zusammenhangskomponente (8er) des Vordergrunds behalten, Rest (Staub, Reste) als Hintergrund
-function keepLargest(bg, W, H) {
+export function keepLargest(bg, W, H) {
   const lab = new Int32Array(W * H), st = new Int32Array(W * H); let best = 0, bestN = 0, id = 0;
   for (let s0 = 0; s0 < W * H; s0++) {
     if (bg[s0] || lab[s0]) continue;
@@ -77,7 +77,7 @@ function keepLargest(bg, W, H) {
   return removed;
 }
 
-const frameOf = (OW, OH, content) => ({ frame: { x: 0, y: 0, w: OW, h: OH }, rotated: false, trimmed: false, spriteSourceSize: { x: 0, y: 0, w: OW, h: OH }, sourceSize: { w: OW, h: OH }, contentBBox: content, pivot: { x: 0.5, y: 0.5 } });
+export const frameOf = (OW, OH, content) => ({ frame: { x: 0, y: 0, w: OW, h: OH }, rotated: false, trimmed: false, spriteSourceSize: { x: 0, y: 0, w: OW, h: OH }, sourceSize: { w: OW, h: OH }, contentBBox: content, pivot: { x: 0.5, y: 0.5 } });
 
 // ---------------------------------------------------------------- E01–E05
 export async function processObject({ raw, name, target, hd = 4, outDir, prevDir, quality = 92, erode = 1 }) {
