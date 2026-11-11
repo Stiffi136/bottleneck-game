@@ -116,3 +116,5 @@ Offen / Hinweise:
 - Slot-Liste im Werkbank-Hochformat verdeckt beim Auswählen die untere Gehäusehälfte (Slot-Glows dort nicht sichtbar) – Vorschlag: Liste als schmale Leiste oder Glows mit Pfeil.
 - Linkshänder spiegelt nur Knopfreihen, nicht die Spalten im Querformat.
 - Vorschläge: Silkscreen-„&“ auch in BIOS-Texten prüfen (Mono-Schrift, dort unkritisch); Settings-Sheet gruppieren (Ton / Anzeige / Spiel), damit weniger gescrollt wird.
+
+P5 Abnahme-Läufe: Autoplay 390×844 (DE, bis Gen 10) und 1920×1080 (EN, bis Gen 9) bis Game Over: 0 Konsolenfehler, `__watch`-Log leer (0 aspect-/Text-/Trefferflächen-/Überlauf-Befunde); `__all(['en','de'])` leer bei 360×640, 390×844, 820×1180 (Tablet: nur Kartennamen-Skalierung, siehe oben), 1366×768, 1920×1080.
