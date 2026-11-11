@@ -1,6 +1,7 @@
 import { BaseScreen, placeEl, type Box } from './base';
 import { Node, Rect2, Sprite, Text } from '../../render/scene';
 import { PcView } from '../../view/pcView';
+import { checkAspectSoon } from '../../view/aspectCheck';
 import { button, h, hideTip, img, sheet, showTip, toast } from '../dom';
 import { L, fmt, money } from '../../i18n';
 import {
@@ -117,7 +118,7 @@ export class WorkbenchScreen extends BaseScreen {
     const barW = P ? 120 : Math.min(150, stats.w - 70);
     wattFrame.size(barW, barW * (46 / 496));
     const fill = new Sprite(`ui_wattbar_fill_${load < 0.7 ? 0 : load <= 0.9 ? 1 : 2}`, { region: 'content', ax: 0 });
-    fill.size(barW * 0.86, wattFrame.h * 0.5);
+    fill.fit(barW * 0.86, 99); // natural aspect
     fill.cropR = Math.min(1, load);
     const wattNode = new Node();
     wattNode.add(wattFrame);
@@ -187,8 +188,10 @@ export class WorkbenchScreen extends BaseScreen {
       if (d.rgb) ic.mode = 'rgb';
       if (this.sel === p.uid) {
         ic.flash = 0.25;
-        const hl = new Sprite('ui_card_highlight', { region: 'anim' });
-        hl.size(ss + 6, ss + 6).pos(x, y).play(8);
+        // square selection frame: 9-slice glow (the card highlight art is not square)
+        const hl = new Sprite('slot_glow', { region: 'anim', nine: 3, nineScale: 1 });
+        hl.size(ss + 6, ss + 6).pos(x, y).play(6);
+        hl.tint = [1, 0.85, 0.3];
         this.root.add(hl);
       }
       this.root.add(ic);
@@ -237,6 +240,7 @@ export class WorkbenchScreen extends BaseScreen {
     this.dom.append(row);
 
     if (this.sel !== null) this.showSlotList();
+    checkAspectSoon(this.root, 'workbench');
     void Rect2;
   }
 

@@ -15,20 +15,20 @@ import { hexToRgb } from '../render/fx';
  * - The board's rear edge sits at the inner edge of the case's slot-bracket
  *   column; the board scale makes the PCIe pitch equal to the bracket pitch,
  *   so PCIe slot i lines up with case bracket i.
- * - Expansion cards are anchored by their own bracket: the bracket covers the
- *   case brackets of the slots the card occupies (1/2/3-slot cards).
- * - Fans on the side/top walls are drawn in perspective (squashed), the
- *   rotating blades are a circle-masked copy of frame 0.
+ * - Expansion cards are anchored by their own bracket on the case brackets.
+ *   All cards share one uniform scale (CARD_SCALE) chosen so that the real
+ *   art height of a GPU matches the slots it occupies (1/2/3-slot cards).
+ * - Pixel art is never distorted: every sprite keeps its natural aspect
+ *   ratio (fit() or size() from contentBBox). Wall fans are shown frontal and
+ *   smaller; the rotating blades are a circle-masked copy of frame 0.
+ *   In dev builds src/view/aspectCheck.ts reports any deviation > 2 %.
  */
 
 interface FanPos {
   x: number;
   y: number;
-  /** diameter (art px) before the perspective squash */
+  /** diameter (art px), frontal view */
   size: number;
-  /** perspective squash (side walls: sx < 1, top wall: sy < 1) */
-  sx?: number;
-  sy?: number;
 }
 
 interface CaseLayout {
@@ -36,8 +36,8 @@ interface CaseLayout {
   brackets: { x: number; y: number; pitch: number };
   boardScale: number;
   fans: FanPos[]; // builtin first, then free slots
-  /** top-mounted AIO radiator; `covers` = fan positions it takes (index in fans) */
-  radiator: { y: number; sy: number; r360: { x: number; w: number; covers: number[] }; r240: { x: number; w: number; covers: number[] } } | null;
+  /** top-mounted AIO radiator (frontal, natural aspect); `covers` = fan positions it takes (index in fans) */
+  radiator: { y: number; r360: { x: number; w: number; covers: number[] }; r240: { x: number; w: number; covers: number[] } } | null;
   psu: { x: number; y: number };
   bays: { x: number; y: number; w: number; h: number }[];
   /** parts of the case art drawn in front of the board (e.g. a drive cage) */
@@ -58,7 +58,7 @@ export const CASE_LAYOUT: Record<string, CaseLayout> = {
   CA1: {
     brackets: { x: 35, y: 152, pitch: 13.2 },
     boardScale: 0.85,
-    fans: [{ x: 21, y: 87, size: 50, sx: 0.46 }],
+    fans: [{ x: 21, y: 87, size: 22 }],
     radiator: null,
     psu: { x: 61, y: 265 },
     bays: [
@@ -76,12 +76,12 @@ export const CASE_LAYOUT: Record<string, CaseLayout> = {
     brackets: { x: 44, y: 150, pitch: 11.95 },
     boardScale: 0.85,
     fans: [
-      { x: 28, y: 85, size: 66, sx: 0.27 },
-      { x: 232, y: 72, size: 62, sx: 0.44 },
-      { x: 232, y: 141, size: 62, sx: 0.44 },
-      { x: 232, y: 210, size: 62, sx: 0.44 },
+      { x: 28, y: 85, size: 22 },
+      { x: 232, y: 72, size: 32 },
+      { x: 232, y: 141, size: 32 },
+      { x: 232, y: 210, size: 32 },
     ],
-    radiator: { y: 25, sy: 0.42, r360: { x: 122, w: 160, covers: [] }, r240: { x: 108, w: 118, covers: [] } },
+    radiator: { y: 34, r360: { x: 122, w: 150, covers: [] }, r240: { x: 108, w: 110, covers: [] } },
     psu: { x: 64, y: 273 },
     bays: SHROUD_BAYS,
     front: [],
@@ -91,14 +91,14 @@ export const CASE_LAYOUT: Record<string, CaseLayout> = {
     brackets: { x: 37, y: 152, pitch: 11.87 },
     boardScale: 0.85,
     fans: [
-      { x: 233, y: 75, size: 62, sx: 0.47 },
-      { x: 233, y: 142, size: 62, sx: 0.47 },
-      { x: 233, y: 209, size: 62, sx: 0.47 },
-      { x: 65, y: 33, size: 56, sy: 0.4 },
-      { x: 131, y: 33, size: 56, sy: 0.4 },
-      { x: 196, y: 33, size: 56, sy: 0.4 },
+      { x: 233, y: 75, size: 32 },
+      { x: 233, y: 142, size: 32 },
+      { x: 233, y: 209, size: 32 },
+      { x: 65, y: 33, size: 28 },
+      { x: 131, y: 33, size: 28 },
+      { x: 196, y: 33, size: 28 },
     ],
-    radiator: { y: 33, sy: 0.45, r360: { x: 130, w: 186, covers: [3, 4, 5] }, r240: { x: 163, w: 126, covers: [4, 5] } },
+    radiator: { y: 33, r360: { x: 130, w: 160, covers: [3, 4, 5] }, r240: { x: 163, w: 110, covers: [4, 5] } },
     psu: { x: 62, y: 273 },
     bays: SHROUD_BAYS,
     front: [],
@@ -111,11 +111,18 @@ const BRAND_COLOR: Record<string, number> = { veridia: 0x3fbf5f, rubeon: 0xe8432
 // board-space constants (art px, before board scale)
 const PCIE_Y0 = 96;
 const PCIE_PITCH = 14;
+/**
+ * Uniform scale of all expansion-card art (aspect kept). 0.7 makes the real
+ * art height of a GPU equal to the slots it occupies: L 58×0.7 ≈ 3 slots,
+ * M 38×0.7 ≈ 2, S 19×0.7 ≈ 1 (pitch 14). Lengths stay proportional (S:M:L ≈ GDD mm).
+ */
+const CARD_SCALE = 0.7;
 /** left edge of an expansion card (its bracket) relative to the board edge */
-const CARD_X = -11;
-/** PCIe slot start: the contacts of all cards begin ~17 px right of their bracket */
-const SLOT_X = CARD_X + 17;
-const SLOT_X16_W = 66;
+const CARD_X = -9;
+/** PCIe slot start: the contacts of all cards begin ~12 px right of their bracket */
+const SLOT_X = CARD_X + 12;
+/** slot widths; heights follow from the natural aspect (fit) */
+const SLOT_X16_W = 56;
 const SLOT_X1_W = 18;
 const SOCKET = { x: 58, y: 46 };
 
@@ -126,10 +133,7 @@ const GPU_ART = {
   L: { name: 'gpu_l_0', w: 216, ar: 232 / 865, fans: [0.288, 0.553, 0.8], fy: 0.473 },
 } as const;
 
-/** Shown height of a card: the slots it occupies, squashed at most to 70 % (perspective). */
-function cardHeight(natH: number, slots: number): number {
-  return Math.max(natH * 0.7, Math.min(natH, slots * PCIE_PITCH - 1.5));
-}
+
 
 export interface SlotGeom {
   slot: SlotRef;
@@ -186,8 +190,8 @@ export class PcView extends Node {
         this.add(n);
         this.partNodes.set(inst.uid, n);
       }
-      const w = pos.size * (pos.sx ?? 1);
-      const h = pos.size * (pos.sy ?? 1);
+      const w = pos.size;
+      const h = pos.size;
       this.slotGeoms.push({ slot: { kind: 'fan', index: fi }, rect: { x: pos.x - w / 2, y: pos.y - h / 2, w, h } });
     }
     // PSU (bottom, rear)
@@ -236,9 +240,8 @@ export class PcView extends Node {
     if (cooler?.radiator && L.radiator && rad) {
       const n = new Node();
       n.pos(rad.x, L.radiator.y);
-      n.sy = L.radiator.sy;
       const r = new Sprite(cooler.radiator === 360 ? 'radiator_360' : 'radiator_240', { region: 'content' });
-      r.size(rad.w, (rad.w * r.natH) / r.natW);
+      r.fit(rad.w, 999);
       n.add(r);
       this.addRadiatorFans(n, r, cooler.radiator === 360 ? 3 : 2, !!cooler.rgb);
       this.add(n);
@@ -270,8 +273,8 @@ export class PcView extends Node {
         const d = part(p.id);
         if (d.cat !== 'gpu' || d.len === 'S') return;
         const g = GPU_ART[d.len];
-        const h = cardHeight((g.w * g.ar), d.width);
-        const end = this.toCase(CARD_X + g.w * 0.9, PCIE_Y0 + i * PCIE_PITCH + 1 + h);
+        const h = g.w * g.ar * CARD_SCALE;
+        const end = this.toCase(CARD_X + g.w * CARD_SCALE * 0.9, PCIE_Y0 + i * PCIE_PITCH + 1 + h);
         const yMax = this.board.y + H * bs;
         this.cable([end, { x: end.x, y: Math.max(end.y + 4, Math.min(yMax + 4, floor - 6)) }, { x: end.x - 6, y: floor + 4 }], 4, SLEEVE);
       });
@@ -304,8 +307,6 @@ export class PcView extends Node {
     const d = part(id);
     const n = new Node();
     n.pos(pos.x, pos.y);
-    n.sx = pos.sx ?? 1;
-    n.sy = pos.sy ?? 1;
     const size = pos.size;
     const frameName = d.rgb ? 'case_fan_0' : 'icon_fan_1';
     const base = new Sprite(frameName, { region: 'content' });
@@ -422,7 +423,7 @@ export class PcView extends Node {
     bd.pcie.forEach((sd, i) => {
       const y = PCIE_Y0 + i * PCIE_PITCH;
       const s = add(sd.size === 16 ? 'slot_pcie_x16' : 'slot_pcie_x1', SLOT_X, y, undefined, undefined, { ax: 0 });
-      s.size(sd.size === 16 ? SLOT_X16_W : SLOT_X1_W, 8);
+      s.fit(sd.size === 16 ? SLOT_X16_W : SLOT_X1_W, 99);
       if (sd.size === 16 && sd.lanes < 16) s.tint = [0.75, 0.75, 0.85];
       const inst = b.pcie[i];
       if (inst) cards.push({ inst, i });
@@ -486,17 +487,16 @@ export class PcView extends Node {
 
   /**
    * An expansion card "folded open" below its slot: contacts at the top,
-   * bracket at the left on the case brackets. Its height equals the slots it
-   * occupies (GPU width 1/2/3), so the art is squashed slightly (perspective).
+   * bracket at the left on the case brackets. The art is mirrored vertically
+   * and scaled uniformly by CARD_SCALE (aspect kept, no squash).
    */
   private cardNode(inst: PartInst, slotY: number): Node {
     const d = part(inst.id);
     const n = new Node();
-    const c = new Node(); // flipped + squashed card space (art orientation)
+    const c = new Node(); // mirrored, uniformly scaled card space (art orientation)
     n.add(c);
     let w: number;
     let natH: number;
-    let slots: number;
     let s: Sprite;
     if (d.cat === 'gpu') {
       const g = partOf(inst.id, 'gpu');
@@ -504,7 +504,6 @@ export class PcView extends Node {
       s = new Sprite(art.name, { region: 'content', ax: 0, ay: 0 });
       w = art.w;
       natH = (w * s.natH) / s.natW;
-      slots = g.width;
       s.size(w, natH);
       if (g.len !== 'S') {
         s.mode = 'brand';
@@ -533,15 +532,14 @@ export class PcView extends Node {
       s = new Sprite(name, { region: 'content', ax: 0, ay: 0 });
       w = e.effect === 'nic' ? 40 : 50;
       natH = (w * s.natH) / s.natW;
-      slots = 1;
       s.size(w, natH);
       c.add(s);
     }
-    // squash to the occupied slots (but never below 70 % – keeps the art readable)
-    const h = cardHeight(natH, slots);
-    c.sy = -h / natH;
+    const h = natH * CARD_SCALE;
+    c.sx = CARD_SCALE;
+    c.sy = -CARD_SCALE;
     c.pos(CARD_X, slotY + 1 + h);
-    n.hit = { x: CARD_X, y: slotY + 1, w, h };
+    n.hit = { x: CARD_X, y: slotY + 1, w: w * CARD_SCALE, h };
     return n;
   }
 

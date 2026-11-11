@@ -1,7 +1,8 @@
 import { BaseScreen, placeEl, type Box } from './base';
 import { Node, Rect2, Sprite, Text } from '../../render/scene';
-import { ItemCard, CardView } from '../../view/cards';
+import { ItemCard, CardView, CARD_W } from '../../view/cards';
 import { SwChip } from '../../view/hud';
+import { checkAspectSoon } from '../../view/aspectCheck';
 import { button, h, hideTip, img, sheet, showTip, tip, toast } from '../dom';
 import { L, fmt, money } from '../../i18n';
 import {
@@ -36,7 +37,13 @@ import { openSettings } from '../settings';
 import { openToolSheet } from '../toolSheet';
 import { sfx } from '../../audio/sfx';
 import { ease, tween, wait } from '../../render/tween';
-import type { PackKind, PartInst } from '../../core/types';
+import type { PackKind, PartInst, Tier } from '../../core/types';
+
+/** Item card whose height follows the natural aspect of its frame art (no distortion). */
+function itemCard(frame: string, icon: string, w: number, opts: { tier?: Tier; rgb?: boolean } = {}): ItemCard {
+  const f = new Sprite(frame, { region: frame.includes('software_l') ? 'anim' : 'content' });
+  return new ItemCard(frame, icon, { ...opts, w, h: (w * f.natH) / f.natW });
+}
 
 export class ShopScreen extends BaseScreen {
   private packLayer: Node | null = null;
@@ -81,6 +88,7 @@ export class ShopScreen extends BaseScreen {
     this.dom.append(title);
     head.style.justifyContent = 'flex-end';
     this.buildCounter();
+    checkAspectSoon(this.root, 'shop');
     void shop;
   }
 
@@ -167,7 +175,8 @@ export class ShopScreen extends BaseScreen {
     const P = this.portrait;
     const top = 34;
     const surface = P ? this.bgRect(0, 570, 400, 607) : this.bgRect(48, 299, 752, 322);
-    const standY = Math.min(surface.y + surface.h * 0.55, H - 150); // items stand here
+    // items stand here (portrait: keep room for labels and buttons below)
+    const standY = P ? Math.min(surface.y + surface.h * 0.55, H - 150) : surface.y + surface.h * 0.55;
     const frontY = Math.min(surface.y + surface.h + 2, standY + 14); // counter front panel
     const sign = this.signRect();
     let labelBottom = H - 4;
@@ -228,7 +237,7 @@ export class ShopScreen extends BaseScreen {
       if (!o) return soldOut(i);
       const d = part(o.partId);
       const badge = shopBadge(run.build, o.partId, opts);
-      const ic = new ItemCard('card_frame_hardware', d.icon, { tier: d.tier, rgb: !!d.rgb, w: 56, h: 75 });
+      const ic = itemCard('card_frame_hardware', d.icon, 56, { tier: d.tier, rgb: !!d.rgb });
       stand(ic, i, 75);
       const open = () => this.openHardware(i, badge);
       ic.interactive = { onTap: open, onHover: (inside) => this.hoverLift(ic, inside, partCard(o.partId)) };
@@ -245,7 +254,7 @@ export class ShopScreen extends BaseScreen {
       if (!so) soldOut(2);
       else {
         const info = this.softInfo(so);
-        const ic = new ItemCard(info.frameName, info.icon, { w: 56, h: 75 });
+        const ic = itemCard(info.frameName, info.icon, 56);
         stand(ic, 2, 75);
         const open = () => this.openSoft(so);
         ic.interactive = { onTap: open, onHover: (inside) => this.hoverLift(ic, inside, info.tipEl()) };
@@ -639,7 +648,7 @@ export class ShopScreen extends BaseScreen {
     const n = pk.options.length;
     const step = Math.min(110, (w - 40) / n);
     const nodes: Node[] = [];
-    // 4. options fly out of the pack and flip over (scale x 0 → 1)
+    // 4. options fly out of the pack, spinning and growing (uniform scale only)
     const flights = pk.options.map((o, i) => {
       const x = cx + (i - (n - 1) / 2) * step;
       const node = this.optionNode(o);
@@ -654,12 +663,12 @@ export class ShopScreen extends BaseScreen {
         node.pos(x, cy).scale(1.25);
         return Promise.resolve();
       }
-      node.sx = 0.05;
-      node.sy = 0.5;
+      node.scale(0.25);
+      node.rot = (i - (n - 1) / 2) * 0.9 || 0.6;
       node.alpha = 0;
       const delay = i * 0.12;
       window.setTimeout(() => sfx.deal(i), delay * 1000);
-      return tween(node, { x, y: cy - 14, sy: 1.1, alpha: 1 }, { dur: 0.28, delay, ease: ease.outQuad })
+      return tween(node, { x, y: cy - 14, sx: 1.05, sy: 1.05, rot: 0, alpha: 1 }, { dur: 0.3, delay, ease: ease.outQuad })
         .then(() => tween(node, { y: cy, sx: 1.25, sy: 1.25 }, { dur: 0.22, ease: ease.outBack }));
     });
     await Promise.all(flights);
@@ -675,6 +684,7 @@ export class ShopScreen extends BaseScreen {
     skip.style.zIndex = '6';
     placeEl(skip, { x: w / 2 - 50, y: dim.y + dim.h - 40, w: 100 });
     this.dom.append(skip);
+    checkAspectSoon(this.root, 'pack');
     void nodes;
   }
 
@@ -695,12 +705,12 @@ export class ShopScreen extends BaseScreen {
         return cv;
       }
       case 'driver':
-        return new ItemCard('card_frame_treiber', profileDef(o.id).icon);
+        return itemCard('card_frame_treiber', profileDef(o.id).icon, CARD_W);
       case 'tool':
-        return new ItemCard('card_frame_tool', toolDef(o.id).icon);
+        return itemCard('card_frame_tool', toolDef(o.id).icon, CARD_W);
       case 'sw': {
         const d = softwareDef(o.id);
-        return new ItemCard(`card_frame_software_${d.rarity.toLowerCase()}`, d.icon);
+        return itemCard(`card_frame_software_${d.rarity.toLowerCase()}`, d.icon, CARD_W);
       }
     }
   }
