@@ -172,6 +172,8 @@ export class Sprite extends Node {
   swap: [number, number, number] = [1, 1, 1];
   nine = 0;
   nineScale = 1;
+  /** noise/colour-bar sprites that may be stretched (skipped by the dev aspect check) */
+  stretchOk = false;
   /** visible fraction from the left (1 = full) – for bars */
   cropR = 1;
   /** visible fraction from the bottom (1 = full) – for vertical bars */

@@ -3,6 +3,7 @@ import type { Screen, Viewport } from '../../render/engine';
 import { h } from '../dom';
 import { game, type Game } from '../../game/game';
 import { onLangChange } from '../../i18n';
+import { checkAspectSoon } from '../../view/aspectCheck';
 
 export interface Box {
   x: number;
@@ -38,6 +39,7 @@ export abstract class BaseScreen implements Screen {
     this.root.removeAll();
     this.dom.innerHTML = '';
     this.build();
+    checkAspectSoon(this.root, this.constructor.name);
   }
 
   enter(): void {

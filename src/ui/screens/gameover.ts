@@ -28,6 +28,7 @@ export class GameOverScreen extends BaseScreen {
     face.pos(this.portrait ? 50 : 50, this.portrait ? 70 : 48);
     this.root.add(face);
     const glitch = new Sprite('fx_glitch_noise', { region: 'cell' });
+    glitch.stretchOk = true; // noise texture
     glitch.size(this.vp.fullW, this.vp.fullH).pos(w / 2, H / 2).play(16);
     glitch.alpha = 0.5;
     this.root.add(glitch);

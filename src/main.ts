@@ -66,3 +66,4 @@ async function boot(): Promise<void> {
 }
 
 boot().catch(fatal);
+if (import.meta.env.DEV) void import('./view/layoutAudit');

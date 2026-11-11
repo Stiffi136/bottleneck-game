@@ -34,7 +34,7 @@ export class Thermo extends Node {
       this.frameS = new Sprite('ui_thermo_h_frame', { region: 'content' });
       this.frameS.size(length, length * (11.5 / 123));
       this.fill = new Sprite('ui_thermo_h_fill', { region: 'content' });
-      this.fill.size(this.frameS.w * 0.95, this.frameS.h * 0.52);
+      this.fill.fit(this.frameS.w * 0.95, 99); // natural aspect, width-limited
     }
     this.fill.ax = vertical ? 0.5 : 0;
     this.fill.ay = vertical ? 0.5 : 0.5;
@@ -53,7 +53,7 @@ export class Thermo extends Node {
       this.add(m);
       this.marks.push(m);
     }
-    this.label = new Text('35 °C', { font: 'title', size: 9, align: vertical ? 'center' : 'left', valign: 'middle' });
+    this.label = new Text('35 °C', { font: 'title', size: 9.5, align: vertical ? 'center' : 'left', valign: 'middle' });
     if (vertical) this.label.pos(0, this.frameS.h / 2 + 8);
     else this.label.pos(this.frameS.w / 2 + 5, 0);
     this.add(this.label);
@@ -130,7 +130,7 @@ export class ScoreBar extends Node {
     this.frameS = new Sprite('ui_scorebar_frame', { region: 'content' });
     this.frameS.size(length, length * (31 / 586));
     this.fill = new Sprite('ui_scorebar_fill', { region: 'content', ax: 0 });
-    this.fill.size(length * 0.962, this.frameS.h * 0.78);
+    this.fill.fit(length * 0.962, 99); // natural aspect, width-limited
     this.fill.x = -this.fill.w / 2;
     this.add(this.frameS);
     this.add(this.fill);
@@ -158,7 +158,7 @@ export class SwChip extends Node {
     this.icon = new Sprite(d.icon, { region: 'content' });
     this.icon.fit(size * 0.68, size * 0.68);
     this.add(this.icon);
-    this.counter = new Text('', { font: 'title', size: 7, align: 'right', valign: 'bottom', color: 0xffe28a });
+    this.counter = new Text('', { font: 'title', size: 9.5, align: 'right', valign: 'bottom', color: 0xffe28a });
     this.counter.pos(size / 2 - 3, size / 2 - 2);
     this.add(this.counter);
     if (inactive) {
@@ -196,7 +196,7 @@ export class HwChip extends Node {
     if (opts.rgb) this.icon.mode = 'rgb';
     if (opts.off) this.icon.mode = 'gray';
     this.add(this.icon);
-    this.badge = new Text('', { font: 'body', size: 7.5, align: 'right', valign: 'bottom', color: 0xff8a2e, outline: 0x0b0b12 });
+    this.badge = new Text('', { font: 'body', size: 9.5, align: 'right', valign: 'bottom', color: 0xff8a2e, outline: 0x0b0b12 });
     this.badge.pos(size / 2 - 1, size / 2);
     this.add(this.badge);
     this.size = size;

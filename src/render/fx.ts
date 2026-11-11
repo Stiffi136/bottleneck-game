@@ -168,6 +168,7 @@ export class Fx {
       const strips = Math.round((1 + Math.random() * 3) * power);
       for (let i = 0; i < strips; i++) {
         const s = new Sprite(`fx_glitch_noise_${(Math.random() * 4) | 0}`, { region: 'cell', ax: 0, ay: 0 });
+        s.stretchOk = true; // noise texture
         const sw = w * (0.2 + Math.random() * 0.6);
         const sh = 3 + Math.random() * 14;
         s.size(sw, sh).pos(x + Math.random() * (w - sw), y + Math.random() * (h - sh));

@@ -26,6 +26,9 @@ function fitName(name: string): { text: string; size: number } {
     return Math.min(5.5, NAME_W / longest, (NAME_W * 2 * 0.86) / Math.max(1, total), NAME_H / lineH);
   };
   let best = { text: name, size: sizeFor([name]) };
+  // P5: a short one-line name (RAM, GPU, I/O …) may be larger – the plate is 10.5 high, one line needs ≈ 1.2 em
+  const one = Math.min(6.7, NAME_W / Math.max(1, measure('body', name, 1)), NAME_H / 1.25);
+  if (!name.includes(' ') && one > best.size) best = { text: name, size: one };
   const i = name.indexOf('-');
   if (!name.includes(' ') && i > 0 && i < name.length - 1) {
     const parts = [name.slice(0, i + 1), name.slice(i + 1)];
@@ -33,6 +36,12 @@ function fitName(name: string): { text: string; size: number } {
     if (sz > best.size + 0.2) best = { text: parts.join('\n'), size: sz };
   }
   return { text: best.text, size: Math.max(3.3, Math.floor(best.size * 10) / 10) };
+}
+
+/** Scales a sprite uniformly so that it covers w×h (natural aspect ratio; overhang on one axis). */
+function cover(s: Sprite, w: number, h: number): void {
+  const k = Math.max(w / s.regionRect.w, h / s.regionRect.h);
+  s.size(s.regionRect.w * k, s.regionRect.h * k);
 }
 
 /** Places a sub-sprite at a normalized rect of the card frame content box. */
@@ -74,7 +83,7 @@ export class CardView extends Node {
     super();
     this.card = { ...card };
     this.shadowS = new Sprite('card_shadow', { region: 'content' });
-    this.shadowS.size(CARD_W + 2, CARD_H + 2).pos(2, 3);
+    this.shadowS.fit(CARD_W + 2, CARD_H + 2).pos(2, 3);
     this.shadowS.alpha = 0.55;
     this.add(this.shadowS);
     this.add(this.body);
@@ -94,7 +103,7 @@ export class CardView extends Node {
       [0.2, 0.95, 1],
     ] as [number, number, number][]) {
       const g = new Sprite('card_frame_cpu', { region: 'content' });
-      g.size(CARD_W, CARD_H);
+      g.fit(CARD_W, CARD_H);
       g.tint = tint;
       g.alpha = 0.75;
       g.visible = false;
@@ -102,7 +111,7 @@ export class CardView extends Node {
       this.ghosts.push(g);
     }
     this.frameS = new Sprite('card_frame_cpu', { region: 'content' });
-    this.frameS.size(CARD_W, CARD_H);
+    this.frameS.fit(CARD_W, CARD_H);
     this.body.add(this.frameS);
     this.art = new Sprite('card_art_cpu', { region: 'content' });
     this.body.add(this.art);
@@ -113,7 +122,7 @@ export class CardView extends Node {
     this.nameT = new Text('', { font: 'body', size: 5.5, align: 'center', valign: 'middle', maxWidth: NAME_W, lineHeight: 0.95, shadow: null, color: 0xcfd0e0 });
     this.body.add(this.nameT);
     this.back = new Sprite('card_back', { region: 'content' });
-    this.back.size(CARD_W, CARD_H);
+    this.back.fit(CARD_W, CARD_H);
     this.back.visible = false;
     this.body.add(this.back);
     this.setCard(card);
@@ -123,8 +132,8 @@ export class CardView extends Node {
     this.card = { ...card };
     const t = card.type;
     this.frameS.setFrame(`card_frame_${t}`);
-    this.frameS.size(CARD_W, CARD_H);
-    for (const g of this.ghosts) g.setFrame(`card_frame_${t}`).size(CARD_W, CARD_H);
+    this.frameS.fit(CARD_W, CARD_H);
+    for (const g of this.ghosts) g.setFrame(`card_frame_${t}`).fit(CARD_W, CARD_H);
     this.art.setFrame(`card_art_${t}`);
     this.art.fit(CARD_W * 0.7, CARD_H * 0.34);
     place(this.art, CARD_W, CARD_H, 0.506, 0.5);
@@ -142,7 +151,7 @@ export class CardView extends Node {
     if (!this.showName) {
       // small screens: big type label instead of the flavour name
       this.nameT.text = L().cardTypes[this.card.type];
-      this.nameT.setSize(8);
+      this.nameT.setSize(9.5);
       this.nameT.setFont('title');
       this.nameT.color(TYPE_COLOR[this.card.type]);
       place(this.nameT, CARD_W, CARD_H, 0.506, 0.825);
@@ -171,7 +180,7 @@ export class CardView extends Node {
     const name = { oc: 'card_ov_uebertaktet', opt: 'card_ov_optimiert', eff: 'card_ov_effizient', unst: 'card_ov_instabil' }[e];
     const s = new Sprite(name, { region: 'anim' });
     const k = e === 'oc' ? 1.08 : e === 'opt' ? 1.06 : 1.02;
-    s.size(CARD_W * k, CARD_H * (e === 'oc' ? 1.12 : k));
+    cover(s, CARD_W * k, CARD_H * (e === 'oc' ? 1.12 : k)); // natural aspect, never distorted
     if (e === 'oc') s.y = -CARD_H * 0.04;
     s.play(e === 'unst' ? 10 : 8);
     this.body.add(s);
@@ -265,7 +274,7 @@ export class ItemCard extends Node {
     const w = opts.w ?? CARD_W;
     const hh = opts.h ?? CARD_H;
     const shadow = new Sprite('card_shadow', { region: 'content' });
-    shadow.size(w + 2, hh + 2).pos(2, 3);
+    shadow.fit(w + 2, hh + 2).pos(2, 3);
     shadow.alpha = 0.5;
     this.add(shadow);
     this.add(this.body);
