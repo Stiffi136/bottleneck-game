@@ -61,3 +61,21 @@ Offen:
 - DE: „Pfadverfolgung“ → „Pathtracing“, „Festgeld-Zinsen“ → „Sparzinsen“, „Ins Lager ausbauen“ → „Ausbauen“.
 - **Profil-Hilfe:** neue Schlüssel `profileHelp.<id>` (Erklärtext mit Beispiel, Basiswerten, Kern-Bedarf) und `profileHelpUi` (`title`, `intro`, `needCores`, `base`) in beiden Sprachdateien. Noch keine UI. Sinnvoll: Button „Kombis“ (Rangliste aller 10 Profile mit Stufe, Basis L×T, `profileHelp`-Text) im Benchmark-Header bzw. Deck-Dialog; Profil-Name im Spielfeld antippbar → öffnet denselben Eintrag.
 - Lizenzen in `public/licenses/` (4× OFL, three.js MIT, README). Credits (`settings.creditsText`) nennen Schriften, three.js, Parodie-Hinweis und `/licenses/README.txt`.
+
+## P3 Werkbank & Laden (Agent B)
+
+Erledigt (Dateien: `pcView.ts`, `workbench.ts`, `shop.ts`, neu `postDialog.ts`; Details: implementation-notes §5):
+- `CASE_LAYOUT` neu vermessen: Board an den Gehäuse-Slotblenden, PCIe-Slots auf Blendenhöhe, GPU-/Kartenblende auf den Gehäuseblenden, Kartenhöhe = belegte Slots; Lüfter perspektivisch auf Front/Heck/Deckel; Radiator oben (Glas: auf den Deckel-Lüfterplätzen); 5,25"-Schächte (Office) mit Laufwerkskäfig vor dem Board, sonst Laufwerke auf der Netzteil-Abdeckung; GPU-/RAM-Knoten antippbar.
+- GPU-Lüfter drehen per Code (Frame 0 + rotierende Kreismaske).
+- Kabel (optional, Schalter „Kabel“): 24-Pin, EPS, PCIe-Strom, AIO-Schläuche.
+- POST-Fehlerdialog: LED-Leiste mit blinkender Fehler-LED, Beep-Code je LED (Ton + Symbolanzeige, „Erneut piepen“), Klartext, betroffene Teile, weitere Fehler; Fehlteil blinkt im Gehäuse rot.
+- Board-Tausch bei vollem Lager: Dialog „Lager zu klein“ mit Direktverkauf, danach automatischer Einbau; Slot-Liste zeigt „Ins Lager: …“.
+- Laden: Angebote auf der Theke (hoch und quer), Preisschilder, Titel im Ladenschild; größere Pack-Öffnen-Animation (Pack fällt, wackelt, Blitz + Riss + Funken/Konfetti, Karten fliegen heraus und drehen sich).
+
+Geprüft (Chromium): alle 3 Gehäuse × mATX/ATX × GPU S/M/L als Matrix (auch mit AIO 240/360, Zusatzkarten, 4 Laufwerken); POST-Fehler hoch (390×844) und quer (1280×720); Laden 390×844, 360×640 (DE), 844×390, 1280×720 ohne Überlappung; „Kaufen & einbauen“ per Klick bis zum Einbau; Board-Tausch mit vollem Lager (Verkauf → Einbau); Pack-Animation verlangsamt (`__timeScale`) hoch und quer; Autoplay quer (1280×720) bis Game Over (Gen 11) ohne Fehler (nur die bekannten AudioContext-Warnungen); `npm run build`, `npm test` grün.
+
+Offen:
+- ATX-Board im Office-Gehäuse (ungültig, K7) ragt bis auf den Boden – nur Fehlerfall.
+- Office-Gehäuse: Blenden-Pitch 13,2 vs. Board 11,9 – tiefere Slots bis 4 px versetzt.
+- Doppeltipp-Zoom des Boards (GDD 18.6) nicht umgesetzt.
+- Touch-Long-Press auf echtem Gerät nicht geprüft.
