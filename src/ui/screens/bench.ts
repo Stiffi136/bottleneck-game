@@ -1,7 +1,8 @@
 import { BaseScreen, placeEl, type Box } from './base';
 import { Node, Sprite, Text, Rect2 } from '../../render/scene';
 import { CARD_H, CARD_W, CardView } from '../../view/cards';
-import { HwChip, ScoreBar, SwChip, Thermo, ValueBox, heatColor } from '../../view/hud';
+import { HwChip, Odometer, ScoreBar, SwChip, Thermo, ValueBox, heatColor } from '../../view/hud';
+import { HeatShimmer } from '../../render/fx';
 import { button, h, hideTip, img, sheet, showTip, tip, toast } from '../dom';
 import { L, big, fmt, money, num } from '../../i18n';
 import {
@@ -20,13 +21,13 @@ import {
 import { bossDef, toolDef } from '../../core/data/content';
 import { part, partOf } from '../../core/data/hardware';
 import { caseOf, coolerOf, cpuOf, drives, exps, fans, gpuInst, ramKits } from '../../core/build';
-import { cardCard, partCard, profileName, softwareCard, toolCard, bossCard } from '../describe';
+import { cardCard, partCard, partName, profileName, softwareCard, toolCard, bossCard } from '../describe';
 import { ease, tween, wait } from '../../render/tween';
 import { sfx } from '../../audio/sfx';
 import { openSettings } from '../settings';
 import { openDeck } from '../deckSheet';
 import type { Src, ScoreEvent } from '../../core/scoring';
-import type { CardType } from '../../core/types';
+import type { BossId, CardType } from '../../core/types';
 import { CARD_TYPES } from '../../core/types';
 import { isFinaleGen } from '../../core/difficulty';
 
@@ -60,6 +61,7 @@ export class BenchScreen extends BaseScreen {
   private tBox!: ValueBox;
   private scoreBar!: ScoreBar;
   private hwChips = new Map<string, HwChip>();
+  private hwPartIds = new Map<number, string>();
   private swChips = new Map<number, SwChip>();
   private profileText!: Text;
   private deckCount!: Text;
@@ -69,6 +71,15 @@ export class BenchScreen extends BaseScreen {
   private dragging: CardView | null = null;
   private enterAnim = true;
   private bossIcon: Sprite | null = null;
+  private shimmer: HeatShimmer | null = null;
+  private odo = new Odometer(big);
+  private zoomLayer = new Node();
+  private zoom: { cv: CardView; src: CardView; long: boolean } | null = null;
+  private lastProfile = '';
+  /** scale of cards in the play area */
+  private playK = 1;
+  /** card ids of the profile in the current play */
+  private profileIds: number[] = [];
 
   override enter(): void {
     super.enter();
@@ -85,8 +96,11 @@ export class BenchScreen extends BaseScreen {
 
   private computeLayout(): Lay {
     const { w, h: H } = this.vp;
+    const b = this.g.run!.bench!;
     if (this.portrait) {
-      const handH = 118;
+      // from 9 cards: two rows, so every card keeps a hit width of at least 36 px (GDD 18.3)
+      const twoRows = Math.max(b.hand.length, b.handSize) >= 9;
+      const handH = twoRows ? 150 : 118;
       const buttons = { x: 6, y: H - 50, w: w - 12, h: 44 };
       const hand = { x: 4, y: buttons.y - handH - 2, w: w - 8, h: handH };
       const preview = { x: 6, y: hand.y - 18, w: w - 12, h: 16 };
@@ -105,7 +119,7 @@ export class BenchScreen extends BaseScreen {
         deck: { x: w - 22, y: hand.y - 6 },
         thermo: { x: w / 2 + 6, y: 59, vertical: false, len: 112 },
         boxes: { x: w / 2, y: 151, vertical: false },
-        twoRows: true,
+        twoRows,
       };
     }
     const left = 150;
@@ -142,16 +156,28 @@ export class BenchScreen extends BaseScreen {
     const t = L();
     this.cards.clear();
     this.hwChips.clear();
+    this.hwPartIds.clear();
     this.swChips.clear();
     this.els = {};
     this.handLayer = new Node();
     this.playLayer = new Node();
     this.hudLayer = new Node();
+    this.zoomLayer = new Node();
+    if (this.zoom) hideTip(this.zoom.cv);
+    this.zoom = null;
+    this.lastProfile = '';
+    // heat shimmer over the table, below everything else (covers the whole window like the background)
+    const vp = this.vp;
+    this.shimmer = new HeatShimmer({ x: -vp.ox, y: -vp.oy, w: vp.fullW, h: vp.fullH });
+    this.shimmer.z = -10;
+    this.root.add(this.shimmer);
     this.root.add(this.hudLayer);
     this.root.add(this.playLayer);
     this.root.add(this.handLayer);
+    this.root.add(this.zoomLayer);
     this.handLayer.z = 5;
     this.playLayer.z = 4;
+    this.zoomLayer.z = 60;
 
     // ---------------------------------------------------------- header
     const benchName = b.boss ? t.bosses[b.boss].name : b.kind === 'office' ? t.bench.office : t.bench.gaming;
@@ -170,9 +196,22 @@ export class BenchScreen extends BaseScreen {
     tip(money$, () => t.tips.money);
     const menu = button('', () => openSettings({ inRun: true }), { color: 'gray', cls: 'iconbtn', icon: 'icon16_einstellungen' });
     const target = h('div', { class: 'shadow', style: 'font-size:10px;white-space:nowrap' }, img('icon16_leistung'), ` ${t.stat.target} `, h('b', { class: 't-title', style: 'font-weight:400' }, big(b.target)));
-    const score = h('div', { class: 't-title shadow', style: 'font-size:13px;text-align:right' }, big(this.shownScore));
+    this.odo = new Odometer(big);
+    this.odo.set(this.shownScore, false);
+    const score = h('div', { class: 't-title shadow', style: 'font-size:13px;text-align:right' }, this.odo.el);
+    if (this.shownScore >= b.target) score.classList.add('c-ok');
     this.els.score = score;
-    this.scoreBar = new ScoreBar(this.portrait ? Math.max(80, lay.header.w - 250) : 132);
+    // portrait: the bar starts after the (measured) target text, so long targets never run into it
+    let barX = 42 + 82;
+    let barLen = 132;
+    if (this.portrait) {
+      placeEl(target, { x: 42, y: 25 });
+      this.dom.append(target);
+      const barEnd = barX + Math.max(80, lay.header.w - 250);
+      barX = 42 + Math.max(82, target.offsetWidth + 8);
+      barLen = Math.max(40, barEnd - barX);
+    }
+    this.scoreBar = new ScoreBar(barLen);
     this.scoreBar.k = this.shownScore / b.target;
     this.hudLayer.add(this.scoreBar);
 
@@ -182,8 +221,7 @@ export class BenchScreen extends BaseScreen {
       placeEl(money$, { x: lay.header.w - 92, y: 6, w: 52 });
       money$.style.textAlign = 'right';
       placeEl(menu, { x: lay.header.w - 34, y: 4 });
-      placeEl(target, { x: 42, y: 25 });
-      this.scoreBar.pos(42 + 82 + this.scoreBar.length / 2, 32);
+      this.scoreBar.pos(barX + this.scoreBar.length / 2, 32);
       placeEl(score, { x: lay.header.w - 124, y: 24, w: 84 });
     } else {
       this.bossIcon.pos(20, 20);
@@ -305,6 +343,55 @@ export class BenchScreen extends BaseScreen {
     return n.worldRect() ?? { x: 0, y: 0, w: 0, h: 0 };
   }
 
+  // ------------------------------------------------------------ card zoom (hover / long-press)
+
+  /** Enlarged copy of a hand card in the (empty) play area, with the tooltip next to it. */
+  private showZoom(src: CardView, long: boolean): void {
+    if (this.busy) return;
+    this.hideZoom();
+    const lay = this.lay;
+    const p = this.portrait;
+    const k = p ? Math.min(2.4, (lay.play.h - 44) / CARD_H) : Math.min(2.1, (lay.play.h - 6) / CARD_H);
+    const zw = CARD_W * k;
+    const zh = CARD_H * k;
+    const zx = p ? lay.play.x + lay.play.w / 2 : lay.play.x + Math.max(zw / 2 + 8, lay.play.w * 0.28);
+    const zy = p ? lay.play.y + lay.play.h - zh / 2 - 4 : lay.play.y + lay.play.h / 2;
+    const zc = new CardView(src.card);
+    zc.setShowName(true);
+    zc.pos(src.wm[4], src.wm[5]);
+    zc.tick = (dt) => zc.fxTick(dt);
+    this.zoomLayer.add(zc);
+    void tween(zc, { x: zx, y: zy, sx: k, sy: k }, { dur: 0.16, ease: ease.outBack });
+    this.zoom = { cv: zc, src, long };
+    const rect = { x: zx - zw / 2, y: zy - zh / 2, w: zw, h: zh };
+    showTip(cardCard(src.card), rect, zc);
+    if (!p) {
+      // landscape: tooltip to the right of the enlarged card
+      const tipEl = document.getElementById('tip');
+      if (tipEl) {
+        tipEl.style.left = `${rect.x + rect.w + 10}px`;
+        tipEl.style.top = `${Math.max(2, zy - tipEl.offsetHeight / 2)}px`;
+      }
+    }
+    if (long) {
+      const off = () => {
+        window.removeEventListener('pointerup', off);
+        window.removeEventListener('pointercancel', off);
+        if (this.zoom?.cv === zc) this.hideZoom();
+      };
+      window.addEventListener('pointerup', off);
+      window.addEventListener('pointercancel', off);
+    }
+  }
+
+  private hideZoom(): void {
+    const z = this.zoom;
+    if (!z) return;
+    this.zoom = null;
+    hideTip(z.cv);
+    void tween(z.cv, { alpha: 0, sx: z.cv.sx * 0.9, sy: z.cv.sy * 0.9 }, { dur: 0.08 }).then(() => z.cv.destroy());
+  }
+
   private buildSoftwareBar(): void {
     const run = this.g.run!;
     const lay = this.lay;
@@ -397,6 +484,7 @@ export class BenchScreen extends BaseScreen {
       };
       this.hudLayer.add(chip);
       this.hwChips.set(it.key, chip);
+      if (it.inst && it.partId) this.hwPartIds.set(it.inst.uid, it.partId);
     });
     // iGPU contributions are attributed to the CPU chip
   }
@@ -414,20 +502,21 @@ export class BenchScreen extends BaseScreen {
     cv.interactive = {
       onTap: () => this.toggle(id),
       onLongPress: () => {
-        showTip(cardCard(cv.card), this.rectOf(cv), cv);
-        setTimeout(() => hideTip(cv), 1800);
+        if (!this.cards.has(id)) return;
+        this.showZoom(cv, true);
       },
       onHover: (inside) => {
         cv.hovered = inside;
-        if (inside && !this.dragging) {
+        if (inside && !this.dragging && this.cards.has(id)) {
           sfx.hover();
-          showTip(cardCard(cv.card), this.rectOf(cv), cv);
-        } else hideTip(cv);
+          this.showZoom(cv, false);
+        } else if (this.zoom?.src === cv && !this.zoom.long) this.hideZoom();
         this.layoutHand();
       },
       onDragStart: () => {
         if (this.busy) return;
         this.dragging = cv;
+        this.hideZoom();
         hideTip();
         cv.z = 100;
       },
@@ -451,6 +540,7 @@ export class BenchScreen extends BaseScreen {
       pad: 1,
     };
     cv.tick = (dt) => {
+      cv.fxTick(dt);
       if (this.dragging === cv) return;
       const k = Math.min(1, dt * 14);
       cv.x += (cv.tx - cv.x) * k;
@@ -489,21 +579,21 @@ export class BenchScreen extends BaseScreen {
   private handSlots(n: number): { x: number; y: number; rot: number; row: number }[] {
     const lay = this.lay;
     const out: { x: number; y: number; rot: number; row: number }[] = [];
-    const cy = lay.hand.y + lay.hand.h / 2 + 6;
-    const rows = lay.twoRows && n >= 9 ? [Math.ceil(n / 2), Math.floor(n / 2)] : [n];
-    let idx = 0;
+    const two = lay.twoRows && n >= 9;
+    const cy = lay.hand.y + lay.hand.h / 2 + (two ? 5 : 6);
+    const rows = two ? [Math.ceil(n / 2), Math.floor(n / 2)] : [n];
     rows.forEach((cnt, r) => {
       const aw = lay.hand.w - CARD_W - 8;
       const step = cnt > 1 ? Math.min(CARD_W + 4, aw / (cnt - 1)) : 0;
       const total = step * (cnt - 1);
-      const y = rows.length > 1 ? cy - 22 + r * 44 : cy;
+      // two rows: the rows overlap by a few px only (labels stay visible)
+      const y = two ? cy - 34 + r * 68 : cy;
+      const fan = two ? 4 : 10;
       for (let i = 0; i < cnt; i++) {
         const k = cnt > 1 ? i / (cnt - 1) - 0.5 : 0;
-        out.push({ x: lay.hand.x + lay.hand.w / 2 - total / 2 + i * step, y: y + Math.abs(k) * k * 0 + k * k * 10, rot: k * 0.12, row: r });
-        idx++;
+        out.push({ x: lay.hand.x + lay.hand.w / 2 - total / 2 + i * step, y: y + k * k * fan, rot: k * (two ? 0.06 : 0.12), row: r });
       }
     });
-    void idx;
     return out;
   }
 
@@ -574,6 +664,15 @@ export class BenchScreen extends BaseScreen {
     const pv = previewPlay(run, sel);
     const prev = this.els.preview!;
     prev.innerHTML = '';
+    // gold glow on the selected cards that form the profile
+    const inProfile = new Set(pv && !this.busy ? pv.profileCards : []);
+    for (const id of b.hand) this.cards.get(id)?.setProfile(inProfile.has(id));
+    const profKey = pv ? `${pv.profile}:${pv.profileLevel}` : '';
+    if (profKey !== this.lastProfile) {
+      const pt = this.profileText;
+      if (pv && !this.busy) void tween(pt, { sx: 1.3, sy: 1.3 }, { dur: 0.07 }).then(() => tween(pt, { sx: 1, sy: 1 }, { dur: 0.16, ease: ease.outBack }));
+      this.lastProfile = profKey;
+    }
     if (pv) {
       const lv = pv.profileLevel;
       this.profileText.text = `${profileName(pv.profile).toUpperCase()}  ${fmt(t.bench.profileLv, { n: lv })}`;
@@ -605,6 +704,8 @@ export class BenchScreen extends BaseScreen {
   private heatFeedback(temp: number): void {
     const k = Math.max(0, (temp - 50) / 50);
     this.g.bg.setHeat(Math.min(1, k));
+    // heat shimmer from 70 °C (GDD 18.1), full strength at 100 °C
+    this.shimmer?.set(temp >= 70 ? 0.25 + ((temp - 70) / 30) * 0.75 : 0);
     sfx.fan(0.15 + Math.min(1, Math.max(0, (temp - 35) / 65)) * 0.85);
   }
 
@@ -625,6 +726,7 @@ export class BenchScreen extends BaseScreen {
     const r = discardCards(run, ids);
     if (!this.g.check(r)) return;
     this.busy = true;
+    this.hideZoom();
     this.clearSelection();
     hideTip();
     this.g.save();
@@ -680,6 +782,7 @@ export class BenchScreen extends BaseScreen {
         cv.setFaceDown(true);
       }
     }
+    if (b.boss) await this.bossIntro(b.boss, isFinaleGen(run.gen));
     const boot = new Text(t.bench.boot, { font: 'mono', size: 14, align: 'center', valign: 'middle', color: 0xa8f07a });
     boot.pos(this.lay.play.x + this.lay.play.w / 2, this.lay.play.y + this.lay.play.h / 2);
     this.playLayer.add(boot);
@@ -718,6 +821,84 @@ export class BenchScreen extends BaseScreen {
     this.refreshHud();
   }
 
+  /** Boss intro: the screen darkens, a warning band slams in with the boss icon, name and rule. */
+  private async bossIntro(id: BossId, finale: boolean): Promise<void> {
+    const t = L();
+    const vp = this.vp;
+    const lay = this.lay;
+    const fx = this.g.fx;
+    const root = new Node();
+    root.z = 90;
+    this.root.add(root);
+    const dim = new Rect2(vp.fullW, vp.fullH, 0x05050a, 0);
+    dim.pos(-vp.ox, -vp.oy);
+    root.add(dim);
+    void tween(dim, { alpha: 0.6 }, { dur: 0.2 });
+    const red = 0xe8432d;
+    const bandH = this.portrait ? 86 : 78;
+    const cy = this.portrait ? lay.play.y + lay.play.h * 0.42 : lay.play.y + lay.play.h * 0.5;
+    const band = new Node();
+    band.pos(vp.w / 2, cy);
+    root.add(band);
+    const bg = new Rect2(vp.fullW, bandH, 0x0b0b12, 0.94);
+    bg.ax = bg.ay = 0.5;
+    band.add(bg);
+    // hazard stripes along both edges
+    const stripes = new Node();
+    band.add(stripes);
+    for (const y of [-bandH / 2, bandH / 2 - 4]) {
+      for (let x = -vp.fullW / 2 - 16; x < vp.fullW / 2 + 16; x += 16) {
+        const r = new Rect2(8, 4, finale ? 0xffd23f : red, 1);
+        r.pos(x, y);
+        stripes.add(r);
+      }
+    }
+    stripes.tick = (dt) => (stripes.x = (stripes.x + dt * 24) % 16);
+    const iconSize = this.portrait ? 52 : 56;
+    const leftW = Math.min(vp.w - 24, 420);
+    const ix = -leftW / 2 + iconSize / 2;
+    const icon = new Sprite(bossDef(id).icon, { region: 'content' });
+    icon.fit(iconSize, iconSize).pos(ix, 0);
+    band.add(icon);
+    const tx = ix + iconSize / 2 + 10;
+    const tw = leftW / 2 - tx;
+    const tag = new Text(finale ? t.bench.finale.toUpperCase() : t.bench.boss.toUpperCase(), { font: 'title', size: 9, valign: 'top', color: finale ? 0xffd23f : red, outline: 0x0b0b12 });
+    tag.pos(tx, -bandH / 2 + 9);
+    band.add(tag);
+    const name = new Text(t.bosses[id].name.toUpperCase(), { font: 'title', size: 13, valign: 'top', color: 0xf4f4fa, outline: 0x0b0b12 });
+    if (name.width > tw) name.setSize(Math.max(8, (13 * tw) / name.width));
+    name.pos(tx, tag.y + 12);
+    band.add(name);
+    const rule = new Text(t.bosses[id].desc, { font: 'body', size: 9.5, valign: 'top', color: 0xffe28a, maxWidth: tw, lineHeight: 1.05 });
+    rule.pos(tx, name.y + name.height + 4);
+    band.add(rule);
+    // in: band unfolds, icon slams, texts slide
+    band.sy = 0;
+    icon.scale(0);
+    for (const n of [tag, name, rule]) {
+      n.alpha = 0;
+      n.x += 30;
+    }
+    await tween(band, { sy: 1 }, { dur: 0.16, ease: ease.outBack });
+    const k = iconSize / Math.max(icon.w, icon.h);
+    icon.scale(3 * k);
+    icon.alpha = 0;
+    void tween(icon, { alpha: 1 }, { dur: 0.08 });
+    await tween(icon, { sx: k, sy: k }, { dur: 0.16, ease: ease.inQuad });
+    sfx.slam();
+    this.g.engine.shake(5, 0.35);
+    fx.burst(icon.wm[4], icon.wm[5], 'xclock', 1.3);
+    fx.sparks(icon.wm[4], icon.wm[5], 14, finale ? 0xffd23f : red, 140);
+    [tag, name, rule].forEach((n, i) => void tween(n, { x: n.x - 30, alpha: 1 }, { dur: 0.2, delay: i * 0.07, ease: ease.outBack }));
+    icon.tick = () => (icon.rot = Math.sin(performance.now() / 120) * 0.04);
+    tag.tick = () => (tag.alpha = 0.65 + 0.35 * Math.sin(performance.now() / 90));
+    await wait(1.9);
+    // out: slide away to the left
+    void tween(dim, { alpha: 0 }, { dur: 0.25 });
+    await tween(band, { x: -vp.w, alpha: 0 }, { dur: 0.25, ease: ease.inQuad });
+    root.destroy();
+  }
+
   private async doPlay(): Promise<void> {
     if (this.busy) return;
     const run = this.g.run!;
@@ -732,6 +913,7 @@ export class BenchScreen extends BaseScreen {
     if (!this.g.check(r, { n: req ?? 0 })) return;
     this.g.save();
     this.busy = true;
+    this.hideZoom();
     this.clearSelection();
     hideTip();
     this.refreshButtonsBusy();
@@ -777,17 +959,21 @@ export class BenchScreen extends BaseScreen {
     const played = ids.map((id) => this.cards.get(id)!);
     // move cards to the play area
     const n = played.length;
-    const step = Math.min(CARD_W + 6, (lay.play.w - CARD_W - 10) / Math.max(1, n - 1));
+    // bigger cards when the play area has room (tall phones)
+    const pk = Math.max(1, Math.min(this.portrait ? 1.5 : 1.25, (lay.play.w - 12) / (n * (CARD_W + 6)), (lay.play.h - 70) / CARD_H));
+    this.playK = pk;
+    const step = Math.min((CARD_W + 6) * pk, (lay.play.w - CARD_W * pk - 10) / Math.max(1, n - 1));
     const cx = lay.play.x + lay.play.w / 2;
-    const cy = lay.play.y + lay.play.h * (this.portrait ? 0.52 : 0.5);
+    const cy = lay.play.y + lay.play.h * (this.portrait ? 0.56 : 0.54);
     played.forEach((cv, i) => {
-      cv.tick = null;
+      cv.tick = (dt) => cv.fxTick(dt);
       cv.parent?.remove(cv);
       this.playLayer.add(cv);
       cv.setSelected(false);
+      cv.setProfile(false);
       cv.hovered = false;
       const tx = cx + (i - (n - 1) / 2) * step;
-      void tween(cv, { x: tx, y: cy, rot: 0 }, { dur: 0.28, delay: i * 0.05, ease: ease.outBack });
+      void tween(cv, { x: tx, y: cy, rot: 0, sx: pk, sy: pk }, { dur: 0.28, delay: i * 0.05, ease: ease.outBack });
       void tween(cv.body, { rot: 0 }, { dur: 0.2 });
     });
     for (const id of ids) this.cards.delete(id);
@@ -797,9 +983,10 @@ export class BenchScreen extends BaseScreen {
 
     // heat step
     const ev = out.eval;
+    this.profileIds = ev.profileCards;
     played.forEach((cv, i) => {
       const hh = ev.heat.perCard[i] ?? 0;
-      if (hh > 0) void fx.float(cv.x, cv.y - CARD_H / 2 - 4, `+${num(hh)}°`, { color: heatColor(out.tempPeak), size: 8, rise: 10 });
+      if (hh > 0) void fx.float(cv.x, cv.y - (CARD_H * pk) / 2 - 4, `+${num(hh)}°`, { color: heatColor(out.tempPeak), size: 8, rise: 10 });
     });
     this.thermo.set(out.tempPeak);
     this.heatFeedback(out.tempPeak);
@@ -818,15 +1005,16 @@ export class BenchScreen extends BaseScreen {
     if (out.bluescreen !== null) {
       sfx.bsod();
       this.g.engine.shake(4, 0.5);
-      const glitch = new Sprite('fx_glitch_noise', { region: 'cell' });
-      glitch.size(lay.play.w, lay.play.h * 0.8).pos(cx, cy).play(12);
-      glitch.alpha = 0.7;
-      this.playLayer.add(glitch);
+      for (const cv of played) cv.glitch(1.4);
       const chip = this.hwChips.get(String(out.bluescreen));
-      if (chip) fx.burst(chip.wm[4], chip.wm[5], 'spark', 1.5);
-      this.banner(t.bench.bluescreen, 0x3a7bf0);
-      await wait(1.3);
-      glitch.destroy();
+      if (chip) {
+        fx.burst(chip.wm[4], chip.wm[5], 'spark', 1.5);
+        chip.setFlash(1);
+        void wait(0.4).then(() => chip.setFlash(0));
+      }
+      void fx.flashScreen(this.vp.w, this.vp.h, 0x1f4fb4, 0.45, 0.12);
+      await fx.glitch(lay.play.x, lay.play.y, lay.play.w, lay.play.h, 0.55, 1.3);
+      await this.bsodPanel(this.hwPartIds.get(out.bluescreen) ?? null);
       await this.discardPlayed(played);
       await this.afterPlay(out);
       return;
@@ -847,17 +1035,39 @@ export class BenchScreen extends BaseScreen {
       if (e.k === 'global') await wait(0.12);
     }
 
-    // final multiplication
+    // final multiplication: Perf × Clock rolls up, then slams
     await wait(0.15);
-    const scoreT = new Text(ev.nullified ? '0' : big(out.score), { font: 'title', size: 22, align: 'center', valign: 'middle', color: 0xffe28a, outline: 0x0b0b12 });
-    scoreT.pos(cx, cy - CARD_H / 2 - 22);
-    scoreT.scale(0.1);
+    const final = ev.nullified ? 0 : out.score;
+    const scoreT = new Text('0', { font: 'title', size: 22, align: 'center', valign: 'middle', color: 0xf4f4fa, outline: 0x0b0b12 });
+    scoreT.pos(cx, Math.max(lay.play.y + 16, cy - (CARD_H * this.playK) / 2 - 22));
+    scoreT.scale(0.5);
     this.playLayer.add(scoreT);
+    void fx.pulse(this.lBox, 1.12, 0.2);
+    void fx.pulse(this.tBox, 1.12, 0.2);
+    const roll = { v: 0 };
+    let lastStep = -1;
+    await tween(roll, { v: final }, {
+      dur: final > 0 ? Math.min(0.7, 0.25 + Math.log10(final + 1) * 0.07) : 0.05,
+      ease: ease.outCubic,
+      onUpdate: () => {
+        const f = final > 0 ? roll.v / final : 1;
+        scoreT.text = big(Math.floor(roll.v));
+        scoreT.sx = scoreT.sy = 0.5 + 0.45 * f;
+        const step = Math.floor(f * 10);
+        if (step !== lastStep) {
+          lastStep = step;
+          sfx.tick(step * 1.5);
+        }
+      },
+    });
+    scoreT.text = big(final);
+    scoreT.color(0xffe28a);
     sfx.slam();
     const ratio = out.score / run.bench!.target;
     this.g.engine.shake(Math.min(7, 1.5 + ratio * 4), 0.35);
-    await tween(scoreT, { sx: 1.35, sy: 1.35 }, { dur: 0.16, ease: ease.outBack });
-    fx.burst(scoreT.x, scoreT.y, 'xclock', 1.2);
+    await tween(scoreT, { sx: 1.4, sy: 1.4 }, { dur: 0.14, ease: ease.outBack });
+    fx.burst(scoreT.x, scoreT.y, 'xclock', 1.2 + Math.min(1, ratio));
+    if (run.bench && run.bench.score >= run.bench.target && this.shownScore < run.bench.target) fx.confetti(scoreT.x, scoreT.y, 24, 150);
     await tween(scoreT, { sx: 1, sy: 1 }, { dur: 0.12 });
     if (ev.nullified) {
       this.banner(t.bench.nullified, 0xe8432d);
@@ -899,18 +1109,28 @@ export class BenchScreen extends BaseScreen {
     const target = b ? b.target : this.g.run!.gameOver?.target ?? 1;
     const o = { v: from };
     sfx.cash();
+    let lastTick = 0;
+    let n = 0;
     await tween(o, { v: to }, {
-      dur: 0.5,
+      dur: Math.min(1.1, 0.45 + Math.log10(Math.max(1, to - from)) * 0.1),
       ease: ease.outCubic,
       onUpdate: () => {
-        this.els.score!.textContent = big(Math.floor(o.v));
+        this.odo.set(o.v);
         this.scoreBar.k = o.v / target;
+        const now = performance.now();
+        if (now - lastTick > 55) {
+          lastTick = now;
+          sfx.tick(8 + n++);
+        }
       },
     });
     this.shownScore = to;
-    this.els.score!.textContent = big(to);
+    this.odo.set(to);
     this.scoreBar.k = to / target;
-    if (to >= target) this.els.score!.classList.add('c-ok');
+    const reached = to >= target;
+    this.odo.bump(1.35, reached ? '#a8f07a' : '#ffe28a');
+    void this.g.fx.pulse(this.scoreBar, 1.08, 0.2);
+    if (reached) this.els.score!.classList.add('c-ok');
   }
 
   private async playEvent(e: ScoreEvent, played: CardView[], stepN: number, perfPos: () => readonly [number, number], clockPos: () => readonly [number, number]): Promise<void> {
@@ -934,9 +1154,17 @@ export class BenchScreen extends BaseScreen {
         void fx.pulse(this.lBox, 1.15);
         void fx.pulse(this.tBox, 1.15);
         sfx.select();
-        // bounce the profile cards
-        const ev = played.filter((cv) => this.g.run && cv.card);
-        for (const cv of ev) void tween(cv.body, { y: -6 }, { dur: 0.1 }).then(() => tween(cv.body, { y: 0 }, { dur: 0.15, ease: ease.outBack }));
+        // the cards that form the profile jump and glow gold; the others only nod
+        const prof = new Set(this.profileIds);
+        played.forEach((cv, i) => {
+          const isP = prof.has(cv.card.id);
+          cv.setProfile(isP);
+          const jump = isP ? -14 : -3;
+          void tween(cv.body, { y: jump }, { dur: 0.1, delay: i * 0.035, ease: ease.outQuad }).then(() => tween(cv.body, { y: 0 }, { dur: 0.2, ease: ease.outBack }));
+          if (isP) {
+            void wait(i * 0.035).then(() => fx.sparks(cv.x, cv.y - (CARD_H * this.playK) / 2, 6, 0xffd23f, 70));
+          }
+        });
         break;
       }
       case 'cardStart': {
@@ -956,7 +1184,7 @@ export class BenchScreen extends BaseScreen {
       case 'L': {
         const src = this.srcNode(e.src, e.card, played);
         const cv = e.card !== undefined ? played[e.card] : null;
-        const [px, py] = src && !(src instanceof CardView) ? [src.wm[4], src.wm[5] - 14] : cv ? [cv.x, cv.y - CARD_H / 2 - 8] : perfPos();
+        const [px, py] = src && !(src instanceof CardView) ? [src.wm[4], src.wm[5] - 14] : cv ? [cv.x, cv.y - (CARD_H * this.playK) / 2 - 8] : perfPos();
         void fx.float(px, py, `+${num(e.add)}`, { color: 0x8cc4ff, size: 10 });
         flashNode(src);
         if (src !== cv && cv) void fx.pulse(cv.body, 1.05, 0.12);
@@ -971,7 +1199,7 @@ export class BenchScreen extends BaseScreen {
       case 'T': {
         const src = this.srcNode(e.src, e.card, played);
         const cv = e.card !== undefined ? played[e.card] : null;
-        const [px, py] = src && !(src instanceof CardView) ? [src.wm[4], src.wm[5] - 14] : cv ? [cv.x, cv.y - CARD_H / 2 - 8] : clockPos();
+        const [px, py] = src && !(src instanceof CardView) ? [src.wm[4], src.wm[5] - 14] : cv ? [cv.x, cv.y - (CARD_H * this.playK) / 2 - 8] : clockPos();
         void fx.float(px, py, `${e.add >= 0 ? '+' : ''}${num(e.add)}`, { color: 0xff7a5c, size: 10 });
         flashNode(src);
         this.tBox.setValue(e.t);
@@ -1027,22 +1255,72 @@ export class BenchScreen extends BaseScreen {
 
   private banner(text: string, color: number): void {
     const lay = this.lay;
-    const bg = new Rect2(lay.play.w + 40, 26, 0x0b0b12, 0.75);
+    const bw = lay.play.w + 40;
+    const bg = new Rect2(bw, 26, 0x0b0b12, 0.8);
     bg.ax = bg.ay = 0.5;
-    const tx = new Text(text, { font: 'title', size: 13, align: 'center', valign: 'middle', color, outline: 0x0b0b12 });
     const n = new Node();
     n.add(bg);
+    for (const y of [-13, 12]) {
+      const line = new Rect2(bw, 1, color, 0.9);
+      line.ax = 0.5;
+      line.y = y;
+      n.add(line);
+    }
+    const tx = new Text(text, { font: 'title', size: 13, align: 'center', valign: 'middle', color, outline: 0x0b0b12 });
+    if (tx.width > lay.play.w - 8) tx.setSize((13 * (lay.play.w - 8)) / tx.width);
     n.add(tx);
     n.pos(lay.play.x + lay.play.w / 2, lay.play.y + 22);
     n.sy = 0;
     n.z = 50;
+    tx.x = 40;
+    tx.alpha = 0;
     this.playLayer.add(n);
     void (async () => {
+      void tween(tx, { x: 0, alpha: 1 }, { dur: 0.22, ease: ease.outBack });
       await tween(n, { sy: 1 }, { dur: 0.15, ease: ease.outBack });
+      void this.g.fx.pulse(tx, 1.15, 0.2);
       await wait(1.1);
+      void tween(tx, { x: -40 }, { dur: 0.2, ease: ease.inQuad });
       await tween(n, { sy: 0, alpha: 0 }, { dur: 0.2 });
       n.destroy();
     })();
+  }
+
+  /** Mini bluescreen in the play area: CRT on, ":(", stop line with the culprit, progress, CRT off. */
+  private async bsodPanel(partId: string | null): Promise<void> {
+    const lay = this.lay;
+    const t = L();
+    const pw = Math.min(lay.play.w - 16, 290);
+    const ph = Math.min(lay.play.h - 8, 100);
+    const n = new Node();
+    n.pos(lay.play.x + lay.play.w / 2, lay.play.y + lay.play.h / 2);
+    n.z = 60;
+    const bg = new Rect2(pw, ph, 0x1f4fb4, 0.97);
+    bg.ax = bg.ay = 0.5;
+    n.add(bg);
+    const x0 = -pw / 2 + 12;
+    const sad = new Text(':(', { font: 'title', size: 26, valign: 'top', color: 0xf4f4fa, shadow: null });
+    sad.pos(x0, -ph / 2 + 8);
+    n.add(sad);
+    const msg = new Text(t.bench.bluescreen, { font: 'title', size: 9, valign: 'top', color: 0xf4f4fa, shadow: null, maxWidth: pw - 24 });
+    msg.pos(x0, -ph / 2 + 44);
+    n.add(msg);
+    const stop = new Text(fmt(t.bench.bsodStop, { part: partId ? partName(partId) : '?' }), { font: 'mono', size: 10, valign: 'top', color: 0xc8d8ff, shadow: null, maxWidth: pw - 24 });
+    stop.pos(x0, msg.y + msg.height + 4);
+    n.add(stop);
+    const pct = new Text('0%', { font: 'mono', size: 10, align: 'right', valign: 'top', color: 0xf4f4fa, shadow: null });
+    pct.pos(pw / 2 - 10, -ph / 2 + 10);
+    n.add(pct);
+    n.sy = 0.02;
+    this.playLayer.add(n);
+    await tween(n, { sy: 1 }, { dur: 0.12, ease: ease.outQuad });
+    const p = { v: 0 };
+    void this.g.fx.glitch(n.x - pw / 2, n.y - ph / 2, pw, ph, 0.18, 0.6);
+    await tween(p, { v: 100 }, { dur: 1.1, onUpdate: () => (pct.text = `${Math.floor(p.v)}%`) });
+    void this.g.fx.glitch(n.x - pw / 2, n.y - ph / 2, pw, ph, 0.15, 0.8);
+    await tween(n, { sy: 0.02 }, { dur: 0.1, ease: ease.inQuad });
+    await tween(n, { sx: 0 }, { dur: 0.1, ease: ease.inQuad });
+    n.destroy();
   }
 
   private async discardPlayed(played: CardView[]): Promise<void> {

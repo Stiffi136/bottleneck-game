@@ -7,8 +7,33 @@ import { L } from '../i18n';
 
 export const CARD_W = 48;
 export const CARD_H = 64;
+/** name plate (virtual px at card scale 1) */
+const NAME_W = 34;
+const NAME_H = 10.5;
 
 const TYPE_COLOR: Record<CardType, number> = { cpu: 0x8cc4ff, gpu: 0xa8f07a, ram: 0xffe28a, io: 0xd4b0ff };
+
+/**
+ * Fits a card name into the name plate (max. 2 lines of NAME_W): largest font size wins. A single
+ * long word with a hyphen ("Physik-Simulation") may break after the hyphen.
+ */
+function fitName(name: string): { text: string; size: number } {
+  const lineH = 1.9; // ≈ 2 lines at size 1 incl. line gap (lineHeight 0.95)
+  const sizeFor = (lines: string[]): number => {
+    const longest = Math.max(...lines.flatMap((l) => l.split(' ')).map((w) => measure('body', w, 1)));
+    const total = lines.reduce((a, l) => a + measure('body', l, 1), 0);
+    // every word fits the width; the whole text fits in 2 lines (with some slack for word wrap)
+    return Math.min(5.5, NAME_W / longest, (NAME_W * 2 * 0.86) / Math.max(1, total), NAME_H / lineH);
+  };
+  let best = { text: name, size: sizeFor([name]) };
+  const i = name.indexOf('-');
+  if (!name.includes(' ') && i > 0 && i < name.length - 1) {
+    const parts = [name.slice(0, i + 1), name.slice(i + 1)];
+    const sz = Math.min(sizeFor(parts), NAME_W / Math.max(...parts.map((x) => measure('body', x, 1))));
+    if (sz > best.size + 0.2) best = { text: parts.join('\n'), size: sz };
+  }
+  return { text: best.text, size: Math.max(3.3, Math.floor(best.size * 10) / 10) };
+}
 
 /** Places a sub-sprite at a normalized rect of the card frame content box. */
 function place(s: Node, w: number, h: number, nx: number, ny: number) {
@@ -27,9 +52,14 @@ export class CardView extends Node {
   private nameT: Text;
   private overlay: Sprite | null = null;
   private highlight: Sprite;
+  private glow: Sprite;
+  private ghosts: Sprite[] = [];
   private shadowS: Sprite;
   private back: Sprite;
+  private glitchT = 0;
+  private glitchNext = 1 + Math.random() * 3;
   selected = false;
+  profile = false;
   hovered = false;
   /** layout target (hand slot) */
   tx = 0;
@@ -52,6 +82,25 @@ export class CardView extends Node {
     this.highlight.size(CARD_W + 8, CARD_H + 9).play(8);
     this.highlight.visible = false;
     this.body.add(this.highlight);
+    // gold glow for cards that form the detected profile
+    this.glow = new Sprite('ui_card_highlight', { region: 'anim' });
+    this.glow.size(CARD_W + 12, CARD_H + 13).play(10);
+    this.glow.tint = [1, 0.82, 0.25];
+    this.glow.visible = false;
+    this.body.add(this.glow);
+    // chromatic ghosts for the glitch effect (behind the frame)
+    for (const tint of [
+      [1, 0.25, 0.65],
+      [0.2, 0.95, 1],
+    ] as [number, number, number][]) {
+      const g = new Sprite('card_frame_cpu', { region: 'content' });
+      g.size(CARD_W, CARD_H);
+      g.tint = tint;
+      g.alpha = 0.75;
+      g.visible = false;
+      this.body.add(g);
+      this.ghosts.push(g);
+    }
     this.frameS = new Sprite('card_frame_cpu', { region: 'content' });
     this.frameS.size(CARD_W, CARD_H);
     this.body.add(this.frameS);
@@ -61,7 +110,7 @@ export class CardView extends Node {
     this.body.add(this.level);
     this.icon = new Sprite('card_typeicon8_cpu', { region: 'content' });
     this.body.add(this.icon);
-    this.nameT = new Text('', { font: 'body', size: 5.5, align: 'center', valign: 'middle', maxWidth: 36, lineHeight: 0.95, shadow: null, color: 0xcfd0e0 });
+    this.nameT = new Text('', { font: 'body', size: 5.5, align: 'center', valign: 'middle', maxWidth: NAME_W, lineHeight: 0.95, shadow: null, color: 0xcfd0e0 });
     this.body.add(this.nameT);
     this.back = new Sprite('card_back', { region: 'content' });
     this.back.size(CARD_W, CARD_H);
@@ -75,6 +124,7 @@ export class CardView extends Node {
     const t = card.type;
     this.frameS.setFrame(`card_frame_${t}`);
     this.frameS.size(CARD_W, CARD_H);
+    for (const g of this.ghosts) g.setFrame(`card_frame_${t}`).size(CARD_W, CARD_H);
     this.art.setFrame(`card_art_${t}`);
     this.art.fit(CARD_W * 0.7, CARD_H * 0.34);
     place(this.art, CARD_W, CARD_H, 0.506, 0.5);
@@ -95,19 +145,17 @@ export class CardView extends Node {
       this.nameT.setSize(8);
       this.nameT.setFont('title');
       this.nameT.color(TYPE_COLOR[this.card.type]);
-      place(this.nameT, CARD_W, CARD_H, 0.506, 0.84);
+      place(this.nameT, CARD_W, CARD_H, 0.506, 0.825);
       return;
     }
     this.nameT.setFont('body');
     this.nameT.color(0xcfd0e0);
-    const name = cardName(this.card);
-    this.nameT.text = name;
-    // shrink long names to fit the name plate
-    let size = 5.5;
-    const longest = Math.max(...name.split(' ').map((w) => measure('body', w, 1)));
-    while (size > 3.6 && (measure('body', name, size) > 36 * 2 - 6 || longest * size > 37)) size -= 0.2;
+    const { text, size } = fitName(cardName(this.card));
+    this.nameT.maxWidth = NAME_W;
+    this.nameT.text = text;
     this.nameT.setSize(size);
-    place(this.nameT, CARD_W, CARD_H, 0.506, 0.84);
+    for (let k = size; k > 3.3 && this.nameT.height > NAME_H + 0.5; ) this.nameT.setSize((k -= 0.1));
+    place(this.nameT, CARD_W, CARD_H, 0.506, 0.825);
     this.nameT.visible = !this.faceDown;
   }
 
@@ -140,8 +188,52 @@ export class CardView extends Node {
 
   setSelected(v: boolean): void {
     this.selected = v;
-    this.highlight.visible = v;
+    this.highlight.visible = v && !this.profile;
   }
+
+  /** Gold glow: the card belongs to the detected profile. */
+  setProfile(v: boolean): void {
+    this.profile = v;
+    this.glow.visible = v;
+    this.highlight.visible = this.selected && !v;
+  }
+
+  /** Starts a glitch burst (chromatic ghosts + jitter) for `dur` seconds. */
+  glitch(dur = 0.18): void {
+    this.glitchT = Math.max(this.glitchT, dur);
+  }
+
+  /** Per-frame effects; unstable cards glitch now and then on their own. */
+  fxTick(dt: number): void {
+    if (this.card.enh === 'unst' && !this.faceDown) {
+      this.glitchNext -= dt;
+      if (this.glitchNext <= 0) {
+        this.glitchNext = 1.2 + Math.random() * 3.5;
+        this.glitch(0.08 + Math.random() * 0.14);
+      }
+    }
+    const on = this.glitchT > 0 && !this.faceDown;
+    if (this.glitchT > 0) this.glitchT -= dt;
+    const [a, b] = this.ghosts as [Sprite, Sprite];
+    a.visible = b.visible = on;
+    if (on) {
+      const k = 1.5 + Math.random() * 2.5;
+      a.x = -k;
+      b.x = k;
+      a.y = (Math.random() - 0.5) * 2;
+      b.y = (Math.random() - 0.5) * 2;
+      this.art.x = (Math.random() - 0.5) * 3;
+      this.frameS.x = Math.random() < 0.3 ? (Math.random() - 0.5) * 3 : 0;
+      this.frameS.flash = Math.random() < 0.25 ? 0.5 : 0;
+      this.glitching = true;
+    } else if (this.glitching) {
+      this.glitching = false;
+      a.x = b.x = this.frameS.x = 0;
+      this.frameS.flash = 0;
+      place(this.art, CARD_W, CARD_H, 0.506, 0.5);
+    }
+  }
+  private glitching = false;
 
   setDim(v: boolean): void {
     this.dim = v;

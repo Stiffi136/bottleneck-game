@@ -196,7 +196,7 @@ export class HwChip extends Node {
     if (opts.rgb) this.icon.mode = 'rgb';
     if (opts.off) this.icon.mode = 'gray';
     this.add(this.icon);
-    this.badge = new Text('', { font: 'title', size: 6.5, align: 'right', valign: 'bottom', color: 0xff8a2e });
+    this.badge = new Text('', { font: 'body', size: 7.5, align: 'right', valign: 'bottom', color: 0xff8a2e, outline: 0x0b0b12 });
     this.badge.pos(size / 2 - 1, size / 2);
     this.add(this.badge);
     this.size = size;
@@ -207,6 +207,68 @@ export class HwChip extends Node {
   }
   override bounds() {
     return { x: -this.size / 2, y: -this.size / 2, w: this.size, h: this.size };
+  }
+}
+
+/**
+ * Rolling score counter (DOM): every digit is a vertical strip 0–9 that rolls to its value.
+ * Other characters (separators, suffixes) are plain text. Works with any formatter (big()).
+ */
+export class Odometer {
+  readonly el: HTMLElement;
+  private cols: (HTMLElement | null)[] = [];
+  private shape = '';
+  value = 0;
+  constructor(private format: (n: number) => string = big) {
+    this.el = document.createElement('span');
+    this.el.style.cssText = 'display:inline-flex;align-items:flex-end;line-height:1.15;white-space:nowrap;transform-origin:100% 60%';
+  }
+
+  /** Shows `v`; `roll` animates the digit strips. */
+  set(v: number, roll = true): void {
+    this.value = v;
+    const s = this.format(Math.floor(v));
+    const shape = s.replace(/\d/g, '0');
+    if (shape !== this.shape) {
+      this.shape = shape;
+      this.el.textContent = '';
+      this.cols = [];
+      for (const ch of s) {
+        if (ch >= '0' && ch <= '9') {
+          const win = document.createElement('span');
+          win.style.cssText = 'display:inline-block;height:1.15em;overflow:hidden;position:relative';
+          const strip = document.createElement('span');
+          strip.style.cssText = 'display:flex;flex-direction:column;align-items:center;transition:transform 0.09s ease-out';
+          for (let d = 0; d < 10; d++) {
+            const c = document.createElement('span');
+            c.textContent = String(d);
+            c.style.cssText = 'height:1.15em;line-height:1.15em';
+            strip.append(c);
+          }
+          win.append(strip);
+          this.el.append(win);
+          this.cols.push(strip);
+          strip.style.transition = 'none';
+        } else {
+          const t = document.createElement('span');
+          t.textContent = ch;
+          this.el.append(t);
+          this.cols.push(null);
+        }
+      }
+      roll = false;
+    }
+    [...s].forEach((ch, i) => {
+      const strip = this.cols[i];
+      if (!strip) return;
+      strip.style.transition = roll ? 'transform 0.09s ease-out' : 'none';
+      strip.style.transform = `translateY(${-Number(ch) * 1.15}em)`;
+    });
+  }
+
+  /** Short scale pop + colour flash. */
+  bump(k = 1.25, color = '#ffffff'): void {
+    this.el.animate?.([{ transform: `scale(${k})`, color }, { transform: 'scale(1)' }], { duration: 220, easing: 'ease-out' });
   }
 }
 

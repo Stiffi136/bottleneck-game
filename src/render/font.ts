@@ -11,13 +11,13 @@ import digitsUrl from '@fontsource/jersey-15/files/jersey-15-latin-400-normal.wo
 export type FontId = 'body' | 'title' | 'mono';
 
 /**
- * Digits and number signs for the body font. In Pixelify Sans "8" looks like "S" (and "5" like "S"),
- * so these code points come from Jersey 15 (SIL OFL 1.1). The face only covers this unicode-range and
+ * Digits and number signs for the body font. In Pixelify Sans "8" looks like "S" (and "5" like "S",
+ * "B" like "8"), so these code points (plus "B", e.g. board name "B560") come from Jersey 15 (SIL OFL 1.1). The face only covers this unicode-range and
  * stands in front of Pixelify Sans in the stack, for the DOM (`--font-body` in style.css) and the
  * bitmap font alike. `size-adjust` matches the digit height to the Pixelify capitals.
  */
 export const DIGIT_FAMILY = 'BN Digits';
-const DIGIT_RANGE = 'U+0024-0025, U+002B-002E, U+0030-0039, U+00B1, U+00D7, U+2212';
+const DIGIT_RANGE = 'U+0024-0025, U+002B-002E, U+0030-0039, U+0042, U+00B1, U+00D7, U+2212';
 
 function registerDigitFont(): void {
   if (typeof FontFace === 'undefined' || !document.fonts) return;

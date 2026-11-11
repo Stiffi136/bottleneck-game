@@ -1,4 +1,4 @@
-import { Node, Sprite, Text, Rect2, type TextOpts } from './scene';
+import { Node, Sprite, Text, Rect2, type Batch, type TextOpts } from './scene';
 import { ease, tween, wait } from './tween';
 import { timeScale } from './tween';
 
@@ -142,11 +142,158 @@ export class Fx {
     r.destroy();
   }
 
+  /**
+   * Digital glitch over a rect: flickering RGB slices, displaced noise strips and dark tears.
+   * Resolves after `dur` seconds (game time).
+   */
+  async glitch(x: number, y: number, w: number, h: number, dur = 0.6, power = 1): Promise<void> {
+    const n = new Node();
+    n.z = 40;
+    this.layer.add(n);
+    const COLORS = [0xff3fa4, 0x2ef2ff, 0xf4f4fa, 0x0b0b12, 0x1f4fb4, 0x0b0b12];
+    let next = 0;
+    n.tick = (dt) => {
+      next -= dt;
+      if (next > 0) return;
+      next = 0.03 + Math.random() * 0.04;
+      n.removeAll();
+      const slices = Math.round((5 + Math.random() * 7) * power);
+      for (let i = 0; i < slices; i++) {
+        const sh = 1 + Math.random() * Math.random() * 10;
+        const sw = w * (0.15 + Math.random() * 0.85);
+        const r = new Rect2(sw, sh, COLORS[(Math.random() * COLORS.length) | 0]!, 0.25 + Math.random() * 0.6);
+        r.pos(x + Math.random() * (w - sw) + (Math.random() - 0.5) * 16, y + Math.random() * (h - sh));
+        n.add(r);
+      }
+      const strips = Math.round((1 + Math.random() * 3) * power);
+      for (let i = 0; i < strips; i++) {
+        const s = new Sprite(`fx_glitch_noise_${(Math.random() * 4) | 0}`, { region: 'cell', ax: 0, ay: 0 });
+        const sw = w * (0.2 + Math.random() * 0.6);
+        const sh = 3 + Math.random() * 14;
+        s.size(sw, sh).pos(x + Math.random() * (w - sw), y + Math.random() * (h - sh));
+        s.alpha = 0.35 + Math.random() * 0.4;
+        if (Math.random() < 0.5) s.tint = Math.random() < 0.5 ? [1, 0.45, 0.8] : [0.45, 0.95, 1];
+        n.add(s);
+      }
+    };
+    await wait(dur);
+    n.destroy();
+  }
+
   async pulse(n: Node, k = 1.2, dur = 0.18): Promise<void> {
     const bx = n.sx;
     const by = n.sy;
     await tween(n, { sx: bx * k, sy: by * k }, { dur: dur * 0.45, ease: ease.outQuad });
     await tween(n, { sx: bx, sy: by }, { dur: dur * 0.55, ease: ease.outBack });
+  }
+}
+
+/**
+ * Heat shimmer for the background (from 70 °C): a warm ghost copy of the table tiles that wobbles
+ * row by row (heat haze), rising hot-air motes and a glow from below. `set(k)` with k = 0..1.
+ */
+export class HeatShimmer extends Node {
+  private k = 0;
+  private shown = 0;
+  private t = 0;
+  private rows: { n: Node; phase: number }[] = [];
+  private glow: Rect2[] = [];
+  private motes: { r: Rect2; vy: number; ph: number; x0: number; life: number }[] = [];
+  private spawn = 0;
+  constructor(
+    private area: { x: number; y: number; w: number; h: number },
+    tile = 'bg_tile_pcb',
+    size = 96,
+    tint = 0.55,
+  ) {
+    super();
+    // ghost copy of the background tiles (same grid as Background: origin at area.x/area.y), cut into
+    // thin horizontal strips that wobble independently
+    const STRIP = 8;
+    const per = size / STRIP;
+    for (let y = area.y, row = 0; y < area.y + area.h; y += STRIP, row++) {
+      const rn = new Node();
+      this.add(rn);
+      const j = row % per;
+      for (let x = area.x - size; x < area.x + area.w + size; x += size) {
+        const s = new StripSprite(tile, j / per, (j + 1) / per);
+        s.size(size + 0.4, STRIP + 0.2).pos(x, y);
+        s.tint = [Math.min(1, tint * 1.35), tint * 1.1, tint * 0.85];
+        rn.add(s);
+      }
+      this.rows.push({ n: rn, phase: row * 0.55 });
+    }
+    const bands = 6;
+    for (let i = 0; i < bands; i++) {
+      const bh = area.h * 0.06;
+      const r = new Rect2(area.w, bh, i < 3 ? 0xff8a2e : 0xe8432d, 0);
+      r.pos(area.x, area.y + area.h - bh * (i + 1));
+      this.add(r);
+      this.glow.push(r);
+    }
+    this.visible = false;
+  }
+
+  set(k: number): void {
+    this.k = Math.max(0, Math.min(1, k));
+  }
+
+  override tick = (dt: number): void => {
+    this.shown += (this.k - this.shown) * Math.min(1, dt * 2.5);
+    if (this.shown < 0.01 && this.k === 0) {
+      this.visible = false;
+      return;
+    }
+    this.visible = true;
+    this.t += dt;
+    const k = this.shown;
+    for (const r of this.rows) {
+      r.n.x = Math.sin(this.t * 3.1 - r.phase) * (0.8 + 2.6 * k) + Math.sin(this.t * 7.3 + r.phase * 2.3) * 0.7 * k;
+      r.n.alpha = (0.2 + 0.35 * k) * (0.7 + 0.3 * Math.sin(this.t * 4 - r.phase * 0.7));
+    }
+    this.glow.forEach((g, i) => (g.alpha = k * 0.07 * (1 - i / this.glow.length) * (0.8 + 0.2 * Math.sin(this.t * 2.6 + i))));
+    // rising motes
+    this.spawn -= dt * (6 + 30 * k);
+    while (this.spawn < 0) {
+      this.spawn += 1;
+      const r = new Rect2(1.5, 2 + Math.random() * 4, Math.random() < 0.6 ? 0xffd23f : 0xff8a2e, 0);
+      const x0 = this.area.x + Math.random() * this.area.w;
+      r.pos(x0, this.area.y + this.area.h - Math.random() * this.area.h * 0.3);
+      this.add(r);
+      this.motes.push({ r, vy: -(20 + Math.random() * 40), ph: Math.random() * 6, x0, life: 1.5 + Math.random() * 1.5 });
+    }
+    for (let i = this.motes.length - 1; i >= 0; i--) {
+      const m = this.motes[i]!;
+      m.life -= dt;
+      if (m.life <= 0) {
+        m.r.destroy();
+        this.motes.splice(i, 1);
+        continue;
+      }
+      m.r.y += m.vy * dt;
+      m.r.x = m.x0 + Math.sin(this.t * 3 + m.ph) * 4;
+      m.r.alpha = Math.min(1, m.life) * 0.85 * k;
+    }
+  };
+}
+
+/** Sprite that draws only a horizontal band [v0, v1] (fractions of its cell) of its frame. */
+class StripSprite extends Sprite {
+  constructor(
+    name: string,
+    private v0: number,
+    private v1: number,
+  ) {
+    super(name, { region: 'cell', ax: 0, ay: 0 });
+  }
+  override draw(b: Batch): void {
+    const f = this.frames[this.frameIndex] ?? this.frames[0]!;
+    const rr = this.regionRect;
+    const sx = f.px.x + rr.x * f.scale;
+    const sy = f.px.y + rr.y * f.scale;
+    const sw = rr.w * f.scale;
+    const sh = rr.h * f.scale;
+    b.quad(this, f.tex, 0, 0, this.w, this.h, sx / f.atlasW, (sy + sh * this.v0) / f.atlasH, (sx + sw) / f.atlasW, (sy + sh * this.v1) / f.atlasH);
   }
 }
 
