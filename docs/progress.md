@@ -16,7 +16,8 @@
 
 - `npm test`: 5 Dateien, 53 Tests grün (Scoring inkl. GDD-Beispiel 1 = 232 und 2 = 9.856, Profile, Kompatibilität, Run/Shop/Ökonomie, Kurve, i18n).
 - `npm run build`: ohne Fehler (TS strict), `base: './'`.
-- `npm run sim -- 200` (Wachstum 1,8): Median **Gen 8**, Mittel 7,0, p10 4, p90 9, max 10. Verteilung: Gen 1–4 12 %, Gen 5–6 14 %, Gen 7 17,5 %, Gen 8 43,5 %, Gen 9–10 13 %. Häufigster Tod: Finale F1 (Gen 8).
+- `npm run sim -- 200` (Wachstum 1,8, alter Bot): Median **Gen 8**, Mittel 7,0, p10 4, p90 9, max 10. Häufigster Tod: Finale F1 (Gen 8).
+- **P1 (Bot neu, Kurve unverändert 1,8):** `npm run sim -- 300`: Median **Gen 10**, Mittel 9,26, p10 8, p90 11, max 11, Tode in Gen 1–2: 2,0 %. Verteilung: Gen 1–7 7 %, Gen 8 11,7 %, Gen 9 22 %, Gen 10 48 %, Gen 11 11,3 %. F1: 30 von 300 Toden. Käufe je Run: Hardware 10,6, Treiber-Packs 7,3 + Treiber 1,7, Software 5,8 + Software-Packs 2,8, Werkzeug-/Workload-Packs je ≈ 2,8.
 - Browser (Chromium): Hochformat 390×844 und 360×640, Querformat 1280×720; Autoplay-Run über die echte UI bis Bluescreen (Gen 8, Querformat) ohne Konsolenfehler; Speichern/Fortsetzen nach Reload geprüft; Deutsch geprüft.
 
 ## Nächste Schritte
@@ -25,7 +26,7 @@ Siehe Pakete P1–P7 in `docs/handoff.md` (P1 Balancing, P2 Benchmark-Politur, P
 
 ## Bekannte Probleme
 
-- Balancing unter GDD-Ziel (Gen 10–14); Bot schwach (kauft v. a. Treiber-Packs).
+- P1 sanft beendet: Abnahme (Median ≥ 10, p10 ≥ 6, < 5 % Tode in Gen 1–2, gemischte Käufe) erfüllt, aber Verteilung schmal (Gen 8–11, nicht 10–14). Kurven-Kandidaten und Bot-Schwächen: `docs/implementation-notes.md` §2.1.
 - Querformat-Laden, POST-Fehlerdialog, Touch-Long-Press (echtes Gerät) nicht vollständig im Browser geprüft.
 - Bundle 877 kB ohne Code-Splitting.
 - Werkbank-Positionen (`CASE_LAYOUT`) handgemessen, GPU-Blende nicht exakt an Gehäuseblenden.

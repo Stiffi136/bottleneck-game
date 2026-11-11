@@ -25,6 +25,19 @@ Abweichungen vom GDD (`docs/game-design.md`) und Annahmen der Umsetzung. Das GDD
 - **Zielkurve:** Wachstum pro Generation bis Gen 8 **1,8** statt 2,2 (`CURVE` in `src/core/difficulty.ts`); ab Gen 9 weiter wie im GDD: Faktor +0,4 je Generation. Start 300, Finale ×3, Rundung auf 2 signifikante Stellen (gerundeter Wert ist das echte Ziel). Grund: Mit 2,2 endete der Simulations-Bot im Median bei Gen 4–5. Der MVP enthält keine legendäre Software und keine Cache-Hit-/Krypto-Karten, also weniger ×-Quellen als das GDD für das Endspiel annimmt. Der Unit-Test prüft weiterhin, dass die Formel mit 2,2 exakt die GDD-Tabelle ergibt.
 - **Ergebnis** siehe `docs/progress.md` (Abschnitt Simulation). Der Bot ist bewusst einfach (keine Plattform-Planung, kein gezieltes Sparen); erfahrene Spieler sollten 1–3 Generationen weiter kommen.
 
+### 2.1 P1 Balancing & Bot (Stand: sanft beendet, Kurve unverändert)
+
+- **Geändert:** nur Bot und Skripte (`src/sim/bot.ts`, `scripts/sim.ts`, `scripts/power.ts`, neu `scripts/diag.ts`). Keine Zahlen in `core/` geändert; Kurve bleibt Wachstum 1,8 / Beschleunigung +0,4 ab Gen 8.
+- **Bot neu:** Bewertung `power()` = mittlerer Score des besten Zugs über 12 gezogene Hände aus dem echten Deck (gemeinsame Zufallszahlen, Hitze über 3 Züge, Boss der aktuellen Generation zu 50 % mitgewertet: B4/B7/B8/B11/F1 …). Jeder Kauf (Hardware inkl. Plattform-Plan mit hypothetischen Ergänzungen wie Board/RAM/Gehäuse/Netzteil, Software inkl. Ersetzen, Treiber, Packs per Erwartungswert, Werkzeuge) wird als log-Zugewinn je Dollar verglichen; Kosten enthalten entgangene Zinsen, Geld über $25 wird freier ausgegeben. Spiel: ×-Karten (Instabil) ans Ende, B11 mit Opferkarte vorn, Abwurf behält Profilkarten, Hitze-Vorausschau. BIOS wählt die beste sichere OC-Stufe. Parameter per Env (`BOT_THETA`, `BOT_SAMPLES` …).
+- **Sim:** `npm run sim` läuft parallel (`SIM_JOBS`, Standard 8 Prozesse, 300 Runs ≈ 2 min) und zeigt Tode in Gen 1–2 und Käufe je Kategorie. `scripts/power.ts` spielt „unsterblich“ (verlorene Benchmarks werden gewonnen) und zeigt die Bot-Stärke je Generation.
+- **Erkenntnisse:**
+  - Bot-Stärke wächst bis Gen 6 um ca. ×1,8 je Generation, ab Gen 8 nur noch ×1,1–1,3. Spätes Wachstum ist im MVP fast nur additiv (Treiber, Zwangs-Update, Shader-Cache); echte ×-Quellen sind nur SW3, SW6 und Instabil-Karten. Mit Beschleunigung +0,4 (×2,2/×2,6/×3,0) endet fast jeder Run 1–2 Generationen nach dem Schnittpunkt → Verteilung schmal (Gen 8–11).
+  - F1 ist keine Wand mehr (30 von 300 Toden, vorher 69 von 200), weil der Bot GPU-Karten im Finale wertet und den Boss beim Einkauf berücksichtigt.
+  - Häufige Engpässe des Bots: Netzteil P1 (400 W) blockiert C3/G5/G6; Plattformwechsel (MB3/MB7) kommen fast nie zustande; zu wenige Software-Slots (nur S1); Kühlung begrenzt 8-Kern-Züge. Sparen für Zinsen lohnt sich (`BOT_THETA` 0,02–0,03 besser als 0,012).
+- **Nächste Schritte (später):**
+  - Kurven-Kandidaten aus Sim-Läufen (200 Runs, gleicher Bot): Wachstum 1,75, Beschleunigung ab Gen 9 mit +0,2 → Median 11, p10 8, p90 12; Wachstum 1,7, ab Gen 9, +0,15 → Median 11, p10 10, p90 12, max 13 (wenig Tode in Gen 3–9). Wachstum 1,8, +0,2 ab Gen 8 → Median 10, p10 8, max 12. Für eine breitere Verteilung (Gen 10–14) müsste das späte Ziel-Wachstum nahe an ×1,3–1,5 liegen oder es braucht mehr ×-Quellen (legendäre Software, Cache-Hit).
+  - Bot: Netzteil/Kühlung/Plattform als Kombination planen, Treiber auf ein Profil bündeln, Deck ausdünnen (Format C) und Instabil-Karten kopieren. Gen-1–2-Tode (≈ 2 %) sind meist Pech mit Händen bei B4/B5/B11.
+
 ## 3. Regel-Auslegungen
 
 - **Begriffe EN:** Leistung = *Perf* (P), Takt = *Clock* (C), Durchlauf = *Run*, Neu priorisieren = *Reprioritize*, Profil = *Profile*, Generation = *Gen*.
