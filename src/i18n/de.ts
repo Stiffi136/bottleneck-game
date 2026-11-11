@@ -481,6 +481,8 @@ export const de: Dict = {
     sound: 'Ton',
     volume: 'Lautstärke',
     music: 'Lüfterrauschen',
+    bgm: 'Musik',
+    fanNoise: 'Lüfterrauschen',
     speed: 'Spieltempo',
     scorePreview: 'Score-Vorschau',
     screenshake: 'Bildschirmwackeln',

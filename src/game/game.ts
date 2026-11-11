@@ -7,6 +7,7 @@ import { randomSeedString } from '../core/rng';
 import { addBest, loadBest, loadRun, loadSettings, saveRun, saveSettings, type Settings } from './storage';
 import { setLang, L, fmt } from '../i18n';
 import { sfx } from '../audio/sfx';
+import { startAmbient } from '../audio/ambient';
 import { closeAllSheets, hideTip, toast } from '../ui/dom';
 import type { ErrKey, Result } from '../core/run';
 
@@ -32,6 +33,7 @@ export class Game {
     this.engine.onResizeVp((vp) => this.bg.layout(vp));
     this.applySettings();
     this.run = loadRun();
+    startAmbient(() => this.run);
     // unlock audio on first interaction
     const unlock = () => {
       sfx.unlock();
@@ -112,6 +114,7 @@ export class Game {
     sfx.volume = s.volume;
     sfx.muted = s.muted;
     sfx.fanEnabled = s.fan;
+    sfx.musicEnabled = s.music;
     sfx.applyVolume();
     timeScale.value = s.speed;
     this.engine.shakeEnabled = s.shake;

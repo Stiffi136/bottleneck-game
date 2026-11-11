@@ -6,6 +6,7 @@ export interface Settings {
   volume: number;
   muted: boolean;
   fan: boolean;
+  music: boolean;
   speed: 1 | 2 | 4;
   scorePreview: boolean;
   shake: boolean;
@@ -18,6 +19,7 @@ export const DEFAULT_SETTINGS: Settings = {
   volume: 0.7,
   muted: false,
   fan: true,
+  music: true,
   speed: 1,
   scorePreview: false,
   shake: true,

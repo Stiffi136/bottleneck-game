@@ -484,6 +484,8 @@ export const en = {
     sound: 'Sound',
     volume: 'Volume',
     music: 'Fan noise',
+    bgm: 'Music',
+    fanNoise: 'Fan noise',
     speed: 'Game speed',
     scorePreview: 'Score preview',
     screenshake: 'Screen shake',
