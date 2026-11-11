@@ -4,6 +4,7 @@ import { measure } from '../render/font';
 import type { Card, CardType, Enhancement, Tier } from '../core/types';
 import { cardName } from '../ui/describe';
 import { L } from '../i18n';
+import { FRAME_ANCHORS, anchorPos } from './cardAnchors';
 
 export const CARD_W = 48;
 export const CARD_H = 64;
@@ -137,28 +138,41 @@ export class CardView extends Node {
     this.frameS.fit(CARD_W, CARD_H);
     for (const g of this.ghosts) g.setFrame(`card_frame_${t}`).fit(CARD_W, CARD_H);
     this.art.setFrame(`card_art_${t}`);
+    // all fields sit on the measured anchors of the frame (fractions of the displayed frame box)
+    const A = FRAME_ANCHORS[`card_frame_${t}`]!;
+    const fw = this.frameS.w;
+    const fh = this.frameS.h;
     this.art.fit(CARD_W * 0.7, CARD_H * 0.34);
-    place(this.art, CARD_W, CARD_H, 0.506, 0.5);
+    this.art.pos(anchorPos(A.art, fw, fh).x, anchorPos(A.art, fw, fh).y);
     this.level.text = String(card.level);
     this.level.color(TYPE_COLOR[t]);
-    place(this.level, CARD_W, CARD_H, 0.25, 0.155);
+    this.level.optical = true; // "1" and "10" are centred by their ink, on the digit baseline
+    this.level.pos(anchorPos(A.level!, fw, fh).x, anchorPos(A.level!, fw, fh).y);
     this.icon.setFrame(`card_typeicon8_${t}`);
-    this.icon.fit(8, 8);
-    place(this.icon, CARD_W, CARD_H, 0.8, 0.148);
+    this.icon.fit(Math.min(8, A.icon!.w! * fw * 0.85), Math.min(8, A.icon!.h! * fh * 0.9));
+    this.icon.pos(anchorPos(A.icon!, fw, fh).x, anchorPos(A.icon!, fw, fh).y);
     this.setName();
     this.setEnh(card.enh);
+  }
+
+  private placeName(): void {
+    const A = FRAME_ANCHORS[`card_frame_${this.card.type}`]!;
+    const p = anchorPos(A.name!, this.frameS.w, this.frameS.h);
+    this.nameT.pos(p.x, p.y);
   }
 
   private setName(): void {
     if (!this.showName) {
       // small screens: big type label instead of the flavour name
+      this.nameT.optical = true;
       this.nameT.text = L().cardTypes[this.card.type];
       this.nameT.setSize(9.5);
       this.nameT.setFont('title');
       this.nameT.color(TYPE_COLOR[this.card.type]);
-      place(this.nameT, CARD_W, CARD_H, 0.506, 0.825);
+      this.placeName();
       return;
     }
+    this.nameT.optical = false;
     this.nameT.setFont('body');
     this.nameT.color(0xcfd0e0);
     const { text, size } = fitName(cardName(this.card));
@@ -166,7 +180,7 @@ export class CardView extends Node {
     this.nameT.text = text;
     this.nameT.setSize(size);
     for (let k = size; k > 3.3 && this.nameT.height > NAME_H + 0.5; ) this.nameT.setSize((k -= 0.1));
-    place(this.nameT, CARD_W, CARD_H, 0.506, 0.825);
+    this.placeName();
     this.nameT.visible = !this.faceDown;
   }
 
@@ -290,14 +304,17 @@ export class ItemCard extends Node {
     this.frameS.size(w, hh);
     this.body.add(this.frameS);
     this.icon = new Sprite(iconName, { region: 'content' });
+    const A = FRAME_ANCHORS[frameName.replace(/_l$/, '_s')] ?? FRAME_ANCHORS['card_frame_treiber']!;
     this.icon.fit(w * 0.66, hh * 0.46);
-    this.icon.y = -hh * 0.02;
+    this.icon.pos(anchorPos(A.art, w, hh).x, anchorPos(A.art, w, hh).y);
     if (opts.rgb) this.icon.mode = 'rgb';
     this.body.add(this.icon);
     if (opts.tier !== undefined) {
       this.gem = new Sprite(`gem_tier_${opts.tier}`, { region: 'content' });
-      this.gem.fit(8, 8);
-      this.gem.pos(w * 0.33, -hh * 0.38);
+      // centred in the printed gem socket (measured anchor), a little smaller than the socket
+      const sock = FRAME_ANCHORS['card_frame_hardware']!.gem!;
+      this.gem.fit(sock.w! * w * 0.82, sock.h! * hh * 0.82);
+      this.gem.pos(anchorPos(sock, w, hh).x, anchorPos(sock, w, hh).y);
       this.body.add(this.gem);
     }
     this.w = w;

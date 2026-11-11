@@ -79,7 +79,7 @@ Bekannte Probleme:
 - `src/sim/bot.ts` ist organisch gewachsen (env-Parameter `BOT_PD`, `BOT_RES`, `BOT_SPEC`), `assemble()` ist unschön.
 - JS-Bundle 877 kB (three.js komplett); kein Code-Splitting.
 - Werkbank: Positionen in `CASE_LAYOUT` (`src/view/pcView.ts`) sind von Hand aus den Gehäusebildern abgelesen; GPU-Slotblende sitzt nicht exakt an den Gehäuse-Slotblenden.
-- Kleine Handys (360 px): Fließtext 8,5–9,5 virtuelle px, an der Grenze der Lesbarkeit.
+- Kleine Handys (360 px): Fließtext 8,5–9,5 virtuelle px – in P5 auf ≥ 9,5 gehoben (siehe progress.md).
 
 ## 4. Offene Pakete
 

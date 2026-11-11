@@ -238,6 +238,11 @@ export class BenchScreen extends BaseScreen {
       placeEl(menu, { x: 116, y: this.vp.h - 34 });
     }
     this.dom.append(title, money$, menu, target, score);
+    // a long boss name never ends in an ellipsis: drop the generation prefix, then tighten the spacing
+    if (this.portrait && title.scrollWidth > title.clientWidth + 1) {
+      title.textContent = benchName.toUpperCase();
+      if (title.scrollWidth > title.clientWidth + 1) title.style.letterSpacing = '-0.4px';
+    }
 
     // ---------------------------------------------------------- status
     const st = statsOf(run);

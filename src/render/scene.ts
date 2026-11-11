@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { anim, animBounds, frame, type Frame, type Rect } from './assets';
-import { font, measure, type FontId } from './font';
+import { font, measure, type BitmapFont, type FontId } from './font';
 
 // ------------------------------------------------------------------ nodes
 
@@ -167,6 +167,12 @@ export class Sprite extends Node {
   ay: number;
   tint: [number, number, number] = [1, 1, 1];
   flash = 0;
+  /**
+   * Optical centring (single line): the *ink* box of the text (not the advance/line box) is centred on the
+   * node position – so a "1" sits in the middle of a field just like a "10". Vertical: baseline-based ink
+   * box, i.e. digits are centred by their cap height.
+   */
+  optical = false;
   mode: Mode = 'normal';
   param = 0;
   swap: [number, number, number] = [1, 1, 1];
@@ -352,6 +358,12 @@ export class Text extends Node {
   shadow: [number, number, number] | null;
   outline: [number, number, number] | null;
   flash = 0;
+  /**
+   * Optical centring (single line, align center): the ink box of the text – not the advance / line box – is
+   * centred on the node position, so a "1" sits in the middle of a field just like a "10"; vertically by the
+   * baseline-based ink box (digits: cap height).
+   */
+  optical = false;
   mode: Mode = 'normal';
   param = 0;
   swap: [number, number, number] = [1, 1, 1];
@@ -438,6 +450,29 @@ export class Text extends Node {
     return this.lines.length * f.lineH * k * this.lineHeight - f.lineH * k * (this.lineHeight - 1);
   }
 
+  /** Ink box of the (single) line in px at the current size: x0/x1 from the pen origin, a/d above/below the baseline. */
+  private inkBox(f: BitmapFont, k: number): { x0: number; x1: number; a: number; d: number } | null {
+    const chars = Array.from(this.lines[0]?.text ?? '').filter((c) => c !== ' ');
+    if (!chars.length) return null;
+    const all = Array.from(this.lines[0]!.text);
+    let pen = 0;
+    let x0 = Infinity;
+    let x1 = -Infinity;
+    let a = 0;
+    let d = 0;
+    for (const ch of all) {
+      const g = f.glyphs.get(ch) ?? f.glyphs.get('?')!;
+      if (ch !== ' ') {
+        x0 = Math.min(x0, pen + g.inkL * k);
+        x1 = Math.max(x1, pen + g.inkR * k);
+        a = Math.max(a, g.inkA * k);
+        d = Math.max(d, g.inkD * k);
+      }
+      pen += g.adv * k;
+    }
+    return { x0, x1, a, d };
+  }
+
   override bounds(): Rect {
     if (this.hit) return this.hit;
     const w = this.width;
@@ -471,8 +506,17 @@ export class Text extends Node {
       this.tint = col;
       this.flash = 0;
     }
+    let dx = 0;
+    if (this.optical && this.lines.length === 1 && this.align === 'center') {
+      const ink = this.inkBox(f, k);
+      if (ink) {
+        dx = this.lines[0]!.w / 2 - (ink.x0 + ink.x1) / 2; // centre of the ink instead of the advance
+        const baseline = (f.pad + f.ascent) * k; // line cell top -> baseline
+        y = oy - baseline + (ink.a - ink.d) / 2;
+      }
+    }
     for (const line of this.lines) {
-      let x = (this.align === 'center' ? -line.w / 2 : this.align === 'right' ? -line.w : 0) + ox - f.pad * k;
+      let x = (this.align === 'center' ? -line.w / 2 : this.align === 'right' ? -line.w : 0) + dx + ox - f.pad * k;
       for (const ch of line.text) {
         const g = f.glyphs.get(ch) ?? f.glyphs.get('?')!;
         if (ch !== ' ') {

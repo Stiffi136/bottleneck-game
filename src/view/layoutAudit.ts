@@ -144,3 +144,50 @@ function watch(): string {
   return 'watching';
 }
 Object.assign(window, { __watch: watch, __log: () => Object.fromEntries(found) });
+
+/**
+ * `__anchors()` regenerates the measurements for `src/view/cardAnchors.ts`: for every card frame the
+ * inner dark fields (connected dark components that do not touch the frame outline), as fractions of the
+ * frame's contentBBox. Sorted top→bottom: level/icon/gem fields, art window, name plate.
+ */
+async function anchors(): Promise<Record<string, string[]>> {
+  const { frame } = await import('../render/assets');
+  const out: Record<string, string[]> = {};
+  for (const n of ['card_frame_cpu', 'card_frame_gpu', 'card_frame_ram', 'card_frame_io', 'card_frame_hardware', 'card_frame_treiber', 'card_frame_tool', 'card_frame_software_g', 'card_frame_software_s']) {
+    const f = frame(n);
+    const W = f.content.w;
+    const H = f.content.h;
+    const c = document.createElement('canvas');
+    c.width = W;
+    c.height = H;
+    const x = c.getContext('2d')!;
+    x.drawImage(f.img, f.content.x, f.content.y, W, H, 0, 0, W, H);
+    const d = x.getImageData(0, 0, W, H).data;
+    const dark = new Uint8Array(W * H);
+    for (let i = 0; i < W * H; i++) dark[i] = d[i * 4 + 3]! > 200 && d[i * 4]! + d[i * 4 + 1]! + d[i * 4 + 2]! < 190 ? 1 : 0;
+    const seen = new Uint8Array(W * H);
+    const rows: string[] = [];
+    for (let s0 = 0; s0 < W * H; s0++) {
+      if (!dark[s0] || seen[s0]) continue;
+      const st = [s0];
+      seen[s0] = 1;
+      let x0 = W, y0 = H, x1 = 0, y1 = 0, area = 0;
+      while (st.length) {
+        const p = st.pop()!;
+        const px = p % W;
+        const py = (p / W) | 0;
+        area++;
+        x0 = Math.min(x0, px); x1 = Math.max(x1, px); y0 = Math.min(y0, py); y1 = Math.max(y1, py);
+        for (const q of [p - 1, p + 1, p - W, p + W]) {
+          if (q < 0 || q >= W * H || (q === p - 1 && px === 0) || (q === p + 1 && px === W - 1)) continue;
+          if (dark[q] && !seen[q]) { seen[q] = 1; st.push(q); }
+        }
+      }
+      x1++; y1++;
+      if (area > 150 && x0 > 2 && y0 > 2 && x1 < W - 2 && y1 < H - 2) rows.push(`x ${((x0 + x1) / 2 / W).toFixed(3)} y ${((y0 + y1) / 2 / H).toFixed(3)} w ${((x1 - x0) / W).toFixed(3)} h ${((y1 - y0) / H).toFixed(3)}`);
+    }
+    out[n] = rows;
+  }
+  return out;
+}
+Object.assign(window, { __anchors: anchors });

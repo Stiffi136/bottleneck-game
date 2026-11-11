@@ -50,6 +50,11 @@ export interface Glyph {
   v1: number;
   w: number; // cell width (atlas px)
   adv: number; // advance (atlas px)
+  /** ink box relative to the pen origin / baseline (atlas px): left, right, ascent above baseline, descent below */
+  inkL: number;
+  inkR: number;
+  inkA: number;
+  inkD: number;
 }
 
 export interface BitmapFont {
@@ -93,14 +98,15 @@ function buildFont(id: FontId): BitmapFont {
   let x = 0;
   let y = 0;
   for (const ch of CHARS) {
-    const adv = ctx.measureText(ch).width;
+    const mt = ctx.measureText(ch);
+    const adv = mt.width;
     const cellW = Math.ceil(adv) + PAD * 2;
     if (x + cellW > size) {
       x = 0;
       y += cellH;
     }
     ctx.fillText(ch, x + PAD, y + PAD + ascent);
-    glyphs.set(ch, { u0: x / size, v0: y / size, u1: (x + cellW) / size, v1: (y + cellH) / size, w: cellW, adv });
+    glyphs.set(ch, { u0: x / size, v0: y / size, u1: (x + cellW) / size, v1: (y + cellH) / size, w: cellW, adv, inkL: -mt.actualBoundingBoxLeft, inkR: mt.actualBoundingBoxRight, inkA: mt.actualBoundingBoxAscent, inkD: mt.actualBoundingBoxDescent });
     x += cellW + 1;
   }
   const tex = makeTexture(c, true);
