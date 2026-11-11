@@ -1,0 +1,186 @@
+{
+  "frames": {
+    "booster_workload": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 224
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 224
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 224
+      },
+      "contentBBox": {
+        "x": 8,
+        "y": 12,
+        "w": 144,
+        "h": 200
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 1
+      },
+      "scale": 0.3019,
+      "scaleReduced": false
+    },
+    "booster_treiber": {
+      "frame": {
+        "x": 160,
+        "y": 0,
+        "w": 160,
+        "h": 224
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 224
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 224
+      },
+      "contentBBox": {
+        "x": 5,
+        "y": 41,
+        "w": 150,
+        "h": 142
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 2
+      },
+      "scale": 0.3019,
+      "scaleReduced": false
+    },
+    "booster_werkzeug": {
+      "frame": {
+        "x": 320,
+        "y": 0,
+        "w": 160,
+        "h": 224
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 224
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 224
+      },
+      "contentBBox": {
+        "x": 2,
+        "y": 29,
+        "w": 156,
+        "h": 166
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 3
+      },
+      "scale": 0.3019,
+      "scaleReduced": false
+    },
+    "booster_software": {
+      "frame": {
+        "x": 480,
+        "y": 0,
+        "w": 160,
+        "h": 224
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 224
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 224
+      },
+      "contentBBox": {
+        "x": 9,
+        "y": 22,
+        "w": 142,
+        "h": 180
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 4
+      },
+      "scale": 0.3019,
+      "scaleReduced": false
+    }
+  },
+  "animations": {},
+  "meta": {
+    "app": "bottleneck tools/clean-sheet.mjs --hd",
+    "version": "1.0",
+    "image": "sheet_booster_40x56.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 640,
+      "h": 224
+    },
+    "scale": "1",
+    "hdScale": 4,
+    "cell": {
+      "w": 40,
+      "h": 56
+    },
+    "frame": {
+      "w": 160,
+      "h": 224
+    },
+    "grid": {
+      "cols": 4,
+      "rows": 1
+    },
+    "targetSize": {
+      "w": 160,
+      "h": 56
+    },
+    "source": "s13.png",
+    "sheet": "S13",
+    "background": "auto",
+    "quality": 90,
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "baseScale": 0.30195,
+    "scaleMode": "cell",
+    "gridLinesRemoved": 0
+  }
+}

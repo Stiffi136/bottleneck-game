@@ -1,0 +1,31 @@
+{
+ "webpPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_board_parts_32x44.webp",
+ "jsonPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_board_parts_32x44.json",
+ "previewDark": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_board_parts_32x44_hd_dark.png",
+ "previewChecker": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_board_parts_32x44_hd_checker.png",
+ "warnings": [
+  "Seitenverhältnis der Quelle (1105x1424) passt nicht zu 96x132."
+ ],
+ "reduced": [],
+ "gridLines": [],
+ "bg": [
+  129,
+  128,
+  128
+ ],
+ "semiBgPct": 0.2,
+ "droppedSpecks": 0,
+ "sourceSize": [
+  1105,
+  1424
+ ],
+ "baseScale": 0.3591489145355636,
+ "nativeScale": 0.3591489145355636,
+ "hdScale": 4,
+ "rawSize": [
+  1105,
+  1424
+ ],
+ "rawStacked": false,
+ "ms": 3252
+}

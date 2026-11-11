@@ -1,0 +1,63 @@
+{
+  "frames": {
+    "mb_pcb_matx": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 640,
+        "h": 640
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 640,
+        "h": 640
+      },
+      "sourceSize": {
+        "w": 640,
+        "h": 640
+      },
+      "contentBBox": {
+        "x": 0,
+        "y": 0,
+        "w": 640,
+        "h": 640
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "animations": {},
+  "meta": {
+    "app": "bottleneck tools/build-all.mjs",
+    "version": "1.0",
+    "image": "mb_pcb_matx.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 640,
+      "h": 640
+    },
+    "scale": "1",
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "hdScale": 4,
+    "targetSize": {
+      "w": 160,
+      "h": 160
+    },
+    "source": "e01.png",
+    "kind": "object",
+    "crop": {
+      "x": 0,
+      "y": 0,
+      "w": 1254,
+      "h": 1254
+    },
+    "fit": "fill (Abweichung ≤ 2 %, nur Zuschnitt auf Inhalt)",
+    "background": "keiner im Bild"
+  }
+}

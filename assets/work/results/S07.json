@@ -1,0 +1,29 @@
+{
+ "webpPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_icons16_werte_16.webp",
+ "jsonPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_icons16_werte_16.json",
+ "previewDark": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_icons16_werte_16_hd_dark.png",
+ "previewChecker": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_icons16_werte_16_hd_checker.png",
+ "warnings": [],
+ "reduced": [],
+ "gridLines": [],
+ "bg": [
+  130,
+  130,
+  130
+ ],
+ "semiBgPct": 0,
+ "droppedSpecks": 0,
+ "sourceSize": [
+  1536,
+  1024
+ ],
+ "baseScale": 0.25,
+ "nativeScale": 0.25,
+ "hdScale": 4,
+ "rawSize": [
+  1536,
+  1024
+ ],
+ "rawStacked": false,
+ "ms": 3608
+}

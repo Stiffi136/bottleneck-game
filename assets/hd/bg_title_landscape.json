@@ -1,0 +1,61 @@
+{
+  "frames": {
+    "bg_title_landscape": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1600,
+        "h": 800
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1600,
+        "h": 800
+      },
+      "sourceSize": {
+        "w": 1600,
+        "h": 800
+      },
+      "contentBBox": {
+        "x": 0,
+        "y": 0,
+        "w": 1600,
+        "h": 800
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "animations": {},
+  "meta": {
+    "app": "bottleneck tools/build-all.mjs",
+    "version": "1.0",
+    "image": "bg_title_landscape.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 1600,
+      "h": 800
+    },
+    "scale": "1",
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "hdScale": 2,
+    "targetSize": {
+      "w": 800,
+      "h": 400
+    },
+    "source": "e10.png",
+    "kind": "background",
+    "crop": {
+      "x": 0,
+      "y": 0,
+      "w": 1774,
+      "h": 887
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+ "webpPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/case_glass.webp",
+ "jsonPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/case_glass.json",
+ "previewDark": "/workspace/projekte/roguelike-deckbuilder/assets/preview/case_glass_hd_dark.png",
+ "warnings": [],
+ "info": {
+  "bgShare": 0.0202,
+  "sourceSize": [
+   1131,
+   1391
+  ],
+  "cropBox": {
+   "x": 0,
+   "y": 0,
+   "w": 1131,
+   "h": 1391
+  },
+  "cropMargins": {
+   "left": 0,
+   "top": 0,
+   "right": 0,
+   "bottom": 0
+  },
+  "dustRemovedPx": 1,
+  "contentRatio": 0.8131,
+  "targetRatio": 0.8125,
+  "ratioDeviationPct": 0.07,
+  "fitMode": "fill (Abweichung ≤ 2 %, nur Zuschnitt auf Inhalt)",
+  "contentOut": [
+   1040,
+   1280
+  ]
+ },
+ "frames": 1,
+ "hdScale": 4,
+ "rawSize": [
+  1131,
+  1391
+ ],
+ "rawStacked": false,
+ "ms": 450
+}

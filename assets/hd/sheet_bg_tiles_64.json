@@ -1,0 +1,142 @@
+{
+  "frames": {
+    "bg_tile_pcb": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 256
+      },
+      "contentBBox": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 1
+      },
+      "tileable": false
+    },
+    "bg_tile_esd": {
+      "frame": {
+        "x": 256,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 256
+      },
+      "contentBBox": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 2
+      },
+      "tileable": true
+    },
+    "bg_tile_bios": {
+      "frame": {
+        "x": 512,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 256
+      },
+      "contentBBox": {
+        "x": 96,
+        "y": 96,
+        "w": 64,
+        "h": 64
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 3
+      },
+      "tileable": false
+    }
+  },
+  "animations": {},
+  "meta": {
+    "app": "bottleneck tools/build-all.mjs",
+    "version": "1.0",
+    "image": "sheet_bg_tiles_64.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 768,
+      "h": 256
+    },
+    "scale": "1",
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "hdScale": 4,
+    "cell": {
+      "w": 64,
+      "h": 64
+    },
+    "frame": {
+      "w": 256,
+      "h": 256
+    },
+    "grid": {
+      "cols": 3,
+      "rows": 1
+    },
+    "targetSize": {
+      "w": 192,
+      "h": 64
+    },
+    "source": "s29.png",
+    "kind": "opaque-tiles"
+  }
+}

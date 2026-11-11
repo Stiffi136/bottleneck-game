@@ -1,0 +1,737 @@
+{
+  "frames": {
+    "fx_burst_leistung_0": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 22,
+        "y": 23,
+        "w": 20,
+        "h": 20
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 1
+      },
+      "scale": 0.2165,
+      "scaleReduced": false,
+      "group": "fx_burst_leistung",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "fx_burst_leistung_1": {
+      "frame": {
+        "x": 64,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 11,
+        "y": 12,
+        "w": 41,
+        "h": 42
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 2
+      },
+      "scale": 0.2165,
+      "scaleReduced": false,
+      "group": "fx_burst_leistung",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.258
+      }
+    },
+    "fx_burst_leistung_2": {
+      "frame": {
+        "x": 128,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 9,
+        "y": 10,
+        "w": 45,
+        "h": 46
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 3
+      },
+      "scale": 0.2165,
+      "scaleReduced": false,
+      "group": "fx_burst_leistung",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.16
+      }
+    },
+    "fx_burst_leistung_3": {
+      "frame": {
+        "x": 192,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 4,
+        "y": 7,
+        "w": 53,
+        "h": 52
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 4
+      },
+      "scale": 0.2165,
+      "scaleReduced": false,
+      "group": "fx_burst_leistung",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.001
+      }
+    },
+    "fx_burst_leistung_4": {
+      "frame": {
+        "x": 256,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 3,
+        "y": 5,
+        "w": 58,
+        "h": 54
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 5
+      },
+      "scale": 0.2165,
+      "scaleReduced": false,
+      "group": "fx_burst_leistung",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.01
+      }
+    },
+    "fx_burst_leistung_5": {
+      "frame": {
+        "x": 320,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 8,
+        "y": 5,
+        "w": 52,
+        "h": 53
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 6
+      },
+      "scale": 0.2165,
+      "scaleReduced": false,
+      "group": "fx_burst_leistung",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.04
+      }
+    },
+    "fx_burst_takt_0": {
+      "frame": {
+        "x": 0,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 22,
+        "y": 23,
+        "w": 20,
+        "h": 20
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 1
+      },
+      "scale": 0.2165,
+      "scaleReduced": false,
+      "group": "fx_burst_takt",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "fx_burst_takt_1": {
+      "frame": {
+        "x": 64,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 11,
+        "y": 11,
+        "w": 42,
+        "h": 43
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 2
+      },
+      "scale": 0.2165,
+      "scaleReduced": false,
+      "group": "fx_burst_takt",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.253
+      }
+    },
+    "fx_burst_takt_2": {
+      "frame": {
+        "x": 128,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 9,
+        "y": 10,
+        "w": 45,
+        "h": 46
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 3
+      },
+      "scale": 0.2165,
+      "scaleReduced": false,
+      "group": "fx_burst_takt",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.16
+      }
+    },
+    "fx_burst_takt_3": {
+      "frame": {
+        "x": 192,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 4,
+        "y": 7,
+        "w": 53,
+        "h": 52
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 4
+      },
+      "scale": 0.2165,
+      "scaleReduced": false,
+      "group": "fx_burst_takt",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.001
+      }
+    },
+    "fx_burst_takt_4": {
+      "frame": {
+        "x": 256,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 3,
+        "y": 5,
+        "w": 58,
+        "h": 54
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 5
+      },
+      "scale": 0.2165,
+      "scaleReduced": false,
+      "group": "fx_burst_takt",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.011
+      }
+    },
+    "fx_burst_takt_5": {
+      "frame": {
+        "x": 320,
+        "y": 64,
+        "w": 64,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 8,
+        "y": 5,
+        "w": 52,
+        "h": 52
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 6
+      },
+      "scale": 0.2165,
+      "scaleReduced": false,
+      "group": "fx_burst_takt",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.04
+      }
+    },
+    "fx_frost_0": {
+      "frame": {
+        "x": 0,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 12,
+        "y": 12,
+        "w": 38,
+        "h": 42
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 1
+      },
+      "scale": 0.2165,
+      "scaleReduced": false,
+      "group": "fx_frost",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "fx_frost_1": {
+      "frame": {
+        "x": 64,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 10,
+        "y": 10,
+        "w": 43,
+        "h": 44
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 2
+      },
+      "scale": 0.2165,
+      "scaleReduced": false,
+      "group": "fx_frost",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.603
+      }
+    },
+    "fx_frost_2": {
+      "frame": {
+        "x": 128,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 9,
+        "y": 8,
+        "w": 46,
+        "h": 48
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 3
+      },
+      "scale": 0.2165,
+      "scaleReduced": false,
+      "group": "fx_frost",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.483
+      }
+    },
+    "fx_frost_3": {
+      "frame": {
+        "x": 192,
+        "y": 128,
+        "w": 64,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 9,
+        "y": 12,
+        "w": 43,
+        "h": 44
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 4
+      },
+      "scale": 0.2165,
+      "scaleReduced": false,
+      "group": "fx_frost",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.611
+      }
+    }
+  },
+  "animations": {
+    "fx_burst_leistung": [
+      "fx_burst_leistung_0",
+      "fx_burst_leistung_1",
+      "fx_burst_leistung_2",
+      "fx_burst_leistung_3",
+      "fx_burst_leistung_4",
+      "fx_burst_leistung_5"
+    ],
+    "fx_burst_takt": [
+      "fx_burst_takt_0",
+      "fx_burst_takt_1",
+      "fx_burst_takt_2",
+      "fx_burst_takt_3",
+      "fx_burst_takt_4",
+      "fx_burst_takt_5"
+    ],
+    "fx_frost": [
+      "fx_frost_0",
+      "fx_frost_1",
+      "fx_frost_2",
+      "fx_frost_3"
+    ]
+  },
+  "meta": {
+    "app": "bottleneck tools/clean-sheet.mjs --hd",
+    "version": "1.0",
+    "image": "sheet_fx16_16.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 384,
+      "h": 192
+    },
+    "scale": "1",
+    "hdScale": 4,
+    "cell": {
+      "w": 16,
+      "h": 16
+    },
+    "frame": {
+      "w": 64,
+      "h": 64
+    },
+    "grid": {
+      "cols": 6,
+      "rows": 3
+    },
+    "targetSize": {
+      "w": 96,
+      "h": 48
+    },
+    "source": "s32.png",
+    "sheet": "S32",
+    "background": "auto",
+    "quality": 90,
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "baseScale": 0.21646,
+    "scaleMode": "cell",
+    "gridLinesRemoved": 11
+  }
+}

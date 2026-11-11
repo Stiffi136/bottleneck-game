@@ -1,0 +1,657 @@
+{
+  "frames": {
+    "slot_dimm_ddr4": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 384
+      },
+      "contentBBox": {
+        "x": 16,
+        "y": 26,
+        "w": 32,
+        "h": 332
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 1
+      },
+      "scale": 0.3536,
+      "scaleReduced": false
+    },
+    "slot_dimm_ddr5": {
+      "frame": {
+        "x": 64,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 384
+      },
+      "contentBBox": {
+        "x": 16,
+        "y": 26,
+        "w": 32,
+        "h": 332
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 2
+      },
+      "scale": 0.3536,
+      "scaleReduced": false
+    },
+    "ram_stick_plain": {
+      "frame": {
+        "x": 128,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 384
+      },
+      "contentBBox": {
+        "x": 12,
+        "y": 28,
+        "w": 40,
+        "h": 328
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 3
+      },
+      "scale": 0.3536,
+      "scaleReduced": false
+    },
+    "ram_stick_hs": {
+      "frame": {
+        "x": 192,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 384
+      },
+      "contentBBox": {
+        "x": 10,
+        "y": 28,
+        "w": 43,
+        "h": 328
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 4
+      },
+      "scale": 0.3536,
+      "scaleReduced": false
+    },
+    "ui_thermo_v_frame_0": {
+      "frame": {
+        "x": 256,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 384
+      },
+      "contentBBox": {
+        "x": 1,
+        "y": 21,
+        "w": 62,
+        "h": 342
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 5
+      },
+      "scale": 0.337,
+      "scaleReduced": true,
+      "group": "ui_thermo_v_frame",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "ui_thermo_v_frame_1": {
+      "frame": {
+        "x": 320,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 384
+      },
+      "contentBBox": {
+        "x": 1,
+        "y": 21,
+        "w": 62,
+        "h": 342
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 6
+      },
+      "scale": 0.337,
+      "scaleReduced": true,
+      "group": "ui_thermo_v_frame",
+      "registration": {
+        "dx": 1,
+        "dy": 0,
+        "iou": 0.988
+      }
+    },
+    "ui_thermo_v_fill": {
+      "frame": {
+        "x": 384,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 384
+      },
+      "contentBBox": {
+        "x": 19,
+        "y": 41,
+        "w": 27,
+        "h": 302
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 7
+      },
+      "scale": 0.3536,
+      "scaleReduced": false
+    },
+    "ram_stick_rgb_0": {
+      "frame": {
+        "x": 0,
+        "y": 384,
+        "w": 64,
+        "h": 384
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 384
+      },
+      "contentBBox": {
+        "x": 10,
+        "y": 27,
+        "w": 43,
+        "h": 329
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 1
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "ram_stick_rgb",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "ram_stick_rgb_1": {
+      "frame": {
+        "x": 64,
+        "y": 384,
+        "w": 64,
+        "h": 384
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 384
+      },
+      "contentBBox": {
+        "x": 10,
+        "y": 27,
+        "w": 43,
+        "h": 329
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 2
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "ram_stick_rgb",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.998
+      }
+    },
+    "ram_stick_rgb_2": {
+      "frame": {
+        "x": 128,
+        "y": 384,
+        "w": 64,
+        "h": 384
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 384
+      },
+      "contentBBox": {
+        "x": 10,
+        "y": 27,
+        "w": 43,
+        "h": 329
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 3
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "ram_stick_rgb",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1.002
+      }
+    },
+    "ram_stick_rgb_3": {
+      "frame": {
+        "x": 192,
+        "y": 384,
+        "w": 64,
+        "h": 384
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 384
+      },
+      "contentBBox": {
+        "x": 10,
+        "y": 27,
+        "w": 43,
+        "h": 329
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 4
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "ram_stick_rgb",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.999
+      }
+    },
+    "ram_stick_rgb_4": {
+      "frame": {
+        "x": 256,
+        "y": 384,
+        "w": 64,
+        "h": 384
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 384
+      },
+      "contentBBox": {
+        "x": 10,
+        "y": 27,
+        "w": 43,
+        "h": 329
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 5
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "ram_stick_rgb",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.999
+      }
+    },
+    "ram_stick_rgb_5": {
+      "frame": {
+        "x": 320,
+        "y": 384,
+        "w": 64,
+        "h": 384
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 384
+      },
+      "contentBBox": {
+        "x": 10,
+        "y": 27,
+        "w": 43,
+        "h": 329
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 6
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "ram_stick_rgb",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.999
+      }
+    },
+    "ram_stick_rgb_6": {
+      "frame": {
+        "x": 384,
+        "y": 384,
+        "w": 64,
+        "h": 384
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 384
+      },
+      "contentBBox": {
+        "x": 10,
+        "y": 27,
+        "w": 43,
+        "h": 329
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 7
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "ram_stick_rgb",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.998
+      }
+    },
+    "ram_stick_rgb_7": {
+      "frame": {
+        "x": 448,
+        "y": 384,
+        "w": 64,
+        "h": 384
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 384
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 384
+      },
+      "contentBBox": {
+        "x": 10,
+        "y": 27,
+        "w": 43,
+        "h": 329
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 8
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "ram_stick_rgb",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.997
+      }
+    }
+  },
+  "animations": {
+    "ui_thermo_v_frame": [
+      "ui_thermo_v_frame_0",
+      "ui_thermo_v_frame_1"
+    ],
+    "ram_stick_rgb": [
+      "ram_stick_rgb_0",
+      "ram_stick_rgb_1",
+      "ram_stick_rgb_2",
+      "ram_stick_rgb_3",
+      "ram_stick_rgb_4",
+      "ram_stick_rgb_5",
+      "ram_stick_rgb_6",
+      "ram_stick_rgb_7"
+    ]
+  },
+  "meta": {
+    "app": "bottleneck tools/clean-sheet.mjs --hd",
+    "version": "1.0",
+    "image": "sheet_tall_16x96.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 512,
+      "h": 768
+    },
+    "scale": "1",
+    "hdScale": 4,
+    "cell": {
+      "w": 16,
+      "h": 96
+    },
+    "frame": {
+      "w": 64,
+      "h": 384
+    },
+    "grid": {
+      "cols": 8,
+      "rows": 2
+    },
+    "targetSize": {
+      "w": 128,
+      "h": 192
+    },
+    "source": "sheet_tall_16x96_stacked.png",
+    "sheet": "S05",
+    "background": "auto",
+    "quality": 90,
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "baseScale": 0.35359,
+    "scaleMode": "cell",
+    "gridLinesRemoved": 0
+  }
+}

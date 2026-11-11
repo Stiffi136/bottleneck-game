@@ -1,0 +1,486 @@
+{
+  "frames": {
+    "ui_slot_empty_software_mini": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 160
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 160
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "contentBBox": {
+        "x": 12,
+        "y": 11,
+        "w": 135,
+        "h": 137
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 1
+      },
+      "scale": 0.442,
+      "scaleReduced": false
+    },
+    "ui_slot_empty_lager": {
+      "frame": {
+        "x": 160,
+        "y": 0,
+        "w": 160,
+        "h": 160
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 160
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "contentBBox": {
+        "x": 2,
+        "y": 1,
+        "w": 155,
+        "h": 158
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 2
+      },
+      "scale": 0.4401,
+      "scaleReduced": true,
+      "rawOverflowCell": [
+        "unten"
+      ]
+    },
+    "ui_slot_empty_tool": {
+      "frame": {
+        "x": 320,
+        "y": 0,
+        "w": 160,
+        "h": 160
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 160
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "contentBBox": {
+        "x": 26,
+        "y": 25,
+        "w": 108,
+        "h": 110
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 3
+      },
+      "scale": 0.442,
+      "scaleReduced": false
+    },
+    "ui_mini_frame_software_g": {
+      "frame": {
+        "x": 480,
+        "y": 0,
+        "w": 160,
+        "h": 160
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 160
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "contentBBox": {
+        "x": 11,
+        "y": 10,
+        "w": 138,
+        "h": 140
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 4
+      },
+      "scale": 0.442,
+      "scaleReduced": false
+    },
+    "ui_mini_frame_software_s": {
+      "frame": {
+        "x": 640,
+        "y": 0,
+        "w": 160,
+        "h": 160
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 160
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "contentBBox": {
+        "x": 10,
+        "y": 10,
+        "w": 140,
+        "h": 140
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 5
+      },
+      "scale": 0.442,
+      "scaleReduced": false
+    },
+    "ui_mini_frame_software_l_0": {
+      "frame": {
+        "x": 0,
+        "y": 160,
+        "w": 160,
+        "h": 160
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 160
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "contentBBox": {
+        "x": 12,
+        "y": 13,
+        "w": 136,
+        "h": 134
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 1
+      },
+      "scale": 0.442,
+      "scaleReduced": false,
+      "group": "ui_mini_frame_software_l",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "ui_mini_frame_software_l_1": {
+      "frame": {
+        "x": 160,
+        "y": 160,
+        "w": 160,
+        "h": 160
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 160
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "contentBBox": {
+        "x": 12,
+        "y": 13,
+        "w": 136,
+        "h": 134
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 2
+      },
+      "scale": 0.442,
+      "scaleReduced": false,
+      "group": "ui_mini_frame_software_l",
+      "registration": {
+        "dx": -1,
+        "dy": 0,
+        "iou": 0.994
+      }
+    },
+    "ui_mini_frame_software_l_2": {
+      "frame": {
+        "x": 320,
+        "y": 160,
+        "w": 160,
+        "h": 160
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 160
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "contentBBox": {
+        "x": 12,
+        "y": 13,
+        "w": 136,
+        "h": 134
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 3
+      },
+      "scale": 0.442,
+      "scaleReduced": false,
+      "group": "ui_mini_frame_software_l",
+      "registration": {
+        "dx": -3,
+        "dy": 0,
+        "iou": 0.994
+      }
+    },
+    "ui_mini_frame_software_l_3": {
+      "frame": {
+        "x": 480,
+        "y": 160,
+        "w": 160,
+        "h": 160
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 160
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "contentBBox": {
+        "x": 12,
+        "y": 13,
+        "w": 136,
+        "h": 134
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 4
+      },
+      "scale": 0.442,
+      "scaleReduced": false,
+      "group": "ui_mini_frame_software_l",
+      "registration": {
+        "dx": -4,
+        "dy": 0,
+        "iou": 0.994
+      }
+    },
+    "ui_mini_frame_software_l_4": {
+      "frame": {
+        "x": 640,
+        "y": 160,
+        "w": 160,
+        "h": 160
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 160
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "contentBBox": {
+        "x": 12,
+        "y": 13,
+        "w": 136,
+        "h": 134
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 5
+      },
+      "scale": 0.442,
+      "scaleReduced": false,
+      "group": "ui_mini_frame_software_l",
+      "registration": {
+        "dx": -7,
+        "dy": 0,
+        "iou": 0.994
+      }
+    },
+    "ui_mini_frame_software_l_5": {
+      "frame": {
+        "x": 800,
+        "y": 160,
+        "w": 160,
+        "h": 160
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 160,
+        "h": 160
+      },
+      "sourceSize": {
+        "w": 160,
+        "h": 160
+      },
+      "contentBBox": {
+        "x": 12,
+        "y": 13,
+        "w": 136,
+        "h": 134
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 6
+      },
+      "scale": 0.442,
+      "scaleReduced": false,
+      "group": "ui_mini_frame_software_l",
+      "registration": {
+        "dx": -7,
+        "dy": 0,
+        "iou": 0.994
+      }
+    }
+  },
+  "animations": {
+    "ui_mini_frame_software_l": [
+      "ui_mini_frame_software_l_0",
+      "ui_mini_frame_software_l_1",
+      "ui_mini_frame_software_l_2",
+      "ui_mini_frame_software_l_3",
+      "ui_mini_frame_software_l_4",
+      "ui_mini_frame_software_l_5"
+    ]
+  },
+  "meta": {
+    "app": "bottleneck tools/clean-sheet.mjs --hd",
+    "version": "1.0",
+    "image": "sheet_ui_slots_40x40.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 960,
+      "h": 320
+    },
+    "scale": "1",
+    "hdScale": 4,
+    "cell": {
+      "w": 40,
+      "h": 40
+    },
+    "frame": {
+      "w": 160,
+      "h": 160
+    },
+    "grid": {
+      "cols": 6,
+      "rows": 2
+    },
+    "targetSize": {
+      "w": 240,
+      "h": 80
+    },
+    "source": "s06.png",
+    "sheet": "S06",
+    "background": "auto",
+    "quality": 90,
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "baseScale": 0.44199,
+    "scaleMode": "cell",
+    "gridLinesRemoved": 0
+  }
+}

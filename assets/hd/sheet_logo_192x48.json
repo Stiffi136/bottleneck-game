@@ -1,0 +1,217 @@
+{
+  "frames": {
+    "logo_bottleneck_0": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 768,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 768,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 768,
+        "h": 192
+      },
+      "contentBBox": {
+        "x": 259,
+        "y": 1,
+        "w": 249,
+        "h": 190
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 1
+      },
+      "scale": 0.4897,
+      "scaleReduced": false,
+      "group": "logo_bottleneck",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "logo_bottleneck_1": {
+      "frame": {
+        "x": 768,
+        "y": 0,
+        "w": 768,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 768,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 768,
+        "h": 192
+      },
+      "contentBBox": {
+        "x": 259,
+        "y": 1,
+        "w": 250,
+        "h": 190
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 2
+      },
+      "scale": 0.4897,
+      "scaleReduced": false,
+      "group": "logo_bottleneck",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.997
+      }
+    },
+    "logo_bottleneck_2": {
+      "frame": {
+        "x": 1536,
+        "y": 0,
+        "w": 768,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 768,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 768,
+        "h": 192
+      },
+      "contentBBox": {
+        "x": 259,
+        "y": 1,
+        "w": 250,
+        "h": 190
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 3
+      },
+      "scale": 0.4897,
+      "scaleReduced": false,
+      "group": "logo_bottleneck",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.997
+      }
+    },
+    "logo_bottleneck_3": {
+      "frame": {
+        "x": 2304,
+        "y": 0,
+        "w": 768,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 768,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 768,
+        "h": 192
+      },
+      "contentBBox": {
+        "x": 259,
+        "y": 1,
+        "w": 250,
+        "h": 190
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 4
+      },
+      "scale": 0.4897,
+      "scaleReduced": false,
+      "group": "logo_bottleneck",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.998
+      }
+    }
+  },
+  "animations": {
+    "logo_bottleneck": [
+      "logo_bottleneck_0",
+      "logo_bottleneck_1",
+      "logo_bottleneck_2",
+      "logo_bottleneck_3"
+    ]
+  },
+  "meta": {
+    "app": "bottleneck tools/clean-sheet.mjs --hd",
+    "version": "1.0",
+    "image": "sheet_logo_192x48.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 3072,
+      "h": 192
+    },
+    "scale": "1",
+    "hdScale": 4,
+    "cell": {
+      "w": 192,
+      "h": 48
+    },
+    "frame": {
+      "w": 768,
+      "h": 192
+    },
+    "grid": {
+      "cols": 4,
+      "rows": 1
+    },
+    "targetSize": {
+      "w": 768,
+      "h": 48
+    },
+    "source": "s30.png",
+    "sheet": "S30",
+    "background": "auto",
+    "quality": 90,
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "baseScale": 0.48969,
+    "scaleMode": "fit",
+    "gridLinesRemoved": 7
+  }
+}

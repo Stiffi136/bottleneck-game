@@ -1,0 +1,56 @@
+{
+  "frames": {
+    "case_glass_reflex": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1040,
+        "h": 1280
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1040,
+        "h": 1280
+      },
+      "sourceSize": {
+        "w": 1040,
+        "h": 1280
+      },
+      "contentBBox": {
+        "x": 0,
+        "y": 0,
+        "w": 1040,
+        "h": 1280
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "animations": {},
+  "meta": {
+    "app": "bottleneck tools/build-all.mjs",
+    "version": "1.0",
+    "image": "case_glass_reflex.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 1040,
+      "h": 1280
+    },
+    "scale": "1",
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "hdScale": 4,
+    "targetSize": {
+      "w": 260,
+      "h": 320
+    },
+    "source": "e06.png",
+    "kind": "overlay",
+    "overlay": "weiß #f4f4fa, Alpha aus Helligkeit (Grau 126 -> 0, Streifen -> 1), Vollbild ohne Zuschnitt; die Engine multipliziert mit 0,5"
+  }
+}

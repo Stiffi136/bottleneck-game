@@ -1,0 +1,31 @@
+{
+ "webpPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/bg_shop_landscape.webp",
+ "jsonPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/bg_shop_landscape.json",
+ "previewDark": "/workspace/projekte/roguelike-deckbuilder/assets/preview/bg_shop_landscape_hd_dark.png",
+ "warnings": [],
+ "info": {
+  "sourceSize": [
+   1774,
+   887
+  ],
+  "crop": {
+   "x": 0,
+   "y": 0,
+   "w": 1774,
+   "h": 887
+  },
+  "cropLossPct": 0,
+  "edgeLum": [
+   64.3,
+   66.1
+  ]
+ },
+ "frames": 1,
+ "hdScale": 2,
+ "rawSize": [
+  1774,
+  887
+ ],
+ "rawStacked": false,
+ "ms": 259
+}

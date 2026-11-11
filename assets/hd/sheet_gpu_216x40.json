@@ -1,0 +1,473 @@
+{
+  "frames": {
+    "gpu_s": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 884,
+        "h": 244
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 884,
+        "h": 244
+      },
+      "sourceSize": {
+        "w": 884,
+        "h": 244
+      },
+      "contentBBox": {
+        "x": 8,
+        "y": 164,
+        "w": 448,
+        "h": 76
+      },
+      "artSize": {
+        "w": 112,
+        "h": 19
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 1
+      },
+      "scale": 0.224,
+      "scaleReduced": false
+    },
+    "gpu_m_0": {
+      "frame": {
+        "x": 0,
+        "y": 244,
+        "w": 884,
+        "h": 244
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 884,
+        "h": 244
+      },
+      "sourceSize": {
+        "w": 884,
+        "h": 244
+      },
+      "contentBBox": {
+        "x": 8,
+        "y": 89,
+        "w": 704,
+        "h": 151
+      },
+      "artSize": {
+        "w": 176,
+        "h": 37.8
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 1
+      },
+      "scale": 0.7243,
+      "scaleReduced": false,
+      "group": "gpu_m"
+    },
+    "gpu_m_1": {
+      "frame": {
+        "x": 884,
+        "y": 244,
+        "w": 884,
+        "h": 244
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 884,
+        "h": 244
+      },
+      "sourceSize": {
+        "w": 884,
+        "h": 244
+      },
+      "contentBBox": {
+        "x": 8,
+        "y": 89,
+        "w": 704,
+        "h": 151
+      },
+      "artSize": {
+        "w": 176,
+        "h": 37.8
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 2
+      },
+      "scale": 0.7243,
+      "scaleReduced": false,
+      "group": "gpu_m"
+    },
+    "gpu_m_2": {
+      "frame": {
+        "x": 1768,
+        "y": 244,
+        "w": 884,
+        "h": 244
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 884,
+        "h": 244
+      },
+      "sourceSize": {
+        "w": 884,
+        "h": 244
+      },
+      "contentBBox": {
+        "x": 8,
+        "y": 89,
+        "w": 704,
+        "h": 151
+      },
+      "artSize": {
+        "w": 176,
+        "h": 37.8
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 3
+      },
+      "scale": 0.7243,
+      "scaleReduced": false,
+      "group": "gpu_m"
+    },
+    "gpu_m_3": {
+      "frame": {
+        "x": 2652,
+        "y": 244,
+        "w": 884,
+        "h": 244
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 884,
+        "h": 244
+      },
+      "sourceSize": {
+        "w": 884,
+        "h": 244
+      },
+      "contentBBox": {
+        "x": 8,
+        "y": 89,
+        "w": 704,
+        "h": 151
+      },
+      "artSize": {
+        "w": 176,
+        "h": 37.8
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 4
+      },
+      "scale": 0.7243,
+      "scaleReduced": false,
+      "group": "gpu_m"
+    },
+    "gpu_l_0": {
+      "frame": {
+        "x": 0,
+        "y": 488,
+        "w": 884,
+        "h": 244
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 884,
+        "h": 244
+      },
+      "sourceSize": {
+        "w": 884,
+        "h": 244
+      },
+      "contentBBox": {
+        "x": 8,
+        "y": 8,
+        "w": 865,
+        "h": 232
+      },
+      "artSize": {
+        "w": 216.3,
+        "h": 58
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 1
+      },
+      "scale": 0.8905,
+      "scaleReduced": false,
+      "group": "gpu_l"
+    },
+    "gpu_l_1": {
+      "frame": {
+        "x": 884,
+        "y": 488,
+        "w": 884,
+        "h": 244
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 884,
+        "h": 244
+      },
+      "sourceSize": {
+        "w": 884,
+        "h": 244
+      },
+      "contentBBox": {
+        "x": 8,
+        "y": 6,
+        "w": 864,
+        "h": 234
+      },
+      "artSize": {
+        "w": 216,
+        "h": 58.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 2
+      },
+      "scale": 0.8905,
+      "scaleReduced": false,
+      "group": "gpu_l"
+    },
+    "gpu_l_2": {
+      "frame": {
+        "x": 1768,
+        "y": 488,
+        "w": 884,
+        "h": 244
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 884,
+        "h": 244
+      },
+      "sourceSize": {
+        "w": 884,
+        "h": 244
+      },
+      "contentBBox": {
+        "x": 8,
+        "y": 6,
+        "w": 864,
+        "h": 234
+      },
+      "artSize": {
+        "w": 216,
+        "h": 58.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 3
+      },
+      "scale": 0.8905,
+      "scaleReduced": false,
+      "group": "gpu_l"
+    },
+    "gpu_l_3": {
+      "frame": {
+        "x": 2652,
+        "y": 488,
+        "w": 884,
+        "h": 244
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 884,
+        "h": 244
+      },
+      "sourceSize": {
+        "w": 884,
+        "h": 244
+      },
+      "contentBBox": {
+        "x": 8,
+        "y": 4,
+        "w": 864,
+        "h": 236
+      },
+      "artSize": {
+        "w": 216,
+        "h": 59
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 4
+      },
+      "scale": 0.8905,
+      "scaleReduced": false,
+      "group": "gpu_l"
+    }
+  },
+  "animations": {
+    "gpu_m": [
+      "gpu_m_0",
+      "gpu_m_1",
+      "gpu_m_2",
+      "gpu_m_3"
+    ],
+    "gpu_l": [
+      "gpu_l_0",
+      "gpu_l_1",
+      "gpu_l_2",
+      "gpu_l_3"
+    ]
+  },
+  "meta": {
+    "app": "bottleneck tools/gpu.mjs",
+    "version": "1.0",
+    "image": "sheet_gpu_216x40.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 3536,
+      "h": 732
+    },
+    "scale": "1",
+    "hdScale": 4,
+    "cell": {
+      "w": 221,
+      "h": 61
+    },
+    "frame": {
+      "w": 884,
+      "h": 244
+    },
+    "grid": {
+      "cols": 4,
+      "rows": 3
+    },
+    "targetSize": {
+      "w": 884,
+      "h": 183
+    },
+    "source": "s27_s.png, s27_m.png, s27_l.png",
+    "sheet": "S27",
+    "background": "#808080",
+    "quality": 90,
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "baseScale": 0.8905,
+    "scaleMode": "target-width (ein Maßstab je Karte/Animation, links+unten ausgerichtet)",
+    "kind": "gpu",
+    "cardArtSize": {
+      "gpu_s": {
+        "w": 112,
+        "h": 19
+      },
+      "gpu_m": {
+        "w": 176,
+        "h": 37.8
+      },
+      "gpu_l": {
+        "w": 216.3,
+        "h": 58
+      }
+    },
+    "animationCheck": {
+      "gpu_m": [
+        {
+          "vs": "0→1",
+          "meanAbsDiff": 11.22,
+          "pctPixelsOver24": 14.03
+        },
+        {
+          "vs": "0→2",
+          "meanAbsDiff": 11.24,
+          "pctPixelsOver24": 15.01
+        },
+        {
+          "vs": "0→3",
+          "meanAbsDiff": 11.62,
+          "pctPixelsOver24": 14.77
+        }
+      ],
+      "gpu_l": [
+        {
+          "vs": "0→1",
+          "meanAbsDiff": 17.25,
+          "pctPixelsOver24": 25.12
+        },
+        {
+          "vs": "0→2",
+          "meanAbsDiff": 17.5,
+          "pctPixelsOver24": 27
+        },
+        {
+          "vs": "0→3",
+          "meanAbsDiff": 18.67,
+          "pctPixelsOver24": 27.62
+        }
+      ]
+    }
+  }
+}

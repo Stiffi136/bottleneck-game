@@ -1,0 +1,63 @@
+{
+  "frames": {
+    "case_office": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 960,
+        "h": 1200
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 960,
+        "h": 1200
+      },
+      "sourceSize": {
+        "w": 960,
+        "h": 1200
+      },
+      "contentBBox": {
+        "x": 0,
+        "y": 0,
+        "w": 960,
+        "h": 1200
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "animations": {},
+  "meta": {
+    "app": "bottleneck tools/build-all.mjs",
+    "version": "1.0",
+    "image": "case_office.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 960,
+      "h": 1200
+    },
+    "scale": "1",
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "hdScale": 4,
+    "targetSize": {
+      "w": 240,
+      "h": 300
+    },
+    "source": "e03.png",
+    "kind": "object",
+    "crop": {
+      "x": 0,
+      "y": 0,
+      "w": 1122,
+      "h": 1402
+    },
+    "fit": "fill (Abweichung ≤ 2 %, nur Zuschnitt auf Inhalt)",
+    "background": "entfernt (grau, Flood-Fill)"
+  }
+}

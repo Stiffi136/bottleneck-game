@@ -1,0 +1,823 @@
+{
+  "frames": {
+    "fx_smoke_0": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 128
+      },
+      "contentBBox": {
+        "x": 18,
+        "y": 67,
+        "w": 27,
+        "h": 24
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 1
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "fx_smoke",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "fx_smoke_1": {
+      "frame": {
+        "x": 64,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 128
+      },
+      "contentBBox": {
+        "x": 12,
+        "y": 57,
+        "w": 37,
+        "h": 34
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 2
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "fx_smoke",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.355
+      }
+    },
+    "fx_smoke_2": {
+      "frame": {
+        "x": 128,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 128
+      },
+      "contentBBox": {
+        "x": 8,
+        "y": 45,
+        "w": 47,
+        "h": 50
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 3
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "fx_smoke",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.282
+      }
+    },
+    "fx_smoke_3": {
+      "frame": {
+        "x": 192,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 128
+      },
+      "contentBBox": {
+        "x": 7,
+        "y": 37,
+        "w": 48,
+        "h": 60
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 4
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "fx_smoke",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.18
+      }
+    },
+    "fx_smoke_4": {
+      "frame": {
+        "x": 256,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 128
+      },
+      "contentBBox": {
+        "x": 8,
+        "y": 30,
+        "w": 49,
+        "h": 72
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 5
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "fx_smoke",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.181
+      }
+    },
+    "fx_smoke_5": {
+      "frame": {
+        "x": 320,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 128
+      },
+      "contentBBox": {
+        "x": 7,
+        "y": 26,
+        "w": 48,
+        "h": 76
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 6
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "fx_smoke",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.103
+      }
+    },
+    "fx_smoke_6": {
+      "frame": {
+        "x": 384,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 128
+      },
+      "contentBBox": {
+        "x": 12,
+        "y": 30,
+        "w": 43,
+        "h": 68
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 7
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "fx_smoke",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.078
+      }
+    },
+    "fx_smoke_7": {
+      "frame": {
+        "x": 448,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 128
+      },
+      "contentBBox": {
+        "x": 12,
+        "y": 35,
+        "w": 38,
+        "h": 40
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 8
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "fx_smoke",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.015
+      }
+    },
+    "fx_fire_0": {
+      "frame": {
+        "x": 0,
+        "y": 128,
+        "w": 64,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 128
+      },
+      "contentBBox": {
+        "x": 10,
+        "y": 34,
+        "w": 44,
+        "h": 78
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 1
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "fx_fire",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "fx_fire_1": {
+      "frame": {
+        "x": 64,
+        "y": 128,
+        "w": 64,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 128
+      },
+      "contentBBox": {
+        "x": 7,
+        "y": 23,
+        "w": 48,
+        "h": 89
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 2
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "fx_fire",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.681
+      }
+    },
+    "fx_fire_2": {
+      "frame": {
+        "x": 128,
+        "y": 128,
+        "w": 64,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 128
+      },
+      "contentBBox": {
+        "x": 8,
+        "y": 16,
+        "w": 47,
+        "h": 96
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 3
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "fx_fire",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.59
+      }
+    },
+    "fx_fire_3": {
+      "frame": {
+        "x": 192,
+        "y": 128,
+        "w": 64,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 128
+      },
+      "contentBBox": {
+        "x": 8,
+        "y": 25,
+        "w": 47,
+        "h": 87
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 4
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "fx_fire",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.696
+      }
+    },
+    "fx_fire_4": {
+      "frame": {
+        "x": 256,
+        "y": 128,
+        "w": 64,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 128
+      },
+      "contentBBox": {
+        "x": 8,
+        "y": 30,
+        "w": 47,
+        "h": 82
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 5
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "fx_fire",
+      "registration": {
+        "dx": -1,
+        "dy": 0,
+        "iou": 0.732
+      }
+    },
+    "fx_fire_5": {
+      "frame": {
+        "x": 320,
+        "y": 128,
+        "w": 64,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 128
+      },
+      "contentBBox": {
+        "x": 9,
+        "y": 32,
+        "w": 47,
+        "h": 80
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 6
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "fx_fire",
+      "registration": {
+        "dx": -5,
+        "dy": 0,
+        "iou": 0.755
+      }
+    },
+    "fx_lightning_0": {
+      "frame": {
+        "x": 0,
+        "y": 256,
+        "w": 64,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 128
+      },
+      "contentBBox": {
+        "x": 13,
+        "y": 2,
+        "w": 37,
+        "h": 124
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 1
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "fx_lightning",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "fx_lightning_1": {
+      "frame": {
+        "x": 64,
+        "y": 256,
+        "w": 64,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 128
+      },
+      "contentBBox": {
+        "x": 8,
+        "y": 2,
+        "w": 48,
+        "h": 124
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 2
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "fx_lightning",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.471
+      }
+    },
+    "fx_lightning_2": {
+      "frame": {
+        "x": 128,
+        "y": 256,
+        "w": 64,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 128
+      },
+      "contentBBox": {
+        "x": 9,
+        "y": 2,
+        "w": 47,
+        "h": 124
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 3
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "fx_lightning",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.378
+      }
+    },
+    "fx_lightning_3": {
+      "frame": {
+        "x": 192,
+        "y": 256,
+        "w": 64,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 128
+      },
+      "contentBBox": {
+        "x": 4,
+        "y": 2,
+        "w": 56,
+        "h": 124
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 4
+      },
+      "scale": 0.3536,
+      "scaleReduced": false,
+      "group": "fx_lightning",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.338
+      }
+    }
+  },
+  "animations": {
+    "fx_smoke": [
+      "fx_smoke_0",
+      "fx_smoke_1",
+      "fx_smoke_2",
+      "fx_smoke_3",
+      "fx_smoke_4",
+      "fx_smoke_5",
+      "fx_smoke_6",
+      "fx_smoke_7"
+    ],
+    "fx_fire": [
+      "fx_fire_0",
+      "fx_fire_1",
+      "fx_fire_2",
+      "fx_fire_3",
+      "fx_fire_4",
+      "fx_fire_5"
+    ],
+    "fx_lightning": [
+      "fx_lightning_0",
+      "fx_lightning_1",
+      "fx_lightning_2",
+      "fx_lightning_3"
+    ]
+  },
+  "meta": {
+    "app": "bottleneck tools/clean-sheet.mjs --hd",
+    "version": "1.0",
+    "image": "sheet_fx_tall_16x32.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 512,
+      "h": 384
+    },
+    "scale": "1",
+    "hdScale": 4,
+    "cell": {
+      "w": 16,
+      "h": 32
+    },
+    "frame": {
+      "w": 64,
+      "h": 128
+    },
+    "grid": {
+      "cols": 8,
+      "rows": 3
+    },
+    "targetSize": {
+      "w": 128,
+      "h": 96
+    },
+    "source": "s33.png",
+    "sheet": "S33",
+    "background": "auto",
+    "quality": 90,
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "baseScale": 0.35359,
+    "scaleMode": "cell",
+    "gridLinesRemoved": 13
+  }
+}

@@ -1,0 +1,29 @@
+{
+ "webpPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_cooler_anim_60x52.webp",
+ "jsonPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_cooler_anim_60x52.json",
+ "previewDark": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_cooler_anim_60x52_hd_dark.png",
+ "previewChecker": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_cooler_anim_60x52_hd_checker.png",
+ "warnings": [],
+ "reduced": [],
+ "gridLines": [],
+ "bg": [
+  128,
+  127,
+  127
+ ],
+ "semiBgPct": 0.3,
+ "droppedSpecks": 3,
+ "sourceSize": [
+  1558,
+  1010
+ ],
+ "baseScale": 0.6169981824883387,
+ "nativeScale": 0.6169981824883387,
+ "hdScale": 4,
+ "rawSize": [
+  1558,
+  1010
+ ],
+ "rawStacked": false,
+ "ms": 4909
+}

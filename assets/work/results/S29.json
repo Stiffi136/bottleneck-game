@@ -1,0 +1,67 @@
+{
+ "webpPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_bg_tiles_64.webp",
+ "jsonPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_bg_tiles_64.json",
+ "previewDark": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_bg_tiles_64_hd_dark.png",
+ "warnings": [
+  "bg_tile_pcb: Kanten nicht nahtlos (Naht links/rechts 2.8, oben/unten 2.5 gegenüber Nachbarn 0.5/1.3).",
+  "bg_tile_bios: Kanten nicht nahtlos (Naht links/rechts 17.8, oben/unten 11.3 gegenüber Nachbarn 8.5/5.1)."
+ ],
+ "info": {
+  "tiles": {
+   "bg_tile_pcb": {
+    "fill": true,
+    "edgeCutSrc": {
+     "l": 1,
+     "r": 0,
+     "t": 1,
+     "b": 0
+    },
+    "seam": {
+     "horizontal": 2.8,
+     "vertical": 2.5,
+     "neighbourX": 0.5,
+     "neighbourY": 1.3
+    },
+    "tileable": false
+   },
+   "bg_tile_esd": {
+    "fill": true,
+    "edgeCutSrc": {
+     "l": 5,
+     "r": 2,
+     "t": 1,
+     "b": 1
+    },
+    "seam": {
+     "horizontal": 2.4,
+     "vertical": 1,
+     "neighbourX": 7.5,
+     "neighbourY": 7.9
+    },
+    "tileable": true
+   },
+   "bg_tile_bios": {
+    "fill": false,
+    "contentSrc": [
+     178,
+     176
+    ],
+    "seam": {
+     "horizontal": 17.8,
+     "vertical": 11.3,
+     "neighbourX": 8.5,
+     "neighbourY": 5.1
+    },
+    "tileable": false
+   }
+  }
+ },
+ "frames": 3,
+ "hdScale": 4,
+ "rawSize": [
+  2172,
+  724
+ ],
+ "rawStacked": false,
+ "ms": 265
+}

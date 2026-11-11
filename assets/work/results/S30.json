@@ -1,0 +1,74 @@
+{
+ "webpPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_logo_192x48.webp",
+ "jsonPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_logo_192x48.json",
+ "previewDark": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_logo_192x48_hd_dark.png",
+ "previewChecker": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_logo_192x48_hd_checker.png",
+ "warnings": [
+  "Seitenverhältnis der Quelle (2172x724) passt nicht zu 768x48."
+ ],
+ "reduced": [],
+ "gridLines": [
+  {
+   "axis": "v",
+   "boundary": 0,
+   "thickness": 1,
+   "cleared": 728
+  },
+  {
+   "axis": "v",
+   "boundary": 1,
+   "thickness": 2,
+   "cleared": 867
+  },
+  {
+   "axis": "v",
+   "boundary": 2,
+   "thickness": 1,
+   "cleared": 732
+  },
+  {
+   "axis": "v",
+   "boundary": 3,
+   "thickness": 2,
+   "cleared": 731
+  },
+  {
+   "axis": "v",
+   "boundary": 4,
+   "thickness": 1,
+   "cleared": 728
+  },
+  {
+   "axis": "h",
+   "boundary": 0,
+   "thickness": 1,
+   "cleared": 2148
+  },
+  {
+   "axis": "h",
+   "boundary": 1,
+   "thickness": 1,
+   "cleared": 2149
+  }
+ ],
+ "bg": [
+  131,
+  130,
+  130
+ ],
+ "semiBgPct": 0.1,
+ "droppedSpecks": 0,
+ "sourceSize": [
+  2172,
+  724
+ ],
+ "baseScale": 0.4896907216494845,
+ "nativeScale": 0.8397790055248618,
+ "hdScale": 4,
+ "rawSize": [
+  2172,
+  724
+ ],
+ "rawStacked": false,
+ "ms": 3927
+}

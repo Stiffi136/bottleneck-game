@@ -1,0 +1,33 @@
+{
+ "webpPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_tall_16x96.webp",
+ "jsonPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_tall_16x96.json",
+ "previewDark": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_tall_16x96_hd_dark.png",
+ "previewChecker": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_tall_16x96_hd_checker.png",
+ "warnings": [
+  "Verschmolzene Sprites an der schmalsten Stelle nahe der Zellgrenze getrennt: 1.6."
+ ],
+ "reduced": [
+  "ui_thermo_v_frame (0.95×)"
+ ],
+ "gridLines": [],
+ "bg": [
+  128,
+  128,
+  127
+ ],
+ "semiBgPct": 0.1,
+ "droppedSpecks": 3,
+ "sourceSize": [
+  1448,
+  2172
+ ],
+ "baseScale": 0.35359116022099446,
+ "nativeScale": 0.35359116022099446,
+ "hdScale": 4,
+ "rawSize": [
+  1448,
+  2172
+ ],
+ "rawStacked": true,
+ "ms": 5211
+}

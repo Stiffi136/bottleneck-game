@@ -1,0 +1,29 @@
+{
+ "webpPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_hw_storage_psu_32.webp",
+ "jsonPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_hw_storage_psu_32.json",
+ "previewDark": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_hw_storage_psu_32_hd_dark.png",
+ "previewChecker": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_hw_storage_psu_32_hd_checker.png",
+ "warnings": [],
+ "reduced": [],
+ "gridLines": [],
+ "bg": [
+  130,
+  129,
+  129
+ ],
+ "semiBgPct": 0,
+ "droppedSpecks": 4,
+ "sourceSize": [
+  1774,
+  887
+ ],
+ "baseScale": 0.43291995490417134,
+ "nativeScale": 0.43291995490417134,
+ "hdScale": 4,
+ "rawSize": [
+  1774,
+  887
+ ],
+ "rawStacked": false,
+ "ms": 2663
+}

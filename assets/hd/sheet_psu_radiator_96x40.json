@@ -1,0 +1,222 @@
+{
+  "frames": {
+    "psu_cheap": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 384,
+        "h": 160
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 384,
+        "h": 160
+      },
+      "sourceSize": {
+        "w": 384,
+        "h": 160
+      },
+      "contentBBox": {
+        "x": 43,
+        "y": 1,
+        "w": 298,
+        "h": 158
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 1
+      },
+      "scale": 0.518,
+      "scaleReduced": false
+    },
+    "psu_standard": {
+      "frame": {
+        "x": 384,
+        "y": 0,
+        "w": 384,
+        "h": 160
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 384,
+        "h": 160
+      },
+      "sourceSize": {
+        "w": 384,
+        "h": 160
+      },
+      "contentBBox": {
+        "x": 44,
+        "y": 1,
+        "w": 296,
+        "h": 158
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 2
+      },
+      "scale": 0.518,
+      "scaleReduced": false
+    },
+    "psu_premium": {
+      "frame": {
+        "x": 768,
+        "y": 0,
+        "w": 384,
+        "h": 160
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 384,
+        "h": 160
+      },
+      "sourceSize": {
+        "w": 384,
+        "h": 160
+      },
+      "contentBBox": {
+        "x": 54,
+        "y": 1,
+        "w": 276,
+        "h": 158
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 3
+      },
+      "scale": 0.518,
+      "scaleReduced": false
+    },
+    "radiator_240": {
+      "frame": {
+        "x": 0,
+        "y": 160,
+        "w": 384,
+        "h": 160
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 384,
+        "h": 160
+      },
+      "sourceSize": {
+        "w": 384,
+        "h": 160
+      },
+      "contentBBox": {
+        "x": 47,
+        "y": 19,
+        "w": 291,
+        "h": 122
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 1
+      },
+      "scale": 0.518,
+      "scaleReduced": false
+    },
+    "radiator_360": {
+      "frame": {
+        "x": 384,
+        "y": 160,
+        "w": 384,
+        "h": 160
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 384,
+        "h": 160
+      },
+      "sourceSize": {
+        "w": 384,
+        "h": 160
+      },
+      "contentBBox": {
+        "x": 14,
+        "y": 26,
+        "w": 356,
+        "h": 108
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 2
+      },
+      "scale": 0.518,
+      "scaleReduced": false
+    }
+  },
+  "animations": {},
+  "meta": {
+    "app": "bottleneck tools/clean-sheet.mjs --hd",
+    "version": "1.0",
+    "image": "sheet_psu_radiator_96x40.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 1152,
+      "h": 320
+    },
+    "scale": "1",
+    "hdScale": 4,
+    "cell": {
+      "w": 96,
+      "h": 40
+    },
+    "frame": {
+      "w": 384,
+      "h": 160
+    },
+    "grid": {
+      "cols": 3,
+      "rows": 2
+    },
+    "targetSize": {
+      "w": 288,
+      "h": 80
+    },
+    "source": "s28.png",
+    "sheet": "S28",
+    "background": "auto",
+    "quality": 90,
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "baseScale": 0.51803,
+    "scaleMode": "fit",
+    "gridLinesRemoved": 7
+  }
+}

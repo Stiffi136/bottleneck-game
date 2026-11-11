@@ -1,0 +1,32 @@
+{
+ "webpPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_ui_bars_160x12.webp",
+ "jsonPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_ui_bars_160x12.json",
+ "previewDark": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_ui_bars_160x12_hd_dark.png",
+ "previewChecker": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_ui_bars_160x12_hd_checker.png",
+ "warnings": [],
+ "reduced": [
+  "ui_thermo_h_frame (0.95×)",
+  "ui_wattbar_frame (0.96×)"
+ ],
+ "gridLines": [],
+ "bg": [
+  126,
+  126,
+  126
+ ],
+ "semiBgPct": 0.1,
+ "droppedSpecks": 0,
+ "sourceSize": [
+  1526,
+  1030
+ ],
+ "baseScale": 0.4194072961864892,
+ "nativeScale": 0.4194072961864892,
+ "hdScale": 4,
+ "rawSize": [
+  1526,
+  1030
+ ],
+ "rawStacked": false,
+ "ms": 2341
+}

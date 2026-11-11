@@ -1,0 +1,20 @@
+{
+ "webpPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/case_glass_reflex.webp",
+ "jsonPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/case_glass_reflex.json",
+ "previewDark": "/workspace/projekte/roguelike-deckbuilder/assets/preview/case_glass_reflex_hd_dark.png",
+ "warnings": [],
+ "info": {
+  "baseGray": 126,
+  "opaqueShare": 0.1823,
+  "softShare": 0.0109,
+  "ratioDeviationPct": 0.07
+ },
+ "frames": 1,
+ "hdScale": 4,
+ "rawSize": [
+  1131,
+  1391
+ ],
+ "rawStacked": false,
+ "ms": 247
+}

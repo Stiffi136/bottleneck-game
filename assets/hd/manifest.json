@@ -1,0 +1,2834 @@
+{
+  "generated": "2026-11-11T03:22:28.668Z",
+  "tool": "tools/build-all.mjs",
+  "totals": {
+    "sheets": 34,
+    "singles": 11,
+    "frames": 427,
+    "hdBytes": 3592181
+  },
+  "decisions": {
+    "S16": {
+      "chosen": "s16v2.png",
+      "rejected": "s16.png",
+      "reason": "Beide 1774×887, 12/12 Zellen, gleiche Struktur. v2 ist besser lesbar und näher an der Tabelle: CPU 1→5 steigert den Glanz sichtbar (v1: C1 und C2 fast gleich), C5 hat goldene Pins, C9 hat ein klares rotes Cache-Stapel-Symbol (v1: graues, schwer lesbares Symbol), Mainboards mit kräftigeren Details und blauen DIMM-Slots. Sprite-Größen 26–28 px (v1 24–26) passen zu S17–S19 (27–30 px)."
+    }
+  },
+  "sheets": [
+    {
+      "id": "S01",
+      "name": "sheet_ui_panels_24",
+      "kind": "sheet",
+      "group": "ui",
+      "raw": "s01.png",
+      "target": {
+        "w": 96,
+        "h": 120
+      },
+      "cell": {
+        "w": 24,
+        "h": 24
+      },
+      "files": {
+        "webp": "sheet_ui_panels_24.webp",
+        "json": "sheet_ui_panels_24.json",
+        "previewDark": "../preview/sheet_ui_panels_24_hd_dark.png",
+        "bytes": 32312
+      },
+      "atlas": {
+        "w": 384,
+        "h": 480
+      },
+      "frameSize": {
+        "w": 96,
+        "h": 96
+      },
+      "frames": 16,
+      "animations": {
+        "ui_button_gruen": 3,
+        "ui_button_rot": 3,
+        "ui_button_grau": 3,
+        "ui_button_blau": 3
+      },
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1122,
+        1402
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 0.8,
+        "target": 0.8,
+        "deviationPct": 0
+      },
+      "expectedFrames": 16,
+      "reducedSprites": [],
+      "warnings": [],
+      "info": {
+        "notes": [
+          "8 Animationsframes per Silhouette feinjustiert."
+        ]
+      },
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "sauber"
+    },
+    {
+      "id": "S02",
+      "name": "sheet_ui_small_32x16",
+      "kind": "sheet",
+      "group": "ui",
+      "raw": "s02.png",
+      "target": {
+        "w": 128,
+        "h": 48
+      },
+      "cell": {
+        "w": 32,
+        "h": 16
+      },
+      "files": {
+        "webp": "sheet_ui_small_32x16.webp",
+        "json": "sheet_ui_small_32x16.json",
+        "previewDark": "../preview/sheet_ui_small_32x16_hd_dark.png",
+        "bytes": 19953
+      },
+      "atlas": {
+        "w": 512,
+        "h": 192
+      },
+      "frameSize": {
+        "w": 128,
+        "h": 64
+      },
+      "frames": 11,
+      "animations": {
+        "ui_tab": 2,
+        "ui_toggle": 2
+      },
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "fit"
+      },
+      "rawSize": [
+        2172,
+        724
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 3,
+        "target": 2.667,
+        "deviationPct": 12.5
+      },
+      "expectedFrames": 11,
+      "reducedSprites": [],
+      "touchingFrameEdge": [
+        "ui_sheet_handle"
+      ],
+      "warnings": [
+        "Seitenverhältnis der Quelle (2172x724) passt nicht zu 128x48.",
+        "Seitenverhältnis Rohbild 2172×724 (3.00) ≠ Ziel 128×48 (2.67), Abweichung 13 %: Zellen/Sprites sind in der Quelle anders proportioniert als vorgesehen."
+      ],
+      "info": {
+        "notes": [
+          "2 Animationsframes per Silhouette feinjustiert."
+        ]
+      },
+      "status": "mängel",
+      "autoStatus": "problem",
+      "review": "Quelle 3:1 statt 2,67:1 (Sprites anders proportioniert, einheitlicher Maßstab); lesbar"
+    },
+    {
+      "id": "S03",
+      "name": "sheet_ui_bars_160x12",
+      "kind": "sheet",
+      "group": "ui",
+      "raw": "s03.png",
+      "target": {
+        "w": 160,
+        "h": 108
+      },
+      "cell": {
+        "w": 160,
+        "h": 12
+      },
+      "files": {
+        "webp": "sheet_ui_bars_160x12.webp",
+        "json": "sheet_ui_bars_160x12.json",
+        "previewDark": "../preview/sheet_ui_bars_160x12_hd_dark.png",
+        "bytes": 22862
+      },
+      "atlas": {
+        "w": 640,
+        "h": 432
+      },
+      "frameSize": {
+        "w": 640,
+        "h": 48
+      },
+      "frames": 9,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1526,
+        1030
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 1.482,
+        "target": 1.481,
+        "deviationPct": 0
+      },
+      "expectedFrames": 9,
+      "reducedSprites": [
+        "ui_thermo_h_frame (0.95×)",
+        "ui_wattbar_frame (0.96×)"
+      ],
+      "touchingFrameEdge": [
+        "ui_thermo_h_frame",
+        "ui_wattbar_frame"
+      ],
+      "warnings": [
+        "Sprites größer als ihr Frame, für die Zelle verkleinert: ui_thermo_h_frame (0.95×), ui_wattbar_frame (0.96×).",
+        "Sprite ragt in der Quelle über seine Zellgrenze (nicht zentriert/zu groß): ui_thermo_h_frame (unten), ui_wattbar_frame (unten), ui_wattbar_fill_0 (unten), ui_wattbar_fill_1 (unten)."
+      ],
+      "info": {
+        "notes": []
+      },
+      "status": "ok",
+      "autoStatus": "mängel",
+      "review": "Balken sauber; Rahmen/Füllung ragen minimal über die Zelle"
+    },
+    {
+      "id": "S04",
+      "name": "sheet_ui_boxes_56x24",
+      "kind": "sheet",
+      "group": "ui",
+      "raw": "s04.png",
+      "target": {
+        "w": 168,
+        "h": 72
+      },
+      "cell": {
+        "w": 56,
+        "h": 24
+      },
+      "files": {
+        "webp": "sheet_ui_boxes_56x24.webp",
+        "json": "sheet_ui_boxes_56x24.json",
+        "previewDark": "../preview/sheet_ui_boxes_56x24_hd_dark.png",
+        "bytes": 31790
+      },
+      "atlas": {
+        "w": 672,
+        "h": 288
+      },
+      "frameSize": {
+        "w": 224,
+        "h": 96
+      },
+      "frames": 8,
+      "animations": {
+        "ui_box_leistung": 3,
+        "ui_box_takt": 3
+      },
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "fit"
+      },
+      "rawSize": [
+        2172,
+        724
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 3,
+        "target": 2.333,
+        "deviationPct": 28.6
+      },
+      "expectedFrames": 8,
+      "reducedSprites": [],
+      "touchingFrameEdge": [
+        "ui_box_leistung_0",
+        "ui_box_leistung_1",
+        "ui_box_leistung_2",
+        "ui_box_takt_0",
+        "ui_box_takt_1",
+        "ui_box_takt_2"
+      ],
+      "warnings": [
+        "Seitenverhältnis der Quelle (2172x724) passt nicht zu 168x72.",
+        "Seitenverhältnis Rohbild 2172×724 (3.00) ≠ Ziel 168×72 (2.33), Abweichung 29 %: Zellen/Sprites sind in der Quelle anders proportioniert als vorgesehen."
+      ],
+      "info": {
+        "notes": [
+          "4 Animationsframes per Silhouette feinjustiert."
+        ]
+      },
+      "status": "mängel",
+      "autoStatus": "problem",
+      "review": "Quelle 3:1 statt 2,33:1 (Boxen ~29 % anders proportioniert); lesbar"
+    },
+    {
+      "id": "S05",
+      "name": "sheet_tall_16x96",
+      "kind": "sheet",
+      "group": "ui",
+      "raw": [
+        "s05a.png",
+        "s05b.png"
+      ],
+      "target": {
+        "w": 128,
+        "h": 192
+      },
+      "cell": {
+        "w": 16,
+        "h": 96
+      },
+      "files": {
+        "webp": "sheet_tall_16x96.webp",
+        "json": "sheet_tall_16x96.json",
+        "previewDark": "../preview/sheet_tall_16x96_hd_dark.png",
+        "bytes": 79471
+      },
+      "atlas": {
+        "w": 512,
+        "h": 768
+      },
+      "frameSize": {
+        "w": 64,
+        "h": 384
+      },
+      "frames": 15,
+      "animations": {
+        "ui_thermo_v_frame": 2,
+        "ram_stick_rgb": 8
+      },
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1448,
+        2172
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 0.667,
+        "target": 0.667,
+        "deviationPct": 0
+      },
+      "expectedFrames": 15,
+      "reducedSprites": [
+        "ui_thermo_v_frame (0.95×)"
+      ],
+      "touchingFrameEdge": [
+        "ui_thermo_v_frame_0",
+        "ui_thermo_v_frame_1"
+      ],
+      "warnings": [
+        "Verschmolzene Sprites an der schmalsten Stelle nahe der Zellgrenze getrennt: 1.6.",
+        "Sprites größer als ihr Frame, für die Zelle verkleinert: ui_thermo_v_frame (0.95×)."
+      ],
+      "info": {
+        "notes": [
+          "1 Animationsframes per Silhouette feinjustiert."
+        ]
+      },
+      "status": "ok",
+      "autoStatus": "mängel",
+      "review": "zwei Hälften gestapelt, 15/15 Zellen"
+    },
+    {
+      "id": "S06",
+      "name": "sheet_ui_slots_40x40",
+      "kind": "sheet",
+      "group": "ui",
+      "raw": "s06.png",
+      "target": {
+        "w": 240,
+        "h": 80
+      },
+      "cell": {
+        "w": 40,
+        "h": 40
+      },
+      "files": {
+        "webp": "sheet_ui_slots_40x40.webp",
+        "json": "sheet_ui_slots_40x40.json",
+        "previewDark": "../preview/sheet_ui_slots_40x40_hd_dark.png",
+        "bytes": 45705
+      },
+      "atlas": {
+        "w": 960,
+        "h": 320
+      },
+      "frameSize": {
+        "w": 160,
+        "h": 160
+      },
+      "frames": 11,
+      "animations": {
+        "ui_mini_frame_software_l": 6
+      },
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        2172,
+        724
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 3,
+        "target": 3,
+        "deviationPct": 0
+      },
+      "expectedFrames": 11,
+      "reducedSprites": [],
+      "touchingFrameEdge": [
+        "ui_slot_empty_lager"
+      ],
+      "warnings": [
+        "Sprite ragt in der Quelle über seine Zellgrenze (nicht zentriert/zu groß): ui_slot_empty_lager (unten)."
+      ],
+      "info": {
+        "notes": [
+          "5 Animationsframes per Silhouette feinjustiert."
+        ]
+      },
+      "status": "ok",
+      "autoStatus": "mängel",
+      "review": "sauber"
+    },
+    {
+      "id": "S07",
+      "name": "sheet_icons16_werte_16",
+      "kind": "sheet",
+      "group": "icons",
+      "raw": "s07.png",
+      "target": {
+        "w": 96,
+        "h": 64
+      },
+      "cell": {
+        "w": 16,
+        "h": 16
+      },
+      "files": {
+        "webp": "sheet_icons16_werte_16.webp",
+        "json": "sheet_icons16_werte_16.json",
+        "previewDark": "../preview/sheet_icons16_werte_16_hd_dark.png",
+        "bytes": 53062
+      },
+      "atlas": {
+        "w": 384,
+        "h": 256
+      },
+      "frameSize": {
+        "w": 64,
+        "h": 64
+      },
+      "frames": 24,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1536,
+        1024
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 1.5,
+        "target": 1.5,
+        "deviationPct": 0
+      },
+      "expectedFrames": 24,
+      "reducedSprites": [],
+      "warnings": [],
+      "info": {
+        "notes": []
+      },
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "sauber"
+    },
+    {
+      "id": "S08",
+      "name": "sheet_icons16_menue_16",
+      "kind": "sheet",
+      "group": "icons",
+      "raw": "s08.png",
+      "target": {
+        "w": 96,
+        "h": 48
+      },
+      "cell": {
+        "w": 16,
+        "h": 16
+      },
+      "files": {
+        "webp": "sheet_icons16_menue_16.webp",
+        "json": "sheet_icons16_menue_16.json",
+        "previewDark": "../preview/sheet_icons16_menue_16_hd_dark.png",
+        "bytes": 40863
+      },
+      "atlas": {
+        "w": 384,
+        "h": 192
+      },
+      "frameSize": {
+        "w": 64,
+        "h": 64
+      },
+      "frames": 18,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1774,
+        887
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 2,
+        "target": 2,
+        "deviationPct": 0
+      },
+      "expectedFrames": 18,
+      "reducedSprites": [],
+      "touchingFrameEdge": [
+        "icon16_rgb",
+        "icon16_verkaufen"
+      ],
+      "warnings": [],
+      "info": {
+        "notes": []
+      },
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "sauber"
+    },
+    {
+      "id": "S09",
+      "name": "sheet_icons8_static_8",
+      "kind": "sheet",
+      "group": "icons",
+      "raw": "s09.png",
+      "target": {
+        "w": 40,
+        "h": 32
+      },
+      "cell": {
+        "w": 8,
+        "h": 8
+      },
+      "files": {
+        "webp": "sheet_icons8_static_8.webp",
+        "json": "sheet_icons8_static_8.json",
+        "previewDark": "../preview/sheet_icons8_static_8_hd_dark.png",
+        "bytes": 26654
+      },
+      "atlas": {
+        "w": 160,
+        "h": 128
+      },
+      "frameSize": {
+        "w": 32,
+        "h": 32
+      },
+      "frames": 19,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1402,
+        1122
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 1.25,
+        "target": 1.25,
+        "deviationPct": 0
+      },
+      "expectedFrames": 19,
+      "reducedSprites": [],
+      "touchingFrameEdge": [
+        "icon8_leistung",
+        "icon8_takt",
+        "icon8_hitze",
+        "icon8_kuehlung",
+        "icon8_kerne",
+        "card_typeicon8_cpu",
+        "card_typeicon8_ram"
+      ],
+      "warnings": [],
+      "info": {
+        "notes": []
+      },
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "sauber"
+    },
+    {
+      "id": "S10",
+      "name": "sheet_card_frames_48x64",
+      "kind": "sheet",
+      "group": "cards",
+      "raw": "s10.png",
+      "target": {
+        "w": 192,
+        "h": 192
+      },
+      "cell": {
+        "w": 48,
+        "h": 64
+      },
+      "files": {
+        "webp": "sheet_card_frames_48x64.webp",
+        "json": "sheet_card_frames_48x64.json",
+        "previewDark": "../preview/sheet_card_frames_48x64_hd_dark.png",
+        "bytes": 97664
+      },
+      "atlas": {
+        "w": 768,
+        "h": 768
+      },
+      "frameSize": {
+        "w": 192,
+        "h": 256
+      },
+      "frames": 12,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1254,
+        1254
+      ],
+      "gridLinesRemoved": 1,
+      "aspect": {
+        "raw": 1,
+        "target": 1,
+        "deviationPct": 0
+      },
+      "expectedFrames": 12,
+      "reducedSprites": [],
+      "warnings": [],
+      "info": {
+        "notes": []
+      },
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "Schatten-Dither jetzt transparent",
+      "note": "Karten-Schatten (r3c3, Dither-Punkte): graue Zwischenräume per --key-cells transparent."
+    },
+    {
+      "id": "S11",
+      "name": "sheet_card_overlays_48x64",
+      "kind": "sheet",
+      "group": "cards",
+      "raw": "s11.png",
+      "target": {
+        "w": 192,
+        "h": 256
+      },
+      "cell": {
+        "w": 48,
+        "h": 64
+      },
+      "files": {
+        "webp": "sheet_card_overlays_48x64.webp",
+        "json": "sheet_card_overlays_48x64.json",
+        "previewDark": "../preview/sheet_card_overlays_48x64_hd_dark.png",
+        "bytes": 192711
+      },
+      "atlas": {
+        "w": 768,
+        "h": 1024
+      },
+      "frameSize": {
+        "w": 192,
+        "h": 256
+      },
+      "frames": 13,
+      "animations": {
+        "card_ov_uebertaktet": 4,
+        "card_ov_effizient": 4,
+        "card_ov_instabil": 4
+      },
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1086,
+        1448
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 0.75,
+        "target": 0.75,
+        "deviationPct": 0
+      },
+      "expectedFrames": 13,
+      "reducedSprites": [],
+      "touchingFrameEdge": [
+        "card_ov_uebertaktet_2"
+      ],
+      "warnings": [
+        "Im Rohbild am Bildrand abgeschnitten (Sprite berührt den Rand der Quelle): card_ov_uebertaktet_1 (oben), card_ov_uebertaktet_2 (oben), card_ov_uebertaktet_3 (oben)."
+      ],
+      "info": {
+        "notes": [
+          "6 Animationsframes per Silhouette feinjustiert."
+        ]
+      },
+      "status": "mängel",
+      "autoStatus": "mängel",
+      "review": "Flammen (uebertaktet) oben am Rohbild-Rand abgeschnitten",
+      "note": "Innenflächen der Rahmen per --holes transparent; Debuff-Raster (r4c1) per --key-cells."
+    },
+    {
+      "id": "S12",
+      "name": "sheet_card_anim_52x68",
+      "kind": "sheet",
+      "group": "cards",
+      "raw": "s12.png",
+      "target": {
+        "w": 312,
+        "h": 204
+      },
+      "cell": {
+        "w": 52,
+        "h": 68
+      },
+      "files": {
+        "webp": "sheet_card_anim_52x68.webp",
+        "json": "sheet_card_anim_52x68.json",
+        "previewDark": "../preview/sheet_card_anim_52x68_hd_dark.png",
+        "bytes": 127816
+      },
+      "atlas": {
+        "w": 1248,
+        "h": 816
+      },
+      "frameSize": {
+        "w": 208,
+        "h": 272
+      },
+      "frames": 16,
+      "animations": {
+        "card_ov_optimiert": 6,
+        "card_frame_software_l": 6,
+        "ui_card_highlight": 4
+      },
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1536,
+        1024
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 1.5,
+        "target": 1.529,
+        "deviationPct": -1.9
+      },
+      "expectedFrames": 16,
+      "reducedSprites": [],
+      "touchingFrameEdge": [
+        "ui_card_highlight_2"
+      ],
+      "warnings": [
+        "Animations-Anker unsicher (Silhouette weicht stark ab, nicht ausgerichtet): ui_card_highlight_1 (IoU 0.551), ui_card_highlight_2 (IoU 0.306), ui_card_highlight_3 (IoU 0.508).",
+        "Sprite ragt in der Quelle über seine Zellgrenze (nicht zentriert/zu groß): ui_card_highlight_2 (rechts)."
+      ],
+      "info": {
+        "notes": [
+          "10 Animationsframes per Silhouette feinjustiert."
+        ]
+      },
+      "status": "ok",
+      "autoStatus": "problem",
+      "review": "Rahmen innen transparent, Highlight pulsiert",
+      "note": "Innenflächen der Rahmen per --holes transparent. Highlight-Frames pulsieren (Silhouette ändert sich, kein Anker-Fehler)."
+    },
+    {
+      "id": "S13",
+      "name": "sheet_booster_40x56",
+      "kind": "sheet",
+      "group": "cards",
+      "raw": "s13.png",
+      "target": {
+        "w": 160,
+        "h": 56
+      },
+      "cell": {
+        "w": 40,
+        "h": 56
+      },
+      "files": {
+        "webp": "sheet_booster_40x56.webp",
+        "json": "sheet_booster_40x56.json",
+        "previewDark": "../preview/sheet_booster_40x56_hd_dark.png",
+        "bytes": 32636
+      },
+      "atlas": {
+        "w": 640,
+        "h": 224
+      },
+      "frameSize": {
+        "w": 160,
+        "h": 224
+      },
+      "frames": 4,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        2122,
+        741
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 2.864,
+        "target": 2.857,
+        "deviationPct": 0.2
+      },
+      "expectedFrames": 4,
+      "reducedSprites": [],
+      "warnings": [],
+      "info": {
+        "notes": []
+      },
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "sauber"
+    },
+    {
+      "id": "S14",
+      "name": "sheet_misc_32",
+      "kind": "sheet",
+      "group": "cards",
+      "raw": "s14.png",
+      "target": {
+        "w": 96,
+        "h": 64
+      },
+      "cell": {
+        "w": 32,
+        "h": 32
+      },
+      "files": {
+        "webp": "sheet_misc_32.webp",
+        "json": "sheet_misc_32.json",
+        "previewDark": "../preview/sheet_misc_32_hd_dark.png",
+        "bytes": 31697
+      },
+      "atlas": {
+        "w": 384,
+        "h": 256
+      },
+      "frameSize": {
+        "w": 128,
+        "h": 128
+      },
+      "frames": 6,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1536,
+        1024
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 1.5,
+        "target": 1.5,
+        "deviationPct": 0
+      },
+      "expectedFrames": 6,
+      "reducedSprites": [],
+      "warnings": [],
+      "info": {
+        "notes": []
+      },
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "Vollflächen-Art, sauber"
+    },
+    {
+      "id": "S15",
+      "name": "sheet_bench_boss_32",
+      "kind": "sheet",
+      "group": "cards",
+      "raw": "s15.png",
+      "target": {
+        "w": 192,
+        "h": 64
+      },
+      "cell": {
+        "w": 32,
+        "h": 32
+      },
+      "files": {
+        "webp": "sheet_bench_boss_32.webp",
+        "json": "sheet_bench_boss_32.json",
+        "previewDark": "../preview/sheet_bench_boss_32_hd_dark.png",
+        "bytes": 86398
+      },
+      "atlas": {
+        "w": 768,
+        "h": 256
+      },
+      "frameSize": {
+        "w": 128,
+        "h": 128
+      },
+      "frames": 12,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        2172,
+        724
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 3,
+        "target": 3,
+        "deviationPct": 0
+      },
+      "expectedFrames": 12,
+      "reducedSprites": [],
+      "warnings": [],
+      "info": {
+        "notes": []
+      },
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "sauber"
+    },
+    {
+      "id": "S16",
+      "name": "sheet_hw_mb_cpu_32",
+      "kind": "sheet",
+      "group": "hardware",
+      "raw": "s16v2.png",
+      "target": {
+        "w": 192,
+        "h": 96
+      },
+      "cell": {
+        "w": 32,
+        "h": 32
+      },
+      "files": {
+        "webp": "sheet_hw_mb_cpu_32.webp",
+        "json": "sheet_hw_mb_cpu_32.json",
+        "previewDark": "../preview/sheet_hw_mb_cpu_32_hd_dark.png",
+        "bytes": 53584
+      },
+      "atlas": {
+        "w": 768,
+        "h": 384
+      },
+      "frameSize": {
+        "w": 128,
+        "h": 128
+      },
+      "frames": 12,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1774,
+        887
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 2,
+        "target": 2,
+        "deviationPct": 0
+      },
+      "expectedFrames": 12,
+      "reducedSprites": [],
+      "warnings": [],
+      "info": {
+        "notes": []
+      },
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "s16v2",
+      "note": "s16v2.png statt s16.png (siehe decisions)."
+    },
+    {
+      "id": "S17",
+      "name": "sheet_hw_gpu_ram_32",
+      "kind": "sheet",
+      "group": "hardware",
+      "raw": "s17.png",
+      "target": {
+        "w": 192,
+        "h": 64
+      },
+      "cell": {
+        "w": 32,
+        "h": 32
+      },
+      "files": {
+        "webp": "sheet_hw_gpu_ram_32.webp",
+        "json": "sheet_hw_gpu_ram_32.json",
+        "previewDark": "../preview/sheet_hw_gpu_ram_32_hd_dark.png",
+        "bytes": 62687
+      },
+      "atlas": {
+        "w": 768,
+        "h": 256
+      },
+      "frameSize": {
+        "w": 128,
+        "h": 128
+      },
+      "frames": 12,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        2172,
+        724
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 3,
+        "target": 3,
+        "deviationPct": 0
+      },
+      "expectedFrames": 12,
+      "reducedSprites": [],
+      "warnings": [],
+      "info": {
+        "notes": []
+      },
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "sauber"
+    },
+    {
+      "id": "S18",
+      "name": "sheet_hw_storage_psu_32",
+      "kind": "sheet",
+      "group": "hardware",
+      "raw": "s18.png",
+      "target": {
+        "w": 192,
+        "h": 96
+      },
+      "cell": {
+        "w": 32,
+        "h": 32
+      },
+      "files": {
+        "webp": "sheet_hw_storage_psu_32.webp",
+        "json": "sheet_hw_storage_psu_32.json",
+        "previewDark": "../preview/sheet_hw_storage_psu_32_hd_dark.png",
+        "bytes": 49385
+      },
+      "atlas": {
+        "w": 768,
+        "h": 384
+      },
+      "frameSize": {
+        "w": 128,
+        "h": 128
+      },
+      "frames": 12,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1774,
+        887
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 2,
+        "target": 2,
+        "deviationPct": 0
+      },
+      "expectedFrames": 12,
+      "reducedSprites": [],
+      "warnings": [
+        "Sprite ragt in der Quelle über seine Zellgrenze (nicht zentriert/zu groß): icon_psu_1 (rechts)."
+      ],
+      "info": {
+        "notes": []
+      },
+      "status": "ok",
+      "autoStatus": "mängel",
+      "review": "Kabel von psu_1 ragen seitlich über die Zelle"
+    },
+    {
+      "id": "S19",
+      "name": "sheet_hw_cooling_case_32",
+      "kind": "sheet",
+      "group": "hardware",
+      "raw": "s19.png",
+      "target": {
+        "w": 160,
+        "h": 64
+      },
+      "cell": {
+        "w": 32,
+        "h": 32
+      },
+      "files": {
+        "webp": "sheet_hw_cooling_case_32.webp",
+        "json": "sheet_hw_cooling_case_32.json",
+        "previewDark": "../preview/sheet_hw_cooling_case_32_hd_dark.png",
+        "bytes": 54141
+      },
+      "atlas": {
+        "w": 640,
+        "h": 256
+      },
+      "frameSize": {
+        "w": 128,
+        "h": 128
+      },
+      "frames": 10,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1983,
+        793
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 2.501,
+        "target": 2.5,
+        "deviationPct": 0
+      },
+      "expectedFrames": 10,
+      "reducedSprites": [],
+      "warnings": [],
+      "info": {
+        "notes": []
+      },
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "sauber"
+    },
+    {
+      "id": "S20",
+      "name": "sheet_icons32_treiber_werkzeug_32",
+      "kind": "sheet",
+      "group": "icons",
+      "raw": "s20.png",
+      "target": {
+        "w": 192,
+        "h": 96
+      },
+      "cell": {
+        "w": 32,
+        "h": 32
+      },
+      "files": {
+        "webp": "sheet_icons32_treiber_werkzeug_32.webp",
+        "json": "sheet_icons32_treiber_werkzeug_32.json",
+        "previewDark": "../preview/sheet_icons32_treiber_werkzeug_32_hd_dark.png",
+        "bytes": 93400
+      },
+      "atlas": {
+        "w": 768,
+        "h": 384
+      },
+      "frameSize": {
+        "w": 128,
+        "h": 128
+      },
+      "frames": 17,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1774,
+        887
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 2,
+        "target": 2,
+        "deviationPct": 0
+      },
+      "expectedFrames": 17,
+      "reducedSprites": [],
+      "warnings": [],
+      "info": {
+        "notes": []
+      },
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "sauber"
+    },
+    {
+      "id": "S21",
+      "name": "sheet_icons32_software_32",
+      "kind": "sheet",
+      "group": "icons",
+      "raw": "s21.png",
+      "target": {
+        "w": 160,
+        "h": 96
+      },
+      "cell": {
+        "w": 32,
+        "h": 32
+      },
+      "files": {
+        "webp": "sheet_icons32_software_32.webp",
+        "json": "sheet_icons32_software_32.json",
+        "previewDark": "../preview/sheet_icons32_software_32_hd_dark.png",
+        "bytes": 88404
+      },
+      "atlas": {
+        "w": 640,
+        "h": 384
+      },
+      "frameSize": {
+        "w": 128,
+        "h": 128
+      },
+      "frames": 15,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1619,
+        971
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 1.667,
+        "target": 1.667,
+        "deviationPct": 0
+      },
+      "expectedFrames": 15,
+      "reducedSprites": [],
+      "warnings": [],
+      "info": {
+        "notes": []
+      },
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "sauber"
+    },
+    {
+      "id": "S22",
+      "name": "sheet_board_parts_32x44",
+      "kind": "sheet",
+      "group": "board",
+      "raw": "s22.png",
+      "target": {
+        "w": 96,
+        "h": 132
+      },
+      "cell": {
+        "w": 32,
+        "h": 44
+      },
+      "files": {
+        "webp": "sheet_board_parts_32x44.webp",
+        "json": "sheet_board_parts_32x44.json",
+        "previewDark": "../preview/sheet_board_parts_32x44_hd_dark.png",
+        "bytes": 40229
+      },
+      "atlas": {
+        "w": 384,
+        "h": 528
+      },
+      "frameSize": {
+        "w": 128,
+        "h": 176
+      },
+      "frames": 9,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1105,
+        1424
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 0.776,
+        "target": 0.727,
+        "deviationPct": 6.7
+      },
+      "expectedFrames": 9,
+      "reducedSprites": [],
+      "warnings": [
+        "Seitenverhältnis der Quelle (1105x1424) passt nicht zu 96x132.",
+        "Seitenverhältnis Rohbild 1105×1424 (0.78) ≠ Ziel 96×132 (0.73), Abweichung 7 %: Zellen/Sprites sind in der Quelle anders proportioniert als vorgesehen."
+      ],
+      "info": {
+        "notes": []
+      },
+      "status": "mängel",
+      "autoStatus": "problem",
+      "review": "Quelle 0,78 statt 0,73 (7 %); Teile sauber"
+    },
+    {
+      "id": "S23",
+      "name": "sheet_board_slots_flat_64x16",
+      "kind": "sheet",
+      "group": "board",
+      "raw": "s23.png",
+      "target": {
+        "w": 128,
+        "h": 64
+      },
+      "cell": {
+        "w": 64,
+        "h": 16
+      },
+      "files": {
+        "webp": "sheet_board_slots_flat_64x16.webp",
+        "json": "sheet_board_slots_flat_64x16.json",
+        "previewDark": "../preview/sheet_board_slots_flat_64x16_hd_dark.png",
+        "bytes": 18116
+      },
+      "atlas": {
+        "w": 512,
+        "h": 256
+      },
+      "frameSize": {
+        "w": 256,
+        "h": 64
+      },
+      "frames": 7,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1774,
+        887
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 2,
+        "target": 2,
+        "deviationPct": 0
+      },
+      "expectedFrames": 7,
+      "reducedSprites": [],
+      "warnings": [],
+      "info": {
+        "notes": []
+      },
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "sauber"
+    },
+    {
+      "id": "S24",
+      "name": "sheet_parts_flat_64x28",
+      "kind": "sheet",
+      "group": "board",
+      "raw": "s24.png",
+      "target": {
+        "w": 128,
+        "h": 112
+      },
+      "cell": {
+        "w": 64,
+        "h": 28
+      },
+      "files": {
+        "webp": "sheet_parts_flat_64x28.webp",
+        "json": "sheet_parts_flat_64x28.json",
+        "previewDark": "../preview/sheet_parts_flat_64x28_hd_dark.png",
+        "bytes": 42533
+      },
+      "atlas": {
+        "w": 512,
+        "h": 448
+      },
+      "frameSize": {
+        "w": 256,
+        "h": 112
+      },
+      "frames": 8,
+      "animations": {
+        "drive_hdd": 2
+      },
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1341,
+        1173
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 1.143,
+        "target": 1.143,
+        "deviationPct": 0
+      },
+      "expectedFrames": 8,
+      "reducedSprites": [],
+      "warnings": [],
+      "info": {
+        "notes": [
+          "1 Animationsframes per Silhouette feinjustiert."
+        ]
+      },
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "sauber"
+    },
+    {
+      "id": "S25",
+      "name": "sheet_cooler_anim_60x52",
+      "kind": "sheet",
+      "group": "board",
+      "raw": "s25.png",
+      "target": {
+        "w": 240,
+        "h": 156
+      },
+      "cell": {
+        "w": 60,
+        "h": 52
+      },
+      "files": {
+        "webp": "sheet_cooler_anim_60x52.webp",
+        "json": "sheet_cooler_anim_60x52.json",
+        "previewDark": "../preview/sheet_cooler_anim_60x52_hd_dark.png",
+        "bytes": 148543
+      },
+      "atlas": {
+        "w": 960,
+        "h": 624
+      },
+      "frameSize": {
+        "w": 240,
+        "h": 208
+      },
+      "frames": 12,
+      "animations": {
+        "cooler_boxed": 4,
+        "cooler_tower": 4,
+        "cooler_dualtower": 4
+      },
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1558,
+        1010
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 1.543,
+        "target": 1.538,
+        "deviationPct": 0.3
+      },
+      "expectedFrames": 12,
+      "reducedSprites": [],
+      "warnings": [
+        "Sprite ragt in der Quelle über seine Zellgrenze (nicht zentriert/zu groß): cooler_tower_0 (oben), cooler_tower_1 (oben), cooler_tower_2 (oben), cooler_tower_3 (oben)."
+      ],
+      "info": {
+        "notes": [
+          "1 Animationsframes per Silhouette feinjustiert."
+        ]
+      },
+      "status": "ok",
+      "autoStatus": "mängel",
+      "review": "Tower-Kühler ragt oben leicht über die Zelle"
+    },
+    {
+      "id": "S26",
+      "name": "sheet_aio_fan_32",
+      "kind": "sheet",
+      "group": "board",
+      "raw": "s26.png",
+      "target": {
+        "w": 128,
+        "h": 96
+      },
+      "cell": {
+        "w": 32,
+        "h": 32
+      },
+      "files": {
+        "webp": "sheet_aio_fan_32.webp",
+        "json": "sheet_aio_fan_32.json",
+        "previewDark": "../preview/sheet_aio_fan_32_hd_dark.png",
+        "bytes": 59042
+      },
+      "atlas": {
+        "w": 512,
+        "h": 384
+      },
+      "frameSize": {
+        "w": 128,
+        "h": 128
+      },
+      "frames": 9,
+      "animations": {
+        "aio_pump_lcd": 4,
+        "case_fan": 4
+      },
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1448,
+        1086
+      ],
+      "gridLinesRemoved": 0,
+      "aspect": {
+        "raw": 1.333,
+        "target": 1.333,
+        "deviationPct": 0
+      },
+      "expectedFrames": 9,
+      "reducedSprites": [],
+      "warnings": [],
+      "info": {
+        "notes": []
+      },
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "sauber"
+    },
+    {
+      "id": "S27",
+      "name": "sheet_gpu_216x40",
+      "kind": "gpu",
+      "group": "board",
+      "raw": [
+        "s27_s.png",
+        "s27_m.png",
+        "s27_l.png"
+      ],
+      "target": {
+        "w": 220,
+        "h": 60
+      },
+      "cell": {
+        "w": 220,
+        "h": 20
+      },
+      "files": {
+        "webp": "sheet_gpu_216x40.webp",
+        "json": "sheet_gpu_216x40.json",
+        "previewDark": "../preview/sheet_gpu_216x40_hd_dark.png",
+        "bytes": 250159
+      },
+      "atlas": {
+        "w": 3536,
+        "h": 732
+      },
+      "frameSize": {
+        "w": 884,
+        "h": 244
+      },
+      "frames": 9,
+      "animations": {
+        "gpu_m": 4,
+        "gpu_l": 4
+      },
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "target-width (ein Maßstab je Karte/Animation, links+unten ausgerichtet)",
+        "kind": "gpu"
+      },
+      "rawSize": [
+        2172,
+        724
+      ],
+      "gridLinesRemoved": 0,
+      "info": {
+        "0": "s27_s.png: 1 Sprites, Maßstab 0.2240, 112.0×19.0 Art-px",
+        "1": "s27_m.png: 4 Sprites, Maßstab 0.7243, 176.0×37.8 | 176.0×37.8 | 176.0×37.8 | 176.0×37.8 Art-px",
+        "2": "s27_l.png: 4 Sprites, Maßstab 0.8905, 216.3×58.0 | 216.0×58.5 | 216.0×58.5 | 216.0×59.0 Art-px",
+        "notes": []
+      },
+      "aspect": {
+        "raw": 3,
+        "target": 3.667,
+        "deviationPct": -18.2
+      },
+      "expectedFrames": 9,
+      "reducedSprites": [],
+      "warnings": [],
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "Neu aus s27_s/m/l.png (2026): Karten auf Zielbreite, dicker als spezifiziert (M 176×37,8, L 216×58), Frames links/unten ausgerichtet; Lüfterdrehung kaum erkennbar",
+      "note": "Eigene Pipeline tools/gpu.mjs: 3 Rohbilder (s27_s/m/l.png), Zusammenhangskomponenten, jede Karte auf Zielbreite ×4 skaliert (kein Einpassen in die Zellhöhe), Frames links/unten ausgerichtet. Zellhöhe größer als in der Tabelle (siehe JSON meta.cell)."
+    },
+    {
+      "id": "S28",
+      "name": "sheet_psu_radiator_96x40",
+      "kind": "sheet",
+      "group": "board",
+      "raw": "s28.png",
+      "target": {
+        "w": 288,
+        "h": 80
+      },
+      "cell": {
+        "w": 96,
+        "h": 40
+      },
+      "files": {
+        "webp": "sheet_psu_radiator_96x40.webp",
+        "json": "sheet_psu_radiator_96x40.json",
+        "previewDark": "../preview/sheet_psu_radiator_96x40_hd_dark.png",
+        "bytes": 68463
+      },
+      "atlas": {
+        "w": 1152,
+        "h": 320
+      },
+      "frameSize": {
+        "w": 384,
+        "h": 160
+      },
+      "frames": 5,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "fit"
+      },
+      "rawSize": [
+        2172,
+        724
+      ],
+      "gridLinesRemoved": 7,
+      "aspect": {
+        "raw": 3,
+        "target": 3.6,
+        "deviationPct": -16.7
+      },
+      "expectedFrames": 5,
+      "reducedSprites": [],
+      "touchingFrameEdge": [
+        "psu_cheap",
+        "psu_standard",
+        "psu_premium"
+      ],
+      "warnings": [
+        "Seitenverhältnis der Quelle (2172x724) passt nicht zu 288x80.",
+        "Seitenverhältnis Rohbild 2172×724 (3.00) ≠ Ziel 288×80 (3.60), Abweichung -17 %: Zellen/Sprites sind in der Quelle anders proportioniert als vorgesehen."
+      ],
+      "info": {
+        "notes": []
+      },
+      "status": "mängel",
+      "autoStatus": "problem",
+      "review": "Quelle 3:1 statt 3,6:1; Teile sauber, Proportionen abweichend"
+    },
+    {
+      "id": "S29",
+      "name": "sheet_bg_tiles_64",
+      "kind": "tiles",
+      "group": "fx",
+      "raw": "s29.png",
+      "target": {
+        "w": 192,
+        "h": 64
+      },
+      "cell": {
+        "w": 64,
+        "h": 64
+      },
+      "files": {
+        "webp": "sheet_bg_tiles_64.webp",
+        "json": "sheet_bg_tiles_64.json",
+        "previewDark": "../preview/sheet_bg_tiles_64_hd_dark.png",
+        "bytes": 12828
+      },
+      "atlas": {
+        "w": 768,
+        "h": 256
+      },
+      "frameSize": {
+        "w": 256,
+        "h": 256
+      },
+      "frames": 3,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "kind": "opaque-tiles"
+      },
+      "rawSize": [
+        2172,
+        724
+      ],
+      "info": {
+        "tiles": {
+          "bg_tile_pcb": {
+            "fill": true,
+            "edgeCutSrc": {
+              "l": 1,
+              "r": 0,
+              "t": 1,
+              "b": 0
+            },
+            "seam": {
+              "horizontal": 2.8,
+              "vertical": 2.5,
+              "neighbourX": 0.5,
+              "neighbourY": 1.3
+            },
+            "tileable": false
+          },
+          "bg_tile_esd": {
+            "fill": true,
+            "edgeCutSrc": {
+              "l": 5,
+              "r": 2,
+              "t": 1,
+              "b": 1
+            },
+            "seam": {
+              "horizontal": 2.4,
+              "vertical": 1,
+              "neighbourX": 7.5,
+              "neighbourY": 7.9
+            },
+            "tileable": true
+          },
+          "bg_tile_bios": {
+            "fill": false,
+            "contentSrc": [
+              178,
+              176
+            ],
+            "seam": {
+              "horizontal": 17.8,
+              "vertical": 11.3,
+              "neighbourX": 8.5,
+              "neighbourY": 5.1
+            },
+            "tileable": false
+          }
+        },
+        "notes": []
+      },
+      "aspect": {
+        "raw": 3,
+        "target": 3,
+        "deviationPct": 0
+      },
+      "warnings": [
+        "bg_tile_pcb: Kanten nicht nahtlos (Naht links/rechts 2.8, oben/unten 2.5 gegenüber Nachbarn 0.5/1.3).",
+        "bg_tile_bios: Kanten nicht nahtlos (Naht links/rechts 17.8, oben/unten 11.3 gegenüber Nachbarn 8.5/5.1)."
+      ],
+      "status": "mängel",
+      "autoStatus": "problem",
+      "review": "PCB- und BIOS-Kachel nicht nahtlos (Leiterbahnen/Gitterlinien an den Kanten)",
+      "note": "Kein Hintergrund-Entfernen für Kachel 1/2; Kachel 3 (BIOS) als 16×16 mittig. Kachel-Test: assets/preview/sheet_bg_tiles_64_tiletest.png."
+    },
+    {
+      "id": "S30",
+      "name": "sheet_logo_192x48",
+      "kind": "sheet",
+      "group": "fx",
+      "raw": "s30.png",
+      "target": {
+        "w": 768,
+        "h": 48
+      },
+      "cell": {
+        "w": 192,
+        "h": 48
+      },
+      "files": {
+        "webp": "sheet_logo_192x48.webp",
+        "json": "sheet_logo_192x48.json",
+        "previewDark": "../preview/sheet_logo_192x48_hd_dark.png",
+        "bytes": 67725
+      },
+      "atlas": {
+        "w": 3072,
+        "h": 192
+      },
+      "frameSize": {
+        "w": 768,
+        "h": 192
+      },
+      "frames": 4,
+      "animations": {
+        "logo_bottleneck": 4
+      },
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "fit"
+      },
+      "rawSize": [
+        2172,
+        724
+      ],
+      "gridLinesRemoved": 7,
+      "aspect": {
+        "raw": 3,
+        "target": 16,
+        "deviationPct": -81.3
+      },
+      "expectedFrames": 4,
+      "reducedSprites": [],
+      "touchingFrameEdge": [
+        "logo_bottleneck_0",
+        "logo_bottleneck_1",
+        "logo_bottleneck_2",
+        "logo_bottleneck_3"
+      ],
+      "warnings": [
+        "Seitenverhältnis der Quelle (2172x724) passt nicht zu 768x48.",
+        "Seitenverhältnis Rohbild 2172×724 (3.00) ≠ Ziel 768×48 (16.00), Abweichung -81 %: Zellen/Sprites sind in der Quelle anders proportioniert als vorgesehen."
+      ],
+      "info": {
+        "notes": []
+      },
+      "status": "mängel",
+      "autoStatus": "problem",
+      "review": "Logo ~1,4:1 statt 4:1; Glanz-Frames ausgerichtet, nutzbar",
+      "note": "scale-mode fit: Logo füllt die Frame-Höhe, Frames sind 768×192 (4:1) wie in der Tabelle, Logo selbst ist ~1,4:1."
+    },
+    {
+      "id": "S31",
+      "name": "sheet_fx8_8",
+      "kind": "sheet",
+      "group": "fx",
+      "raw": "s31.png",
+      "target": {
+        "w": 64,
+        "h": 32
+      },
+      "cell": {
+        "w": 8,
+        "h": 8
+      },
+      "files": {
+        "webp": "sheet_fx8_8.webp",
+        "json": "sheet_fx8_8.json",
+        "previewDark": "../preview/sheet_fx8_8_hd_dark.png",
+        "bytes": 30091
+      },
+      "atlas": {
+        "w": 256,
+        "h": 128
+      },
+      "frameSize": {
+        "w": 32,
+        "h": 32
+      },
+      "frames": 25,
+      "animations": {
+        "fx_coin": 6,
+        "fx_post_led": 8,
+        "fx_spark": 4,
+        "fx_confetti": 4,
+        "slot_glow": 3
+      },
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1774,
+        887
+      ],
+      "gridLinesRemoved": 14,
+      "aspect": {
+        "raw": 2,
+        "target": 2,
+        "deviationPct": 0
+      },
+      "expectedFrames": 25,
+      "reducedSprites": [],
+      "warnings": [],
+      "info": {
+        "notes": [
+          "4 Animationsframes per Silhouette feinjustiert."
+        ]
+      },
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "sauber (Trennlinien entfernt)",
+      "note": "Slot-Glow (Ringe): Innenfläche per --holes transparent."
+    },
+    {
+      "id": "S32",
+      "name": "sheet_fx16_16",
+      "kind": "sheet",
+      "group": "fx",
+      "raw": "s32.png",
+      "target": {
+        "w": 96,
+        "h": 48
+      },
+      "cell": {
+        "w": 16,
+        "h": 16
+      },
+      "files": {
+        "webp": "sheet_fx16_16.webp",
+        "json": "sheet_fx16_16.json",
+        "previewDark": "../preview/sheet_fx16_16_hd_dark.png",
+        "bytes": 44090
+      },
+      "atlas": {
+        "w": 384,
+        "h": 192
+      },
+      "frameSize": {
+        "w": 64,
+        "h": 64
+      },
+      "frames": 16,
+      "animations": {
+        "fx_burst_leistung": 6,
+        "fx_burst_takt": 6,
+        "fx_frost": 4
+      },
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1774,
+        887
+      ],
+      "gridLinesRemoved": 11,
+      "aspect": {
+        "raw": 2,
+        "target": 2,
+        "deviationPct": 0
+      },
+      "expectedFrames": 16,
+      "reducedSprites": [],
+      "warnings": [],
+      "info": {
+        "notes": []
+      },
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "sauber (Trennlinien entfernt)"
+    },
+    {
+      "id": "S33",
+      "name": "sheet_fx_tall_16x32",
+      "kind": "sheet",
+      "group": "fx",
+      "raw": "s33.png",
+      "target": {
+        "w": 128,
+        "h": 96
+      },
+      "cell": {
+        "w": 16,
+        "h": 32
+      },
+      "files": {
+        "webp": "sheet_fx_tall_16x32.webp",
+        "json": "sheet_fx_tall_16x32.json",
+        "previewDark": "../preview/sheet_fx_tall_16x32_hd_dark.png",
+        "bytes": 59867
+      },
+      "atlas": {
+        "w": 512,
+        "h": 384
+      },
+      "frameSize": {
+        "w": 64,
+        "h": 128
+      },
+      "frames": 18,
+      "animations": {
+        "fx_smoke": 8,
+        "fx_fire": 6,
+        "fx_lightning": 4
+      },
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1448,
+        1086
+      ],
+      "gridLinesRemoved": 13,
+      "aspect": {
+        "raw": 1.333,
+        "target": 1.333,
+        "deviationPct": 0
+      },
+      "expectedFrames": 18,
+      "reducedSprites": [],
+      "warnings": [],
+      "info": {
+        "notes": []
+      },
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "sauber (Trennlinien entfernt)"
+    },
+    {
+      "id": "S34",
+      "name": "sheet_fx32_32",
+      "kind": "sheet",
+      "group": "fx",
+      "raw": "s34.png",
+      "target": {
+        "w": 160,
+        "h": 96
+      },
+      "cell": {
+        "w": 32,
+        "h": 32
+      },
+      "files": {
+        "webp": "sheet_fx32_32.webp",
+        "json": "sheet_fx32_32.json",
+        "previewDark": "../preview/sheet_fx32_32_hd_dark.png",
+        "bytes": 86207
+      },
+      "atlas": {
+        "w": 640,
+        "h": 384
+      },
+      "frameSize": {
+        "w": 128,
+        "h": 128
+      },
+      "frames": 14,
+      "animations": {
+        "fx_xtakt_flash": 5,
+        "fx_install_click": 5,
+        "fx_glitch_noise": 4
+      },
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "cell"
+      },
+      "rawSize": [
+        1619,
+        971
+      ],
+      "gridLinesRemoved": 8,
+      "aspect": {
+        "raw": 1.667,
+        "target": 1.667,
+        "deviationPct": 0
+      },
+      "expectedFrames": 14,
+      "reducedSprites": [],
+      "touchingFrameEdge": [
+        "fx_glitch_noise_0",
+        "fx_glitch_noise_1",
+        "fx_glitch_noise_2",
+        "fx_glitch_noise_3"
+      ],
+      "warnings": [],
+      "info": {
+        "notes": []
+      },
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "Rausch-Frames deckend, Klick-Ringe transparent",
+      "note": "fx_glitch_noise: deckende Vollflächen-Frames (--opaque-cells), kein Hintergrund-Entfernen; Klick-Ringe per --holes."
+    },
+    {
+      "id": "S35",
+      "name": "sheet_fx_pack_open_64",
+      "kind": "sheet",
+      "group": "fx",
+      "raw": "s35.png",
+      "target": {
+        "w": 384,
+        "h": 64
+      },
+      "cell": {
+        "w": 64,
+        "h": 64
+      },
+      "files": {
+        "webp": "sheet_fx_pack_open_64.webp",
+        "json": "sheet_fx_pack_open_64.json",
+        "previewDark": "../preview/sheet_fx_pack_open_64_hd_dark.png",
+        "bytes": 64899
+      },
+      "atlas": {
+        "w": 1536,
+        "h": 256
+      },
+      "frameSize": {
+        "w": 256,
+        "h": 256
+      },
+      "frames": 6,
+      "animations": {
+        "fx_pack_open": 6
+      },
+      "meta": {
+        "hdScale": 4,
+        "scaleMode": "fit"
+      },
+      "rawSize": [
+        2172,
+        724
+      ],
+      "gridLinesRemoved": 9,
+      "aspect": {
+        "raw": 3,
+        "target": 6,
+        "deviationPct": -50
+      },
+      "expectedFrames": 6,
+      "reducedSprites": [],
+      "touchingFrameEdge": [
+        "fx_pack_open_0",
+        "fx_pack_open_1",
+        "fx_pack_open_2",
+        "fx_pack_open_3",
+        "fx_pack_open_4",
+        "fx_pack_open_5"
+      ],
+      "warnings": [
+        "Seitenverhältnis der Quelle (2172x724) passt nicht zu 384x64.",
+        "Seitenverhältnis Rohbild 2172×724 (3.00) ≠ Ziel 384×64 (6.00), Abweichung -50 %: Zellen/Sprites sind in der Quelle anders proportioniert als vorgesehen.",
+        "Im Rohbild am Bildrand abgeschnitten (Sprite berührt den Rand der Quelle): fx_pack_open_4 (oben)."
+      ],
+      "info": {
+        "notes": [
+          "1 Animationsframes per Silhouette feinjustiert."
+        ]
+      },
+      "status": "mängel",
+      "autoStatus": "problem",
+      "review": "Quelle 3:1 statt 6:1; Lichtstrahlen in Frame 5 oben im Rohbild abgeschnitten"
+    },
+    {
+      "id": "E01",
+      "name": "mb_pcb_matx",
+      "kind": "object",
+      "group": "single",
+      "raw": "e01.png",
+      "target": {
+        "w": 160,
+        "h": 160
+      },
+      "cell": null,
+      "files": {
+        "webp": "mb_pcb_matx.webp",
+        "json": "mb_pcb_matx.json",
+        "previewDark": "../preview/mb_pcb_matx_hd_dark.png",
+        "bytes": 59125
+      },
+      "atlas": {
+        "w": 640,
+        "h": 640
+      },
+      "frameSize": {
+        "w": 640,
+        "h": 640
+      },
+      "frames": 1,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "kind": "object"
+      },
+      "rawSize": [
+        1254,
+        1254
+      ],
+      "info": {
+        "bgShare": 0,
+        "sourceSize": [
+          1254,
+          1254
+        ],
+        "cropBox": {
+          "x": 0,
+          "y": 0,
+          "w": 1254,
+          "h": 1254
+        },
+        "cropMargins": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "dustRemovedPx": 0,
+        "contentRatio": 1,
+        "targetRatio": 1,
+        "ratioDeviationPct": 0,
+        "fitMode": "fill (Abweichung ≤ 2 %, nur Zuschnitt auf Inhalt)",
+        "contentOut": [
+          640,
+          640
+        ],
+        "notes": []
+      },
+      "aspect": {
+        "raw": 1,
+        "target": 1,
+        "deviationPct": 0
+      },
+      "warnings": [],
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "füllt das Bild randlos (1254² ≙ 160²), kein Hintergrund"
+    },
+    {
+      "id": "E02",
+      "name": "mb_pcb_atx",
+      "kind": "object",
+      "group": "single",
+      "raw": "e02.png",
+      "target": {
+        "w": 160,
+        "h": 200
+      },
+      "cell": null,
+      "files": {
+        "webp": "mb_pcb_atx.webp",
+        "json": "mb_pcb_atx.json",
+        "previewDark": "../preview/mb_pcb_atx_hd_dark.png",
+        "bytes": 81381
+      },
+      "atlas": {
+        "w": 640,
+        "h": 800
+      },
+      "frameSize": {
+        "w": 640,
+        "h": 800
+      },
+      "frames": 1,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "kind": "object"
+      },
+      "rawSize": [
+        1122,
+        1402
+      ],
+      "info": {
+        "bgShare": 0,
+        "sourceSize": [
+          1122,
+          1402
+        ],
+        "cropBox": {
+          "x": 0,
+          "y": 0,
+          "w": 1122,
+          "h": 1402
+        },
+        "cropMargins": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "dustRemovedPx": 0,
+        "contentRatio": 0.8003,
+        "targetRatio": 0.8,
+        "ratioDeviationPct": 0.04,
+        "fitMode": "fill (Abweichung ≤ 2 %, nur Zuschnitt auf Inhalt)",
+        "contentOut": [
+          640,
+          800
+        ],
+        "notes": []
+      },
+      "aspect": {
+        "raw": 0.8,
+        "target": 0.8,
+        "deviationPct": 0
+      },
+      "warnings": [],
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "randlos, ×4 = 640×800"
+    },
+    {
+      "id": "E03",
+      "name": "case_office",
+      "kind": "object",
+      "group": "single",
+      "raw": "e03.png",
+      "target": {
+        "w": 240,
+        "h": 300
+      },
+      "cell": null,
+      "files": {
+        "webp": "case_office.webp",
+        "json": "case_office.json",
+        "previewDark": "../preview/case_office_hd_dark.png",
+        "bytes": 145315
+      },
+      "atlas": {
+        "w": 960,
+        "h": 1200
+      },
+      "frameSize": {
+        "w": 960,
+        "h": 1200
+      },
+      "frames": 1,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "kind": "object"
+      },
+      "rawSize": [
+        1122,
+        1402
+      ],
+      "info": {
+        "bgShare": 0.016,
+        "sourceSize": [
+          1122,
+          1402
+        ],
+        "cropBox": {
+          "x": 0,
+          "y": 0,
+          "w": 1122,
+          "h": 1402
+        },
+        "cropMargins": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "dustRemovedPx": 0,
+        "contentRatio": 0.8003,
+        "targetRatio": 0.8,
+        "ratioDeviationPct": 0.04,
+        "fitMode": "fill (Abweichung ≤ 2 %, nur Zuschnitt auf Inhalt)",
+        "contentOut": [
+          960,
+          1200
+        ],
+        "notes": []
+      },
+      "aspect": {
+        "raw": 0.8,
+        "target": 0.8,
+        "deviationPct": 0
+      },
+      "warnings": [],
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "Hintergrund (Ecken/Füße) entfernt"
+    },
+    {
+      "id": "E04",
+      "name": "case_mesh",
+      "kind": "object",
+      "group": "single",
+      "raw": "e04.png",
+      "target": {
+        "w": 260,
+        "h": 320
+      },
+      "cell": null,
+      "files": {
+        "webp": "case_mesh.webp",
+        "json": "case_mesh.json",
+        "previewDark": "../preview/case_mesh_hd_dark.png",
+        "bytes": 156188
+      },
+      "atlas": {
+        "w": 1040,
+        "h": 1280
+      },
+      "frameSize": {
+        "w": 1040,
+        "h": 1280
+      },
+      "frames": 1,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "kind": "object"
+      },
+      "rawSize": [
+        1131,
+        1391
+      ],
+      "info": {
+        "bgShare": 0.0192,
+        "sourceSize": [
+          1131,
+          1391
+        ],
+        "cropBox": {
+          "x": 0,
+          "y": 0,
+          "w": 1131,
+          "h": 1391
+        },
+        "cropMargins": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "dustRemovedPx": 0,
+        "contentRatio": 0.8131,
+        "targetRatio": 0.8125,
+        "ratioDeviationPct": 0.07,
+        "fitMode": "fill (Abweichung ≤ 2 %, nur Zuschnitt auf Inhalt)",
+        "contentOut": [
+          1040,
+          1280
+        ],
+        "notes": []
+      },
+      "aspect": {
+        "raw": 0.813,
+        "target": 0.813,
+        "deviationPct": 0.1
+      },
+      "warnings": [],
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "Hintergrund entfernt"
+    },
+    {
+      "id": "E05",
+      "name": "case_glass",
+      "kind": "object",
+      "group": "single",
+      "raw": "e05.png",
+      "target": {
+        "w": 260,
+        "h": 320
+      },
+      "cell": null,
+      "files": {
+        "webp": "case_glass.webp",
+        "json": "case_glass.json",
+        "previewDark": "../preview/case_glass_hd_dark.png",
+        "bytes": 216046
+      },
+      "atlas": {
+        "w": 1040,
+        "h": 1280
+      },
+      "frameSize": {
+        "w": 1040,
+        "h": 1280
+      },
+      "frames": 1,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "kind": "object"
+      },
+      "rawSize": [
+        1131,
+        1391
+      ],
+      "info": {
+        "bgShare": 0.0202,
+        "sourceSize": [
+          1131,
+          1391
+        ],
+        "cropBox": {
+          "x": 0,
+          "y": 0,
+          "w": 1131,
+          "h": 1391
+        },
+        "cropMargins": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "dustRemovedPx": 1,
+        "contentRatio": 0.8131,
+        "targetRatio": 0.8125,
+        "ratioDeviationPct": 0.07,
+        "fitMode": "fill (Abweichung ≤ 2 %, nur Zuschnitt auf Inhalt)",
+        "contentOut": [
+          1040,
+          1280
+        ],
+        "notes": []
+      },
+      "aspect": {
+        "raw": 0.813,
+        "target": 0.813,
+        "deviationPct": 0.1
+      },
+      "warnings": [],
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "Hintergrund entfernt"
+    },
+    {
+      "id": "E06",
+      "name": "case_glass_reflex",
+      "kind": "overlay",
+      "group": "single",
+      "raw": "e06.png",
+      "target": {
+        "w": 260,
+        "h": 320
+      },
+      "cell": null,
+      "files": {
+        "webp": "case_glass_reflex.webp",
+        "json": "case_glass_reflex.json",
+        "previewDark": "../preview/case_glass_reflex_hd_dark.png",
+        "bytes": 61890
+      },
+      "atlas": {
+        "w": 1040,
+        "h": 1280
+      },
+      "frameSize": {
+        "w": 1040,
+        "h": 1280
+      },
+      "frames": 1,
+      "animations": {},
+      "meta": {
+        "hdScale": 4,
+        "kind": "overlay"
+      },
+      "rawSize": [
+        1131,
+        1391
+      ],
+      "info": {
+        "baseGray": 126,
+        "opaqueShare": 0.1823,
+        "softShare": 0.0109,
+        "ratioDeviationPct": 0.07,
+        "notes": []
+      },
+      "warnings": [],
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "Overlay mit Alpha aus Helligkeit",
+      "note": "Overlay: weiß #f4f4fa, Alpha aus der Helligkeit über Grau ~126 (Grau → 0, Streifen → 1), Vollbild ohne Zuschnitt, verlustfreies WebP; Engine multipliziert mit 0,5."
+    },
+    {
+      "id": "E07",
+      "name": "bg_shop_portrait",
+      "kind": "background",
+      "group": "single",
+      "raw": "e07.png",
+      "target": {
+        "w": 400,
+        "h": 900
+      },
+      "cell": null,
+      "files": {
+        "webp": "bg_shop_portrait.webp",
+        "json": "bg_shop_portrait.json",
+        "previewDark": "../preview/bg_shop_portrait_hd_dark.png",
+        "bytes": 131813
+      },
+      "atlas": {
+        "w": 800,
+        "h": 1800
+      },
+      "frameSize": {
+        "w": 800,
+        "h": 1800
+      },
+      "frames": 1,
+      "animations": {},
+      "meta": {
+        "hdScale": 2,
+        "kind": "background"
+      },
+      "rawSize": [
+        836,
+        1881
+      ],
+      "info": {
+        "sourceSize": [
+          836,
+          1881
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "w": 836,
+          "h": 1881
+        },
+        "cropLossPct": 0,
+        "edgeLum": [
+          66.8,
+          77.7
+        ],
+        "notes": []
+      },
+      "aspect": {
+        "raw": 0.444,
+        "target": 0.444,
+        "deviationPct": 0
+      },
+      "warnings": [],
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "WebP ×2"
+    },
+    {
+      "id": "E08",
+      "name": "bg_shop_landscape",
+      "kind": "background",
+      "group": "single",
+      "raw": "e08.png",
+      "target": {
+        "w": 800,
+        "h": 400
+      },
+      "cell": null,
+      "files": {
+        "webp": "bg_shop_landscape.webp",
+        "json": "bg_shop_landscape.json",
+        "previewDark": "../preview/bg_shop_landscape_hd_dark.png",
+        "bytes": 126401
+      },
+      "atlas": {
+        "w": 1600,
+        "h": 800
+      },
+      "frameSize": {
+        "w": 1600,
+        "h": 800
+      },
+      "frames": 1,
+      "animations": {},
+      "meta": {
+        "hdScale": 2,
+        "kind": "background"
+      },
+      "rawSize": [
+        1774,
+        887
+      ],
+      "info": {
+        "sourceSize": [
+          1774,
+          887
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "w": 1774,
+          "h": 887
+        },
+        "cropLossPct": 0,
+        "edgeLum": [
+          64.3,
+          66.1
+        ],
+        "notes": []
+      },
+      "aspect": {
+        "raw": 2,
+        "target": 2,
+        "deviationPct": 0
+      },
+      "warnings": [],
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "WebP ×2"
+    },
+    {
+      "id": "E09",
+      "name": "bg_title_portrait",
+      "kind": "background",
+      "group": "single",
+      "raw": "e09.png",
+      "target": {
+        "w": 400,
+        "h": 900
+      },
+      "cell": null,
+      "files": {
+        "webp": "bg_title_portrait.webp",
+        "json": "bg_title_portrait.json",
+        "previewDark": "../preview/bg_title_portrait_hd_dark.png",
+        "bytes": 112375
+      },
+      "atlas": {
+        "w": 800,
+        "h": 1800
+      },
+      "frameSize": {
+        "w": 800,
+        "h": 1800
+      },
+      "frames": 1,
+      "animations": {},
+      "meta": {
+        "hdScale": 2,
+        "kind": "background"
+      },
+      "rawSize": [
+        836,
+        1882
+      ],
+      "info": {
+        "sourceSize": [
+          836,
+          1882
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "w": 836,
+          "h": 1881
+        },
+        "cropLossPct": 0.05,
+        "edgeLum": [
+          25.1,
+          26.7
+        ],
+        "notes": []
+      },
+      "aspect": {
+        "raw": 0.444,
+        "target": 0.444,
+        "deviationPct": -0.1
+      },
+      "warnings": [],
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "WebP ×2"
+    },
+    {
+      "id": "E10",
+      "name": "bg_title_landscape",
+      "kind": "background",
+      "group": "single",
+      "raw": "e10.png",
+      "target": {
+        "w": 800,
+        "h": 400
+      },
+      "cell": null,
+      "files": {
+        "webp": "bg_title_landscape.webp",
+        "json": "bg_title_landscape.json",
+        "previewDark": "../preview/bg_title_landscape_hd_dark.png",
+        "bytes": 122231
+      },
+      "atlas": {
+        "w": 1600,
+        "h": 800
+      },
+      "frameSize": {
+        "w": 1600,
+        "h": 800
+      },
+      "frames": 1,
+      "animations": {},
+      "meta": {
+        "hdScale": 2,
+        "kind": "background"
+      },
+      "rawSize": [
+        1774,
+        887
+      ],
+      "info": {
+        "sourceSize": [
+          1774,
+          887
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "w": 1774,
+          "h": 887
+        },
+        "cropLossPct": 0,
+        "edgeLum": [
+          28.3,
+          29.7
+        ],
+        "notes": []
+      },
+      "aspect": {
+        "raw": 2,
+        "target": 2,
+        "deviationPct": 0
+      },
+      "warnings": [],
+      "status": "ok",
+      "autoStatus": "ok",
+      "review": "WebP ×2"
+    }
+  ]
+}

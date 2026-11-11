@@ -1,0 +1,711 @@
+{
+  "frames": {
+    "ui_panel_dark": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 4,
+        "y": 3,
+        "w": 88,
+        "h": 90
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 1
+      },
+      "scale": 0.3423,
+      "scaleReduced": false
+    },
+    "ui_panel_light": {
+      "frame": {
+        "x": 96,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 4,
+        "y": 3,
+        "w": 88,
+        "h": 90
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 2
+      },
+      "scale": 0.3423,
+      "scaleReduced": false
+    },
+    "ui_panel_bios": {
+      "frame": {
+        "x": 192,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 3,
+        "y": 2,
+        "w": 90,
+        "h": 91
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 3
+      },
+      "scale": 0.3423,
+      "scaleReduced": false
+    },
+    "ui_receipt_paper": {
+      "frame": {
+        "x": 288,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 6,
+        "y": 3,
+        "w": 84,
+        "h": 90
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 4
+      },
+      "scale": 0.3423,
+      "scaleReduced": false
+    },
+    "ui_button_gruen_0": {
+      "frame": {
+        "x": 0,
+        "y": 96,
+        "w": 96,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 4,
+        "y": 8,
+        "w": 87,
+        "h": 80
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 1
+      },
+      "scale": 0.3423,
+      "scaleReduced": false,
+      "group": "ui_button_gruen",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "ui_button_gruen_1": {
+      "frame": {
+        "x": 96,
+        "y": 96,
+        "w": 96,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 4,
+        "y": 10,
+        "w": 88,
+        "h": 76
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 2
+      },
+      "scale": 0.3423,
+      "scaleReduced": false,
+      "group": "ui_button_gruen",
+      "registration": {
+        "dx": -2,
+        "dy": 14,
+        "iou": 0.946
+      }
+    },
+    "ui_button_gruen_2": {
+      "frame": {
+        "x": 192,
+        "y": 96,
+        "w": 96,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 5,
+        "y": 8,
+        "w": 86,
+        "h": 81
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 3
+      },
+      "scale": 0.3423,
+      "scaleReduced": false,
+      "group": "ui_button_gruen",
+      "registration": {
+        "dx": -6,
+        "dy": 2,
+        "iou": 0.988
+      }
+    },
+    "ui_button_rot_0": {
+      "frame": {
+        "x": 0,
+        "y": 192,
+        "w": 96,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 4,
+        "y": 7,
+        "w": 87,
+        "h": 81
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 1
+      },
+      "scale": 0.3423,
+      "scaleReduced": false,
+      "group": "ui_button_rot",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "ui_button_rot_1": {
+      "frame": {
+        "x": 96,
+        "y": 192,
+        "w": 96,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 4,
+        "y": 10,
+        "w": 88,
+        "h": 77
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 2
+      },
+      "scale": 0.3423,
+      "scaleReduced": false,
+      "group": "ui_button_rot",
+      "registration": {
+        "dx": -2,
+        "dy": 13,
+        "iou": 0.944
+      }
+    },
+    "ui_button_rot_2": {
+      "frame": {
+        "x": 192,
+        "y": 192,
+        "w": 96,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 4,
+        "y": 7,
+        "w": 88,
+        "h": 81
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 3
+      },
+      "scale": 0.3423,
+      "scaleReduced": false,
+      "group": "ui_button_rot",
+      "registration": {
+        "dx": -5,
+        "dy": 3,
+        "iou": 0.995
+      }
+    },
+    "ui_button_grau_0": {
+      "frame": {
+        "x": 0,
+        "y": 288,
+        "w": 96,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 4,
+        "y": 7,
+        "w": 87,
+        "h": 82
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 4,
+        "col": 1
+      },
+      "scale": 0.3423,
+      "scaleReduced": false,
+      "group": "ui_button_grau",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "ui_button_grau_1": {
+      "frame": {
+        "x": 96,
+        "y": 288,
+        "w": 96,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 4,
+        "y": 10,
+        "w": 88,
+        "h": 77
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 4,
+        "col": 2
+      },
+      "scale": 0.3423,
+      "scaleReduced": false,
+      "group": "ui_button_grau",
+      "registration": {
+        "dx": -2,
+        "dy": 14,
+        "iou": 0.94
+      }
+    },
+    "ui_button_grau_2": {
+      "frame": {
+        "x": 192,
+        "y": 288,
+        "w": 96,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 4,
+        "y": 7,
+        "w": 87,
+        "h": 82
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 4,
+        "col": 3
+      },
+      "scale": 0.3423,
+      "scaleReduced": false,
+      "group": "ui_button_grau",
+      "registration": {
+        "dx": -5,
+        "dy": 3,
+        "iou": 1.002
+      }
+    },
+    "ui_button_blau_0": {
+      "frame": {
+        "x": 0,
+        "y": 384,
+        "w": 96,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 4,
+        "y": 7,
+        "w": 87,
+        "h": 82
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 5,
+        "col": 1
+      },
+      "scale": 0.3423,
+      "scaleReduced": false,
+      "group": "ui_button_blau",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "ui_button_blau_1": {
+      "frame": {
+        "x": 96,
+        "y": 384,
+        "w": 96,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 4,
+        "y": 10,
+        "w": 88,
+        "h": 77
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 5,
+        "col": 2
+      },
+      "scale": 0.3423,
+      "scaleReduced": false,
+      "group": "ui_button_blau",
+      "registration": {
+        "dx": -2,
+        "dy": 13,
+        "iou": 0.939
+      }
+    },
+    "ui_button_blau_2": {
+      "frame": {
+        "x": 192,
+        "y": 384,
+        "w": 96,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 4,
+        "y": 7,
+        "w": 88,
+        "h": 82
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 5,
+        "col": 3
+      },
+      "scale": 0.3423,
+      "scaleReduced": false,
+      "group": "ui_button_blau",
+      "registration": {
+        "dx": -5,
+        "dy": 2,
+        "iou": 0.99
+      }
+    }
+  },
+  "animations": {
+    "ui_button_gruen": [
+      "ui_button_gruen_0",
+      "ui_button_gruen_1",
+      "ui_button_gruen_2"
+    ],
+    "ui_button_rot": [
+      "ui_button_rot_0",
+      "ui_button_rot_1",
+      "ui_button_rot_2"
+    ],
+    "ui_button_grau": [
+      "ui_button_grau_0",
+      "ui_button_grau_1",
+      "ui_button_grau_2"
+    ],
+    "ui_button_blau": [
+      "ui_button_blau_0",
+      "ui_button_blau_1",
+      "ui_button_blau_2"
+    ]
+  },
+  "meta": {
+    "app": "bottleneck tools/clean-sheet.mjs --hd",
+    "version": "1.0",
+    "image": "sheet_ui_panels_24.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 384,
+      "h": 480
+    },
+    "scale": "1",
+    "hdScale": 4,
+    "cell": {
+      "w": 24,
+      "h": 24
+    },
+    "frame": {
+      "w": 96,
+      "h": 96
+    },
+    "grid": {
+      "cols": 4,
+      "rows": 5
+    },
+    "targetSize": {
+      "w": 96,
+      "h": 120
+    },
+    "source": "s01.png",
+    "sheet": "S01",
+    "background": "auto",
+    "quality": 90,
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "baseScale": 0.34231,
+    "scaleMode": "cell",
+    "gridLinesRemoved": 0
+  }
+}

@@ -1,0 +1,577 @@
+{
+  "frames": {
+    "cooler_boxed_0": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 208
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 208
+      },
+      "sourceSize": {
+        "w": 240,
+        "h": 208
+      },
+      "contentBBox": {
+        "x": 37,
+        "y": 20,
+        "w": 167,
+        "h": 167
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 1
+      },
+      "scale": 0.617,
+      "scaleReduced": false,
+      "group": "cooler_boxed",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "cooler_boxed_1": {
+      "frame": {
+        "x": 240,
+        "y": 0,
+        "w": 240,
+        "h": 208
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 208
+      },
+      "sourceSize": {
+        "w": 240,
+        "h": 208
+      },
+      "contentBBox": {
+        "x": 36,
+        "y": 20,
+        "w": 168,
+        "h": 167
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 2
+      },
+      "scale": 0.617,
+      "scaleReduced": false,
+      "group": "cooler_boxed",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.995
+      }
+    },
+    "cooler_boxed_2": {
+      "frame": {
+        "x": 480,
+        "y": 0,
+        "w": 240,
+        "h": 208
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 208
+      },
+      "sourceSize": {
+        "w": 240,
+        "h": 208
+      },
+      "contentBBox": {
+        "x": 37,
+        "y": 20,
+        "w": 166,
+        "h": 167
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 3
+      },
+      "scale": 0.617,
+      "scaleReduced": false,
+      "group": "cooler_boxed",
+      "registration": {
+        "dx": 1,
+        "dy": 0,
+        "iou": 0.995
+      }
+    },
+    "cooler_boxed_3": {
+      "frame": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 208
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 208
+      },
+      "sourceSize": {
+        "w": 240,
+        "h": 208
+      },
+      "contentBBox": {
+        "x": 37,
+        "y": 20,
+        "w": 167,
+        "h": 167
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 4
+      },
+      "scale": 0.617,
+      "scaleReduced": false,
+      "group": "cooler_boxed",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.997
+      }
+    },
+    "cooler_tower_0": {
+      "frame": {
+        "x": 0,
+        "y": 208,
+        "w": 240,
+        "h": 208
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 208
+      },
+      "sourceSize": {
+        "w": 240,
+        "h": 208
+      },
+      "contentBBox": {
+        "x": 40,
+        "y": 7,
+        "w": 160,
+        "h": 193
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 1
+      },
+      "scale": 0.617,
+      "scaleReduced": false,
+      "rawOverflowCell": [
+        "oben"
+      ],
+      "group": "cooler_tower",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "cooler_tower_1": {
+      "frame": {
+        "x": 240,
+        "y": 208,
+        "w": 240,
+        "h": 208
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 208
+      },
+      "sourceSize": {
+        "w": 240,
+        "h": 208
+      },
+      "contentBBox": {
+        "x": 40,
+        "y": 7,
+        "w": 160,
+        "h": 193
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 2
+      },
+      "scale": 0.617,
+      "scaleReduced": false,
+      "rawOverflowCell": [
+        "oben"
+      ],
+      "group": "cooler_tower",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.996
+      }
+    },
+    "cooler_tower_2": {
+      "frame": {
+        "x": 480,
+        "y": 208,
+        "w": 240,
+        "h": 208
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 208
+      },
+      "sourceSize": {
+        "w": 240,
+        "h": 208
+      },
+      "contentBBox": {
+        "x": 41,
+        "y": 7,
+        "w": 159,
+        "h": 193
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 3
+      },
+      "scale": 0.617,
+      "scaleReduced": false,
+      "rawOverflowCell": [
+        "oben"
+      ],
+      "group": "cooler_tower",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "cooler_tower_3": {
+      "frame": {
+        "x": 720,
+        "y": 208,
+        "w": 240,
+        "h": 208
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 208
+      },
+      "sourceSize": {
+        "w": 240,
+        "h": 208
+      },
+      "contentBBox": {
+        "x": 40,
+        "y": 7,
+        "w": 160,
+        "h": 193
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 4
+      },
+      "scale": 0.617,
+      "scaleReduced": false,
+      "rawOverflowCell": [
+        "oben"
+      ],
+      "group": "cooler_tower",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.997
+      }
+    },
+    "cooler_dualtower_0": {
+      "frame": {
+        "x": 0,
+        "y": 416,
+        "w": 240,
+        "h": 208
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 208
+      },
+      "sourceSize": {
+        "w": 240,
+        "h": 208
+      },
+      "contentBBox": {
+        "x": 10,
+        "y": 2,
+        "w": 221,
+        "h": 203
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 1
+      },
+      "scale": 0.617,
+      "scaleReduced": false,
+      "group": "cooler_dualtower",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "cooler_dualtower_1": {
+      "frame": {
+        "x": 240,
+        "y": 416,
+        "w": 240,
+        "h": 208
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 208
+      },
+      "sourceSize": {
+        "w": 240,
+        "h": 208
+      },
+      "contentBBox": {
+        "x": 9,
+        "y": 2,
+        "w": 221,
+        "h": 203
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 2
+      },
+      "scale": 0.617,
+      "scaleReduced": false,
+      "group": "cooler_dualtower",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.996
+      }
+    },
+    "cooler_dualtower_2": {
+      "frame": {
+        "x": 480,
+        "y": 416,
+        "w": 240,
+        "h": 208
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 208
+      },
+      "sourceSize": {
+        "w": 240,
+        "h": 208
+      },
+      "contentBBox": {
+        "x": 10,
+        "y": 2,
+        "w": 220,
+        "h": 203
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 3
+      },
+      "scale": 0.617,
+      "scaleReduced": false,
+      "group": "cooler_dualtower",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.996
+      }
+    },
+    "cooler_dualtower_3": {
+      "frame": {
+        "x": 720,
+        "y": 416,
+        "w": 240,
+        "h": 208
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 208
+      },
+      "sourceSize": {
+        "w": 240,
+        "h": 208
+      },
+      "contentBBox": {
+        "x": 10,
+        "y": 2,
+        "w": 220,
+        "h": 203
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 4
+      },
+      "scale": 0.617,
+      "scaleReduced": false,
+      "group": "cooler_dualtower",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.998
+      }
+    }
+  },
+  "animations": {
+    "cooler_boxed": [
+      "cooler_boxed_0",
+      "cooler_boxed_1",
+      "cooler_boxed_2",
+      "cooler_boxed_3"
+    ],
+    "cooler_tower": [
+      "cooler_tower_0",
+      "cooler_tower_1",
+      "cooler_tower_2",
+      "cooler_tower_3"
+    ],
+    "cooler_dualtower": [
+      "cooler_dualtower_0",
+      "cooler_dualtower_1",
+      "cooler_dualtower_2",
+      "cooler_dualtower_3"
+    ]
+  },
+  "meta": {
+    "app": "bottleneck tools/clean-sheet.mjs --hd",
+    "version": "1.0",
+    "image": "sheet_cooler_anim_60x52.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 960,
+      "h": 624
+    },
+    "scale": "1",
+    "hdScale": 4,
+    "cell": {
+      "w": 60,
+      "h": 52
+    },
+    "frame": {
+      "w": 240,
+      "h": 208
+    },
+    "grid": {
+      "cols": 4,
+      "rows": 3
+    },
+    "targetSize": {
+      "w": 240,
+      "h": 156
+    },
+    "source": "s25.png",
+    "sheet": "S25",
+    "background": "auto",
+    "quality": 90,
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "baseScale": 0.617,
+    "scaleMode": "cell",
+    "gridLinesRemoved": 0
+  }
+}

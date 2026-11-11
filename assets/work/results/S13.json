@@ -1,0 +1,29 @@
+{
+ "webpPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_booster_40x56.webp",
+ "jsonPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_booster_40x56.json",
+ "previewDark": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_booster_40x56_hd_dark.png",
+ "previewChecker": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_booster_40x56_hd_checker.png",
+ "warnings": [],
+ "reduced": [],
+ "gridLines": [],
+ "bg": [
+  130,
+  129,
+  130
+ ],
+ "semiBgPct": 0,
+ "droppedSpecks": 1,
+ "sourceSize": [
+  2122,
+  741
+ ],
+ "baseScale": 0.30194822952400213,
+ "nativeScale": 0.30194822952400213,
+ "hdScale": 4,
+ "rawSize": [
+  2122,
+  741
+ ],
+ "rawStacked": false,
+ "ms": 2634
+}

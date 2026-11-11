@@ -1,0 +1,29 @@
+{
+ "webpPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_hw_gpu_ram_32.webp",
+ "jsonPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_hw_gpu_ram_32.json",
+ "previewDark": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_hw_gpu_ram_32_hd_dark.png",
+ "previewChecker": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_hw_gpu_ram_32_hd_checker.png",
+ "warnings": [],
+ "reduced": [],
+ "gridLines": [],
+ "bg": [
+  134,
+  133,
+  133
+ ],
+ "semiBgPct": 0,
+ "droppedSpecks": 4,
+ "sourceSize": [
+  2172,
+  724
+ ],
+ "baseScale": 0.35359116022099446,
+ "nativeScale": 0.35359116022099446,
+ "hdScale": 4,
+ "rawSize": [
+  2172,
+  724
+ ],
+ "rawStacked": false,
+ "ms": 3334
+}

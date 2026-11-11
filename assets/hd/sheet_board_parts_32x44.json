@@ -1,0 +1,366 @@
+{
+  "frames": {
+    "slot_socket_lga": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 128,
+        "h": 176
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 128,
+        "h": 176
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 176
+      },
+      "contentBBox": {
+        "x": 10,
+        "y": 29,
+        "w": 108,
+        "h": 117
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 1
+      },
+      "scale": 0.3591,
+      "scaleReduced": false
+    },
+    "slot_socket_amx": {
+      "frame": {
+        "x": 128,
+        "y": 0,
+        "w": 128,
+        "h": 176
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 128,
+        "h": 176
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 176
+      },
+      "contentBBox": {
+        "x": 14,
+        "y": 32,
+        "w": 100,
+        "h": 113
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 2
+      },
+      "scale": 0.3591,
+      "scaleReduced": false
+    },
+    "hs_chipset_budget": {
+      "frame": {
+        "x": 256,
+        "y": 0,
+        "w": 128,
+        "h": 176
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 128,
+        "h": 176
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 176
+      },
+      "contentBBox": {
+        "x": 22,
+        "y": 45,
+        "w": 84,
+        "h": 86
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 3
+      },
+      "scale": 0.3591,
+      "scaleReduced": false
+    },
+    "hs_chipset_premium": {
+      "frame": {
+        "x": 0,
+        "y": 176,
+        "w": 128,
+        "h": 176
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 128,
+        "h": 176
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 176
+      },
+      "contentBBox": {
+        "x": 16,
+        "y": 39,
+        "w": 96,
+        "h": 97
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 1
+      },
+      "scale": 0.3591,
+      "scaleReduced": false
+    },
+    "cpu_ihs_intellion": {
+      "frame": {
+        "x": 128,
+        "y": 176,
+        "w": 128,
+        "h": 176
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 128,
+        "h": 176
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 176
+      },
+      "contentBBox": {
+        "x": 18,
+        "y": 41,
+        "w": 92,
+        "h": 93
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 2
+      },
+      "scale": 0.3591,
+      "scaleReduced": false
+    },
+    "cpu_ihs_amx": {
+      "frame": {
+        "x": 256,
+        "y": 176,
+        "w": 128,
+        "h": 176
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 128,
+        "h": 176
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 176
+      },
+      "contentBBox": {
+        "x": 17,
+        "y": 41,
+        "w": 94,
+        "h": 94
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 3
+      },
+      "scale": 0.3591,
+      "scaleReduced": false
+    },
+    "hdr_atx24": {
+      "frame": {
+        "x": 0,
+        "y": 352,
+        "w": 128,
+        "h": 176
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 128,
+        "h": 176
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 176
+      },
+      "contentBBox": {
+        "x": 42,
+        "y": 25,
+        "w": 44,
+        "h": 125
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 1
+      },
+      "scale": 0.3591,
+      "scaleReduced": false
+    },
+    "hs_vrm_side": {
+      "frame": {
+        "x": 128,
+        "y": 352,
+        "w": 128,
+        "h": 176
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 128,
+        "h": 176
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 176
+      },
+      "contentBBox": {
+        "x": 37,
+        "y": 20,
+        "w": 54,
+        "h": 136
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 2
+      },
+      "scale": 0.3591,
+      "scaleReduced": false
+    },
+    "io_shield": {
+      "frame": {
+        "x": 256,
+        "y": 352,
+        "w": 128,
+        "h": 176
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 128,
+        "h": 176
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 176
+      },
+      "contentBBox": {
+        "x": 25,
+        "y": 14,
+        "w": 78,
+        "h": 148
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 3
+      },
+      "scale": 0.3591,
+      "scaleReduced": false
+    }
+  },
+  "animations": {},
+  "meta": {
+    "app": "bottleneck tools/clean-sheet.mjs --hd",
+    "version": "1.0",
+    "image": "sheet_board_parts_32x44.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 384,
+      "h": 528
+    },
+    "scale": "1",
+    "hdScale": 4,
+    "cell": {
+      "w": 32,
+      "h": 44
+    },
+    "frame": {
+      "w": 128,
+      "h": 176
+    },
+    "grid": {
+      "cols": 3,
+      "rows": 3
+    },
+    "targetSize": {
+      "w": 96,
+      "h": 132
+    },
+    "source": "s22.png",
+    "sheet": "S22",
+    "background": "auto",
+    "quality": 90,
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "baseScale": 0.35915,
+    "scaleMode": "cell",
+    "gridLinesRemoved": 0
+  }
+}

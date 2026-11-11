@@ -1,0 +1,31 @@
+{
+ "webpPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_ui_slots_40x40.webp",
+ "jsonPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_ui_slots_40x40.json",
+ "previewDark": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_ui_slots_40x40_hd_dark.png",
+ "previewChecker": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_ui_slots_40x40_hd_checker.png",
+ "warnings": [],
+ "reduced": [
+  "ui_slot_empty_lager (1.00×)"
+ ],
+ "gridLines": [],
+ "bg": [
+  125,
+  125,
+  125
+ ],
+ "semiBgPct": 0,
+ "droppedSpecks": 4,
+ "sourceSize": [
+  2172,
+  724
+ ],
+ "baseScale": 0.4419889502762431,
+ "nativeScale": 0.4419889502762431,
+ "hdScale": 4,
+ "rawSize": [
+  2172,
+  724
+ ],
+ "rawStacked": false,
+ "ms": 3489
+}

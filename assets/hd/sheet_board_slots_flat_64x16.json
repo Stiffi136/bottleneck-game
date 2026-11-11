@@ -1,0 +1,294 @@
+{
+  "frames": {
+    "slot_pcie_x16": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 15,
+        "y": 16,
+        "w": 225,
+        "h": 32
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 1
+      },
+      "scale": 0.2886,
+      "scaleReduced": false
+    },
+    "slot_pcie_x1": {
+      "frame": {
+        "x": 256,
+        "y": 0,
+        "w": 256,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 93,
+        "y": 19,
+        "w": 70,
+        "h": 26
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 2
+      },
+      "scale": 0.2886,
+      "scaleReduced": false
+    },
+    "slot_m2": {
+      "frame": {
+        "x": 0,
+        "y": 64,
+        "w": 256,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 24,
+        "y": 13,
+        "w": 208,
+        "h": 38
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 1
+      },
+      "scale": 0.2886,
+      "scaleReduced": false
+    },
+    "slot_sata": {
+      "frame": {
+        "x": 256,
+        "y": 64,
+        "w": 256,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 96,
+        "y": 7,
+        "w": 64,
+        "h": 50
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 2
+      },
+      "scale": 0.2886,
+      "scaleReduced": false
+    },
+    "hdr_fan": {
+      "frame": {
+        "x": 0,
+        "y": 128,
+        "w": 256,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 108,
+        "y": 21,
+        "w": 41,
+        "h": 22
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 1
+      },
+      "scale": 0.2886,
+      "scaleReduced": false
+    },
+    "hdr_eps8": {
+      "frame": {
+        "x": 256,
+        "y": 128,
+        "w": 256,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 92,
+        "y": 10,
+        "w": 73,
+        "h": 44
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 2
+      },
+      "scale": 0.2886,
+      "scaleReduced": false
+    },
+    "hs_vrm_top": {
+      "frame": {
+        "x": 0,
+        "y": 192,
+        "w": 256,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 64
+      },
+      "contentBBox": {
+        "x": 22,
+        "y": 11,
+        "w": 212,
+        "h": 42
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 4,
+        "col": 1
+      },
+      "scale": 0.2886,
+      "scaleReduced": false
+    }
+  },
+  "animations": {},
+  "meta": {
+    "app": "bottleneck tools/clean-sheet.mjs --hd",
+    "version": "1.0",
+    "image": "sheet_board_slots_flat_64x16.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 512,
+      "h": 256
+    },
+    "scale": "1",
+    "hdScale": 4,
+    "cell": {
+      "w": 64,
+      "h": 16
+    },
+    "frame": {
+      "w": 256,
+      "h": 64
+    },
+    "grid": {
+      "cols": 2,
+      "rows": 4
+    },
+    "targetSize": {
+      "w": 128,
+      "h": 64
+    },
+    "source": "s23.png",
+    "sheet": "S23",
+    "background": "auto",
+    "quality": 90,
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "baseScale": 0.28861,
+    "scaleMode": "cell",
+    "gridLinesRemoved": 0
+  }
+}

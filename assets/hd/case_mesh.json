@@ -1,0 +1,63 @@
+{
+  "frames": {
+    "case_mesh": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1040,
+        "h": 1280
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1040,
+        "h": 1280
+      },
+      "sourceSize": {
+        "w": 1040,
+        "h": 1280
+      },
+      "contentBBox": {
+        "x": 0,
+        "y": 0,
+        "w": 1040,
+        "h": 1280
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "animations": {},
+  "meta": {
+    "app": "bottleneck tools/build-all.mjs",
+    "version": "1.0",
+    "image": "case_mesh.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 1040,
+      "h": 1280
+    },
+    "scale": "1",
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "hdScale": 4,
+    "targetSize": {
+      "w": 260,
+      "h": 320
+    },
+    "source": "e04.png",
+    "kind": "object",
+    "crop": {
+      "x": 0,
+      "y": 0,
+      "w": 1131,
+      "h": 1391
+    },
+    "fit": "fill (Abweichung ≤ 2 %, nur Zuschnitt auf Inhalt)",
+    "background": "entfernt (grau, Flood-Fill)"
+  }
+}

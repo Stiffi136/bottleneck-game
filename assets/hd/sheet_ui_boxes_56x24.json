@@ -1,0 +1,377 @@
+{
+  "frames": {
+    "ui_box_leistung_0": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 224,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 224,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 224,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 1,
+        "y": 14,
+        "w": 222,
+        "h": 67
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 1
+      },
+      "scale": 0.319,
+      "scaleReduced": false,
+      "group": "ui_box_leistung",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "ui_box_leistung_1": {
+      "frame": {
+        "x": 224,
+        "y": 0,
+        "w": 224,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 224,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 224,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 1,
+        "y": 14,
+        "w": 222,
+        "h": 67
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 2
+      },
+      "scale": 0.319,
+      "scaleReduced": false,
+      "group": "ui_box_leistung",
+      "registration": {
+        "dx": -3,
+        "dy": 0,
+        "iou": 0.999
+      }
+    },
+    "ui_box_leistung_2": {
+      "frame": {
+        "x": 448,
+        "y": 0,
+        "w": 224,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 224,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 224,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 1,
+        "y": 14,
+        "w": 222,
+        "h": 67
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 3
+      },
+      "scale": 0.319,
+      "scaleReduced": false,
+      "group": "ui_box_leistung",
+      "registration": {
+        "dx": -7,
+        "dy": 0,
+        "iou": 0.999
+      }
+    },
+    "ui_box_takt_0": {
+      "frame": {
+        "x": 0,
+        "y": 96,
+        "w": 224,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 224,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 224,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 1,
+        "y": 14,
+        "w": 222,
+        "h": 68
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 1
+      },
+      "scale": 0.319,
+      "scaleReduced": false,
+      "group": "ui_box_takt",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "ui_box_takt_1": {
+      "frame": {
+        "x": 224,
+        "y": 96,
+        "w": 224,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 224,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 224,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 1,
+        "y": 14,
+        "w": 222,
+        "h": 68
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 2
+      },
+      "scale": 0.319,
+      "scaleReduced": false,
+      "group": "ui_box_takt",
+      "registration": {
+        "dx": -3,
+        "dy": 0,
+        "iou": 0.999
+      }
+    },
+    "ui_box_takt_2": {
+      "frame": {
+        "x": 448,
+        "y": 96,
+        "w": 224,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 224,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 224,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 1,
+        "y": 14,
+        "w": 222,
+        "h": 68
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 3
+      },
+      "scale": 0.319,
+      "scaleReduced": false,
+      "group": "ui_box_takt",
+      "registration": {
+        "dx": -7,
+        "dy": 0,
+        "iou": 0.999
+      }
+    },
+    "ui_price_tag": {
+      "frame": {
+        "x": 0,
+        "y": 192,
+        "w": 224,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 224,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 224,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 45,
+        "y": 23,
+        "w": 133,
+        "h": 50
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 1
+      },
+      "scale": 0.319,
+      "scaleReduced": false
+    },
+    "ui_sold_stamp": {
+      "frame": {
+        "x": 224,
+        "y": 192,
+        "w": 224,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 224,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 224,
+        "h": 96
+      },
+      "contentBBox": {
+        "x": 35,
+        "y": 15,
+        "w": 154,
+        "h": 66
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 2
+      },
+      "scale": 0.319,
+      "scaleReduced": false
+    }
+  },
+  "animations": {
+    "ui_box_leistung": [
+      "ui_box_leistung_0",
+      "ui_box_leistung_1",
+      "ui_box_leistung_2"
+    ],
+    "ui_box_takt": [
+      "ui_box_takt_0",
+      "ui_box_takt_1",
+      "ui_box_takt_2"
+    ]
+  },
+  "meta": {
+    "app": "bottleneck tools/clean-sheet.mjs --hd",
+    "version": "1.0",
+    "image": "sheet_ui_boxes_56x24.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 672,
+      "h": 288
+    },
+    "scale": "1",
+    "hdScale": 4,
+    "cell": {
+      "w": 56,
+      "h": 24
+    },
+    "frame": {
+      "w": 224,
+      "h": 96
+    },
+    "grid": {
+      "cols": 3,
+      "rows": 3
+    },
+    "targetSize": {
+      "w": 168,
+      "h": 72
+    },
+    "source": "s04.png",
+    "sheet": "S04",
+    "background": "auto",
+    "quality": 90,
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "baseScale": 0.31897,
+    "scaleMode": "fit",
+    "gridLinesRemoved": 0
+  }
+}

@@ -1,0 +1,740 @@
+{
+  "frames": {
+    "card_ov_optimiert_0": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 272
+      },
+      "contentBBox": {
+        "x": 13,
+        "y": 23,
+        "w": 182,
+        "h": 226
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 1
+      },
+      "scale": 0.8047,
+      "scaleReduced": false,
+      "group": "card_ov_optimiert",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "card_ov_optimiert_1": {
+      "frame": {
+        "x": 208,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 272
+      },
+      "contentBBox": {
+        "x": 13,
+        "y": 23,
+        "w": 182,
+        "h": 226
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 2
+      },
+      "scale": 0.8047,
+      "scaleReduced": false,
+      "group": "card_ov_optimiert",
+      "registration": {
+        "dx": -2,
+        "dy": 0,
+        "iou": 0.969
+      }
+    },
+    "card_ov_optimiert_2": {
+      "frame": {
+        "x": 416,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 272
+      },
+      "contentBBox": {
+        "x": 12,
+        "y": 23,
+        "w": 183,
+        "h": 226
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 3
+      },
+      "scale": 0.8047,
+      "scaleReduced": false,
+      "group": "card_ov_optimiert",
+      "registration": {
+        "dx": -3,
+        "dy": 0,
+        "iou": 0.962
+      }
+    },
+    "card_ov_optimiert_3": {
+      "frame": {
+        "x": 624,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 272
+      },
+      "contentBBox": {
+        "x": 13,
+        "y": 23,
+        "w": 182,
+        "h": 226
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 4
+      },
+      "scale": 0.8047,
+      "scaleReduced": false,
+      "group": "card_ov_optimiert",
+      "registration": {
+        "dx": -6,
+        "dy": 0,
+        "iou": 0.967
+      }
+    },
+    "card_ov_optimiert_4": {
+      "frame": {
+        "x": 832,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 272
+      },
+      "contentBBox": {
+        "x": 13,
+        "y": 23,
+        "w": 182,
+        "h": 226
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 5
+      },
+      "scale": 0.8047,
+      "scaleReduced": false,
+      "group": "card_ov_optimiert",
+      "registration": {
+        "dx": -7,
+        "dy": 0,
+        "iou": 0.955
+      }
+    },
+    "card_ov_optimiert_5": {
+      "frame": {
+        "x": 1040,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 272
+      },
+      "contentBBox": {
+        "x": 14,
+        "y": 23,
+        "w": 181,
+        "h": 226
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 6
+      },
+      "scale": 0.8047,
+      "scaleReduced": false,
+      "group": "card_ov_optimiert",
+      "registration": {
+        "dx": -10,
+        "dy": 0,
+        "iou": 0.964
+      }
+    },
+    "card_frame_software_l_0": {
+      "frame": {
+        "x": 0,
+        "y": 272,
+        "w": 208,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 272
+      },
+      "contentBBox": {
+        "x": 13,
+        "y": 20,
+        "w": 184,
+        "h": 231
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 1
+      },
+      "scale": 0.8047,
+      "scaleReduced": false,
+      "group": "card_frame_software_l",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "card_frame_software_l_1": {
+      "frame": {
+        "x": 208,
+        "y": 272,
+        "w": 208,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 272
+      },
+      "contentBBox": {
+        "x": 12,
+        "y": 22,
+        "w": 184,
+        "h": 229
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 2
+      },
+      "scale": 0.8047,
+      "scaleReduced": false,
+      "group": "card_frame_software_l",
+      "registration": {
+        "dx": -2,
+        "dy": -1,
+        "iou": 0.981
+      }
+    },
+    "card_frame_software_l_2": {
+      "frame": {
+        "x": 416,
+        "y": 272,
+        "w": 208,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 272
+      },
+      "contentBBox": {
+        "x": 12,
+        "y": 21,
+        "w": 184,
+        "h": 230
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 3
+      },
+      "scale": 0.8047,
+      "scaleReduced": false,
+      "group": "card_frame_software_l",
+      "registration": {
+        "dx": -4,
+        "dy": 0,
+        "iou": 0.989
+      }
+    },
+    "card_frame_software_l_3": {
+      "frame": {
+        "x": 624,
+        "y": 272,
+        "w": 208,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 272
+      },
+      "contentBBox": {
+        "x": 12,
+        "y": 21,
+        "w": 184,
+        "h": 230
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 4
+      },
+      "scale": 0.8047,
+      "scaleReduced": false,
+      "group": "card_frame_software_l",
+      "registration": {
+        "dx": -6,
+        "dy": 0,
+        "iou": 0.968
+      }
+    },
+    "card_frame_software_l_4": {
+      "frame": {
+        "x": 832,
+        "y": 272,
+        "w": 208,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 272
+      },
+      "contentBBox": {
+        "x": 12,
+        "y": 20,
+        "w": 184,
+        "h": 231
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 5
+      },
+      "scale": 0.8047,
+      "scaleReduced": false,
+      "group": "card_frame_software_l",
+      "registration": {
+        "dx": -8,
+        "dy": 0,
+        "iou": 0.987
+      }
+    },
+    "card_frame_software_l_5": {
+      "frame": {
+        "x": 1040,
+        "y": 272,
+        "w": 208,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 272
+      },
+      "contentBBox": {
+        "x": 12,
+        "y": 20,
+        "w": 184,
+        "h": 231
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 6
+      },
+      "scale": 0.8047,
+      "scaleReduced": false,
+      "group": "card_frame_software_l",
+      "registration": {
+        "dx": -10,
+        "dy": 0,
+        "iou": 0.995
+      }
+    },
+    "ui_card_highlight_0": {
+      "frame": {
+        "x": 0,
+        "y": 544,
+        "w": 208,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 272
+      },
+      "contentBBox": {
+        "x": 17,
+        "y": 29,
+        "w": 176,
+        "h": 218
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 1
+      },
+      "scale": 0.7863,
+      "scaleReduced": true,
+      "group": "ui_card_highlight",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "ui_card_highlight_1": {
+      "frame": {
+        "x": 208,
+        "y": 544,
+        "w": 208,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 272
+      },
+      "contentBBox": {
+        "x": 13,
+        "y": 22,
+        "w": 181,
+        "h": 230
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 2
+      },
+      "scale": 0.7863,
+      "scaleReduced": true,
+      "group": "ui_card_highlight",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.551
+      }
+    },
+    "ui_card_highlight_2": {
+      "frame": {
+        "x": 416,
+        "y": 544,
+        "w": 208,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 272
+      },
+      "contentBBox": {
+        "x": 1,
+        "y": 12,
+        "w": 205,
+        "h": 248
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 3
+      },
+      "scale": 0.7863,
+      "scaleReduced": true,
+      "rawOverflowCell": [
+        "rechts"
+      ],
+      "group": "ui_card_highlight",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.306
+      }
+    },
+    "ui_card_highlight_3": {
+      "frame": {
+        "x": 624,
+        "y": 544,
+        "w": 208,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 272
+      },
+      "contentBBox": {
+        "x": 9,
+        "y": 22,
+        "w": 184,
+        "h": 230
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 4
+      },
+      "scale": 0.7863,
+      "scaleReduced": true,
+      "group": "ui_card_highlight",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 0.508
+      }
+    }
+  },
+  "animations": {
+    "card_ov_optimiert": [
+      "card_ov_optimiert_0",
+      "card_ov_optimiert_1",
+      "card_ov_optimiert_2",
+      "card_ov_optimiert_3",
+      "card_ov_optimiert_4",
+      "card_ov_optimiert_5"
+    ],
+    "card_frame_software_l": [
+      "card_frame_software_l_0",
+      "card_frame_software_l_1",
+      "card_frame_software_l_2",
+      "card_frame_software_l_3",
+      "card_frame_software_l_4",
+      "card_frame_software_l_5"
+    ],
+    "ui_card_highlight": [
+      "ui_card_highlight_0",
+      "ui_card_highlight_1",
+      "ui_card_highlight_2",
+      "ui_card_highlight_3"
+    ]
+  },
+  "meta": {
+    "app": "bottleneck tools/clean-sheet.mjs --hd",
+    "version": "1.0",
+    "image": "sheet_card_anim_52x68.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 1248,
+      "h": 816
+    },
+    "scale": "1",
+    "hdScale": 4,
+    "cell": {
+      "w": 52,
+      "h": 68
+    },
+    "frame": {
+      "w": 208,
+      "h": 272
+    },
+    "grid": {
+      "cols": 6,
+      "rows": 3
+    },
+    "targetSize": {
+      "w": 312,
+      "h": 204
+    },
+    "source": "s12.png",
+    "sheet": "S12",
+    "background": "auto",
+    "quality": 90,
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "baseScale": 0.80469,
+    "scaleMode": "cell",
+    "gridLinesRemoved": 0
+  }
+}

@@ -1,0 +1,29 @@
+{
+ "webpPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_aio_fan_32.webp",
+ "jsonPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_aio_fan_32.json",
+ "previewDark": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_aio_fan_32_hd_dark.png",
+ "previewChecker": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_aio_fan_32_hd_checker.png",
+ "warnings": [],
+ "reduced": [],
+ "gridLines": [],
+ "bg": [
+  128,
+  128,
+  127
+ ],
+ "semiBgPct": 0.3,
+ "droppedSpecks": 7,
+ "sourceSize": [
+  1448,
+  1086
+ ],
+ "baseScale": 0.35359116022099446,
+ "nativeScale": 0.35359116022099446,
+ "hdScale": 4,
+ "rawSize": [
+  1448,
+  1086
+ ],
+ "rawStacked": false,
+ "ms": 3958
+}

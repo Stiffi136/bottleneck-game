@@ -1,0 +1,347 @@
+{
+  "frames": {
+    "m2_ssd": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 112
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 112
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 112
+      },
+      "contentBBox": {
+        "x": 27,
+        "y": 32,
+        "w": 202,
+        "h": 48
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 1
+      },
+      "scale": 0.3819,
+      "scaleReduced": false
+    },
+    "m2_ssd_heatsink": {
+      "frame": {
+        "x": 256,
+        "y": 0,
+        "w": 256,
+        "h": 112
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 112
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 112
+      },
+      "contentBBox": {
+        "x": 27,
+        "y": 27,
+        "w": 202,
+        "h": 58
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 2
+      },
+      "scale": 0.3819,
+      "scaleReduced": false
+    },
+    "exp_nic": {
+      "frame": {
+        "x": 0,
+        "y": 112,
+        "w": 256,
+        "h": 112
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 112
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 112
+      },
+      "contentBBox": {
+        "x": 37,
+        "y": 10,
+        "w": 182,
+        "h": 92
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 1
+      },
+      "scale": 0.3819,
+      "scaleReduced": false
+    },
+    "exp_sound": {
+      "frame": {
+        "x": 256,
+        "y": 112,
+        "w": 256,
+        "h": 112
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 112
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 112
+      },
+      "contentBBox": {
+        "x": 26,
+        "y": 10,
+        "w": 203,
+        "h": 92
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 2
+      },
+      "scale": 0.3819,
+      "scaleReduced": false
+    },
+    "exp_capture": {
+      "frame": {
+        "x": 0,
+        "y": 224,
+        "w": 256,
+        "h": 112
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 112
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 112
+      },
+      "contentBBox": {
+        "x": 26,
+        "y": 11,
+        "w": 204,
+        "h": 90
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 1
+      },
+      "scale": 0.3819,
+      "scaleReduced": false
+    },
+    "drive_sata_ssd": {
+      "frame": {
+        "x": 256,
+        "y": 224,
+        "w": 256,
+        "h": 112
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 112
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 112
+      },
+      "contentBBox": {
+        "x": 55,
+        "y": 13,
+        "w": 146,
+        "h": 86
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 2
+      },
+      "scale": 0.3819,
+      "scaleReduced": false
+    },
+    "drive_hdd_0": {
+      "frame": {
+        "x": 0,
+        "y": 336,
+        "w": 256,
+        "h": 112
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 112
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 112
+      },
+      "contentBBox": {
+        "x": 47,
+        "y": 10,
+        "w": 162,
+        "h": 92
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 4,
+        "col": 1
+      },
+      "scale": 0.3819,
+      "scaleReduced": false,
+      "group": "drive_hdd",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "drive_hdd_1": {
+      "frame": {
+        "x": 256,
+        "y": 336,
+        "w": 256,
+        "h": 112
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 112
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 112
+      },
+      "contentBBox": {
+        "x": 28,
+        "y": 9,
+        "w": 200,
+        "h": 94
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 4,
+        "col": 2
+      },
+      "scale": 0.3819,
+      "scaleReduced": false,
+      "group": "drive_hdd",
+      "registration": {
+        "dx": 2,
+        "dy": 0,
+        "iou": 0.958
+      }
+    }
+  },
+  "animations": {
+    "drive_hdd": [
+      "drive_hdd_0",
+      "drive_hdd_1"
+    ]
+  },
+  "meta": {
+    "app": "bottleneck tools/clean-sheet.mjs --hd",
+    "version": "1.0",
+    "image": "sheet_parts_flat_64x28.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 512,
+      "h": 448
+    },
+    "scale": "1",
+    "hdScale": 4,
+    "cell": {
+      "w": 64,
+      "h": 28
+    },
+    "frame": {
+      "w": 256,
+      "h": 112
+    },
+    "grid": {
+      "cols": 2,
+      "rows": 4
+    },
+    "targetSize": {
+      "w": 128,
+      "h": 112
+    },
+    "source": "s24.png",
+    "sheet": "S24",
+    "background": "auto",
+    "quality": 90,
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "baseScale": 0.38187,
+    "scaleMode": "cell",
+    "gridLinesRemoved": 0
+  }
+}

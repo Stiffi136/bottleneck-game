@@ -1,0 +1,42 @@
+{
+ "webpPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/mb_pcb_atx.webp",
+ "jsonPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/mb_pcb_atx.json",
+ "previewDark": "/workspace/projekte/roguelike-deckbuilder/assets/preview/mb_pcb_atx_hd_dark.png",
+ "warnings": [],
+ "info": {
+  "bgShare": 0,
+  "sourceSize": [
+   1122,
+   1402
+  ],
+  "cropBox": {
+   "x": 0,
+   "y": 0,
+   "w": 1122,
+   "h": 1402
+  },
+  "cropMargins": {
+   "left": 0,
+   "top": 0,
+   "right": 0,
+   "bottom": 0
+  },
+  "dustRemovedPx": 0,
+  "contentRatio": 0.8003,
+  "targetRatio": 0.8,
+  "ratioDeviationPct": 0.04,
+  "fitMode": "fill (Abweichung ≤ 2 %, nur Zuschnitt auf Inhalt)",
+  "contentOut": [
+   640,
+   800
+  ]
+ },
+ "frames": 1,
+ "hdScale": 4,
+ "rawSize": [
+  1122,
+  1402
+ ],
+ "rawStacked": false,
+ "ms": 269
+}

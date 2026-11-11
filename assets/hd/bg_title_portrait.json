@@ -1,0 +1,61 @@
+{
+  "frames": {
+    "bg_title_portrait": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 800,
+        "h": 1800
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 800,
+        "h": 1800
+      },
+      "sourceSize": {
+        "w": 800,
+        "h": 1800
+      },
+      "contentBBox": {
+        "x": 0,
+        "y": 0,
+        "w": 800,
+        "h": 1800
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "animations": {},
+  "meta": {
+    "app": "bottleneck tools/build-all.mjs",
+    "version": "1.0",
+    "image": "bg_title_portrait.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 800,
+      "h": 1800
+    },
+    "scale": "1",
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "hdScale": 2,
+    "targetSize": {
+      "w": 400,
+      "h": 900
+    },
+    "source": "e09.png",
+    "kind": "background",
+    "crop": {
+      "x": 0,
+      "y": 0,
+      "w": 836,
+      "h": 1881
+    }
+  }
+}

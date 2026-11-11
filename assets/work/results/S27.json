@@ -1,0 +1,74 @@
+{
+ "webpPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_gpu_216x40.webp",
+ "jsonPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_gpu_216x40.json",
+ "previewDark": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_gpu_216x40_hd_dark.png",
+ "warnings": [],
+ "reduced": [],
+ "gridLines": [],
+ "info": [
+  "s27_s.png: 1 Sprites, Maßstab 0.2240, 112.0×19.0 Art-px",
+  "s27_m.png: 4 Sprites, Maßstab 0.7243, 176.0×37.8 | 176.0×37.8 | 176.0×37.8 | 176.0×37.8 Art-px",
+  "s27_l.png: 4 Sprites, Maßstab 0.8905, 216.3×58.0 | 216.0×58.5 | 216.0×58.5 | 216.0×59.0 Art-px"
+ ],
+ "animationCheck": {
+  "gpu_m": [
+   {
+    "vs": "0→1",
+    "meanAbsDiff": 11.22,
+    "pctPixelsOver24": 14.03
+   },
+   {
+    "vs": "0→2",
+    "meanAbsDiff": 11.24,
+    "pctPixelsOver24": 15.01
+   },
+   {
+    "vs": "0→3",
+    "meanAbsDiff": 11.62,
+    "pctPixelsOver24": 14.77
+   }
+  ],
+  "gpu_l": [
+   {
+    "vs": "0→1",
+    "meanAbsDiff": 17.25,
+    "pctPixelsOver24": 25.12
+   },
+   {
+    "vs": "0→2",
+    "meanAbsDiff": 17.5,
+    "pctPixelsOver24": 27
+   },
+   {
+    "vs": "0→3",
+    "meanAbsDiff": 18.67,
+    "pctPixelsOver24": 27.62
+   }
+  ]
+ },
+ "sourceSize": [
+  1448,
+  1086
+ ],
+ "rawSizes": [
+  [
+   2172,
+   724
+  ],
+  [
+   1672,
+   941
+  ],
+  [
+   1448,
+   1086
+  ]
+ ],
+ "hdScale": 4,
+ "rawSize": [
+  2172,
+  724
+ ],
+ "rawStacked": false,
+ "ms": 686
+}

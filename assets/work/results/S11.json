@@ -1,0 +1,29 @@
+{
+ "webpPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_card_overlays_48x64.webp",
+ "jsonPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_card_overlays_48x64.json",
+ "previewDark": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_card_overlays_48x64_hd_dark.png",
+ "previewChecker": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_card_overlays_48x64_hd_checker.png",
+ "warnings": [],
+ "reduced": [],
+ "gridLines": [],
+ "bg": [
+  129,
+  129,
+  128
+ ],
+ "semiBgPct": 1.2,
+ "droppedSpecks": 145,
+ "sourceSize": [
+  1086,
+  1448
+ ],
+ "baseScale": 0.7071823204419889,
+ "nativeScale": 0.7071823204419889,
+ "hdScale": 4,
+ "rawSize": [
+  1086,
+  1448
+ ],
+ "rawStacked": false,
+ "ms": 6513
+}

@@ -1,0 +1,114 @@
+{
+ "webpPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_fx8_8.webp",
+ "jsonPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_fx8_8.json",
+ "previewDark": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_fx8_8_hd_dark.png",
+ "previewChecker": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_fx8_8_hd_checker.png",
+ "warnings": [],
+ "reduced": [],
+ "gridLines": [
+  {
+   "axis": "v",
+   "boundary": 0,
+   "thickness": 1,
+   "cleared": 903
+  },
+  {
+   "axis": "v",
+   "boundary": 1,
+   "thickness": 2,
+   "cleared": 1805
+  },
+  {
+   "axis": "v",
+   "boundary": 2,
+   "thickness": 2,
+   "cleared": 1805
+  },
+  {
+   "axis": "v",
+   "boundary": 3,
+   "thickness": 2,
+   "cleared": 1797
+  },
+  {
+   "axis": "v",
+   "boundary": 4,
+   "thickness": 2,
+   "cleared": 1806
+  },
+  {
+   "axis": "v",
+   "boundary": 5,
+   "thickness": 2,
+   "cleared": 1808
+  },
+  {
+   "axis": "v",
+   "boundary": 6,
+   "thickness": 2,
+   "cleared": 1836
+  },
+  {
+   "axis": "v",
+   "boundary": 7,
+   "thickness": 2,
+   "cleared": 1807
+  },
+  {
+   "axis": "v",
+   "boundary": 8,
+   "thickness": 1,
+   "cleared": 903
+  },
+  {
+   "axis": "h",
+   "boundary": 0,
+   "thickness": 1,
+   "cleared": 1726
+  },
+  {
+   "axis": "h",
+   "boundary": 1,
+   "thickness": 2,
+   "cleared": 3452
+  },
+  {
+   "axis": "h",
+   "boundary": 2,
+   "thickness": 2,
+   "cleared": 3452
+  },
+  {
+   "axis": "h",
+   "boundary": 3,
+   "thickness": 2,
+   "cleared": 3452
+  },
+  {
+   "axis": "h",
+   "boundary": 4,
+   "thickness": 1,
+   "cleared": 1726
+  }
+ ],
+ "bg": [
+  128,
+  128,
+  128
+ ],
+ "semiBgPct": 0.2,
+ "droppedSpecks": 7,
+ "sourceSize": [
+  1774,
+  887
+ ],
+ "baseScale": 0.14430665163472378,
+ "nativeScale": 0.14430665163472378,
+ "hdScale": 4,
+ "rawSize": [
+  1774,
+  887
+ ],
+ "rawStacked": false,
+ "ms": 1562
+}

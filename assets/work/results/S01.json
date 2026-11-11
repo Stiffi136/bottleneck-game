@@ -1,0 +1,29 @@
+{
+ "webpPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_ui_panels_24.webp",
+ "jsonPath": "/workspace/projekte/roguelike-deckbuilder/assets/hd/sheet_ui_panels_24.json",
+ "previewDark": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_ui_panels_24_hd_dark.png",
+ "previewChecker": "/workspace/projekte/roguelike-deckbuilder/assets/preview/sheet_ui_panels_24_hd_checker.png",
+ "warnings": [],
+ "reduced": [],
+ "gridLines": [],
+ "bg": [
+  128,
+  128,
+  127
+ ],
+ "semiBgPct": 0.1,
+ "droppedSpecks": 9,
+ "sourceSize": [
+  1122,
+  1402
+ ],
+ "baseScale": 0.3423070174769428,
+ "nativeScale": 0.3423070174769428,
+ "hdScale": 4,
+ "rawSize": [
+  1122,
+  1402
+ ],
+ "rawStacked": false,
+ "ms": 3469
+}

@@ -1,0 +1,1 @@
+{"name":"bottleneck-asset-tools","private":true,"type":"module","version":"1.0.0","scripts":{"clean-sheet":"node clean-sheet.mjs","build-all":"node build-all.mjs","check-names":"node check-names.mjs"},"dependencies":{"pngjs":"^7.0.0","sharp":"^0.35.5"}}

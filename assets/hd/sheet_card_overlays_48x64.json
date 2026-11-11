@@ -1,0 +1,610 @@
+{
+  "frames": {
+    "card_ov_uebertaktet_0": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 256
+      },
+      "contentBBox": {
+        "x": 5,
+        "y": 20,
+        "w": 182,
+        "h": 233
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 1
+      },
+      "scale": 0.7072,
+      "scaleReduced": false,
+      "group": "card_ov_uebertaktet",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "card_ov_uebertaktet_1": {
+      "frame": {
+        "x": 192,
+        "y": 0,
+        "w": 192,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 256
+      },
+      "contentBBox": {
+        "x": 8,
+        "y": 2,
+        "w": 178,
+        "h": 251
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 2
+      },
+      "scale": 0.7072,
+      "scaleReduced": false,
+      "rawClippedAt": [
+        "oben"
+      ],
+      "group": "card_ov_uebertaktet",
+      "registration": {
+        "dx": -4,
+        "dy": 0,
+        "iou": 0.827
+      }
+    },
+    "card_ov_uebertaktet_2": {
+      "frame": {
+        "x": 384,
+        "y": 0,
+        "w": 192,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 256
+      },
+      "contentBBox": {
+        "x": 7,
+        "y": 2,
+        "w": 179,
+        "h": 253
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 3
+      },
+      "scale": 0.7072,
+      "scaleReduced": false,
+      "rawClippedAt": [
+        "oben"
+      ],
+      "group": "card_ov_uebertaktet",
+      "registration": {
+        "dx": -5,
+        "dy": 0,
+        "iou": 0.781
+      }
+    },
+    "card_ov_uebertaktet_3": {
+      "frame": {
+        "x": 576,
+        "y": 0,
+        "w": 192,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 256
+      },
+      "contentBBox": {
+        "x": 6,
+        "y": 2,
+        "w": 181,
+        "h": 252
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 1,
+        "col": 4
+      },
+      "scale": 0.7072,
+      "scaleReduced": false,
+      "rawClippedAt": [
+        "oben"
+      ],
+      "group": "card_ov_uebertaktet",
+      "registration": {
+        "dx": -8,
+        "dy": 0,
+        "iou": 0.769
+      }
+    },
+    "card_ov_effizient_0": {
+      "frame": {
+        "x": 0,
+        "y": 256,
+        "w": 192,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 256
+      },
+      "contentBBox": {
+        "x": 10,
+        "y": 13,
+        "w": 171,
+        "h": 229
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 1
+      },
+      "scale": 0.7072,
+      "scaleReduced": false,
+      "group": "card_ov_effizient",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "card_ov_effizient_1": {
+      "frame": {
+        "x": 192,
+        "y": 256,
+        "w": 192,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 256
+      },
+      "contentBBox": {
+        "x": 12,
+        "y": 13,
+        "w": 168,
+        "h": 229
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 2
+      },
+      "scale": 0.7072,
+      "scaleReduced": false,
+      "group": "card_ov_effizient",
+      "registration": {
+        "dx": -2,
+        "dy": 0,
+        "iou": 0.904
+      }
+    },
+    "card_ov_effizient_2": {
+      "frame": {
+        "x": 384,
+        "y": 256,
+        "w": 192,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 256
+      },
+      "contentBBox": {
+        "x": 12,
+        "y": 14,
+        "w": 169,
+        "h": 228
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 3
+      },
+      "scale": 0.7072,
+      "scaleReduced": false,
+      "group": "card_ov_effizient",
+      "registration": {
+        "dx": -5,
+        "dy": -1,
+        "iou": 0.922
+      }
+    },
+    "card_ov_effizient_3": {
+      "frame": {
+        "x": 576,
+        "y": 256,
+        "w": 192,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 256
+      },
+      "contentBBox": {
+        "x": 11,
+        "y": 13,
+        "w": 170,
+        "h": 229
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 2,
+        "col": 4
+      },
+      "scale": 0.7072,
+      "scaleReduced": false,
+      "group": "card_ov_effizient",
+      "registration": {
+        "dx": -7,
+        "dy": 0,
+        "iou": 0.919
+      }
+    },
+    "card_ov_instabil_0": {
+      "frame": {
+        "x": 0,
+        "y": 512,
+        "w": 192,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 256
+      },
+      "contentBBox": {
+        "x": 4,
+        "y": 12,
+        "w": 184,
+        "h": 231
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 1
+      },
+      "scale": 0.7072,
+      "scaleReduced": false,
+      "group": "card_ov_instabil",
+      "registration": {
+        "dx": 0,
+        "dy": 0,
+        "iou": 1
+      }
+    },
+    "card_ov_instabil_1": {
+      "frame": {
+        "x": 192,
+        "y": 512,
+        "w": 192,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 256
+      },
+      "contentBBox": {
+        "x": 5,
+        "y": 12,
+        "w": 181,
+        "h": 232
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 2
+      },
+      "scale": 0.7072,
+      "scaleReduced": false,
+      "group": "card_ov_instabil",
+      "registration": {
+        "dx": -2,
+        "dy": 0,
+        "iou": 0.826
+      }
+    },
+    "card_ov_instabil_2": {
+      "frame": {
+        "x": 384,
+        "y": 512,
+        "w": 192,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 256
+      },
+      "contentBBox": {
+        "x": 6,
+        "y": 12,
+        "w": 181,
+        "h": 231
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 3
+      },
+      "scale": 0.7072,
+      "scaleReduced": false,
+      "group": "card_ov_instabil",
+      "registration": {
+        "dx": -5,
+        "dy": 1,
+        "iou": 0.807
+      }
+    },
+    "card_ov_instabil_3": {
+      "frame": {
+        "x": 576,
+        "y": 512,
+        "w": 192,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 256
+      },
+      "contentBBox": {
+        "x": 5,
+        "y": 12,
+        "w": 182,
+        "h": 232
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 3,
+        "col": 4
+      },
+      "scale": 0.7072,
+      "scaleReduced": false,
+      "group": "card_ov_instabil",
+      "registration": {
+        "dx": -7,
+        "dy": 0,
+        "iou": 0.777
+      }
+    },
+    "card_ov_debuff": {
+      "frame": {
+        "x": 0,
+        "y": 768,
+        "w": 192,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 256
+      },
+      "contentBBox": {
+        "x": 9,
+        "y": 8,
+        "w": 173,
+        "h": 239
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "cell": {
+        "row": 4,
+        "col": 1
+      },
+      "scale": 0.7072,
+      "scaleReduced": false
+    }
+  },
+  "animations": {
+    "card_ov_uebertaktet": [
+      "card_ov_uebertaktet_0",
+      "card_ov_uebertaktet_1",
+      "card_ov_uebertaktet_2",
+      "card_ov_uebertaktet_3"
+    ],
+    "card_ov_effizient": [
+      "card_ov_effizient_0",
+      "card_ov_effizient_1",
+      "card_ov_effizient_2",
+      "card_ov_effizient_3"
+    ],
+    "card_ov_instabil": [
+      "card_ov_instabil_0",
+      "card_ov_instabil_1",
+      "card_ov_instabil_2",
+      "card_ov_instabil_3"
+    ]
+  },
+  "meta": {
+    "app": "bottleneck tools/clean-sheet.mjs --hd",
+    "version": "1.0",
+    "image": "sheet_card_overlays_48x64.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 768,
+      "h": 1024
+    },
+    "scale": "1",
+    "hdScale": 4,
+    "cell": {
+      "w": 48,
+      "h": 64
+    },
+    "frame": {
+      "w": 192,
+      "h": 256
+    },
+    "grid": {
+      "cols": 4,
+      "rows": 4
+    },
+    "targetSize": {
+      "w": 192,
+      "h": 256
+    },
+    "source": "s11.png",
+    "sheet": "S11",
+    "background": "auto",
+    "quality": 90,
+    "alpha": "straight (nicht vormultipliziert)",
+    "filter": "linear",
+    "baseScale": 0.70718,
+    "scaleMode": "cell",
+    "gridLinesRemoved": 0
+  }
+}
