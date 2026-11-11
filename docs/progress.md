@@ -65,20 +65,25 @@ Offen:
 ## P3 Werkbank & Laden (Agent B)
 
 Erledigt (Dateien: `pcView.ts`, `workbench.ts`, `shop.ts`, neu `postDialog.ts`; Details: implementation-notes §5):
-- `CASE_LAYOUT` neu vermessen: Board an den Gehäuse-Slotblenden, PCIe-Slots auf Blendenhöhe, GPU-/Kartenblende auf den Gehäuseblenden, Kartenhöhe = belegte Slots; Lüfter perspektivisch auf Front/Heck/Deckel; Radiator oben (Glas: auf den Deckel-Lüfterplätzen); 5,25"-Schächte (Office) mit Laufwerkskäfig vor dem Board, sonst Laufwerke auf der Netzteil-Abdeckung; GPU-/RAM-Knoten antippbar.
+- `CASE_LAYOUT` neu vermessen: Board an den Gehäuse-Slotblenden, PCIe-Slots auf Blendenhöhe, GPU-/Kartenblende auf den Gehäuseblenden, Karten einheitlich skaliert (Höhe = belegte Slots, keine Stauchung); Lüfter frontal; Radiator oben (Glas: auf den Deckel-Lüfterplätzen); 5,25"-Schächte (Office) mit Laufwerkskäfig vor dem Board, sonst Laufwerke auf der Netzteil-Abdeckung; GPU-/RAM-Knoten antippbar.
 - GPU-Lüfter drehen per Code (Frame 0 + rotierende Kreismaske).
 - Kabel (optional, Schalter „Kabel“): 24-Pin, EPS, PCIe-Strom, AIO-Schläuche.
 - POST-Fehlerdialog: LED-Leiste mit blinkender Fehler-LED, Beep-Code je LED (Ton + Symbolanzeige, „Erneut piepen“), Klartext, betroffene Teile, weitere Fehler; Fehlteil blinkt im Gehäuse rot.
 - Board-Tausch bei vollem Lager: Dialog „Lager zu klein“ mit Direktverkauf, danach automatischer Einbau; Slot-Liste zeigt „Ins Lager: …“.
 - Laden: Angebote auf der Theke (hoch und quer), Preisschilder, Titel im Ladenschild; größere Pack-Öffnen-Animation (Pack fällt, wackelt, Blitz + Riss + Funken/Konfetti, Karten fliegen heraus und drehen sich).
 
+Verzerrungs-Korrektur (nach Rückmeldung): Perspektiv-Stauchung der Lüfter und des Radiators, Stauchung der Steckkarten auf die Slothöhe, gestreckte PCIe-Slots, Watt-Balken-Füllung, Lager-Highlight (nicht quadratische Kunst) und die Kartendrehung (scaleX) in der Pack-Animation entfernt. Debug-Prüfung `src/view/aspectCheck.ts` (Dev, Toleranz 2 %): 0 Abweichungen in Werkbank (18 Kombinationen, mit Auswahl), Laden (hoch/quer) und während der Pack-Animation – außer `card_shadow` (bis 4,9 %), `card_ov_*` und `card_frame_*` (2 %) aus `src/view/cards.ts` (P2, `ItemCard`/`CardView`: `shadow.size(w + 2, hh + 2)`, Overlay `CARD_H * 1.12`), dort nicht geändert.
+
 Geprüft (Chromium): alle 3 Gehäuse × mATX/ATX × GPU S/M/L als Matrix (auch mit AIO 240/360, Zusatzkarten, 4 Laufwerken); POST-Fehler hoch (390×844) und quer (1280×720); Laden 390×844, 360×640 (DE), 844×390, 1280×720 ohne Überlappung; „Kaufen & einbauen“ per Klick bis zum Einbau; Board-Tausch mit vollem Lager (Verkauf → Einbau); Pack-Animation verlangsamt (`__timeScale`) hoch und quer; Autoplay quer (1280×720) bis Game Over (Gen 11) ohne Fehler (nur die bekannten AudioContext-Warnungen); `npm run build`, `npm test` grün.
 
 Offen:
+- `src/view/cards.ts` (P2): `card_shadow`/Overlays/Frames leicht verzerrt (siehe oben) – mit `fit()` bzw. natürlichen Maßen beheben.
 - ATX-Board im Office-Gehäuse (ungültig, K7) ragt bis auf den Boden – nur Fehlerfall.
 - Office-Gehäuse: Blenden-Pitch 13,2 vs. Board 11,9 – tiefere Slots bis 4 px versetzt.
 - Doppeltipp-Zoom des Boards (GDD 18.6) nicht umgesetzt.
 - Touch-Long-Press auf echtem Gerät nicht geprüft.
+
+Vorschläge (nicht umgesetzt): Seitenlüfter als eigene Profil-Sprites (statt kleiner Frontal-Lüfter); Kabel-Sprites statt Linien; Laufwerke als Seitenansicht in den 5,25"-Schächten.
 
 ## P4 Audio (Agent A)
 
