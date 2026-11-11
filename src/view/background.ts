@@ -70,8 +70,8 @@ export class Background extends Node {
       for (const [x, y, w, h] of [
         [x0, y0, W, v],
         [x0, y0 + H - v, W, v],
-        [x0, y0, v, H],
-        [x0 + W - v, y0, v, H],
+        [x0, y0 + v, v, H - 2 * v],
+        [x0 + W - v, y0 + v, v, H - 2 * v],
       ] as const) {
         const r = new Rect2(w, h, 0x05050a, 0.25);
         r.pos(x, y);
