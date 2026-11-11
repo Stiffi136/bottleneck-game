@@ -27,6 +27,21 @@
 3. **Ökonomie mit Entscheidungen:** neue Einnahmen und Rabatte, jeweils mit Kosten, Risiko oder Bindung.
 4. **Realitätsnähe bleibt:** neue Teile sind echte Produktklassen (A620-Board, APU, T-CPU, 96-GB-Kit, NAS-HDD, Optane, Peltier, LN2, POST-Karte, Balkonkraftwerk, USV).
 5. **Umsetzbar:** klarer Muss-Umfang (Kapitel 9), der fast ohne neue Screens auskommt.
+6. **Kein Pech:** Alles Relevante ist vor einer Entscheidung sichtbar. Zufall gibt es nur bei Angeboten (Laden, Pakete) und bei Risiken, die der Spieler bewusst mit sichtbarer Wahrscheinlichkeit eingeht (Regel 2.4).
+
+### 0.3 Entscheidungen des Auftraggebers
+
+| # | Thema | Entscheidung | Umsetzung im Dokument |
+|---|---|---|---|
+| E1 | Run-Ende | Gen 12 ist das **Siegfinale „Weltrekord“**. Danach optional endlos weiterspielen (Highscore). | 7.2, 8, 11 |
+| E2 | Zielkurve | Wird erst **nach einer Simulation** mit neuem Content und Bot festgelegt. Der Vorschlag (+0,2 ab Gen 9) ist nur der **Startwert**. | 7.2, 7.6, 9 |
+| E3 | Pech | **Kein Pech.** Zustand und Defekte sind vor dem Kauf sichtbar, keine zufällig zerstörten Teile. Risiken nur bewusst und mit sichtbarer Wahrscheinlichkeit bzw. Folge (OC, Hitze). | neue Regel 2.4, alle Inhalte geprüft |
+| E4 | Krypto | BottleCoin und Mining sind ok. Kursschwankungen sichtbar und berechenbar. | 6.8 (Börsenticker) |
+| E5 | Starter-PCs | werden über Meta-Progression **freigeschaltet**. | 11.3 |
+| E6 | Marken | Intellion darf GPUs bauen (Ark, wie Intel Arc). | 5.3 |
+| E7 | Bot | Der Bot für die Simulation gehört zum **Umsetzungsauftrag**. | 7.6, 9.1 |
+| E8 | Online | **Kein Backend**, alles lokal. Tages-Challenge über lokalen Seed nach Datum. | 11.3 |
+| E9 | Assets | Der Auftraggeber erzeugt die Assets selbst mit der Bild-KI. | `assets-v0.2.md` |
 
 ---
 
@@ -39,18 +54,18 @@
 | M3 | **Neue Verbesserungen** | Golden Sample (×1,5), Cache-Hit (2× werten), Krypto (+$1); dazu RGB und Heißläufer. | Muss (3) / Soll (2) |
 | M4 | **Legendäre Software** | Seltenheit L ab Gen 3 (5 %), wie im GDD vorgesehen. | Muss |
 | M5 | **Upscaler-Regel** | Fake-Frames und Fidelity-Upscaler schließen sich aus: nur der linke Upscaler wirkt. | Muss |
-| M6 | **Gebrauchtmarkt** | Billige Teile mit verstecktem Zustand, Verkäufer-Sterne als Risikoanzeige. | Muss |
-| M7 | **Rückgabe & Garantie** | Neuteile bis zum Ende des nächsten Benchmarks zurückgeben (Gebühr $1, nicht nach OC). Garantieverlängerung als Option. | Muss / Soll |
+| M6 | **Gebrauchtmarkt** | Billige Teile mit **sichtbaren** Mängeln und Zuständen; Bastlerware mit angezeigten Reparaturkosten. | Muss |
+| M7 | **Rückgabe & Garantie** | Neuteile bis zum Ende des nächsten Benchmarks zurückgeben (Gebühr $1, nicht nach OC). Garantieverlängerung verlängert die Rückgabe. | Muss / Soll |
 | M8 | **Sponsor-Verträge** | Laufendes Einkommen, an Build-Bedingungen gebunden, mit Vertragsstrafe. | Muss |
 | M9 | **Bundles & Angebote** | Aufrüst-Kit (Board + CPU ±RAM) −25 %, GPU + Netzteil −20 %, ein Tagesangebot −40 %. | Muss |
 | M10 | **Gutscheine** | Dauerhafte Laden-Verbesserungen (Balatro-Voucher), 1 Angebot pro Generation. | Soll |
 | M11 | **Krypto-Wallet & Mining** | Währung BottleCoin (BTL) mit schwankendem Kurs; Mining-Modus der GPU, ASIC-Karte. | Soll |
 | M12 | **Peripherie** | 2 Plätze außerhalb des Gehäuses: Balkonkraftwerk, USV, Monitor … | Soll |
 | M13 | **Geheim-Profile** | Penta-Core (5 gleiche Stufen) und Homogener Cluster (5 identische Karten), nur mit Deck-Manipulation. | Soll |
-| M14 | **Zielkurve & Gen-12-Finale** | Beschleunigung +0,2 statt +0,4; Finale auch in Gen 12 („Weltrekord“) mit Sieg-Bildschirm, danach endlos. | Muss (Kurve) / Soll (Finale) |
+| M14 | **Zielkurve & Gen-12-Finale** | Startwert: Beschleunigung +0,2 statt +0,4 (endgültig nach Simulation, E2). Siegfinale in Gen 12 („Weltrekord“), danach optional endlos (E1). | Muss (Kurve) / Soll (Finale) |
 | M15 | **Synergie-Tags** | Jedes Item zeigt Archetyp-Symbole (Hitze, OC, Eco, RGB …). | Soll (Muss als Text im Tooltip) |
 | M16 | **Abo-Software** | Software ohne Kaufpreis, aber mit Kosten je Benchmark. | Soll |
-| M17 | **Auktion** | Verkaufen mit Risiko statt fester 50 %. | Soll |
+| M17 | **Auktion** | Verkaufen für 70 % statt 50 %, dafür erst nach dem nächsten Benchmark (kein Zufall). | Soll |
 | M18 | **Ratenkauf, Benchmark überspringen** | Schulden mit Aufschlag; Überspringen gegen Gutschein-Coupon. | Kann |
 | M19 | **Meta aus GDD v0.1** | Starter-PCs, Garantie-Stufen, Kartenrücken, Tages-Challenge (Kapitel 11). | Soll |
 | M20 | **Multi-GPU** | SLI-Brücke als Witz-Mechanik mit Mikrorucklern (Kapitel 11). | Kann |
@@ -97,7 +112,40 @@
 - **RGB-Teile zählen:** RGB-Zählung = verbaute RGB-Teile + Effekte, die „als RGB-Teil zählen“. Das Schaufenster (CA4) verdoppelt weiterhin nur **+Takt-RGB-Boni**, nie ×-Effekte und nie die Zählung selbst.
 - **Gehaltene Karten:** Bei „Kinobank“ (B3) gibt es keine gehaltenen Karten, wenn alle Handkarten gespielt werden müssen.
 - **Zähler-Software** zeigt ihren Wert auf dem Chip (wie Shader-Cache). Zähler bleiben beim Umsortieren erhalten, gehen beim Verkauf verloren.
-- **Defekte Teile:** Ein defektes Pflichtteil lässt den POST scheitern (Beep-Code wie das fehlende Teil). Ein defektes Zusatzteil gibt keine Boni. Reparatur im Laden: 50 % des Neupreises (mindestens $2).
+- **Defekte Teile** gibt es nur als sichtbare Bastlerware aus dem Gebrauchtmarkt (6.2). Ein defektes Pflichtteil lässt den POST scheitern (Beep-Code wie das fehlende Teil), ein defektes Zusatzteil gibt keine Boni. Kein Teil wird im Spiel zufällig defekt.
+
+### 2.4 Regel „Kein Pech“ (Entscheidung E3)
+
+1. **Vor dem Kauf sichtbar:** Zustand, Mängel, Defekte, Reparaturkosten und das OC-Limit (Silizium-Lotterie) jedes Teils.
+2. **Kein Teil wird zufällig zerstört oder defekt.** Abnutzung läuft über sichtbare Zähler mit angekündigter Folge.
+3. **Erlaubter Zufall:** Angebote (Laden, Gebrauchtmarkt, Pakete, Sponsoren, Bosse), Kartenziehen, Krypto-Kurs mit bekannter Verteilung und angezeigter nächster Änderung.
+4. **Bewusste Risiken:** nur mit sichtbarer Wahrscheinlichkeit und Folge am Ort der Entscheidung (Hitze-Vorschau, BIOS, Karte, Tooltip). Folge ist immer ein verlorener Durchlauf, eine verlorene Karte oder verlorenes Geld, nie ein Teil.
+
+**Prüfung aller Inhalte (v0.1-Bestand und v0.2):**
+
+| Element | Vorher | v0.2 (kein Pech) |
+|---|---|---|
+| Silizium-Lotterie (v0.1) | OC-Limit verborgen, sichtbar erst nach Bluescreen oder Stabilitätstest ($1) | **OC-Limit beim Kauf sichtbar** (Karte, Tooltip). Der Stabilitätstest entfällt. Über dem Limit: „instabil“ mit sichtbarer Chance 1/4 je Durchlauf (bewusstes Risiko) |
+| 12-Pin-Stecker G6/G7 | ohne ATX-3-Netzteil 1/8 je Benchmark Schmelze, GPU defekt | **Adapter-Regel:** ohne ATX-3-Netzteil GPU-Hitze +1 pro Karte und kein GPU-OC; ⚠-Badge vor dem Kauf. Keine Zerstörung |
+| SW10 Zwangs-Update 11 (v0.1) | 1/5 je Benchmark: Neustart, 1. Durchlauf entfällt | **Jeder 4. Benchmark** Neustart; Countdown auf dem Chip |
+| Instabil-Karten (v0.1) | ×2, danach 1/4 Zerstörung der Karte | bleibt (bewusst gespielt); „25 %“ steht auf der Karte |
+| OC über dem Limit (v0.1) | 1/4 Bluescreen je Durchlauf | bleibt; Chance im BIOS und in der Hitze-Vorschau sichtbar |
+| SW21 ThrottleStop | 1/6 Bluescreen ab 90 °C | bleibt; Chance in der Hitze-Vorschau sichtbar |
+| SW17 Benchmark-Cheat | 1/4 Erkennung | bleibt (bewusst gekauft); Chance auf dem Chip und vor jedem Benchmark sichtbar |
+| Gebrauchtmarkt | Zustand hinter Verkäufer-Sternen verborgen | **Zustand und Mängel offen** (6.2), Bastlerware mit Reparaturpreis |
+| P7 Feuerwerk-Netzteil | 1/10 Durchbrennen bei Last > 80 % | **Heißes Netzteil:** bei Last > 80 % +1 Hitze pro Karte (fest) |
+| T13 Flüssigmetall | 1/10 CPU defekt | feste Kosten: CPU-Verkaufswert $1, Rückgabe erlischt |
+| T14 Delid | 1/8 CPU zerstört | feste Kosten: CPU-Verkaufswert $1, Rückgabe erlischt |
+| K6 Custom-Loop | 1/20 Leck je Benchmark | **Wartung** $1 pro Generation, sonst Kühlung halbiert (11.3) |
+| Mining-Modus | 1/12 Verschleiß je Benchmark, zweiter Treffer defekt | **Verschleiß-Zähler**: bei 6 und 12 je ein sichtbarer Mangel, kein Ausfall |
+| Beta-Treiber | 1/5 Bluescreen im ersten Durchlauf bis zur Zertifizierung | +1 Stufe sofort, +1 nach 3 Benchmarks (Zähler) |
+| Auktion | Erlös 30–90 % zufällig | fest 70 %, erst nach dem nächsten Benchmark |
+| Multi-GPU (Kann) | 1/6 Mikroruckler je Durchlauf | jeder 3. Durchlauf ohne GPU-Takt-Boni (Zähler) |
+| Krypto-Kurs | Zufallsschritt | bekannte Verteilung + Börsenticker zeigt die nächste Änderung; Krypto-Winter eine Generation vorher angekündigt |
+| Garantieverlängerung | deckte zufällige Defekte | verlängert die Rückgabe (6.3) |
+| T15 Multimeter, E9 POST-Karte, V7, V9 | deckten Verborgenes auf | neue Effekte, weil nichts mehr verborgen ist (5.8, 5.13, 6.6) |
+
+Die Zahl der Inhalte bleibt gleich; nur Effekte ändern sich.
 
 ---
 
@@ -117,7 +165,7 @@ Kürzel: **A1–A8**. Jeder Archetyp hat einen Motor (womit er L und Takt erzeug
 - **Idee:** Viele OC-Stufen auf CPU, GPU und RAM, großes Netzteil, starke oder exotische Kühlung.
 - **Motor:** OC-Boni, SW7 Nachbrenner, OC-fähige CPUs.
 - **×-Quelle:** **neu** SW24 Rekordjagd (×1 + 0,1 je OC-Stufe).
-- **Stützen:** **neu** MB10 Gipfel-Board (OC-Stufe 4), **neu** E9 POST-Code-Karte (Limits sichtbar, 1 Bluescreen pro Benchmark abgefangen), **neu** T14 Delid, **neu** T13 Flüssigmetall, **neu** K8 Peltier, **neu** P7 Feuerwerk-Netzteil, T8 OC-Kit, T10 Lotterie-Los, **neu** SW25 Zenit-Meister / SW26 Extrem-Tuning (Team-Bonus).
+- **Stützen:** **neu** MB10 Gipfel-Board (OC-Stufe 4), **neu** E9 POST-Code-Karte (1 Bluescreen pro Benchmark abgefangen), **neu** T14 Delid, **neu** T13 Flüssigmetall, **neu** K8 Peltier, **neu** P7 Feuerwerk-Netzteil, T8 OC-Kit, T10 Lotterie-Los, **neu** SW25 Zenit-Meister / SW26 Extrem-Tuning (Team-Bonus).
 - **Geld:** Sponsor „HWBotz-Liga“. Kosten: hohe Stromrechnung.
 - **Konter:** B14 Energiekrise, B15 Silent-PC-Test, B8 Brownout.
 
@@ -298,7 +346,7 @@ Realität: A620 hat kein CPU-OC, OC-Boards wie das Z790 Apex haben nur 2 DIMM-Sl
 
 | ID | Name | L/GPU-Karte | Takt/GPU-Karte | Hitze/GPU-Karte | Länge | Breite | Lanes | TDP | $ | T | Spezial | Team | A | Prio |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| G7 | Veridia RTZ 5080 | +17 | +3 | 6 | L | 3 | 16 | 360 | 20 | T4 | DLSZ 4 „Multi-Frame-Gen“: Fake-Frames ×3 statt ×2 · 12-Pin-Stecker (wie G6: ohne ATX-3-Netzteil 1/8 je Benchmark Schmelze) | Grün | A5 | M |
+| G7 | Veridia RTZ 5080 | +17 | +3 | 6 | L | 3 | 16 | 360 | 20 | T4 | DLSZ 4 „Multi-Frame-Gen“: Fake-Frames ×3 statt ×2 · 12-Pin-Stecker (wie G6, v0.2-Regel 2.4: ohne ATX-3-Netzteil Adapter mit GPU-Hitze +1 und ohne GPU-OC, ⚠-Badge vor dem Kauf) | Grün | A5 | M |
 | G8 | Rubeon RZ 9070 XT | +13 | +2 | 5 | L | 3 | 16 | 300 | 13 | T3 | FSZ 4: Fidelity-Upscaler ×2 · SAM-fähig | Rot | A5 | M |
 | G9 | Intellion Ark B580 | +8 | +1 | 3 | M | 2 | 8 | 190 | 6 | T2 | Deep Link mit Intellion-CPU · XeSZ: Fidelity-Upscaler ×1,5 | Blau | A5 | S |
 | G10 | Veridia GTX 1080 Ti „Ex-Miner“ | +9 | +1 | 5 | M | 2 | 16 | 250 | (nur Gebrauchtmarkt, $4) | T2 | Ausgelutscht: OC-Limit 0 · kein DLSZ | Grün | A5, Krypto | S |
@@ -326,7 +374,7 @@ Hinweis Software-Slots: Summe aller Laufwerke, Obergrenze 8 bleibt.
 | ID | Name | Watt | Effizienz | Strom-Modifikator | ATX-3 | $ | T | Spezial | A | Prio |
 |---|---|---|---|---|---|---|---|---|---|---|
 | P6 | Seesonic Prime Titan 850 W | 850 | Titan | −3 | ✔ | 12 | T3 | – | A3 | M |
-| P7 | „Feuerwerk“ 1200 W (China-Böller) | 1200 | – | +2 | – | 5 | T1 | Explosiv: bei Last > 80 % je Benchmark 1/10 Chance, dass es durchbrennt: Netzteil defekt (Reparatur $4), der laufende Benchmark verliert 1 Durchlauf | A2 | S |
+| P7 | „Feuerwerk“ 1200 W (China-Böller) | 1200 | – | +2 | – | 5 | T1 | Heißes Netzteil: bei Last > 80 % +1 Hitze pro gespielter Karte (Anzeige in Werkbank und Hitze-Vorschau) · Spulenfiepen: Soundkarte wirkungslos | A2, A1 | S |
 
 ### 5.7 CPU-Kühler
 
@@ -344,7 +392,7 @@ Hinweis Software-Slots: Summe aller Laufwerke, Obergrenze 8 bleibt.
 | CA6 | Offener Prüfstand „Benchtable“ | Gehäuse | max. ATX, GPU L, Kühler 200 mm, Radiator 360, 2 Lüfterplätze, Airflow +6 | Staub: −1 Kühlung je Generation (max. −4); Druckluftspray (T3) setzt den Staub zurück | – | 6 | T2 | A1, A2 | S |
 | E7 | RGB-Controller „Lichtorgel“ | Karte x1, 1 Lane | – | zählt als 3 RGB-Teile (max. 1 Stück) | 4 | 4 | T1 | A4 | M |
 | E8 | Krypto-ASIC „Schürfmaschine“ | Karte x1, 1 Lane | – | +1 BTL je Benchmark (braucht M11) · laut: Soundkarte wirkungslos | 75 | 8 | T2 | Krypto | S |
-| E9 | POST-Code-Karte „Debug-Diagnose“ | Karte x1, 1 Lane | – | Silizium-Limits aller Teile sichtbar · Stabilitätstest gratis · der erste Bluescreen je Benchmark wird abgefangen (Durchlauf zählt normal) | 2 | 4 | T2 | A2 | S |
+| E9 | POST-Code-Karte „Debug-Diagnose“ | Karte x1, 1 Lane | – | Fehlercode-Anzeige: der erste Bluescreen je Benchmark wird abgefangen (Durchlauf zählt normal) · BIOS zeigt die Hitze jeder OC-Stufe vorab | 2 | 4 | T2 | A2 | S |
 
 ### 5.9 Peripherie (neu, Soll)
 
@@ -414,7 +462,7 @@ Hinweis Software-Slots: Summe aller Laufwerke, Obergrenze 8 bleibt.
 
 Das Startdeck hat je Stufe nur 4 Karten. Penta-Core braucht also Kopien (T5) oder Firmware-Flash (T11).
 
-**Beta-Treiber (Soll):** Variante jedes Treibers, 15 % Chance im Treiber-Paket bzw. Software-Regal, $2. Gibt **+2 Stufen**. Bis 3 Benchmarks überstanden sind („WHQL-Zertifizierung“), hat der erste Durchlauf mit diesem Profil je Benchmark 1/5 Chance auf Bluescreen.
+**Beta-Treiber (Soll):** Variante jedes Treibers, 15 % Chance im Treiber-Paket bzw. Software-Regal, $2. Gibt sofort **+1 Stufe** und nach 3 Benchmarks („WHQL-Zertifizierung“, Zähler sichtbar) eine weitere: insgesamt **+2 Stufen** für $2. Kein Zufall: billig, aber mit Verzögerung.
 
 ### 5.13 Werkzeuge
 
@@ -422,9 +470,9 @@ Das Startdeck hat je Stufe nur 4 Karten. Penta-Core braucht also Kopien (T5) ode
 |---|---|---|---|---|---|
 | T11 | Firmware-Flash | 3 | Bis zu 2 gewählte Karten: Stufe +1 (maximal 10) | A7 | M |
 | T12 | Recycling-Tonne | 1 | Bis zu 3 gewählte Karten zerstören, je +$1 (Deck bleibt ≥ 10) | A7, Geld | M |
-| T13 | Flüssigmetall | 4 | Dauerhaft +5 Kühlung (1× pro Run) · 1/10 Chance: Kurzschluss, CPU defekt (Reparatur) | A2 | S |
-| T14 | Delid-Werkzeug | 4 | Verbaute CPU: −2 Hitze pro CPU-Karte (dauerhaft, an diese CPU gebunden) · 1/8 Chance: CPU zerstört · Garantie erlischt | A1, A2 | S |
-| T15 | Multimeter | 2 | Zustand eines Gebrauchtmarkt-Angebots oder OC-Limit eines Teils aufdecken | Geld | M |
+| T13 | Flüssigmetall | 4 | Dauerhaft +5 Kühlung (1× pro Run) · Kosten: Rückgabe der CPU erlischt, Verkaufswert der CPU nur noch $1 (vorher angezeigt) | A2 | S |
+| T14 | Delid-Werkzeug | 4 | Verbaute CPU: −2 Hitze pro CPU-Karte (dauerhaft, an diese CPU gebunden) · Kosten: Rückgabe erlischt, Verkaufswert $1 | A1, A2 | S |
+| T15 | Multimeter | 2 | Fehlersuche: 1 Bastlerware-Teil für $1 statt 40 % des Neupreises reparieren | Geld | M |
 | T16 | RGB-Kabelsatz | 3 | 1 verbautes Teil zählt dauerhaft als RGB-Teil | A4 | S |
 | T17 | Spiegel-Cache | 5 | 1 gewählte Karte erhält „Cache-Hit“ | A7 | M |
 | T18 | Binning-Station | 6 | 1 gewählte Karte erhält „Golden Sample“ | A7 | S |
@@ -465,27 +513,27 @@ Alle weiteren offenen Punkte aus dem GDD v0.1 (Meta-Progression, Starter-PCs, Ga
 
 - Grundeinkommen bleibt (Belohnung $3/$4/$5, +$1 je ungenutztem Durchlauf, Zinsen bis +$5).
 - Wer in Ökonomie investiert, soll ab Gen 4 etwa **+20–35 % Einnahmen** oder **−10–25 % Ausgaben** erreichen. Ohne Investition ändert sich nichts.
-- Jede neue Geldquelle hat genau einen Preis: **Kaufkosten**, **Risiko**, **Bindung** (Build-Bedingung) oder **laufende Kosten**.
+- Jede neue Geldquelle hat genau einen Preis: **Kaufkosten**, **sichtbares Risiko**, **Bindung** (Build-Bedingung), **Wartezeit** oder **laufende Kosten**.
 - Kein Geld-Kreislauf ohne Verlust (keine Arbitrage, siehe 7.5).
 
 ### 6.2 Gebrauchtmarkt „Kleinanzeigen“ (Muss)
 
 - **Ort:** eigener Reiter im Laden. **2 Angebote** je Laden-Besuch (Gutschein V9: 3). Neu würfeln würfelt den Gebrauchtmarkt mit.
 - **Angebote:** Hardware aller Kategorien, Tier-Gewichtung **eine Generation weiter** als das Hardware-Regal (Gen 3 würfelt wie Gen 4). Smart-Shop-Regel gilt nicht.
-- **Verkäufer-Sterne** (sichtbar) bestimmen Preis und Risiko. Der Zustand ist verborgen.
+- **Alles ist sichtbar (Regel „Kein Pech“, 2.4):** Jedes Angebot zeigt vor dem Kauf seinen Zustand, die genauen Mängel, das OC-Limit und bei Bastlerware die Reparaturkosten. Es gibt keinen verborgenen Zustand.
+- Der Gebrauchtmarkt lohnt sich über **sichtbare Mängel zum kleineren Preis**. Manche Mängel passen sogar zu einem Archetyp (z. B. „Lüfter laut, +1 Hitze“ für den Hitzkopf).
 
-| Sterne | Häufigkeit | Preis (vom Neupreis, aufgerundet, min. $1) | OK | Gebrauchsspuren | Defekt |
-|---|---|---|---|---|---|
-| ★★★★★ | 15 % | 65 % | 90 % | 10 % | 0 % |
-| ★★★★ | 25 % | 55 % | 75 % | 20 % | 5 % |
-| ★★★ | 30 % | 45 % | 60 % | 25 % | 15 % |
-| ★★ | 20 % | 35 % | 45 % | 30 % | 25 % |
-| ★ | 10 % | 25 % | 30 % | 30 % | 40 % |
+| Zustand (Sterne) | Häufigkeit | Preis (vom Neupreis, aufgerundet, min. $1) | Wirkung |
+|---|---|---|---|
+| Wie neu (★★★) | 20 % | 70 % | keine |
+| Gebrauchsspuren (★★) | 40 % | 50 % | 1 Mangel (aus der Liste unten, auf der Karte angezeigt) |
+| Stark abgenutzt (★) | 25 % | 35 % | 2 verschiedene Mängel |
+| Bastlerware (–) | 15 % | 20 % | funktioniert erst nach Reparatur; Reparaturkosten (40 % des Neupreises) stehen am Angebot |
 
-- **Gebrauchsspuren** (dauerhaft): CPU/GPU: +1 Hitze pro Karte des Typs · RAM: −1 L pro RAM-Karte · Laufwerk: −1 Software-Slot (min. 1) · Netzteil: −10 % Watt · Kühler/Lüfter/Gehäuse: −2 Kühlung · Board/Karten: OC-Limit −1. Silizium-Limit der Teile wird neu gewürfelt, maximal 2.
-- **Defekt:** siehe 2.3 (POST-Fehler bzw. keine Boni). Reparatur 50 % des Neupreises. Wird beim ersten POST sichtbar.
-- **Aufdecken vor dem Kauf:** T15 Multimeter, Gutschein V9 (zeigt den Zustand aller Angebote), E9 zeigt nur Limits.
-- **Kein Rückgaberecht** („Privatverkauf“), keine Garantieverlängerung.
+- **Mängel** (dauerhaft, je Kategorie eine Liste, gewürfelt beim Erzeugen des Angebots, danach sichtbar): CPU/GPU: „Lüfter laut“ +1 Hitze pro Karte des Typs oder „Takt müde“ −1 Takt-Bonus · RAM: −1 L pro RAM-Karte · Laufwerk: −1 Software-Slot (min. 1) · Netzteil: −10 % Watt · Kühler/Lüfter/Gehäuse: −2 Kühlung · Board/Karten: OC-Limit −1.
+- **Bastlerware:** Ein Pflichtteil lässt ohne Reparatur den POST scheitern, ein Zusatzteil gibt keine Boni. Reparatur im Laden jederzeit (T15 Multimeter: für $1).
+- **OC-Limit** wird wie bei Neuteilen angezeigt (2.4).
+- **Kein Rückgaberecht** („Privatverkauf“), keine Garantieverlängerung. Da alles sichtbar ist, braucht es keine.
 - **Exklusiv:** G10 GTX 1080 Ti „Ex-Miner“ erscheint nur hier.
 - Verkaufswert eines Gebrauchtteils: ⌊gezahlter Preis / 2⌋, min. $1.
 
@@ -494,18 +542,18 @@ Alle weiteren offenen Punkte aus dem GDD v0.1 (Meta-Progression, Starter-PCs, Ga
 **Rückgabe (Muss):**
 - Neu im Laden gekaufte Hardware kann **bis zum Ende des nächsten Benchmarks** zurückgegeben werden (im nächsten Laden-Besuch).
 - Erstattung: Kaufpreis − **$1 Wiederverpackungsgebühr**. Bei Bundles: anteiliger Bundle-Preis.
-- **Erlischt**, wenn das Teil übertaktet war (OC > 0), einen Bluescreen ausgelöst hat, gedelidded oder mit Flüssigmetall behandelt wurde, oder wenn es aus dem Gebrauchtmarkt stammt.
+- **Erlischt** (vorher im Teil-Tooltip angekündigt), wenn das Teil übertaktet war (OC > 0), einen Bluescreen ausgelöst hat, gedelidded oder mit Flüssigmetall behandelt wurde, oder wenn es aus dem Gebrauchtmarkt stammt.
 - Maximal **1 Rückgabe pro Laden-Besuch**. Das Teil muss im Lager liegen.
 - Das Lager zeigt ein Rückgabe-Symbol mit Restlaufzeit.
 
-**Garantieverlängerung (Soll):** Option beim Kauf von T3/T4-Teilen, **+$2**. Ersetzt das Teil **einmal** kostenlos, wenn es defekt wird (12-Pin-Schmelze, P7-Ausfall, Flüssigmetall-Kurzschluss). Erlischt durch Delid (T14). Verkaufswert steigt nicht.
+**Garantieverlängerung (Soll):** Option beim Kauf von T3/T4-Teilen, **+$2**. Da es keine zufälligen Defekte mehr gibt, verlängert sie die Rückgabe: Rückgabe **bis zum Ende der Generation** und **auch nach OC** (nicht nach Delid/Flüssigmetall). Verkaufswert steigt nicht.
 
 ### 6.4 Auktion (Soll)
 
-- Statt Sofortverkauf (50 %) kann ein Lagerteil **versteigert** werden. Es bleibt bis nach dem nächsten Benchmark im Lager (Platz belegt).
-- Erlös: gezahlter Preis × Zufall aus {30 %, 50 %, 70 %, 90 %} (gleich verteilt, Erwartung 60 %), mindestens $1.
-- **Retro-Sammler:** Startteile (T0, sonst $1) bringen in der Auktion {$1, $2, $3, $5}.
-- Entscheidung: sicheres Geld jetzt gegen mehr Geld später, Lagerplatz gebunden.
+- Statt Sofortverkauf (50 %) kann ein Lagerteil **in die Auktion** gehen. Es bleibt bis nach dem nächsten Benchmark im Lager (Platz belegt).
+- Erlös (fest, vorher angezeigt): **70 %** des gezahlten Preises, mindestens $1. Kein Zufall.
+- **Retro-Sammler:** Startteile (T0, sonst $1) bringen in der Auktion fest **$3**.
+- Entscheidung: Geld jetzt gegen mehr Geld später, Lagerplatz gebunden.
 
 ### 6.5 Sponsor-Verträge (Muss)
 
@@ -543,9 +591,9 @@ Angebote sind gewichtet: 70 % passen zum aktuellen Build (Bedingung schon erfül
 | V4 | Werkzeugkasten XL | +1 Werkzeug-Slot |
 | V5 | Software-Abo | +1 Platz im Software-Regal |
 | V6 | Sponsor-Agentur | +1 Vertragsplatz |
-| V7 | Silizium-Händler | OC-Limit beim Kauf sichtbar · Lotterie-Los −$2 |
+| V7 | Silizium-Händler | Teile mit OC-Limit 3 erscheinen doppelt so oft · Lotterie-Los −$2 |
 | V8 | Kühlprofi | Wärmeleitpaste (T1) bis 6× pro Run und $1 billiger |
-| V9 | Händler-Kontakt | Gebrauchtmarkt +1 Angebot, Zustand aller Angebote sichtbar |
+| V9 | Händler-Kontakt | Gebrauchtmarkt +1 Angebot, Gebrauchtpreise −10 Prozentpunkte |
 | V10 | Lagerhalle | +2 Lagerplätze |
 
 ### 6.7 Bundles und Angebote (Muss)
@@ -560,13 +608,13 @@ Grund: Der P1-Bot schafft Plattformwechsel und Netzteil-Upgrades kaum. Bundles m
 ### 6.8 Krypto-Wallet und Mining (Soll)
 
 - **Währung BottleCoin (BTL).** Wallet-Anzeige im Laden und in der Werkbank (BTL, Kurs, Wert in $).
-- **Kurs:** Start $2/BTL. Nach jedem Benchmark × {0,5 (15 %), 0,8 (25 %), 1,0 (20 %), 1,25 (25 %), 2,0 (15 %)}, Grenzen $0,50–$30. Im Mittel leicht steigend (×1,09), der Median bleibt gleich: Der Zeitpunkt des Verkaufs ist die Entscheidung.
+- **Kurs (sichtbar und berechenbar):** Start $2/BTL. Nach jedem Benchmark × {0,5 (15 %), 0,8 (25 %), 1,0 (20 %), 1,25 (25 %), 2,0 (15 %)}, Grenzen $0,50–$30. Diese Verteilung steht in der Wallet. Zusätzlich zeigt der **Börsenticker die nächste Änderung im Voraus** (z. B. „Nächster Benchmark: ×1,25“, aus dem Seed). Ab dem übernächsten Benchmark gilt nur die bekannte Verteilung. Im Mittel leicht steigend (×1,09), der Median bleibt gleich: Der Zeitpunkt des Verkaufs ist die Entscheidung.
 - **Verkaufen:** jederzeit im Laden, ganze BTL, Erlös abgerundet. **BTL kaufen ist nicht möglich** (kein Glücksspiel-Kreislauf).
 - **Quellen:**
-  - **Mining-Modus** (Schalter in der Werkbank): Die GPU schürft zwischen den Benchmarks. +1 BTL je Benchmark (GPU T3/T4) bzw. je Boss (T1/T2). Kosten: Stromrechnung + ⌈GPU-TDP / 100⌉ pro Generation. Verschleiß: je Benchmark 1/12 Chance auf Gebrauchsspuren der GPU; beim zweiten Mal defekt. Rückgabe erlischt.
+  - **Mining-Modus** (Schalter in der Werkbank): Die GPU schürft zwischen den Benchmarks. +1 BTL je Benchmark (GPU T3/T4) bzw. je Boss (T1/T2). Kosten: Stromrechnung + ⌈GPU-TDP / 100⌉ pro Generation. Verschleiß (sichtbarer Zähler an der GPU): +1 je geschürftem Benchmark; bei 6 bekommt die GPU den Mangel „Lüfter laut“ (+1 Hitze pro GPU-Karte), bei 12 einen zweiten Mangel. Kein Totalausfall. Rückgabe erlischt (beim Einschalten angekündigt).
   - E8 Krypto-ASIC: +1 BTL je Benchmark.
   - SW11 Krypto-Schürfer bleibt bei +$2 (unverändert, damit v0.1-Spielstände gleich bleiben).
-- **Ereignis „Krypto-Winter“** (Kann): einmal pro Run zufällig ab Gen 5, Kurs × 0,25.
+- **Ereignis „Krypto-Winter“** (Kann): einmal pro Run ab Gen 5, Kurs × 0,25. Der Ticker kündigt ihn **eine Generation vorher** an.
 
 ### 6.9 Ratenkauf und Überspringen (Kann)
 
@@ -583,7 +631,7 @@ Grund: Der P1-Bot schafft Plattformwechsel und Netzteil-Upgrades kaum. Bundles m
 | **Gutschein** | 1 | V1–V10 (Soll) |
 | **Gebrauchtmarkt** (Reiter) | 2 (+V9) | Muss |
 | **Wallet** | – | BTL verkaufen (Soll) |
-| Reparatur | situativ | auch Gebrauchtmarkt-Defekte, P7, Flüssigmetall |
+| Reparatur | situativ | Bastlerware aus dem Gebrauchtmarkt (Kosten am Angebot sichtbar) |
 
 **Kassenbon, neue Zeilen:** Sponsor (+), Abschlussprämie (+), Abo-Software (−), Stickstoff (−), Mining-Strom (in der Stromrechnung), Abwärme-Heizung (+), Ökostrom (+), Auktionserlös (+), Rate (−), BTL-Kurs (Info).
 
@@ -617,9 +665,11 @@ Grund: Der P1-Bot schafft Plattformwechsel und Netzteil-Upgrades kaum. Bundles m
 
 Faustregel: Ein ausgebauter Build hat in Gen 10–12 **3–4 globale ×-Quellen** und **1–2 Karten-×-Quellen**. Das ergibt ×10–30, sehr gute Builds ×50–100.
 
-### 7.2 Zielkurve (Vorschlag)
+### 7.2 Zielkurve (Startwert)
 
-**Änderung:** Wachstum bis Gen 8 bleibt **×1,8**. Ab Gen 9 steigt der Faktor um **+0,2** je Generation (bisher +0,4). **Finale** in Gen 8 und Gen 12, danach alle 4 Generationen (16, 20 …). Konstanten in `CURVE` (Code): `accelStep 0.4 → 0.2`, Finale-Regel `gen % 8 === 0` → `gen === 8 || (gen >= 12 && gen % 4 === 0)`.
+> **Status (E2):** Die Werte unten sind der **Startwert** für die Simulation. Die endgültige Kurve wird erst nach Sim-Läufen mit dem neuen Content und dem erweiterten Bot festgelegt (Abnahme 7.6). Fest entschieden ist nur das Siegfinale in Gen 12 (E1).
+
+**Startwert:** Wachstum bis Gen 8 bleibt **×1,8**. Ab Gen 9 steigt der Faktor um **+0,2** je Generation (bisher +0,4). **Finale** in Gen 8 und Gen 12, danach alle 4 Generationen (16, 20 …). Konstanten in `CURVE` (Code): `accelStep 0.4 → 0.2`, Finale-Regel `gen % 8 === 0` → `gen === 8 || (gen >= 12 && gen % 4 === 0)`.
 
 | Gen | Faktor | Office | Gaming | Boss | v0.1 (aktuell) Boss |
 |---|---|---|---|---|---|
@@ -637,7 +687,7 @@ Faustregel: Ein ausgebauter Build hat in Gen 10–12 **3–4 globale ×-Quellen*
 | 15 | 3,2 | 14 Mio. | 20 Mio. | 27 Mio. | 160 Mio. |
 | 16 | 3,4 | 46 Mio. | 69 Mio. | 140 Mio. (Finale) | 1,2 Mrd. |
 
-**Run-Ende:** Gen 12 ist der **Weltrekord** (Sieg-Bildschirm „Weltrekord! Weiterspielen?“, Bestenliste markiert Sieg). Danach endlos. Das beantwortet die offene GDD-Frage 5 als Vorschlag (siehe Kapitel 10).
+**Run-Ende (entschieden, E1):** Gen 12 ist das Siegfinale **Weltrekord** (Sieg-Bildschirm „Weltrekord! Weiterspielen?“, Bestenliste markiert den Sieg). Danach kann der Spieler **optional endlos** weiterspielen; die Bestenliste wertet dann höchste Generation und besten Durchlauf (Highscore). „Neuer Run“ beendet den Run als Sieg.
 
 **Finale-Plan:** Gen 8 F1 Cyberpunk 2088 · Gen 12 F4 Weltrekord-Run · Gen 16 F2 Folding@Zuhause (× 4) · Gen 20 F3 Y2K38 · danach im Wechsel. Gen 20 passt zum Y2K38-Witz: Das Boss-Ziel liegt dort bei etwa 30 Mrd., einzelne Durchläufe überschreiten also 2.147.483.647 und laufen über.
 
@@ -723,6 +773,7 @@ L ≈ 179 · Takt: Karten 20 → CPU +4 → Krake +2 → Glas-Lüfter +6 → LED
 | Prefetcher: RAM-Karten nie spielen | dauerhaft ×2 ohne Kosten | gewollt (Archetyp); verstopft die Hand; Konter B18, B4 |
 | Sponsor: Teil nach Zahlung verkaufen | Geld ohne Bindung | Ausstattung wird vor jedem Benchmark geprüft → Strafe |
 | Krypto-Kurs „speichern und neu laden“ | Kurs würfeln | Kurs aus dem Seed-RNG im Spielstand, Autosave nach jedem Benchmark |
+| Börsenticker zeigt die nächste Kursänderung | sicherer Gewinn durch Vorwissen | gewollt (berechenbar, E4); Menge durch Mining-Ertrag begrenzt (ca. 3 BTL pro Generation), kein BTL-Kauf |
 | Abo-Software verkaufen | Geld | Verkaufswert $0 |
 | Balkonkraftwerk + Ökostrom + T-CPU | negative Stromrechnung | Stromrechnung mindestens $0 |
 | Aufrüst-Kit zerlegen und einzeln zurückgeben | Rabatt + volle Erstattung | Erstattung anteilig zum Bundle-Preis |
@@ -731,14 +782,14 @@ L ≈ 179 · Takt: Karten 20 → CPU +4 → Krake +2 → Glas-Lüfter +6 → LED
 
 ### 7.6 Simulation und Abnahme
 
-- **Bot (Pflicht für die Sim):** kennt neue Effekte, bewertet Sponsoren (Erwartungswert minus Strafe-Risiko), nutzt Bundles, hält RAM-Karten bei Prefetcher, verkauft BTL ab Kurs ≥ $3. Gebrauchtmarkt: kauft ab 4 Sternen oder mit Multimeter.
+- **Bot (Teil des Umsetzungsauftrags, E7):** kennt neue Effekte, bewertet Sponsoren (Erwartungswert minus Strafe-Risiko), nutzt Bundles, hält RAM-Karten bei Prefetcher, verkauft BTL ab Kurs ≥ $3. Gebrauchtmarkt: bewertet sichtbare Mängel gegen den Preis (inkl. Reparatur), nutzt den Börsenticker.
 - **Abnahme v0.2 (300 Runs):**
   - Median Gen 12 (±1), p10 ≥ 9, p90 ≥ 13, max ≤ 16.
   - Bot-Sieg (Gen 12 geschafft): 20–35 %.
   - Tode in Gen 1–2 < 3 %.
   - Jeder Archetyp ist in ≥ 8 % der Runs ab Gen 10 der Haupt-Archetyp (Zuordnung über die meisten Synergie-Tags). Keine einzelne ×-Quelle in > 40 % der Gen-12-Builds.
   - Einnahmen Gen 4–8 im Mittel +15–30 % gegenüber v0.1.
-- **Telemetrie neu:** Archetyp je Run, ×-Faktor je Durchlauf, Sponsor-Brüche, Gebrauchtmarkt-Defekte, Rückgaben, BTL-Verkaufskurs.
+- **Telemetrie neu:** Archetyp je Run, ×-Faktor je Durchlauf, Sponsor-Brüche, Gebrauchtkäufe nach Zustand, Rückgaben, BTL-Verkaufskurs.
 
 ---
 
@@ -746,7 +797,8 @@ L ≈ 179 · Takt: Karten 20 → CPU +4 → Krake +2 → Glas-Lüfter +6 → LED
 
 | Bereich | Änderung | Prio |
 |---|---|---|
-| **Laden** | Reiter **„Neu / Gebraucht“**. Gebrauchtmarkt als Pinnwand mit Zettel-Angeboten: Teil-Karte im „Gebraucht“-Rahmen, Sterne, handschriftliches Preisschild, Stempel „Defekt?“ bei unbekanntem Zustand, Knopf „Multimeter“. | M |
+| **Laden** | Reiter **„Neu / Gebraucht“**. Gebrauchtmarkt als Pinnwand mit Zettel-Angeboten: Teil-Karte im „Gebraucht“-Rahmen, Zustands-Sterne, Liste der Mängel, OC-Limit, handschriftliches Preisschild, Stempel „Defekt“ bei Bastlerware mit Reparaturpreis. | M |
+| **Risiko-Anzeige** | Jede Wahrscheinlichkeit steht sichtbar am Ort der Entscheidung: Hitze-Vorschau zeigt Bluescreen-Chance (OC über Limit, ThrottleStop), Instabil-Karten zeigen „25 %“, BIOS zeigt OC-Limit und Bluescreen-Chance je Stufe, Benchmark-Cheat zeigt die Erkennungs-Chance. | M |
 | Laden | Bundle-Karte mit Band „Kit“ und Streichpreis; Tagesangebot mit rotem Preisschild. | M |
 | Laden | Gutschein-Platz (Coupon-Karte); Wallet-Leiste (BTL, Kurs mit Pfeil ↑/↓, Mini-Verlauf der letzten 6 Kurse, Knopf „Verkaufen“). | S |
 | **Kassenbon** | Neue Zeilen (6.10). Nach dem Boss: **Sponsor-Angebot** als 2 Vertragskarten mit Bedingung, Zahlung, Strafe, Laufzeit; „Annehmen / Ablehnen“. | M |
@@ -779,7 +831,7 @@ Keine neuen Vollbild-Screens im Muss-Umfang: Gebrauchtmarkt ist ein Reiter, Spon
 
 | Bereich | Inhalt | Anzahl |
 |---|---|---|
-| Regeln | Wertungsschritt 2b (gehaltene Karten), Teams, legendäre Seltenheit, Upscaler-Exklusivität, Raubkopie-Regel, Zielkurve (+0,2) | 6 Regeln |
+| Regeln | Wertungsschritt 2b (gehaltene Karten), Teams, legendäre Seltenheit, Upscaler-Exklusivität, Raubkopie-Regel, Regel „Kein Pech“ (2.4), Zielkurve (Startwert, Festlegung nach Sim) | 7 Regeln |
 | Hardware | MB9, C11, C12, C14, G7, G8, R8, S7, P6, F4, E7 | 11 |
 | Software | SW21, SW22, SW24, SW27, SW28, SW30, SW32, SW33, SW34, SW35, SW36, SW38, SW40, SW42 | 14 |
 | Verbesserungen | Golden Sample, Cache-Hit, Krypto | 3 |
@@ -822,17 +874,12 @@ Keine neuen Vollbild-Screens im Muss-Umfang: Gebrauchtmarkt ist ein Reiter, Spon
 
 ## 10. Offene Fragen an den Auftraggeber
 
-1. **Run-Ende:** Soll Gen 12 ein **Sieg** („Weltrekord“, danach endlos) werden? Oder bleibt das Spiel ohne Sieg mit Finale nur alle 8 Generationen?
-2. **Zielkurve:** Kurve (+0,2 ab Gen 9) gleich mit v0.2 ändern, oder erst nach dem ersten Sim-Lauf mit dem neuen Content?
-3. **Intellion baut GPUs** (Ark, Team Blau): einverstanden? Es braucht einen blauen Marken-Swap im Shader.
-4. **Krypto:** Ist eine schwankende Spielwährung (BTL) thematisch und für die Altersfreigabe in Ordnung? Kein Kauf, nur Mining.
-5. **Pech-Toleranz:** Gebrauchtmarkt-Defekte werden erst nach dem Kauf sichtbar; P7, Delid und Flüssigmetall können Teile zerstören. Ist das Maß ok?
-6. **Realismus:** Peltier und LN2 als Dauer-Kühler, Peripherie ohne Netzteil-Last, Kerne weiter max. 8 (die 9800X3D bleibt „8“). Einverstanden?
-7. **Sponsor-Namen** sind Parodien echter Marken (NXZT, Veridia, Kingstorm). Gleiche Linie wie bei den Bauteilen?
-8. **Bot-Arbeit:** Gehört die Bot-Erweiterung für die Sim zum v0.2-Auftrag? Ohne sie ist die Abnahme 7.6 nicht messbar.
-9. **Asset-Produktion:** Wer erzeugt die ca. 170 neuen Sprites (`docs/assets-v0.2.md`, davon 38 nach Motiven aus dem P3-Plan)? Ist das Vorgehen „Einzelframes mit Referenzbild“ für Animationen ok?
-10. **Meta-Progression:** Starter-PCs über Meilensteine freischalten (Vorschlag) oder alle sofort verfügbar? Teile-Pool-Freischaltungen erst in v0.3 (Vorschlag), damit die Sim mit vollem Pool balanciert.
-11. **Online-Funktionen** (GDD-Frage 10): Bleibt es bei lokaler Bestenliste und lokaler Tages-Challenge (Vorschlag), oder ist ein Backend geplant?
+Die Fragen zu Run-Ende, Zielkurve, Intellion-GPUs, Krypto, Pech, Bot, Assets, Starter-Freischaltung und Online sind entschieden (Abschnitt 0.3). Offen bleiben:
+
+1. **Realismus:** Peltier und LN2 als Dauer-Kühler, Peripherie ohne Netzteil-Last, Kerne weiter max. 8 (die 9800X3D bleibt „8“). Einverstanden?
+2. **Sponsor-Namen** sind Parodien echter Marken (NXZT, Veridia, Kingstorm). Gleiche Linie wie bei den Bauteilen?
+3. **Teile-Pool-Freischaltung:** erst in v0.3 (Vorschlag), damit die Simulation mit vollem Pool balanciert?
+4. **Animations-Vorgehen:** Ist „Einzelframes mit Referenzbild“ für die Bild-KI ok (`assets-v0.2.md` 0.2)?
 
 ---
 
@@ -843,7 +890,7 @@ Quellen: `docs/game-design.md` (Kapitel 10–19, v. a. 19 „Später“ und alle
 ### 11.1 Abgleich: schon umgesetzt (nicht neu planen)
 
 - **Content:** 46 Hardware-Teile (MB1/2/3/5/7, C1–C5/C8/C9, G1–G6, R1–R6, S1–S5, P1–P4, K1–K5, F1/F2, CA1/CA3/CA4, E1/E3/E4), 15 Software, 7 Werkzeuge (T1–T5, T8, T9), 10 Treiber, 4 Verbesserungen, 4 Booster, 9 Bosse + F1.
-- **Systeme:** Wertung, Hitze, Throttling, Not-Abschaltung; K1–K12, Lanes, Slot-Verdeckung; OC/BIOS, Silizium-Lotterie, Stabilitätstest; Bluescreen, 12-Pin-Schmelze mit Reparatur, Brownout; Laden mit Smart-Shop, Lager (3), Verkauf, Neu würfeln, Zinsen, Stromrechnung, Schulden; Seed, Autosave, lokale Bestenliste (Top 5); Score-Vorschau als Option.
+- **Systeme:** Wertung, Hitze, Throttling, Not-Abschaltung; K1–K12, Lanes, Slot-Verdeckung; OC/BIOS, Silizium-Lotterie, Stabilitätstest; Bluescreen, 12-Pin-Schmelze mit Reparatur, Brownout (Silizium-Lotterie, Stabilitätstest, 12-Pin-Schmelze und Zwangs-Update werden in v0.2 geändert, siehe 2.4); Laden mit Smart-Shop, Lager (3), Verkauf, Neu würfeln, Zinsen, Stromrechnung, Schulden; Seed, Autosave, lokale Bestenliste (Top 5); Score-Vorschau als Option.
 - **Präsentation:** Hoch- und Querformat, Deutsch **und Englisch** (GDD-„Später“-Punkt Lokalisierung ist erledigt), Audio, Kabel als Kosmetik (Schalter).
 - **Nicht umgesetzt** (Code geprüft): Starter-Wahl, Meta-Progression, Garantie-Stufen, Katalog, Erfolge, Tages-Challenge, Multi-GPU (POST-Sperre), Werkbank-Zoom, legendäre Software, Krypto/Cache-Hit, 16 Teile, 5 Software, 3 Werkzeuge, 4 Bosse, 2 Finale.
 
@@ -862,7 +909,7 @@ Status: **übernommen** (in v0.2 geplant) · **verschoben** (später, mit Grund)
 | 7 | E2 10G-NIC | GDD 10.10 | übernommen | S | A8 (I/O +4 Takt) | P01, V12 |
 | 8 | E5 WLAN-Karte | GDD 10.10 | übernommen | S | +1 Neu-Prio; hilft A6/A7 | P01, V12 |
 | 9 | E6 RAID-Controller | GDD 10.10 | übernommen | S | A8 mit S7 NAS-HDD (SATA-L × 2, +1 Slot) | P01, V12 |
-| 10 | K6 Custom-Loop „Aquarium“ | GDD 10.7, 19 | übernommen (geändert) | S | A1/A2; Leck-Start bei 70 °C aktiviert Stresstest sofort (11.3) | P01, V13, V19 |
+| 10 | K6 Custom-Loop „Aquarium“ | GDD 10.7, 19 | übernommen (geändert) | S | A1/A2; Wartung statt Zufalls-Leck (11.3) | P01, V13, V19 |
 | 11 | ITX-Plattform (MB4, CA2) | GDD 10.1/10.9 | übernommen | K | Kompakt +Takt, Hitzestau → A1; braucht große Einzelbilder | P01, P21, P23 |
 | 12 | E-ATX (MB8, CA5) | GDD 10.1/10.9 | übernommen | K | Premium-VRM +2 Takt, 2 × 360 → A2, Multi-GPU | P01, P22, P24 |
 | 13 | SW13 Treiber-Fuchs | GDD 11 | übernommen | S | A7, Beta-Treiber (11.3) | Prompt P02 |
@@ -882,7 +929,7 @@ Status: **übernommen** (in v0.2 geplant) · **verschoben** (später, mit Grund)
 | 27 | B13 Treiber-Rollback | GDD 16 | übernommen | S | Konter A7 | V20 |
 | 28 | F2 Folding@Zuhause (Finale Gen 16) | GDD 16 | übernommen | K | Hitze-Marathon, Finale-Plan 7.2 | V20 |
 | 29 | F3 Y2K38 (Finale Gen 20) | GDD 16 | übernommen | K | 32-Bit-Überlauf passt zur Kurve in Gen 20 | V20 |
-| 30 | Gebrauchtmarkt mit versteckten Defekten | GDD 19 | übernommen | M | Kapitel 6.2 | V08, V09, V11 (Stempel Motiv P17) |
+| 30 | Gebrauchtmarkt (GDD: „mit versteckten Defekten“) | GDD 19 | übernommen (geändert: alles sichtbar, E3) | M | Kapitel 6.2 | V08, V09, V11 (Stempel Motiv P17) |
 | 31 | Gutscheine / Ladenumbauten | GDD 19, assets 3 | übernommen | S | Kapitel 6.6 | P02 (8 Icons), V05 (2) |
 | 32 | Benchmarks überspringen mit Coupons | GDD 19 | übernommen | K | Kapitel 6.9 | – |
 | 33 | Sieg / Meilenstein (GDD-Frage 5) | GDD 4, 20 | übernommen (als Gen-12-Weltrekord) | S | Kapitel 7.2 | V16 |
@@ -894,8 +941,8 @@ Status: **übernommen** (in v0.2 geplant) · **verschoben** (später, mit Grund)
 | 39 | Erfolge (20) | GDD 17, assets 3 | übernommen | K | nur Kosmetik/Titel, an Archetypen gebunden | Prompt P16 |
 | 40 | Hardware-Katalog (Screen 12) | GDD 17, 18.2 | übernommen | K | Kompendium inkl. Software, Sponsoren | V21 (Motiv P17) |
 | 41 | Multi-GPU (SLI-Brücke) | GDD 19, impl.-notes 3 | übernommen | K | Witz-Mechanik, A4/A5 (11.3) | V13 (Motiv P20) |
-| 42 | Effekt Stecker-Schmelze | assets 3 | übernommen | S | G6/G7 12-Pin, P7-Ausfall | V19 (Motiv P15) |
-| 43 | Effekt Leck | assets 3 | übernommen | S | K6 | V19 (Motiv P15) |
+| 42 | Effekt Stecker-Schmelze | assets 3 | übernommen (geändert) | S | nur Warnanzeige: 12-Pin-Adapter glüht ab 85 °C, keine Zerstörung | V19 (Motiv P15) |
+| 43 | Effekt Leck | assets 3 | übernommen (geändert) | S | Anzeige „Wartung überfällig“ am K6 | V19 (Motiv P15) |
 | 44 | Werkbank-Doppeltipp-Zoom | GDD 18.6, progress | übernommen | K | hilft bei Zustands-/Peripherie-Symbolen | – |
 | 45 | PWA / Offline | GDD 19 | übernommen | K | rein technisch | `app_icon` vorhanden |
 | 46 | Teile-Pool-Freischaltung über Erfolge | GDD 17 | verschoben (v0.3) | – | Sim und Balancing brauchen den vollen Pool; Sperren verstecken die neuen Synergien | – |
@@ -920,13 +967,14 @@ Status: **übernommen** (in v0.2 geplant) · **verschoben** (später, mit Grund)
 
 | Typ | Kühlung | Radiator | TDP | $ | T | Spezial |
 |---|---|---|---|---|---|---|
-| Wasser | 26 | **1 × 360** + 3 Lüfterplätze (GDD: 2 × 360) | 15 | 20 | T4 | GPU-Hitze −2 pro Karte · Leck: 1/20 je Benchmark, der Benchmark startet bei 70 °C |
+| Wasser | 26 | **1 × 360** + 3 Lüfterplätze (GDD: 2 × 360) | 15 | 20 | T4 | GPU-Hitze −2 pro Karte · Wartung: $1 pro Generation (Kassenbon); nicht bezahlt → Kühlung 13 bis zur Zahlung |
 
 - Änderung: Ein Radiator, damit der Loop in CA3, CA4 und CA6 passt (CA5 ist nur Kann). Real sind Loops mit einem 360er üblich.
-- Verzahnung: Das Leck ist für A1 ein Vorteil (Stresstest/Heißläufer ab dem ersten Durchlauf). Garantieverlängerung deckt das Leck nicht (Ereignis, kein Defekt).
-- Einbau: `loop_waterblock` auf der CPU, `loop_reservoir` neben dem Board, `radiator_360` (vorhanden), Schläuche als Code-Linien wie bei der AIO. Effekt `fx_leak`.
+- Änderung (E3): Das zufällige Leck aus dem GDD entfällt. Stattdessen feste, sichtbare Wartungskosten.
+- Verzahnung: A2 (höchste Kühlung für viele OC-Stufen), A1/A5 (GPU-Hitze −2 erlaubt mehr GPU-Karten pro Durchlauf).
+- Einbau: `loop_waterblock` auf der CPU, `loop_reservoir` neben dem Board, `radiator_360` (vorhanden), Schläuche als Code-Linien wie bei der AIO. Effekt `fx_leak` tropft, solange die Wartung überfällig ist.
 
-**Starter-PCs (Soll)** – Freischaltung über Meilensteine (Meta-Speicher `bottleneck.meta`, nicht im Run):
+**Starter-PCs (Soll, Freischaltung entschieden: E5)** – Freischaltung über Meilensteine (lokaler Meta-Speicher `bottleneck.meta`, nicht im Run):
 
 | ID | Starter | Build | Start-$ | Neigung | Kartenrücken | Freischaltung |
 |---|---|---|---|---|---|---|
@@ -946,7 +994,7 @@ ST4 braucht die AMX-4-Plattform (#1). Ohne sie entfällt ST4. `card_back_1` (Gol
 | G3 | Stromrechnung × 2 |
 | G4 | Nur 2 Lagerplätze (GDD: 1; v0.2 braucht Platz für Bundles) |
 | G5 | Laden-Preise +$1 (Hardware, Software, Pakete) |
-| G6 | Gebrauchtmarkt: Defekt-Chance +10 Prozentpunkte je Sternstufe · Rückgabe-Gebühr $2 · Sponsor-Strafen × 2 |
+| G6 | Gebrauchtpreise +10 Prozentpunkte · Rückgabe-Gebühr $2 · Sponsor-Strafen × 2 |
 | G7 | Boss-Ziel × 2,5 statt × 2 |
 | G8 | Zinsen max. +$3 · Finale × 4 statt × 3 |
 
@@ -958,7 +1006,7 @@ ST4 braucht die AMX-4-Plattform (#1). Ohne sie entfällt ST4. `card_back_1` (Gol
 
 | Element | v0.1-Effekt | v0.2-Ergänzung |
 |---|---|---|
-| SW13 Treiber-Fuchs | +2 Stufen statt +1 | Formulierung „+1 Stufe zusätzlich“: normal 2, Beta-Treiber 3 |
+| SW13 Treiber-Fuchs | +2 Stufen statt +1 | Formulierung „+1 Stufe zusätzlich“: normal 2, Beta-Treiber sofort 2, nach Zertifizierung 3 |
 | SW14 Antivirus Plus Pro | −1 Takt, blockiert B9/B10 | setzt SW17 in Quarantäne (nie beide aktiv) |
 | SW17 Benchmark-Cheat.exe | ×3, 1/4 erkannt → $0 | Erkennung kündigt zusätzlich den aktiven Sponsor-Vertrag (mit Strafe) |
 | SW18 KI-Upscaler | Stufe ≤ 4 zählt für L als 10 | kein „Upscaler“ im Sinne von 2.3; Kombi mit Penta-Core (A7) |
@@ -973,9 +1021,9 @@ ST4 braucht die AMX-4-Plattform (#1). Ohne sie entfällt ST4. `card_back_1` (Gol
 | F2 Folding@Zuhause | 8 Durchläufe, keine Neu-Prio, Kühlung halbiert, × 4 | Finale Gen 16 |
 | F3 Y2K38 | Durchlauf > 2.147.483.647 wird negativ | Finale Gen 20; Spieler halten Durchläufe absichtlich klein (Software umsortieren) |
 
-**Multi-GPU (Kann):** zwei identische GPUs, die zweite in einem x16-Slot mit ≥ 8 Lanes, dazu die SLI-Brücke (Zubehör, $3, zählt als RGB-Teil). GPU-Karten erhalten zusätzlich 50 % der L-Boni der zweiten GPU (kein Takt). Hitze der GPU-Karten +50 %, volle TDP beider Karten. „Mikroruckler“: je Durchlauf 1/6 Chance, dass die GPU-Takt-Boni 0 sind. Ersetzt den POST-Fehler „SLI-Brücke kommt später“. Real ist SLI tot – genau das ist der Witz.
+**Multi-GPU (Kann):** zwei identische GPUs, die zweite in einem x16-Slot mit ≥ 8 Lanes, dazu die SLI-Brücke (Zubehör, $3, zählt als RGB-Teil). GPU-Karten erhalten zusätzlich 50 % der L-Boni der zweiten GPU (kein Takt). Hitze der GPU-Karten +50 %, volle TDP beider Karten. „Mikroruckler“: jeder 3. Durchlauf eines Benchmarks hat keine GPU-Takt-Boni (Zähler sichtbar, kein Zufall). Ersetzt den POST-Fehler „SLI-Brücke kommt später“. Real ist SLI tot – genau das ist der Witz.
 
-**Erfolge (Kann):** 20 Erfolge, Icons aus P16; nur Titel und Kartenrücken, keine Stat-Boni (GDD 17). Vorschläge: Kernschmelze (Benchmark mit ≥ 95 °C), RGB bringt FPS (10 RGB-Teile), Sparbüchse (Gen 10 mit ≤ 200 W), Sleeper (Gen 8 in CA1), Fanboy (Gen 10 mit einem Team), Penta-Core gespielt, Händlerkönig (5 Gebrauchtteile ohne Defekt), Vertragstreue (3 Verträge ohne Bruch), HODL (BTL zu ≥ $10 verkauft), Weltrekord.
+**Erfolge (Kann):** 20 Erfolge, Icons aus P16; nur Titel und Kartenrücken, keine Stat-Boni (GDD 17). Vorschläge: Kernschmelze (Benchmark mit ≥ 95 °C), RGB bringt FPS (10 RGB-Teile), Sparbüchse (Gen 10 mit ≤ 200 W), Sleeper (Gen 8 in CA1), Fanboy (Gen 10 mit einem Team), Penta-Core gespielt, Bastler (5 Bastlerware-Teile repariert), Vertragstreue (3 Verträge ohne Bruch), HODL (BTL zu ≥ $10 verkauft), Weltrekord.
 
 **Hardware-Katalog (Kann):** Kompendium aller gesehenen Teile, Software, Bosse und Sponsoren mit Bestwerten; Bottom-Sheet vom Titel.
 
@@ -990,7 +1038,10 @@ ST4 braucht die AMX-4-Plattform (#1). Ohne sie entfällt ST4. `card_back_1` (Gol
 | Upscaler | Software-Klasse; nur der linke Upscaler wirkt |
 | Golden Sample | besonders gutes Silizium; Karten-Verbesserung ×1,5 |
 | Raubkopie | Kopie ohne Golden Sample/Cache-Hit |
-| Gebrauchsspuren | dauerhafter kleiner Nachteil eines Gebrauchtteils |
+| Gebrauchsspuren | dauerhafter, vor dem Kauf sichtbarer Mangel eines Gebrauchtteils |
+| Bastlerware | defektes Gebrauchtteil mit angezeigten Reparaturkosten |
+| Börsenticker | zeigt die nächste BTL-Kursänderung im Voraus |
+| Kein Pech | Grundregel 2.4: alles Relevante ist vor der Entscheidung sichtbar |
 | Vertrag (Sponsor) | laufendes Einkommen mit Bedingung und Strafe |
 | BTL (BottleCoin) | Krypto-Währung mit schwankendem Kurs |
 | Peripherie | Geräte außerhalb des Gehäuses (2 Plätze) |

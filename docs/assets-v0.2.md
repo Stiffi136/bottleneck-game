@@ -3,6 +3,8 @@
 Bezug: `docs/game-design-v0.2.md` (IDs), `docs/assets.md` (Stil, Palette, Abschnitt 1 gilt unverändert), `docs/asset-sheets.md` (Format, **Prompt 0 gilt weiter**), `docs/asset-nachbesserung.md` (Erfahrungen mit der Bild-KI).
 Erklärungen und Tabellen sind Deutsch, Prompts sind Englisch.
 
+**Entscheidungen (GDD v0.2, 0.3):** Der Auftraggeber erzeugt die Assets selbst mit der Bild-KI (E9). Intellion-GPUs sind freigegeben (E6, Marken-Swap Blau). Durch die Regel „Kein Pech“ (E3) ändern sich nur Bedeutungen und zwei Animationen (`fx_melt` ist jetzt eine Warnanzeige ohne Zerstörung, `fx_leak` zeigt eine überfällige Wartung; die Sterne zeigen den sichtbaren Zustand). Die Zahl der Sprites und Sheets bleibt gleich.
+
 ---
 
 ## 0. Grundlagen
@@ -132,7 +134,7 @@ Maße in virtuellen Pixeln (wie `assets.md`). „Stk.“ = einzelne Sprites. „
 
 | Name | Kategorie | Größe (px) | Stk. | Frames | Beschreibung | Prio | Sheet |
 |---|---|---|---|---|---|---|---|
-| `icon16_stern_voll`, `icon16_stern_leer` | Icon | 16×16 | 2 | – | Verkäufer-Sterne | P1 | V08 |
+| `icon16_stern_voll`, `icon16_stern_leer` | Icon | 16×16 | 2 | – | Zustands-Sterne im Gebrauchtmarkt (sichtbarer Zustand, 0–3 Sterne) | P1 | V08 |
 | `icon16_zustand_ok`, `_spuren`, `_defekt` | Icon | 16×16 | 3 | – | Zustand Gebrauchtteil: Haken / Kratzer / Riss (Form + Farbe) | P1 | V08 |
 | `icon16_rueckgabe`, `icon16_vertrag` | Icon | 16×16 | 2 | – | Rückgabe (Karton mit Pfeil zurück), Vertrag (Papier mit Siegel) | P1 | V08 |
 | `icon16_tag_team_rot`, `_blau`, `_gruen` | Icon | 16×16 | 3 | – | Team-Embleme: rotes Dreieck, blaues Quadrat, grüner Kreis | P1 | V08 |
@@ -162,7 +164,7 @@ Maße in virtuellen Pixeln (wie `assets.md`). „Stk.“ = einzelne Sprites. „
 | `ui_price_tag_used` | UI | 28×12 | 1 | – | Papier-Preisschild mit Loch und ausgefranstem Rand | P1 | V11 |
 | `ui_price_tag_sale` | UI | 28×12 | 1 | – | Rotes Angebots-Preisschild mit Zackenrand | P1 | V11 |
 | `ui_bundle_ribbon` | UI | 48×12 | 1 | – | Band mit gefalteten Enden („Kit“, Text per Font) | P1 | V11 |
-| `ui_stamp_defekt` | UI | 40×20 | 1 | – | Stempel „Defekt?“ (Form, Text per Font) | P1 | V11 (Motiv aus P17) |
+| `ui_stamp_defekt` | UI | 40×20 | 1 | – | Stempel „Defekt“ auf Bastlerware (Form, Text per Font) | P1 | V11 (Motiv aus P17) |
 | `ui_slot_empty_peripherie` | UI | 40×40 | 1 | – | Leerer Peripherie-Platz (gestrichelter Schreibtisch mit Monitor-Umriss) | P2 | V11 |
 | `trophy_weltrekord` | Branding | 64×64 | 1 | 1 (Glanz per Code) | Pokal für den Sieg-Bildschirm | P2 | V16 |
 
@@ -177,8 +179,8 @@ Bezug: GDD v0.2 Kapitel 11. Neue Sprites hier stammen alle aus Motiven des P3-Pl
 | `card_back_1` … `card_back_4` | Karte | 48×64 | 4 | – | Gold (Weltrekord), Neon (ST2), Blaupause (ST3), Beige (ST4) | P2 | V17 (Motiv P12) |
 | `starter_portrait_buero`, `_gaming`, `_workstation`, `_retro` | Meta | 64×64 | 4 | – | Starter-PCs ST1–ST4 | P2 | V18 (Motiv P13) |
 | `icon_garantie_1` … `icon_garantie_8` | Icon | 16×16 | 8 | – | Garantie-Stufen G1–G8 | P2 | V19 (Motiv P15) |
-| `fx_melt` | Effekt | 16×16 | 1 | 4 (statt 8) | schmelzender 12-Pin-Stecker | P2 | V19 + Edits (Motiv P15) |
-| `fx_leak` | Effekt | 16×16 | 1 | 4 (statt 6) | Wassertropfen (Leck) | P2 | V19 + Edits (Motiv P15) |
+| `fx_melt` | Effekt | 16×16 | 1 | 4 (statt 8), Loop | überhitzter 12-Pin-Adapter: Glühen pulsiert (Warnung ab 85 °C, keine Zerstörung) | P2 | V19 + Edits (Motiv P15) |
+| `fx_leak` | Effekt | 16×16 | 1 | 4 (statt 6), Loop | Tropfen am Custom-Loop, solange die Wartung überfällig ist | P2 | V19 + Edits (Motiv P15) |
 | `boss_b9`, `boss_b10`, `boss_b12`, `boss_b13` | Boss | 32×32 | 4 | – | GDD-Bosse | P2 | V20 (Motiv P03) |
 | `boss_f2`, `boss_f3` | Boss | 32×32 | 2 | – | Finale Gen 16 / Gen 20 | P3 | V20 (Motiv P03) |
 | `ui_catalog_panel`, `_entry`, `_tab`, `_header` | UI | 24×24, 9-Slice | 4 | – | Hardware-Katalog | P3 | V21 (Motiv P17) |
@@ -999,7 +1001,7 @@ CELLS in reading order:
  - R2C1 "icon_garantie_6": silver shield with 3 chevrons.
  - R2C2 "icon_garantie_7": gold shield (#e0a848, #b9781c, #ffe28a light) with 1 chevron.
  - R2C3 "icon_garantie_8": gold shield with a small gold crown on top of the shield and no chevron.
- - R2C4 "fx_melt_0": EFFECT FRAME 1 of 4: a black rectangular 12-pin power connector seen from the side, intact, its tip edge glowing slightly orange (#ff8a2e).
+ - R2C4 "fx_melt_0": EFFECT FRAME 1 of 4 (warning glow loop, the connector never melts): a black rectangular 12-pin power connector seen from the side, intact, its tip edge glowing slightly orange (#ff8a2e).
  - R2C5 "fx_leak_0": EFFECT FRAME 1 of 4: the end of a clear tube fitting at the top, a small ice-blue water drop (#8cc4ff, #f4f4fa highlight) forming at its lower edge.
 
 SHAPE CHECK: 8 identical shield shapes that differ only in color and chevrons, plus 2 effect frames; everything inside its own cell.
@@ -1019,9 +1021,11 @@ FRAME <n>: <see below>
 
 | Frame | FRAME-Zeile |
 |---|---|
-| f1 | `FRAME 2 of 4: R2C4 the connector tip glows bright orange-yellow, the plastic starts to bend down a little. R2C5 the drop is bigger and hangs from the fitting.` |
-| f2 | `FRAME 3 of 4: R2C4 the connector tip droops clearly, one orange drip of molten plastic hangs below it, a tiny grey smoke puff above (inside the cell). R2C5 the drop has detached and is falling, halfway down the cell.` |
-| f3 | `FRAME 4 of 4: R2C4 the tip is melted into a dark blackened blob, the glow is fading, the smoke puff is higher. R2C5 the drop hits the bottom of the cell and splashes into 3 tiny droplets.` |
+| f1 | `FRAME 2 of 4: R2C4 the connector stays intact and unchanged in shape; its tip glow becomes brighter orange (#ff8a2e with a #ffd23f center). R2C5 the drop is bigger and hangs from the fitting.` |
+| f2 | `FRAME 3 of 4: R2C4 the connector stays intact; the glow is brightest (yellow center #ffd23f) and two tiny wavy heat lines rise above the tip (inside the cell). R2C5 the drop has detached and is falling, halfway down the cell.` |
+| f3 | `FRAME 4 of 4: R2C4 the connector stays intact; the glow fades back to a soft orange edge, the heat lines are gone. R2C5 the drop hits the bottom of the cell and splashes into 3 tiny droplets.` |
+
+Hinweis: `fx_melt` behält den Sprite-Namen aus dem P3-Plan, zeigt aber nur noch ein pulsierendes Glühen als Warnung (Loop 0 → 1 → 2 → 3 → 0). Der Stecker schmilzt nicht (Regel „Kein Pech“).
 
 ### V20 · `v20_boss_gdd.png` – Boss-Chips aus dem GDD v0.1 (Motiv aus P03)
 
