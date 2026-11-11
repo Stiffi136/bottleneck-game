@@ -20,10 +20,6 @@
 - **P1 (Bot neu, Kurve unverändert 1,8):** `npm run sim -- 300`: Median **Gen 10**, Mittel 9,26, p10 8, p90 11, max 11, Tode in Gen 1–2: 2,0 %. Verteilung: Gen 1–7 7 %, Gen 8 11,7 %, Gen 9 22 %, Gen 10 48 %, Gen 11 11,3 %. F1: 30 von 300 Toden. Käufe je Run: Hardware 10,6, Treiber-Packs 7,3 + Treiber 1,7, Software 5,8 + Software-Packs 2,8, Werkzeug-/Workload-Packs je ≈ 2,8.
 - Browser (Chromium): Hochformat 390×844 und 360×640, Querformat 1280×720; Autoplay-Run über die echte UI bis Bluescreen (Gen 8, Querformat) ohne Konsolenfehler; Speichern/Fortsetzen nach Reload geprüft; Deutsch geprüft.
 
-## Nächste Schritte
-
-Siehe Pakete P1–P7 in `docs/handoff.md` (P1 Balancing, P2 Benchmark-Politur, P3 Werkbank/Laden, P4 Audio, P6 Texte parallel; dann P5 Lesbarkeit; zuletzt P7 Technik/Abschlusstest).
-
 ## Bekannte Probleme
 
 - P1 sanft beendet: Abnahme (Median ≥ 10, p10 ≥ 6, < 5 % Tode in Gen 1–2, gemischte Käufe) erfüllt, aber Verteilung schmal (Gen 8–11, nicht 10–14). Kurven-Kandidaten und Bot-Schwächen: `docs/implementation-notes.md` §2.1.
@@ -118,3 +114,23 @@ Offen / Hinweise:
 - Vorschläge: Silkscreen-„&“ auch in BIOS-Texten prüfen (Mono-Schrift, dort unkritisch); Settings-Sheet gruppieren (Ton / Anzeige / Spiel), damit weniger gescrollt wird.
 
 P5 Abnahme-Läufe: Autoplay 390×844 (DE, bis Gen 10) und 1920×1080 (EN, bis Gen 9) bis Game Over: 0 Konsolenfehler, `__watch`-Log leer (0 aspect-/Text-/Trefferflächen-/Überlauf-Befunde); `__all(['en','de'])` leer bei 360×640, 390×844, 820×1180 (Tablet: nur Kartennamen-Skalierung, siehe oben), 1366×768, 1920×1080.
+
+
+## P7 Technik & Abschluss (Gesamtstand)
+
+**Gesamtstand:** Alle Pakete P1–P7 abgeschlossen. Spiel vollständig spielbar (Core, 7 Screens, Audio, EN/DE, Hoch/Quer), Build ohne Warnung, 53 Tests grün.
+
+- **Bundle:** vorher 1 JS-Datei 911 kB (gzip 231). Jetzt: `three` 530 kB (gzip 130), `ui` 297 kB, `core` 80 kB, Einstieg 4 kB, `autoplay` 16 kB (lazy). Warnschwelle `chunkSizeWarningLimit` 560 kB (nur wegen three.js, das allein 530 kB hat). `import * as THREE` wird von Rolldown bereits getree-shaked, gezielte Imports bringen nichts.
+- **Performance** (Chromium headless, 1280×720, Autoplay, Production-Build): Frame-Zeit Median 16,7 ms (60 fps) in Auswahl, Benchmark, Kassenbon, Laden, Werkbank; Draw-Calls max 4 (Sprite-Batch), max 740 Dreiecke, 1 Geometrie, Texturen 35–40 (nur Assets/Fonts, wachsen nicht je Screen-Wechsel). Einzelne Ausreißer (33–67 ms) beim Screen-Aufbau. Kein Leck gefunden (Szene besteht aus Nodes, GPU-Ressourcen sind global). JS-Heap stieg über 10 Generationen von 18 auf 29 MB (nicht weiter untersucht, vermutlich GC-Verzögerung).
+- **Unterordner:** `dist/` nach `/tmp/sub/game/` kopiert und mit Node-Server ausgeliefert: Assets, Schriften, Lizenzen laden, Autoplay lief. Nur `/favicon.ico` 404 (wird nicht verlinkt).
+- **Ohne localStorage / Sandbox-iframe** (`sandbox="allow-scripts"`, Opaque-Origin): Titel, Auswahl, Benchmark starten. Zwei Fixes: Bilder laden jetzt mit `crossOrigin='anonymous'` (Fallback ohne), `frameURL()` fängt `toDataURL`-Fehler ab (sonst „Tainted canvas“ beim Laden); `settings.ts` greift nicht mehr ungeschützt auf localStorage zu. Voraussetzung: der Host sendet CORS-Header für Assets (`Access-Control-Allow-Origin`), sonst fehlen die DOM-Sprites (Knöpfe/Icons), das Spiel bleibt spielbar.
+- **Nicht geprüft:** komplette Autoplay-Runs auf dem Production-Build (Auftraggeber testet selbst), Touch-Geräte, echtes iPhone-Safe-Area, Klang.
+
+## Offene Punkte (priorisiert)
+
+1. **Balancing (hoch):** Verteilung schmal (Gen 8–11, Median 10 statt GDD 10–14); Finale F1 (Gen 8) ist die Wand; Kurve Wachstum 1,8 statt GDD 2,2. Menschlicher Spieltest fehlt. (`implementation-notes.md` §2.1)
+2. **Echtgeräte-Test (hoch):** Touch-Long-Press, Safe-Area, Performance auf schwachen Handys, Audio-Klang (Pegel in `audio/levels.ts`).
+3. **Hosting (mittel):** CORS-Header bei Einbettung ohne Same-Origin (siehe oben); Favicon-Ico optional.
+4. **Werkbank (mittel):** Office-Gehäuse Blenden-Pitch 13,2 vs. Board 11,9 (bis 4 px Versatz); ATX-Board im Office-Gehäuse ragt bis zum Boden (nur Fehlerfall); Doppeltipp-Zoom (GDD 18.6) fehlt; Slot-Liste verdeckt im Hochformat die untere Gehäusehälfte.
+5. **Lesbarkeit (niedrig):** Kartennamen auf Handkarten bei kleinen Handys nur als Typ-Label; Linkshänder spiegelt Spalten im Querformat nicht; Settings-Sheet gruppieren.
+6. **Code (niedrig):** `src/sim/bot.ts` unaufgeräumt (`assemble()`, env-Parameter); JS-Heap-Wachstum prüfen; Bundle `ui` ggf. per dynamic import je Screen weiter teilen.
