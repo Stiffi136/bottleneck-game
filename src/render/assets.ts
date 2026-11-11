@@ -57,21 +57,25 @@ function sheetName(path: string): string {
   return path.split('/').pop()!.replace(/\.(json|webp)$/, '');
 }
 
-function loadImageOnce(url: string, cors: boolean): Promise<HTMLImageElement> {
-  return new Promise((res, rej) => {
+/**
+ * Loads via fetch -> Blob -> object URL: a blob: image is same-origin, so neither the WebGL upload
+ * nor canvas.toDataURL (frameURL) can taint, with or without CORS headers.
+ */
+async function loadImage(url: string): Promise<HTMLImageElement> {
+  const resp = await fetch(url);
+  if (!resp.ok) throw new Error(`image failed (${resp.status}): ${url}`);
+  const objUrl = URL.createObjectURL(await resp.blob());
+  try {
     const img = new Image();
     img.decoding = 'async';
-    // anonymous CORS keeps the canvas untainted when the page has an opaque origin (sandboxed iframe)
-    if (cors) img.crossOrigin = 'anonymous';
-    img.onload = () => res(img);
-    img.onerror = () => rej(new Error('image failed: ' + url));
-    img.src = url;
-  });
-}
-
-function loadImage(url: string): Promise<HTMLImageElement> {
-  // fall back to a plain load if the server sends no CORS headers (frameURL() then degrades, see below)
-  return loadImageOnce(url, true).catch(() => loadImageOnce(url, false));
+    img.src = objUrl;
+    await img.decode();
+    return img;
+  } catch {
+    throw new Error('image decode failed: ' + url);
+  } finally {
+    URL.revokeObjectURL(objUrl);
+  }
 }
 
 export function makeTexture(img: TexImageSource | HTMLCanvasElement, mip = false): THREE.Texture {

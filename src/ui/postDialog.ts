@@ -36,7 +36,11 @@ export function beepText(led: Led): string {
 }
 
 /** Plays the beep code and lights the matching symbols in `row`. */
+let beepTimers: number[] = [];
 function playBeep(led: Led, row: HTMLElement): void {
+  beepTimers.forEach((id) => window.clearTimeout(id));
+  beepTimers = [];
+  row.querySelectorAll('.beep-sym.hot').forEach((el) => el.classList.remove('hot'));
   sfx.beepCode(BEEP[led].longs, BEEP[led].shorts);
   const syms = [...row.querySelectorAll<HTMLElement>('.beep-sym')];
   let t = 0;
@@ -45,8 +49,8 @@ function playBeep(led: Led, row: HTMLElement): void {
     const on = t;
     const dur = long ? LONG_DUR : SHORT_DUR;
     t += long ? LONG_STEP : SHORT_STEP;
-    window.setTimeout(() => el.classList.add('hot'), on * 1000);
-    window.setTimeout(() => el.classList.remove('hot'), (on + dur) * 1000);
+    beepTimers.push(window.setTimeout(() => el.classList.add('hot'), on * 1000));
+    beepTimers.push(window.setTimeout(() => el.classList.remove('hot'), (on + dur) * 1000));
   });
 }
 

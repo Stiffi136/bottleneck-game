@@ -10,6 +10,10 @@ export function startAmbient(getRun: () => RunState | null): void {
   window.setInterval(() => {
     const run = getRun();
     if (!run || run.phase === 'bench') return;
+    if (run.phase !== 'workbench') {
+      sfx.fan(0);
+      return;
+    }
     const ok = run.phase === 'workbench' && !postIssues(run).some((i) => i.severity === 'error');
     if (ok) sfx.fanIdle();
     else sfx.fan(0);

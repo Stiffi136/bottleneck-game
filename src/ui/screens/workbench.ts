@@ -31,6 +31,7 @@ import { STORAGE_SLOTS } from '../../core/data/content';
 import { hexToRgb } from '../../render/fx';
 
 
+const runningBlinks = new WeakMap<Node, () => void>();
 const CABLE_KEY = 'bottleneck.cables';
 function cablesOn(): boolean {
   try {
@@ -640,15 +641,23 @@ export class WorkbenchScreen extends BaseScreen {
       x.children.forEach(walk);
     };
     walk(n);
+    // a blink still running on this node: restore its original colours/tick first
+    runningBlinks.get(n)?.();
     const base = sprites.map((s) => [...s.tint] as [number, number, number]);
     let t = 0;
     const prev = n.tick;
+    const stop = () => {
+      sprites.forEach((s, i) => (s.tint = base[i]!));
+      n.tick = prev;
+      runningBlinks.delete(n);
+    };
+    runningBlinks.set(n, stop);
     n.tick = (dt) => {
       prev?.(dt);
       t += dt;
       const on = t < 3.5 && Math.floor(t / 0.25) % 2 === 0;
       sprites.forEach((s, i) => (s.tint = on ? [1, 0.35, 0.3] : base[i]!));
-      if (t >= 3.5) n.tick = prev;
+      if (t >= 3.5) stop();
     };
   }
 

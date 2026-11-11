@@ -492,7 +492,7 @@ export const de: Dict = {
     off: 'Aus',
     abandon: 'Run aufgeben',
     credits: 'Credits',
-    creditsText: 'Schriften: Pixelify Sans, Jersey 15, Silkscreen, VT323 (SIL Open Font License 1.1). 3D: three.js (MIT). Alle Marken sind Parodien. Lizenzen: /licenses/README.txt',
+    creditsText: 'Schriften: Pixelify Sans, Jersey 15, Silkscreen, VT323 (SIL Open Font License 1.1). 3D: three.js (MIT). Alle Marken sind Parodien. Lizenzen: licenses/README.txt',
   },
   gameover: {
     title: 'Auf dem PC ist ein Problem aufgetreten. Er muss neu gestartet werden.',

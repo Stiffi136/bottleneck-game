@@ -63,7 +63,7 @@ class Sfx {
     };
     for (const ev of ['pointerdown', 'keydown', 'touchend'] as const) window.addEventListener(ev, onGesture, { capture: true });
     document.addEventListener('visibilitychange', () => this.onVisibility());
-    Object.assign(window as object, { __audio: this });
+    if (import.meta.env.DEV) Object.assign(window as object, { __audio: this });
   }
 
   get state(): string {

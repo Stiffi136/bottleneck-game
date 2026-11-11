@@ -12,7 +12,7 @@ npm test               # vitest (53 Tests)
 npm run sim -- 300     # Balancing-Simulation mit Bot
 npx tsx scripts/power.ts 30 12
 ```
-Selbsttest im Browser: `/?autoplay=4` spielt einen kompletten Run über die echte UI. Debug: `window.__game`, `window.__timeScale`.
+Selbsttest im Browser (nur Dev-Server, nicht im Production-Build): `/?autoplay=4` spielt einen kompletten Run über die echte UI. Debug (nur DEV): `window.__game`, `window.__timeScale`, `window.__autoplay`, `window.__audio`.
 
 ## Struktur
 

@@ -14,7 +14,7 @@ npm test             # vitest (53 Tests)
 npm run sim -- 200   # Balancing-Simulation (Bot), Gen-Verteilung
 npx tsx scripts/power.ts 30 12   # Power-Kurve des Bots je Generation
 ```
-Browser-Selbsttest: `http://localhost:5173/?autoplay=4` (oder `__autoplay(4)` in der Konsole) spielt einen ganzen Run über die echte UI bis zum Game Over. Debug: `window.__game` (Game-Controller, `__game.run` = Zustand), `window.__timeScale.value` (Animationstempo). Subagenten haben kein `background`-Tool: Dev-Server mit `nohup npx vite --port 5199 > /tmp/vite.log 2>&1 &` starten und nach dem Test beenden.
+Browser-Selbsttest (nur Dev-Server; im Production-Build sind `?autoplay`, `__game`, `__autoplay`, `__audio` bewusst nicht vorhanden, damit kein gespeicherter Run überschrieben wird): `http://localhost:5173/?autoplay=4` (oder `__autoplay(4)` in der Konsole) spielt einen ganzen Run über die echte UI bis zum Game Over. Debug: `window.__game` (Game-Controller, `__game.run` = Zustand), `window.__timeScale.value` (Animationstempo). Subagenten haben kein `background`-Tool: Dev-Server mit `nohup npx vite --port 5199 > /tmp/vite.log 2>&1 &` starten und nach dem Test beenden.
 
 ## 2. Architektur
 

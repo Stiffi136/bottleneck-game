@@ -495,7 +495,7 @@ export const en = {
     off: 'Off',
     abandon: 'Abandon run',
     credits: 'Credits',
-    creditsText: 'Fonts: Pixelify Sans, Jersey 15, Silkscreen, VT323 (SIL Open Font License 1.1). 3D: three.js (MIT). All brands are parodies. Licenses: /licenses/README.txt',
+    creditsText: 'Fonts: Pixelify Sans, Jersey 15, Silkscreen, VT323 (SIL Open Font License 1.1). 3D: three.js (MIT). All brands are parodies. Licenses: licenses/README.txt',
   },
   gameover: {
     title: 'Your PC ran into a problem and needs to restart.',

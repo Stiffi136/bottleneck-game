@@ -59,10 +59,13 @@ async function boot(): Promise<void> {
   booted = true;
   loading.style.opacity = '0';
   setTimeout(() => (loading.style.display = 'none'), 400);
-  const runAuto = async (speed = 4) => (await import('./sim/autoplay')).autoplay(game, speed);
-  Object.assign(window as object, { __game: game, __timeScale: timeScale, __autoplay: runAuto });
-  const ap = new URLSearchParams(location.search).get('autoplay');
-  if (ap !== null) void runAuto(Number(ap) || 4).then((r) => console.log('autoplay result', JSON.stringify(r)));
+  if (import.meta.env.DEV) {
+    // debug / self-test hooks: dev server only (autoplay would overwrite the saved run)
+    const runAuto = async (speed = 4) => (await import('./sim/autoplay')).autoplay(game, speed);
+    Object.assign(window as object, { __game: game, __timeScale: timeScale, __autoplay: runAuto });
+    const ap = new URLSearchParams(location.search).get('autoplay');
+    if (ap !== null) void runAuto(Number(ap) || 4).then((r) => console.log('autoplay result', JSON.stringify(r)));
+  }
 }
 
 boot().catch(fatal);
