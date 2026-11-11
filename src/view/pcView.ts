@@ -336,6 +336,14 @@ export class PcView extends Node {
       const fx = -r.w / 2 + r.w * m.cx[i];
       const fy = -r.h / 2 + r.h * m.cy;
       const size = r.w * m.d;
+      if (rgb) {
+        // static RGB ring of the fan art (circle mask without the square frame, rainbow cycle)
+        const ring = new Sprite('case_fan_0', { region: 'content' });
+        ring.fit(size, size).pos(fx, fy);
+        ring.mode = 'circle';
+        ring.param = -0.48;
+        n.add(ring);
+      }
       const s = new Sprite(rgb ? 'case_fan_0' : 'icon_fan_1', { region: 'content' });
       s.fit(size, size).pos(fx, fy);
       s.mode = 'circle';

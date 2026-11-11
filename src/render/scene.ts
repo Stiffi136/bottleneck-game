@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { anim, animBounds, frame, type Frame, type Rect } from './assets';
 import { font, measure, type BitmapFont, type FontId } from './font';
+import { hasMarkup, richRuns } from '../i18n/rich';
 
 // ------------------------------------------------------------------ nodes
 
@@ -344,10 +345,15 @@ export interface TextOpts {
 interface Line {
   text: string;
   w: number;
+  /** offset of the line in the plain text (for colour runs) */
+  start: number;
 }
 
 export class Text extends Node {
   private _text = '';
+  private _src = '';
+  /** colour runs from rich markers (`{perf:+8}`); indices into `_text` */
+  private runs: { a: number; b: number; rgb: [number, number, number] }[] = [];
   font: FontId;
   size: number;
   tint: [number, number, number];
@@ -388,9 +394,18 @@ export class Text extends Node {
   get text(): string {
     return this._text;
   }
+  /** Plain text, or text with rich markers (`{perf:+8 Perf}`: coloured glyphs, no icons; see i18n/rich.ts). */
   set text(v: string) {
-    if (v === this._text) return;
-    this._text = v;
+    if (v === this._src) return;
+    this._src = v;
+    if (hasMarkup(v)) {
+      const r = richRuns(v);
+      this._text = r.plain;
+      this.runs = r.runs.map((x) => ({ a: x.a, b: x.b, rgb: rgb(x.color) }));
+    } else {
+      this._text = v;
+      this.runs = [];
+    }
     this.dirty = true;
   }
 
@@ -419,21 +434,31 @@ export class Text extends Node {
     if (!this.dirty) return;
     this.dirty = false;
     const out: Line[] = [];
+    let off = 0; // offset of the current paragraph in _text
     for (const para of this._text.split('\n')) {
       if (!this.maxWidth) {
-        out.push({ text: para, w: measure(this.font, para, this.size) });
+        out.push({ text: para, w: measure(this.font, para, this.size), start: off });
+        off += para.length + 1;
         continue;
       }
       const words = para.split(' ');
       let cur = '';
+      let curStart = off;
+      let pos = off; // offset of the current word
       for (const w of words) {
         const cand = cur ? cur + ' ' + w : w;
         if (cur && measure(this.font, cand, this.size) > this.maxWidth) {
-          out.push({ text: cur, w: measure(this.font, cur, this.size) });
+          out.push({ text: cur, w: measure(this.font, cur, this.size), start: curStart });
           cur = w;
-        } else cur = cand;
+          curStart = pos;
+        } else {
+          if (!cur) curStart = pos;
+          cur = cand;
+        }
+        pos += w.length + 1;
       }
-      out.push({ text: cur, w: measure(this.font, cur, this.size) });
+      out.push({ text: cur, w: measure(this.font, cur, this.size), start: curStart });
+      off += para.length + 1;
     }
     this.lines = out;
   }
@@ -517,13 +542,16 @@ export class Text extends Node {
     }
     for (const line of this.lines) {
       let x = (this.align === 'center' ? -line.w / 2 : this.align === 'right' ? -line.w : 0) + dx + ox - f.pad * k;
+      let idx = line.start;
       for (const ch of line.text) {
         const g = f.glyphs.get(ch) ?? f.glyphs.get('?')!;
         if (ch !== ' ') {
+          if (!col && this.runs.length) this.tint = this.runs.find((r) => idx >= r.a && idx < r.b)?.rgb ?? saveTint;
           const gh = (g.v1 - g.v0) * 1024 * k;
           b.quad(this, f.tex, x, y, x + g.w * k, y + gh, g.u0, g.v0, g.u1, g.v1);
         }
         x += g.adv * k;
+        idx += ch.length;
       }
       y += lh;
     }
@@ -627,9 +655,15 @@ void main() {
       vec3 target = hsv2rgb(vec3(hue, 0.85, hsv.z));
       c = mix(c, target, m);
     } else if (mode < 4.5) {
-      // circle mask (rotating fans)
+      // circle mask (rotating fans); a negative param also runs the RGB cycle on the cyan key
+      // colour, so an RGB fan keeps its rainbow ring inside the mask
       float r = length(vLocal - 0.5);
-      float edge = vExtra.w;
+      float edge = abs(vExtra.w);
+      if (vExtra.w < 0.0) {
+        float m = hueMask(hsv.x, 182.0 / 360.0, 0.07) * smoothstep(0.35, 0.55, hsv.y) * smoothstep(0.4, 0.6, hsv.z);
+        float hue = fract(uTime * 0.25 + atan(vLocal.y - 0.5, vLocal.x - 0.5) * 0.159);
+        c = mix(c, hsv2rgb(vec3(hue, 0.85, hsv.z)), m);
+      }
       t.a *= 1.0 - smoothstep(edge - 0.02, edge, r);
     } else if (mode < 5.5) {
       float l = dot(c, vec3(0.299, 0.587, 0.114));
