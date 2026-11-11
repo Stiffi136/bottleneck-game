@@ -1,5 +1,5 @@
 import { BaseScreen, placeEl, type Box } from './base';
-import { Node, Sprite, Text } from '../../render/scene';
+import { Node, Rect2, Sprite, Text } from '../../render/scene';
 import { ItemCard, CardView } from '../../view/cards';
 import { SwChip } from '../../view/hud';
 import { button, h, hideTip, img, sheet, showTip, tip, toast } from '../dom';
@@ -48,7 +48,7 @@ export class ShopScreen extends BaseScreen {
     const shop = run.shop!;
     g.setBg('shop');
     const t = L();
-    const { w, h: H } = this.vp;
+    const { w } = this.vp;
     const P = this.portrait;
 
     // header
@@ -71,158 +71,69 @@ export class ShopScreen extends BaseScreen {
       this.animatePack = false;
       return;
     }
+    // the shop name hangs on the sign of the background
+    const sign = this.signRect();
+    const title = head.firstElementChild as HTMLElement;
+    title.style.cssText = `font-size:${P ? 13 : 12}px;text-align:center;line-height:1.1`;
+    title.lastElementChild!.setAttribute('style', 'display:block;font-size:8px;margin-top:2px');
+    title.remove();
+    placeEl(title, { x: sign.x, y: sign.y + sign.h / 2 - 13, w: sign.w });
+    this.dom.append(title);
+    head.style.justifyContent = 'flex-end';
+    this.buildCounter();
+    void shop;
+  }
 
-    // regions
-    let hw: Box[];
-    let soft: Box;
-    let packs: Box;
-    let inv: Box;
-    let status: Box;
-    const buttons: Box = { x: 8, y: H - 48, w: w - 16, h: 42 };
-    if (P) {
-      const top = 40;
-      const tileW = (w - 20) / 2;
-      hw = [
-        { x: 6, y: top, w: tileW, h: 100 },
-        { x: 14 + tileW, y: top, w: tileW, h: 100 },
-      ];
-      soft = { x: 6, y: top + 108, w: tileW, h: 100 };
-      packs = { x: 14 + tileW, y: top + 108, w: tileW, h: 100 };
-      inv = { x: 6, y: top + 216, w: w - 12, h: 132 };
-      status = { x: 8, y: H - 48 - 26, w: w - 16, h: 22 };
-    } else {
-      const colW = (w - 32) / 3;
-      hw = [
-        { x: 8, y: 34, w: colW, h: 108 },
-        { x: 8, y: 148, w: colW, h: 108 },
-      ];
-      soft = { x: 16 + colW, y: 34, w: colW, h: 108 };
-      packs = { x: 16 + colW, y: 148, w: colW, h: 108 };
-      inv = { x: 24 + colW * 2, y: 34, w: colW, h: 222 };
-      status = { x: 8, y: H - 48 - 46, w: w - 16, h: 22 };
-    }
-    const opts = { software: swIds(run), pasteUses: run.pasteUses };
+  /**
+   * Pixel rect of a region of the shop background, in art coords of the
+   * current background (landscape 800×400, portrait 400×900; cover-fitted).
+   */
+  private bgRect(u0: number, v0: number, u1: number, v1: number): Box {
+    const vp = this.vp;
+    const [aw, ah] = vp.portrait ? [400, 900] : [800, 400];
+    const k = Math.max(vp.fullW / aw, vp.fullH / ah);
+    const cx = -vp.ox + vp.fullW / 2;
+    const cy = -vp.oy + vp.fullH / 2;
+    const x0 = cx + (u0 - aw / 2) * k;
+    const y0 = cy + (v0 - ah / 2) * k;
+    return { x: x0, y: y0, w: (u1 - u0) * k, h: (v1 - v0) * k };
+  }
 
-    // hardware offers
-    shop.hardware.forEach((o, i) => {
-      const box = hw[i]!;
-      this.panel(box, 'dark');
-      const label = h('div', { class: 't-title dim', style: 'font-size:7.5px' }, t.ui.hardware);
-      placeEl(label, { x: box.x + 7, y: box.y + 4 });
-      this.dom.append(label);
-      if (!o) {
-        this.soldOut(box);
-        return;
-      }
-      const d = part(o.partId);
-      const badge = shopBadge(run.build, o.partId, opts);
-      const cardBox = { x: box.x + 8 + 30, y: box.y + box.h / 2 + 4 };
-      const ic = new ItemCard('card_frame_hardware', d.icon, { tier: d.tier, rgb: !!d.rgb, w: 56, h: 75 });
-      ic.pos(cardBox.x, cardBox.y);
-      this.root.add(ic);
-      this.idle(ic, i);
-      const open = () => this.openHardware(i, badge);
-      ic.interactive = { onTap: open, onHover: (inside) => (inside ? showTip(partCard(o.partId), this.rectOf(ic), ic) : hideTip(ic)) };
-      const lines = partLines(d).slice(0, 2);
-      const txt = h(
-        'div',
-        { class: 'pe', style: 'display:flex;flex-direction:column;gap:1px;font-size:9px;line-height:1.1;cursor:pointer' },
-        h('div', { class: 't-title shadow', style: 'font-size:8.5px;line-height:1.15' }, partName(o.partId)),
-        h('div', { class: 'dim', style: 'font-size:8px' }, t.cat[d.cat]),
-        ...lines.map((l) => h('div', { style: 'font-size:8.5px' }, l)),
-        this.badgeEl(badge),
-        h('div', { class: `t-title ${run.money >= o.price ? 'c-gold' : 'c-bad'}`, style: 'font-size:11px;margin-top:1px' }, money(o.price)),
-      );
-      txt.addEventListener('click', open);
-      placeEl(txt, { x: box.x + 72, y: box.y + 14, w: box.w - 78, h: box.h - 18 });
-      txt.style.overflow = 'hidden';
-      this.dom.append(txt);
-    });
+  private signRect(): Box {
+    return this.portrait ? this.bgRect(87, 145, 312, 216) : this.bgRect(302, 81, 497, 132);
+  }
 
-    // software shelf
-    this.panel(soft, 'dark');
-    {
-      const label = h('div', { class: 't-title dim', style: 'font-size:7.5px' }, t.ui.software);
-      placeEl(label, { x: soft.x + 7, y: soft.y + 4 });
-      this.dom.append(label);
-      const so = shop.soft;
-      if (!so) this.soldOut(soft);
-      else {
-        const { frameName, icon, name, sub, tipEl } = this.softInfo(so);
-        const ic = new ItemCard(frameName, icon, { w: 56, h: 75 });
-        ic.pos(soft.x + 38, soft.y + soft.h / 2 + 4);
-        this.root.add(ic);
-        this.idle(ic, 3);
-        const open = () => this.openSoft(so);
-        ic.interactive = { onTap: open, onHover: (inside) => (inside ? showTip(tipEl(), this.rectOf(ic), ic) : hideTip(ic)) };
-        const txt = h(
-          'div',
-          { class: 'pe', style: 'display:flex;flex-direction:column;gap:1px;cursor:pointer' },
-          h('div', { class: 't-title shadow', style: 'font-size:8.5px' }, name),
-          h('div', { style: 'font-size:8.5px;line-height:1.12' }, sub),
-          h('div', { class: `t-title ${run.money >= so.price ? 'c-gold' : 'c-bad'}`, style: 'font-size:11px;margin-top:1px' }, money(so.price)),
-        );
-        txt.addEventListener('click', open);
-        placeEl(txt, { x: soft.x + 72, y: soft.y + 14, w: soft.w - 78, h: soft.h - 18 });
-        txt.style.overflow = 'hidden';
-        this.dom.append(txt);
-      }
-    }
-
-    // packs
-    this.panel(packs, 'dark');
-    {
-      const label = h('div', { class: 't-title dim', style: 'font-size:7.5px' }, t.ui.offers);
-      placeEl(label, { x: packs.x + 7, y: packs.y + 4 });
-      this.dom.append(label);
-      shop.packs.forEach((k, i) => {
-        const cx = packs.x + packs.w * (i === 0 ? 0.28 : 0.72);
-        const cy = packs.y + packs.h / 2 - 2;
-        if (!k) {
-          const s = h('div', { class: 't-title dim', style: 'font-size:8px;text-align:center' }, t.ui.soldOut);
-          placeEl(s, { x: cx - 30, y: cy - 4, w: 60 });
-          this.dom.append(s);
-          return;
-        }
-        const sp = new Sprite(`booster_${{ workload: 'workload', driver: 'treiber', tool: 'werkzeug', software: 'software' }[k]}`, { region: 'content' });
-        sp.fit(46, 56).pos(cx, cy);
-        this.root.add(sp);
-        this.idle(sp, 5 + i);
-        sp.interactive = { onTap: () => this.openPackOffer(i, k), onHover: (inside) => (inside ? showTip(packCard(k), this.rectOf(sp), sp) : hideTip(sp)) };
-        const price = h('div', { class: `t-title shadow ${run.money >= PACK_PRICES[k] ? 'c-gold' : 'c-bad'}`, style: 'font-size:10px;text-align:center' }, money(PACK_PRICES[k]));
-        placeEl(price, { x: cx - 30, y: cy + 30, w: 60 });
-        this.dom.append(price);
-      });
-    }
-
-    // inventory: tools, software, storage
-    this.panel(inv, 'dark');
-    this.buildInventory(inv);
-
-    // status
+  private statusLine(box: { x: number; y: number; w: number; h?: number }): HTMLElement {
+    const run = this.g.run!;
     const st = statsOf(run);
-    const stat = h('div', { class: 'glass', style: 'font-size:9px;padding:3px 6px;text-align:center' }, fmt(t.shop.statusLine, { cores: st.cores, hand: st.handSize, tdp: st.tdp, watt: st.watt, cool: st.cooling, sw: swSlotsUsed(run), slots: st.swSlots }));
-    placeEl(stat, status);
+    const stat = h('div', { class: 'glass', style: 'font-size:9px;padding:3px 6px;text-align:center' }, fmt(L().shop.statusLine, { cores: st.cores, hand: st.handSize, tdp: st.tdp, watt: st.watt, cool: st.cooling, sw: swSlotsUsed(run), slots: st.swSlots }));
+    placeEl(stat, box);
     this.dom.append(stat);
+    return stat;
+  }
 
-    // repair
+  private repairButton(x: number, y: number): void {
+    const run = this.g.run!;
     const broken = brokenParts(run);
-    if (broken.length) {
-      const p = broken[0]!;
-      const rb = button([img('icon16_werkbank'), fmt(t.ui.repair, { n: repairCost() })], () => {
-        if (g.check(repairPart(run, p.uid))) {
-          sfx.cash();
-          g.save();
-          this.rebuild();
-        }
-      }, { color: 'blue', cls: 'small' });
-      placeEl(rb, { x: status.x, y: status.y - 28 });
-      tip(rb, () => partCard(p.id, p));
-      this.dom.append(rb);
-    }
+    if (!broken.length) return;
+    const p = broken[0]!;
+    const rb = button([img('icon16_werkbank'), fmt(L().ui.repair, { n: repairCost() })], () => {
+      if (this.g.check(repairPart(run, p.uid))) {
+        sfx.cash();
+        this.g.save();
+        this.rebuild();
+      }
+    }, { color: 'blue', cls: 'small' });
+    placeEl(rb, { x, y });
+    tip(rb, () => partCard(p.id, p));
+    this.dom.append(rb);
+  }
 
-    // buttons
-    const row = h('div', { style: 'display:flex;gap:6px;height:100%' });
+  private actionButtons(buttons: Box, vertical = false): void {
+    const g = this.g;
+    const run = g.run!;
+    const t = L();
+    const row = h('div', { style: `display:flex;gap:6px;height:100%;${vertical ? 'flex-direction:column' : ''}` });
     const reroll = button([img('icon16_neu_wuerfeln', 'ic'), fmt(t.shop.rerollN, { n: rerollCost(run) })], () => {
       if (g.check(rerollShop(run))) {
         sfx.deal();
@@ -241,18 +152,131 @@ export class ShopScreen extends BaseScreen {
     row.append(reroll, next);
     placeEl(row, buttons);
     this.dom.append(row);
+  }
 
+  /**
+   * Landscape: the offers stand on the shop counter of the background, their
+   * price labels hang on the counter front. Inventory, build status and the
+   * buttons fill the wall above the counter.
+   */
+  private buildCounter(): void {
+    const run = this.g.run!;
+    const shop = run.shop!;
+    const t = L();
+    const { w, h: H } = this.vp;
+    const P = this.portrait;
+    const top = 34;
+    const surface = P ? this.bgRect(0, 570, 400, 607) : this.bgRect(48, 299, 752, 322);
+    const standY = Math.min(surface.y + surface.h * 0.55, H - 150); // items stand here
+    const frontY = Math.min(surface.y + surface.h + 2, standY + 14); // counter front panel
+    const sign = this.signRect();
+    let labelBottom = H - 4;
+    if (P) {
+      // inventory below the sign, status between inventory and counter, buttons at the bottom
+      const buttons: Box = { x: 8, y: H - 48, w: w - 16, h: 42 };
+      const invY = Math.max(top, sign.y + sign.h + 6);
+      const inv: Box = { x: 6, y: invY, w: w - 12, h: Math.min(132, standY - 84 - invY) };
+      this.panel(inv, 'dark');
+      this.buildInventory(inv);
+      const free = standY - 84 - (inv.y + inv.h);
+      const statY = free >= 30 ? inv.y + inv.h + Math.min(10, free - 26) : buttons.y - 26;
+      this.statusLine({ x: 8, y: statY, w: w - 16, h: 22 });
+      this.repairButton(8, (free >= 30 ? statY + 26 : statY - 28));
+      this.actionButtons(buttons);
+      labelBottom = (free >= 30 ? buttons.y : statY) - 4;
+    } else {
+      // inventory (left shelf) and status + buttons (right shelf); the sign stays free
+      const upper = Math.min(standY - 84, H - 160);
+      const inv: Box = { x: 8, y: top, w: Math.max(190, sign.x - 14), h: upper - top };
+      this.panel(inv, 'dark');
+      this.buildInventory(inv);
+      const sx = Math.max(inv.x + inv.w + 8, sign.x + sign.w + 6);
+      const side: Box = { x: sx, y: top, w: w - 8 - sx, h: inv.h };
+      const stat = this.statusLine({ x: side.x, y: side.y, w: side.w });
+      stat.style.textAlign = 'left';
+      this.repairButton(side.x, side.y + 36);
+      const bh = Math.min(84, side.h - 66);
+      this.actionButtons({ x: side.x, y: side.y + side.h - bh, w: side.w, h: bh }, true);
+    }
+
+    // offers on the counter
+    const opts = { software: swIds(run), pasteUses: run.pasteUses };
+    const cols = 5;
+    const colW = (w - (P ? 8 : 16)) / cols;
+    const colX = (i: number) => (P ? 4 : 8) + colW * i + colW / 2;
+    const labelH = Math.max(40, labelBottom - frontY);
+    const more = labelH >= 90; // room for stat lines under name and price
+    const label = (i: number, ...kids: (HTMLElement | string | null)[]) => {
+      const el = h('div', { class: 'glass pe counter-tag', style: 'display:flex;flex-direction:column;align-items:center;gap:1px;text-align:center;cursor:pointer;overflow:hidden;padding:2px 3px' }, ...kids);
+      placeEl(el, { x: colX(i) - colW / 2 + 3, y: frontY, w: colW - 6, h: labelH });
+      el.style.maxHeight = `${labelH}px`;
+      el.style.height = 'auto';
+      this.dom.append(el);
+      return el;
+    };
+    const stand = (n: Node, i: number, h0: number) => {
+      const shadow = new Rect2(colW * 0.5, 3, 0x000000, 0.35);
+      shadow.pos(colX(i) - colW * 0.25, standY - 1);
+      this.root.add(shadow);
+      n.pos(colX(i), standY - h0 / 2);
+      this.root.add(n);
+    };
+    const priceEl = (p: number) => h('div', { class: `t-title shadow ${run.money >= p ? 'c-gold' : 'c-bad'}`, style: 'font-size:11px' }, money(p));
+    const soldOut = (i: number) => this.soldOut({ x: colX(i) - colW / 2, y: standY - 60, w: colW, h: 60 });
+
+    shop.hardware.forEach((o, i) => {
+      if (!o) return soldOut(i);
+      const d = part(o.partId);
+      const badge = shopBadge(run.build, o.partId, opts);
+      const ic = new ItemCard('card_frame_hardware', d.icon, { tier: d.tier, rgb: !!d.rgb, w: 56, h: 75 });
+      stand(ic, i, 75);
+      const open = () => this.openHardware(i, badge);
+      ic.interactive = { onTap: open, onHover: (inside) => this.hoverLift(ic, inside, partCard(o.partId)) };
+      const el = label(
+        i,
+        h('div', { class: 't-title shadow', style: 'font-size:8px;line-height:1.15' }, partName(o.partId)),
+        h('div', { style: 'display:flex;flex-wrap:wrap;gap:0 5px;align-items:center;justify-content:center' }, this.badgeEl(badge), priceEl(o.price)),
+        ...(more ? [h('div', { class: 'dim', style: 'font-size:8px' }, t.cat[d.cat]), ...partLines(d).slice(0, labelH >= 130 ? 2 : 1).map((l) => h('div', { style: 'font-size:8px;line-height:1.12' }, l))] : []),
+      );
+      el.addEventListener('click', open);
+    });
+    {
+      const so = shop.soft;
+      if (!so) soldOut(2);
+      else {
+        const info = this.softInfo(so);
+        const ic = new ItemCard(info.frameName, info.icon, { w: 56, h: 75 });
+        stand(ic, 2, 75);
+        const open = () => this.openSoft(so);
+        ic.interactive = { onTap: open, onHover: (inside) => this.hoverLift(ic, inside, info.tipEl()) };
+        const el = label(2, h('div', { class: 't-title shadow', style: 'font-size:8px;line-height:1.15' }, info.name), priceEl(so.price), more ? h('div', { style: 'font-size:8px;line-height:1.12' }, info.sub) : h('div', { class: 'dim', style: 'font-size:8px' }, t.ui.software));
+        el.addEventListener('click', open);
+      }
+    }
+    shop.packs.forEach((k, j) => {
+      const i = 3 + j;
+      if (!k) return soldOut(i);
+      const sp = new Sprite(`booster_${{ workload: 'workload', driver: 'treiber', tool: 'werkzeug', software: 'software' }[k]}`, { region: 'content' });
+      sp.fit(50, 62);
+      stand(sp, i, sp.h);
+      const open = () => this.openPackOffer(j, k);
+      sp.interactive = { onTap: open, onHover: (inside) => this.hoverLift(sp, inside, packCard(k)) };
+      const el = label(i, h('div', { class: 't-title shadow', style: 'font-size:8px;line-height:1.15' }, t.packs[k].name), priceEl(PACK_PRICES[k]), more ? h('div', { class: 'dim', style: 'font-size:8px;line-height:1.12' }, t.packs[k].desc) : null);
+      el.addEventListener('click', open);
+    });
+  }
+
+  /** Hover on a counter item: lift it a little and show its tooltip. */
+  private hoverLift(n: Node, inside: boolean, tipEl: HTMLElement): void {
+    const base = (n as Node & { baseY?: number }).baseY ?? n.y;
+    (n as Node & { baseY?: number }).baseY = base;
+    void tween(n, { y: inside ? base - 4 : base }, { dur: 0.12, ease: ease.outQuad });
+    if (inside) showTip(tipEl, this.rectOf(n), n);
+    else hideTip(n);
   }
 
   private rectOf(n: Node): Box {
     return n.worldRect() ?? { x: 0, y: 0, w: 0, h: 0 };
-  }
-
-  private idle(n: Node, i: number): void {
-    const by = n.y;
-    n.tick = () => {
-      n.y = by + Math.sin(performance.now() / 600 + i * 1.3) * 1.2;
-    };
   }
 
   private soldOut(box: Box): void {
@@ -547,56 +571,111 @@ export class ShopScreen extends BaseScreen {
     ]);
   }
 
-  /** Pack opening: animation, then choose one option. */
+  /**
+   * Pack opening: the booster drops in, shakes, tears open with a flash and
+   * the options fly out of it and flip over; then the player picks one.
+   */
   private async showPack(animate = true): Promise<void> {
     const run = this.g.run!;
     const pk = run.pack;
     if (!pk) return;
     const t = L();
     const { w, h: H } = this.vp;
+    const P = this.portrait;
     this.packLayer?.destroy();
     const layer = new Node();
     layer.z = 100;
     this.packLayer = layer;
     this.root.add(layer);
+    const panelH = P ? 300 : 250;
     const dim = new Sprite('ui_panel_dark', { region: 'content', ax: 0, ay: 0, nine: 7.5, nineScale: 0.8 });
-    dim.size(w - 12, this.portrait ? 300 : 250).pos(6, (H - (this.portrait ? 300 : 250)) / 2);
+    dim.size(w - 12, panelH).pos(6, (H - panelH) / 2);
     layer.add(dim);
     const cx = w / 2;
     const cy = H / 2 - 20;
+    const gone = () => layer.destroyed || this.packLayer !== layer;
     if (animate) {
-      const fxs = this.g.fx.oneShot('fx_pack_open', cx, cy - 10, { fps: 12, scale: 2.6 });
-      fxs.z = 200;
+      dim.alpha = 0;
+      void tween(dim, { alpha: 1 }, { dur: 0.15 });
+      // 1. booster drops in
+      const pack = new Sprite(`booster_${{ workload: 'workload', driver: 'treiber', tool: 'werkzeug', software: 'software' }[pk.kind]}`, { region: 'content' });
+      pack.fit(84, 104).pos(cx, cy - 60);
+      pack.scale(0.4);
+      pack.alpha = 0;
+      layer.add(pack);
+      await tween(pack, { y: cy, sx: 1, sy: 1, alpha: 1 }, { dur: 0.3, ease: ease.outBack });
+      if (gone()) return;
+      // 2. shake with growing force
       sfx.pack();
-      await wait(0.55);
+      const shake = { k: 0 };
+      pack.tick = () => {
+        const tt = performance.now() / 1000;
+        pack.rot = Math.sin(tt * 38) * 0.12 * shake.k;
+        pack.x = cx + Math.sin(tt * 53) * 3 * shake.k;
+      };
+      await tween(shake, { k: 1 }, { dur: 0.45, ease: ease.inQuad });
+      if (gone()) return;
+      this.g.fx.sparks(cx, cy - 30, 6, 0xffd23f, 70);
+      // 3. tear open: flash, rip effect, sparks
+      pack.tick = null;
+      const flash = new Rect2(w + 40, H + 40, 0xffffff, 0.75);
+      flash.pos(-20, -20);
+      flash.z = 300;
+      layer.add(flash);
+      void tween(flash, { alpha: 0 }, { dur: 0.35 }).then(() => flash.destroy());
+      void tween(pack, { sx: 1.35, sy: 1.35, alpha: 0 }, { dur: 0.18 }).then(() => pack.destroy());
+      const rip = this.g.fx.oneShot('fx_pack_open', cx, cy - 10, { fps: 14, scale: 2.6 });
+      rip.z = 200;
+      this.g.engine.shake(2.5, 0.2);
+      this.g.fx.sparks(cx, cy, 16, 0xffd23f, 160);
+      this.g.fx.sparks(cx, cy, 10, 0xf4f4fa, 120);
+      this.g.fx.confetti(cx, cy, 14, 160);
+      await wait(0.3);
+      if (gone()) return;
     }
     const title = h('div', { class: 't-title shadow c-gold', style: 'font-size:12px;text-align:center;z-index:6' }, `${t.packs[pk.kind].name} · ${t.shop.packTitle}`);
     placeEl(title, { x: 10, y: dim.y + 8, w: w - 20 });
     this.dom.append(title);
     const n = pk.options.length;
     const step = Math.min(110, (w - 40) / n);
-    pk.options.forEach((o, i) => {
+    const nodes: Node[] = [];
+    // 4. options fly out of the pack and flip over (scale x 0 → 1)
+    const flights = pk.options.map((o, i) => {
       const x = cx + (i - (n - 1) / 2) * step;
-      const y = cy;
       const node = this.optionNode(o);
       node.pos(cx, cy);
-      node.scale(0.3);
-      node.alpha = 0;
+      nodes.push(node);
       layer.add(node);
-      void tween(node, { x, y, sx: 1.25, sy: 1.25, alpha: 1 }, { dur: 0.35, delay: i * 0.08, ease: ease.outBack });
       node.interactive = {
         onTap: () => this.pickOption(i),
         onHover: (inside) => (inside ? showTip(this.optionInfo(o), this.rectOf(node), node) : hideTip(node)),
       };
+      if (!animate) {
+        node.pos(x, cy).scale(1.25);
+        return Promise.resolve();
+      }
+      node.sx = 0.05;
+      node.sy = 0.5;
+      node.alpha = 0;
+      const delay = i * 0.12;
+      window.setTimeout(() => sfx.deal(i), delay * 1000);
+      return tween(node, { x, y: cy - 14, sy: 1.1, alpha: 1 }, { dur: 0.28, delay, ease: ease.outQuad })
+        .then(() => tween(node, { y: cy, sx: 1.25, sy: 1.25 }, { dur: 0.22, ease: ease.outBack }));
+    });
+    await Promise.all(flights);
+    if (gone()) return;
+    pk.options.forEach((o, i) => {
+      const x = cx + (i - (n - 1) / 2) * step;
       const lab = h('div', { class: 'pe', style: 'font-size:9px;text-align:center;line-height:1.15;z-index:6;cursor:pointer' }, this.optionLabel(o));
       lab.addEventListener('click', () => this.pickOption(i));
-      placeEl(lab, { x: x - step / 2 + 4, y: y + 52, w: step - 8 });
+      placeEl(lab, { x: x - step / 2 + 4, y: cy + 52, w: step - 8 });
       this.dom.append(lab);
     });
     const skip = button(t.ui.skip, () => this.pickOption(null), { color: 'gray' });
     skip.style.zIndex = '6';
     placeEl(skip, { x: w / 2 - 50, y: dim.y + dim.h - 40, w: 100 });
     this.dom.append(skip);
+    void nodes;
   }
 
   private pickOption(i: number | null): void {
