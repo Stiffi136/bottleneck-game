@@ -82,7 +82,7 @@ export function openPostError(b: Build, err: Issue, others: Issue[], onClose?: (
   const beepRow = h(
     'div',
     { class: 'beep-row' },
-    h('span', { class: 'dim', style: 'font-size:9px' }, `${t.wb.beep}:`),
+    h('span', { class: 'dim', style: 'font-size:9.5px' }, `${t.wb.beep}:`),
     syms,
     h('span', { class: 't-mono', style: 'font-size:11px' }, beepText(led)),
   );
@@ -93,7 +93,7 @@ export function openPostError(b: Build, err: Issue, others: Issue[], onClose?: (
       h('h3', { class: 'c-bad' }, `${t.wb.postFail} · ${t.led[led]}`),
       leds,
       beepRow,
-      h('div', { class: 'dim', style: 'font-size:9px;margin:1px 0 4px' }, `${t.led[led]} = ${t.postUi.area[led]}`),
+      h('div', { class: 'dim', style: 'font-size:9.5px;margin:1px 0 4px' }, `${t.led[led]} = ${t.postUi.area[led]}`),
       h('div', { class: 'post-reason' }, img('icon16_kompat_nein', 'i8'), ' ', issueText(err)),
       names.length ? h('div', { style: 'font-size:9.5px;margin-top:3px' }, h('span', { class: 'dim' }, `${t.postUi.affected}: `), names.join(', ')) : null,
       rest.length

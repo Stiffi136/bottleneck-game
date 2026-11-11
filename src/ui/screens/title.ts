@@ -27,7 +27,7 @@ export class TitleScreen extends BaseScreen {
     const tag = new Text(t.title.tagline, { font: 'body', size: 11, align: 'center', valign: 'middle', color: 0xcfd0e0 });
     tag.pos(this.logo.x, this.logo.y + this.logo.h / 2 + 14);
     this.root.add(tag);
-    const sub = new Text(t.meta.subtitle.toUpperCase(), { font: 'title', size: 8, align: 'center', valign: 'middle', color: 0x8cc4ff });
+    const sub = new Text(t.meta.subtitle.toUpperCase(), { font: 'title', size: 9.5, align: 'center', valign: 'middle', color: 0x8cc4ff });
     sub.pos(this.logo.x, tag.y + 14);
     this.root.add(sub);
 
@@ -44,12 +44,12 @@ export class TitleScreen extends BaseScreen {
     );
     col.append(button(t.ui.settings, () => openSettings(), { color: 'gray', icon: 'icon16_einstellungen' }));
     const best = g.bestGen();
-    if (best) col.append(h('div', { class: 't-title c-gold shadow', style: 'text-align:center;font-size:9px;margin-top:2px' }, fmt(t.ui.best, { g: best })));
+    if (best) col.append(h('div', { class: 't-title c-gold shadow', style: 'text-align:center;font-size:9.5px;margin-top:2px' }, fmt(t.ui.best, { g: best })));
     const bw = 180;
     if (portrait) placeEl(col, { x: (w - bw) / 2, y: H * 0.56, w: bw });
     else placeEl(col, { x: w * 0.62, y: H * 0.3, w: bw });
     this.dom.append(col);
-    const ver = h('div', { class: 'dim', style: 'font-size:8px' }, 'v0.1 MVP');
+    const ver = h('div', { class: 'dim', style: 'font-size:9.5px' }, 'v0.1 MVP');
     placeEl(ver, { x: 6, y: H - 14 });
     this.dom.append(ver);
   }

@@ -49,9 +49,9 @@ export function openSettings(opts: { inRun?: boolean } = {}): void {
             localStorage.removeItem('bottleneck.run.v1');
             game.show('title');
           });
-        }, { color: 'red', cls: 'small' }))
+        }, { color: 'red' }))
       : null,
-    h('p', { class: 'dim', style: 'font-size:8.5px;margin:6px 0 0' }, `${t.settings.credits}: ${t.settings.creditsText}`),
+    h('p', { class: 'dim', style: 'font-size:9.5px;margin:6px 0 0' }, `${t.settings.credits}: ${t.settings.creditsText}`),
     h('div', { class: 'actions' }, button(t.ui.close, close, { color: 'blue' })),
   ], { onClose: () => game.engine.current && (game.engine.current as { refresh?: () => void }).refresh?.() });
 }

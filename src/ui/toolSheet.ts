@@ -32,7 +32,7 @@ export function openToolSheet(index: number, onDone: () => void): void {
           style: `font-family:var(--font-body);font-size:9.5px;color:#0b0b12;background:${COLORS[c.type]};border:2px solid ${on ? '#ffe28a' : '#0b0b12'};border-radius:3px;padding:3px 2px;min-height:34px;box-shadow:${on ? '0 0 0 2px #ffe28a' : 'none'}`,
         },
         h('div', { style: 'font-family:var(--font-title);font-size:11px' }, `${t.cardTypes[c.type]} ${c.level}${c.enh ? ' ★' : ''}`),
-        h('div', { style: 'font-size:8px;opacity:.85' }, cardName(c)),
+        h('div', { style: 'font-size:9.5px;opacity:.85' }, cardName(c)),
       );
       el.addEventListener('click', () => {
         if (picked.has(cid)) picked.delete(cid);

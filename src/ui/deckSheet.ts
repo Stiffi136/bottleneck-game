@@ -14,7 +14,7 @@ export function openDeck(): void {
   if (!run) return;
   const t = L();
   const inDraw = run.bench ? new Set(run.bench.draw) : null;
-  const grid = h('div', { style: 'display:grid;grid-template-columns:18px repeat(4,1fr);gap:2px;font-size:9px;align-items:center' });
+  const grid = h('div', { style: 'display:grid;grid-template-columns:18px repeat(4,1fr);gap:2px;font-size:9.5px;align-items:center' });
   grid.append(h('span', {}));
   for (const ty of CARD_TYPES) grid.append(h('div', { style: `text-align:center;font-family:var(--font-title);color:${COLORS[ty]}` }, img(`card_typeicon8_${ty}`, 'i8'), ' ', t.cardTypes[ty]));
   for (let lv = 10; lv >= 1; lv--) {
@@ -26,7 +26,7 @@ export function openDeck(): void {
         const avail = !inDraw || inDraw.has(c.id);
         const chip = h(
           'span',
-          { style: `display:inline-flex;align-items:center;justify-content:center;min-width:16px;height:13px;border-radius:2px;background:${COLORS[ty]};opacity:${avail ? 1 : 0.28};color:#0b0b12;font-size:8.5px;padding:0 2px` },
+          { style: `display:inline-flex;align-items:center;justify-content:center;min-width:16px;height:13px;border-radius:2px;background:${COLORS[ty]};opacity:${avail ? 1 : 0.28};color:#0b0b12;font-size:9.5px;padding:0 2px` },
           `${lv}${c.enh ? ENH_MARK[c.enh] : ''}`,
         );
         tip(chip, () => cardCard(c));
@@ -42,9 +42,9 @@ export function openDeck(): void {
   });
   sheet((close) => [
     h('h3', {}, `${t.deckUi.title} · ${fmt(t.deckUi.count, { n: run.deck.length })}`),
-    run.bench ? h('div', { class: 'dim', style: 'font-size:9px;margin-bottom:3px' }, fmt(t.deckUi.inDraw, { n: run.bench.draw.length })) : null,
+    run.bench ? h('div', { class: 'dim', style: 'font-size:9.5px;margin-bottom:3px' }, fmt(t.deckUi.inDraw, { n: run.bench.draw.length })) : null,
     grid,
-    drivers.length ? h('div', { style: 'margin-top:6px' }, h('div', { class: 't-title c-gold', style: 'font-size:9px' }, t.deckUi.drivers), ...drivers) : null,
+    drivers.length ? h('div', { style: 'margin-top:6px' }, h('div', { class: 't-title c-gold', style: 'font-size:9.5px' }, t.deckUi.drivers), ...drivers) : null,
     h('div', { class: 'actions' }, button(t.ui.close, close, { color: 'blue' })),
   ]);
 }

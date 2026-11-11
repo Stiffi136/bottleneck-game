@@ -3,6 +3,7 @@ import { Node, Sprite, Text, Rect2 } from '../../render/scene';
 import { CARD_H, CARD_W, CardView } from '../../view/cards';
 import { HwChip, Odometer, ScoreBar, SwChip, Thermo, ValueBox, heatColor } from '../../view/hud';
 import { HeatShimmer } from '../../render/fx';
+import { openProfileHelp } from '../profileSheet';
 import { button, h, hideTip, img, sheet, showTip, tip, toast } from '../dom';
 import { L, big, fmt, money, num } from '../../i18n';
 import {
@@ -27,7 +28,7 @@ import { sfx } from '../../audio/sfx';
 import { openSettings } from '../settings';
 import { openDeck } from '../deckSheet';
 import type { Src, ScoreEvent } from '../../core/scoring';
-import type { BossId, CardType } from '../../core/types';
+import type { BossId, CardType, ProfileId } from '../../core/types';
 import { CARD_TYPES } from '../../core/types';
 import { isFinaleGen } from '../../core/difficulty';
 
@@ -227,7 +228,7 @@ export class BenchScreen extends BaseScreen {
       this.bossIcon.pos(20, 20);
       placeEl(title, { x: 38, y: 6, w: 108 });
       title.style.whiteSpace = 'normal';
-      title.style.fontSize = '9px';
+      title.style.fontSize = '9.5px';
       placeEl(target, { x: 6, y: 42 });
       this.scoreBar.pos(75, 62);
       placeEl(score, { x: 6, y: 70, w: 138 });
@@ -309,7 +310,7 @@ export class BenchScreen extends BaseScreen {
     this.deckPile = new Sprite('card_back', { region: 'content' });
     this.deckPile.size(CARD_W * 0.5, CARD_H * 0.5).pos(lay.deck.x, lay.deck.y);
     this.hudLayer.add(this.deckPile);
-    this.deckCount = new Text('', { font: 'title', size: 8, align: 'center', valign: 'middle' });
+    this.deckCount = new Text('', { font: 'title', size: 9.5, align: 'center', valign: 'middle' });
     this.deckCount.pos(lay.deck.x, lay.deck.y + 22);
     this.hudLayer.add(this.deckCount);
     this.deckPile.interactive = { onTap: () => openDeck(), onHover: (i) => (i ? showTip(t.tips.deck, this.rectOf(this.deckPile), this.deckPile) : hideTip(this.deckPile)), pad: 6 };
@@ -318,12 +319,22 @@ export class BenchScreen extends BaseScreen {
     const btnRow = h('div', { style: 'display:flex;gap:6px;align-items:stretch;height:100%' });
     const discardBtn = button([t.ui.discard, h('span', { class: 'badge-n' }, String(b.discards))], () => void this.doDiscard(), { color: 'red', cls: 'big' });
     discardBtn.style.flex = '1.2';
-    const sortBox = h('div', { style: 'display:flex;flex-direction:column;gap:2px' });
-    const sortLv = button(t.ui.sortLevel, () => this.doSort('level'), { color: 'gray', cls: 'small', icon: 'icon16_sortieren_stufe' });
-    const sortTy = button(t.ui.sortType, () => this.doSort('type'), { color: 'gray', cls: 'small', icon: 'icon16_sortieren_typ' });
-    sortLv.style.minHeight = sortTy.style.minHeight = '20px';
-    sortLv.style.flex = sortTy.style.flex = '1';
-    sortBox.append(sortLv, sortTy);
+    // one 44 px sort button: each tap sorts by the shown criterion, then offers the other one
+    const sortLab = (by: 'level' | 'type') => (by === 'level' ? t.ui.sortLevel : t.ui.sortType);
+    const sortIc = (by: 'level' | 'type') => (by === 'level' ? 'icon16_sortieren_stufe' : 'icon16_sortieren_typ');
+    const sortBtn = button('', () => {
+      const by = this.sortToggle === 'level' ? 'type' : 'level';
+      this.sortToggle = by;
+      this.doSort(by);
+      setSortLabel();
+    }, { color: 'gray', cls: 'sortbtn' });
+    const setSortLabel = () => {
+      const next = this.sortToggle === 'level' ? 'type' : 'level';
+      sortBtn.innerHTML = '';
+      sortBtn.append(img(sortIc(next), 'ic'), h('span', {}, sortLab(next)));
+    };
+    setSortLabel();
+    const sortBox = sortBtn;
     const playBtn = button([t.ui.play, h('span', { class: 'badge-n' }, String(b.hands))], () => void this.doPlay(), { color: 'green', cls: 'big' });
     playBtn.style.flex = '1.4';
     if (g.settings.lefty) btnRow.append(playBtn, sortBox, discardBtn);
@@ -331,7 +342,13 @@ export class BenchScreen extends BaseScreen {
     placeEl(btnRow, lay.buttons);
     this.els.play = playBtn;
     this.els.discardBtn = discardBtn;
+    this.els.sortBtn = sortBtn;
     this.dom.append(btnRow);
+
+    // ---------------------------------------------------------- combos (profile help)
+    const combos = button(t.profileHelpUi.title, () => openProfileHelp((this.lastProfile.split(':')[0] ?? '') as ProfileId | ''), { color: 'gray', cls: 'small combos' });
+    placeEl(combos, this.portrait ? { x: 4, y: lay.profile.y + 14 } : { x: 8, y: lay.profile.y + lay.profile.h + 2 });
+    this.dom.append(combos);
 
     // ---------------------------------------------------------- hand
     for (const id of b.hand) this.makeCard(id, this.handLayer);
@@ -862,7 +879,7 @@ export class BenchScreen extends BaseScreen {
     band.add(icon);
     const tx = ix + iconSize / 2 + 10;
     const tw = leftW / 2 - tx;
-    const tag = new Text(finale ? t.bench.finale.toUpperCase() : t.bench.boss.toUpperCase(), { font: 'title', size: 9, valign: 'top', color: finale ? 0xffd23f : red, outline: 0x0b0b12 });
+    const tag = new Text(finale ? t.bench.finale.toUpperCase() : t.bench.boss.toUpperCase(), { font: 'title', size: 9.5, valign: 'top', color: finale ? 0xffd23f : red, outline: 0x0b0b12 });
     tag.pos(tx, -bandH / 2 + 9);
     band.add(tag);
     const name = new Text(t.bosses[id].name.toUpperCase(), { font: 'title', size: 13, valign: 'top', color: 0xf4f4fa, outline: 0x0b0b12 });
@@ -986,7 +1003,7 @@ export class BenchScreen extends BaseScreen {
     this.profileIds = ev.profileCards;
     played.forEach((cv, i) => {
       const hh = ev.heat.perCard[i] ?? 0;
-      if (hh > 0) void fx.float(cv.x, cv.y - (CARD_H * pk) / 2 - 4, `+${num(hh)}°`, { color: heatColor(out.tempPeak), size: 8, rise: 10 });
+      if (hh > 0) void fx.float(cv.x, cv.y - (CARD_H * pk) / 2 - 4, `+${num(hh)}°`, { color: heatColor(out.tempPeak), size: 9.5, rise: 10 });
     });
     this.thermo.set(out.tempPeak);
     this.heatFeedback(out.tempPeak);
@@ -1083,7 +1100,7 @@ export class BenchScreen extends BaseScreen {
       const cv = played[ids.indexOf(id)];
       if (cv) {
         fx.burst(cv.x, cv.y, 'spark', 2);
-        void fx.float(cv.x, cv.y, t.bench.destroyed, { color: 0xff3fa4, size: 8 });
+        void fx.float(cv.x, cv.y, t.bench.destroyed, { color: 0xff3fa4, size: 9.5 });
         cv.setDim(true);
       }
     }
@@ -1236,7 +1253,7 @@ export class BenchScreen extends BaseScreen {
         flashNode(src);
         if (src) {
           fx.burst(src.wm[4], src.wm[5], 'coin');
-          void fx.float(src.wm[4], src.wm[5] - 14, fmt(L().bench.money, { n: e.add }), { color: 0xffe28a, size: 9 });
+          void fx.float(src.wm[4], src.wm[5] - 14, fmt(L().bench.money, { n: e.add }), { color: 0xffe28a, size: 9.5 });
         }
         sfx.coin();
         break;
@@ -1302,7 +1319,7 @@ export class BenchScreen extends BaseScreen {
     const sad = new Text(':(', { font: 'title', size: 26, valign: 'top', color: 0xf4f4fa, shadow: null });
     sad.pos(x0, -ph / 2 + 8);
     n.add(sad);
-    const msg = new Text(t.bench.bluescreen, { font: 'title', size: 9, valign: 'top', color: 0xf4f4fa, shadow: null, maxWidth: pw - 24 });
+    const msg = new Text(t.bench.bluescreen, { font: 'title', size: 9.5, valign: 'top', color: 0xf4f4fa, shadow: null, maxWidth: pw - 24 });
     msg.pos(x0, -ph / 2 + 44);
     n.add(msg);
     const stop = new Text(fmt(t.bench.bsodStop, { part: partId ? partName(partId) : '?' }), { font: 'mono', size: 10, valign: 'top', color: 0xc8d8ff, shadow: null, maxWidth: pw - 24 });
@@ -1456,9 +1473,9 @@ export class BenchScreen extends BaseScreen {
       e.preventDefault();
       void this.doPlay();
     } else if (e.key === 'd' || e.key === 'D') void this.doDiscard();
-    else if (e.key === 's' || e.key === 'S') this.doSort(this.sortToggle = this.sortToggle === 'level' ? 'type' : 'level');
+    else if (e.key === 's' || e.key === 'S') this.els.sortBtn?.click();
   }
-  private sortToggle: 'level' | 'type' = 'type';
+  private sortToggle: 'level' | 'type' = 'type'; // last used; the button offers the other one
 }
 
 export { isFinaleGen, cpuOf, partOf };

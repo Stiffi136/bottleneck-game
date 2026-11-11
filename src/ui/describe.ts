@@ -88,7 +88,7 @@ export function partCard(id: string, inst?: PartInst, extra?: (HTMLElement | str
     'div',
     {},
     h('h4', {}, partName(id)),
-    h('div', { class: 'dim', style: 'font-size:8.5px;margin-bottom:2px' }, `${t.cat[d.cat]} · ${fmt(t.fx.tier, { n: d.tier })}${d.price ? ' · ' + money(d.price) : ' · ' + t.special.starter}`),
+    h('div', { class: 'dim', style: 'font-size:9.5px;margin-bottom:2px' }, `${t.cat[d.cat]} · ${fmt(t.fx.tier, { n: d.tier })}${d.price ? ' · ' + money(d.price) : ' · ' + t.special.starter}`),
     ...partLines(d, inst).map((l) => h('div', {}, l)),
     ...(extra ?? []),
   );
@@ -106,14 +106,14 @@ export function softwareCard(id: SoftwareInst['id'], inst?: SoftwareInst): HTMLE
     'div',
     {},
     h('h4', {}, t.software[id].name),
-    h('div', { class: 'dim', style: 'font-size:8.5px' }, `${t.rarity[d.rarity]} · ${money(d.price)}`),
+    h('div', { class: 'dim', style: 'font-size:9.5px' }, `${t.rarity[d.rarity]} · ${money(d.price)}`),
     h('div', {}, softwareText(id, inst?.counter ?? (id === 'sw10' ? 2 : 0))),
   );
 }
 
 export function toolCard(id: ToolId): HTMLElement {
   const t = L();
-  return h('div', {}, h('h4', {}, t.tools[id].name), h('div', { class: 'dim', style: 'font-size:8.5px' }, money(toolDef(id).price)), h('div', {}, t.tools[id].desc));
+  return h('div', {}, h('h4', {}, t.tools[id].name), h('div', { class: 'dim', style: 'font-size:9.5px' }, money(toolDef(id).price)), h('div', {}, t.tools[id].desc));
 }
 
 export function profileName(id: ProfileId): string {

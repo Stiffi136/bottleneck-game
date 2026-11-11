@@ -25,8 +25,8 @@ export class SelectScreen extends BaseScreen {
       h('div', { class: 't-title shadow', style: 'font-size:15px' }, fmt(t.bench.chooseTitle, { g: run.gen })),
       h(
         'div',
-        { style: 'display:flex;gap:4px;align-items:center' },
-        h('span', { class: 't-title c-gold shadow', style: 'font-size:12px;margin-right:4px' }, money(run.money)),
+        { style: 'display:flex;gap:12px;align-items:center' },
+        h('span', { class: 't-title c-gold shadow', style: 'font-size:12px;margin-right:0' }, money(run.money)),
         button('', () => openDeck(), { color: 'gray', cls: 'iconbtn', icon: 'icon16_deck' }),
         button('', () => openSettings({ inRun: true }), { color: 'gray', cls: 'iconbtn', icon: 'icon16_einstellungen' }),
       ),
@@ -45,12 +45,12 @@ export class SelectScreen extends BaseScreen {
       const panel = h(
         'div',
         { style: `opacity:${b.done ? 0.6 : 1};display:flex;flex-direction:column;justify-content:center;gap:2px;padding:6px 8px;${portrait ? 'padding-left:56px' : 'padding-top:56px;justify-content:flex-start;text-align:center;align-items:center'}` },
-        kindLabel ? h('div', { class: 't-title c-bad', style: 'font-size:8px' }, kindLabel) : null,
+        kindLabel ? h('div', { class: 't-title c-bad', style: 'font-size:9.5px' }, kindLabel) : null,
         h('div', { class: 't-title shadow', style: 'font-size:11px' }, name),
         h('div', { style: 'font-size:10px' }, img('icon16_leistung'), ' ', fmt(t.bench.targetN, { n: big(b.target) })),
         h('div', { class: 'c-gold', style: 'font-size:10px' }, img('icon8_geld', 'i8'), ' ', fmt(t.bench.reward, { n: b.reward })),
         b.boss ? h('div', { class: 'c-warn', style: 'font-size:9.5px' }, t.bosses[b.boss].desc) : null,
-        b.done ? h('div', { class: 'c-ok t-title', style: 'font-size:9px' }, '✔ ' + t.bench.done) : null,
+        b.done ? h('div', { class: 'c-ok t-title', style: 'font-size:9.5px' }, '✔ ' + t.bench.done) : null,
       );
       placeEl(panel, { x, y, w: chipW, h: chipH });
       this.dom.append(panel);

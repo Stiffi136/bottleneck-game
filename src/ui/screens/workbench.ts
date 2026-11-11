@@ -83,11 +83,11 @@ export class WorkbenchScreen extends BaseScreen {
     let status: Box;
     let leds: Box;
     if (P) {
-      stats = { x: 4, y: 4, w: w - 8, h: 38 };
+      stats = { x: 4, y: 4, w: w - 8, h: 52 };
       buttons = { x: 6, y: H - 48, w: w - 12, h: 42 };
-      storage = { x: 6, y: buttons.y - 56, w: w - 12, h: 52 };
-      status = { x: 6, y: storage.y - 22, w: w - 12, h: 20 };
-      leds = { x: w - 112, y: storage.y + 6, w: 106, h: 40 };
+      storage = { x: 6, y: buttons.y - 66, w: w - 12, h: 62 };
+      status = { x: 6, y: storage.y - 30, w: w - 12, h: 28 };
+      leds = { x: w - 118, y: storage.y + 8, w: 112, h: 46 };
       this.caseArea = { x: 4, y: stats.y + stats.h + 4, w: w - 8, h: status.y - (stats.y + stats.h + 4) - 2 };
     } else {
       const caseW = Math.min(w * 0.46, (H - 8) * (260 / 320));
@@ -126,11 +126,11 @@ export class WorkbenchScreen extends BaseScreen {
     wattNode.add(fill);
     wattNode.pos(stats.x + barW / 2 + 2, stats.y + 8);
     this.root.add(wattNode);
-    const wattTxt = h('div', { class: `t-title shadow ${load > 1 ? 'c-bad' : load > 0.9 ? 'c-warn' : ''}`, style: 'font-size:9px' }, `${st.tdp}/${st.watt} W`);
+    const wattTxt = h('div', { class: `t-title shadow ${load > 1 ? 'c-bad' : load > 0.9 ? 'c-warn' : ''}`, style: 'font-size:9.5px' }, `${st.tdp}/${st.watt} W`);
     placeEl(wattTxt, { x: stats.x + barW + 8, y: stats.y + 2 });
     const chips = h(
       'div',
-      { style: 'display:flex;flex-wrap:wrap;gap:2px 7px;font-size:9px' },
+      { style: 'display:flex;flex-wrap:wrap;gap:2px 7px;font-size:9.5px' },
       h('span', {}, img('icon8_kuehlung', 'i8'), ` ${st.cooling}`),
       h('span', {}, img('icon8_lanes', 'i8'), ` ${st.lanesUsed}/${st.lanesAvail}`),
       h('span', {}, img('icon8_kerne', 'i8'), ` ${t.stat.cores} ${st.cores}`),
@@ -139,17 +139,17 @@ export class WorkbenchScreen extends BaseScreen {
       h('span', {}, img('icon8_neuprio', 'i8'), ` ${st.rerolls}`),
       h('span', { class: 'c-gold t-title' }, money(run.money)),
     );
-    placeEl(chips, { x: stats.x, y: stats.y + 18, w: stats.w });
-    const menuBtns = h('div', { style: 'display:flex;gap:3px' }, button('', () => openDeck(), { color: 'gray', cls: 'iconbtn', icon: 'icon16_deck' }), button('', () => openSettings({ inRun: true }), { color: 'gray', cls: 'iconbtn', icon: 'icon16_einstellungen' }));
-    placeEl(menuBtns, { x: stats.x + stats.w - 60, y: stats.y });
-    if (!P) placeEl(menuBtns, { x: stats.x + stats.w - 60, y: stats.y + 32 });
+    placeEl(chips, { x: stats.x, y: stats.y + (P ? 38 : 18), w: stats.w });
+    const menuBtns = h('div', { style: 'display:flex;gap:12px' }, button('', () => openDeck(), { color: 'gray', cls: 'iconbtn', icon: 'icon16_deck' }), button('', () => openSettings({ inRun: true }), { color: 'gray', cls: 'iconbtn', icon: 'icon16_einstellungen' }));
+    placeEl(menuBtns, { x: stats.x + stats.w - 76, y: stats.y });
+    if (!P) placeEl(menuBtns, { x: stats.x + stats.w - 76, y: stats.y + 32 });
     // cables are cosmetic: toggle
     const cab = button(t.wbx.cables, () => {
       setCables(!cablesOn());
       this.rebuild();
     }, { color: cablesOn() ? 'green' : 'gray', cls: 'small', title: t.wbx.cablesTip });
-    cab.style.minWidth = '0';
-    placeEl(cab, { x: stats.x + stats.w - 116, y: P ? stats.y + 2 : stats.y + 34 });
+    cab.style.minWidth = '58px';
+    placeEl(cab, { x: stats.x + stats.w - 76 - 12 - 58, y: P ? stats.y + 2 : stats.y + 34 });
     this.dom.append(wattTxt, chips, menuBtns, cab);
 
     // POST status line
@@ -158,7 +158,7 @@ export class WorkbenchScreen extends BaseScreen {
     const warns = issues.filter((i) => i.severity === 'warn');
     const statusEl = h(
       'div',
-      { class: 'glass', style: 'font-size:9px;padding:2px 5px;line-height:1.2;overflow:hidden' },
+      { class: 'glass', style: 'font-size:9.5px;padding:2px 5px;line-height:1.2;overflow:hidden' },
       err
         ? h('span', { class: 'c-bad' }, img('icon16_kompat_nein', 'i8'), ' ' + issueText(err))
         : h('span', { class: 'c-ok' }, img('icon16_kompat_ok', 'i8'), ' ' + t.wb.postOk),
@@ -170,7 +170,7 @@ export class WorkbenchScreen extends BaseScreen {
 
     // storage tray
     this.panel(storage, 'dark');
-    const sl = h('div', { class: 't-title dim', style: 'font-size:7.5px' }, fmt(t.wb.storageN, { n: run.storage.length }));
+    const sl = h('div', { class: 't-title dim', style: 'font-size:9.5px' }, fmt(t.wb.storageN, { n: run.storage.length }));
     placeEl(sl, { x: storage.x + 7, y: storage.y + 3 });
     this.dom.append(sl);
     const ss = 38;
@@ -206,20 +206,23 @@ export class WorkbenchScreen extends BaseScreen {
       };
     }
     if (!run.storage.length) {
-      const hint = h('div', { class: 'dim', style: 'font-size:8.5px;line-height:1.2' }, t.wb.clickPart);
-      placeEl(hint, { x: storage.x + 150, y: storage.y + 12, w: storage.w - 160 });
-      if (P) hint.style.width = `${Math.max(60, leds.x - storage.x - 156)}px`;
+      const hint = h('div', { class: 'dim', style: 'font-size:9.5px;line-height:1.15' }, t.wb.clickPart);
+      placeEl(hint, { x: storage.x + 150, y: storage.y + 8, w: storage.w - 160 });
+      if (P) {
+        hint.style.left = `${storage.x + 146}px`;
+        hint.style.width = `${Math.max(60, leds.x - storage.x - 148)}px`;
+      }
       this.dom.append(hint);
     }
 
     // POST LEDs
     LED_ORDER.forEach((led, i) => {
-      const x = leds.x + 13 + i * 27;
+      const x = leds.x + 14 + i * 28;
       const s = new Sprite(`fx_post_led_${i * 2}`, { region: 'content' });
       s.fit(10, 10).pos(x, leds.y + 14);
       this.root.add(s);
       this.leds.push(s);
-      const lab = new Text(t.led[led], { font: 'title', size: 6, align: 'center', valign: 'middle', color: 0x9b9bb4 });
+      const lab = new Text(t.led[led], { font: 'body', size: 9.5, align: 'center', valign: 'middle', color: 0x9b9bb4 });
       lab.pos(x, leds.y + 27);
       this.root.add(lab);
     });
@@ -313,10 +316,10 @@ export class WorkbenchScreen extends BaseScreen {
     }
     const P = this.portrait;
     const list = h('div', { class: 'glass scroll pe', style: 'padding:4px 5px;display:flex;flex-direction:column;gap:3px;max-height:100%' });
-    list.append(h('div', { class: 't-title', style: 'font-size:8.5px;color:var(--gold-l)' }, `${partName(inst.id)} · ${t.wb.pickSlot}`));
+    list.append(h('div', { class: 't-title', style: 'font-size:9.5px;color:var(--gold-l)' }, `${partName(inst.id)} · ${t.wb.pickSlot}`));
     // parts that leave the build besides the occupant (e.g. on a board swap)
     const extra = (o: SlotOption) => o.displaced.filter((p) => p.uid !== o.occupant?.uid);
-    if (!this.options.length) list.append(h('div', { class: 'c-warn', style: 'font-size:9px' }, t.wb.noSlot));
+    if (!this.options.length) list.append(h('div', { class: 'c-warn', style: 'font-size:9.5px' }, t.wb.noSlot));
     for (const o of this.options) {
       const label = this.slotLabel(o.slot);
       const st = o.status;
@@ -327,8 +330,8 @@ export class WorkbenchScreen extends BaseScreen {
             'span',
             { style: 'font-family:var(--font-body);font-size:9.5px;white-space:normal;text-align:left;flex:1' },
             label + (o.occupant ? ` · ${fmt(t.slot.occupied, { name: partName(o.occupant.id) })}` : ''),
-            o.issue ? h('div', { class: st === 'bad' ? 'c-bad' : 'c-warn', style: 'font-size:8.5px' }, issueText(o.issue)) : null,
-            extra(o).length ? h('div', { class: 'dim', style: 'font-size:8.5px' }, `${t.wbx.toStorage}: ${extra(o).map((p) => partName(p.id)).join(', ')}`) : null,
+            o.issue ? h('div', { class: st === 'bad' ? 'c-bad' : 'c-warn', style: 'font-size:9.5px' }, issueText(o.issue)) : null,
+            extra(o).length ? h('div', { class: 'dim', style: 'font-size:9.5px' }, `${t.wbx.toStorage}: ${extra(o).map((p) => partName(p.id)).join(', ')}`) : null,
           ),
         ],
         () => void this.tryInstall(o),
@@ -473,7 +476,7 @@ export class WorkbenchScreen extends BaseScreen {
       }
       body.replaceChildren(
         h('div', { style: 'font-size:10px;line-height:1.25;white-space:normal' }, fmt(t.wbx.fullText, { d: o.displaced.length, n: need })),
-        h('div', { class: 'dim', style: 'font-size:9px;margin:3px 0 5px' }, `${t.wbx.toStorage}: ${o.displaced.map((p) => partName(p.id)).join(', ')}`),
+        h('div', { class: 'dim', style: 'font-size:9.5px;margin:3px 0 5px' }, `${t.wbx.toStorage}: ${o.displaced.map((p) => partName(p.id)).join(', ')}`),
         ...run.storage
           .filter((p) => p.uid !== sel)
           .map((p) =>

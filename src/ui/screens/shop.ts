@@ -62,11 +62,11 @@ export class ShopScreen extends BaseScreen {
     const head = h(
       'div',
       { style: 'display:flex;align-items:center;justify-content:space-between;gap:6px' },
-      h('div', { class: 't-title shadow', style: 'font-size:13px' }, t.shop.title, h('span', { class: 'dim', style: 'font-size:9px;margin-left:6px' }, `${t.stat.gen} ${run.gen}`)),
+      h('div', { class: 't-title shadow', style: 'font-size:13px' }, t.shop.title, h('span', { class: 'dim', style: 'font-size:9.5px;margin-left:6px' }, `${t.stat.gen} ${run.gen}`)),
       h(
         'div',
-        { style: 'display:flex;gap:4px;align-items:center' },
-        h('span', { class: 't-title c-gold shadow', style: 'font-size:14px;margin-right:4px' }, money(run.money)),
+        { style: 'display:flex;gap:12px;align-items:center' },
+        h('span', { class: 't-title c-gold shadow', style: 'font-size:14px;margin-right:0' }, money(run.money)),
         button('', () => openDeck(), { color: 'gray', cls: 'iconbtn', icon: 'icon16_deck' }),
         button('', () => openSettings({ inRun: true }), { color: 'gray', cls: 'iconbtn', icon: 'icon16_einstellungen' }),
       ),
@@ -82,7 +82,7 @@ export class ShopScreen extends BaseScreen {
     const sign = this.signRect();
     const title = head.firstElementChild as HTMLElement;
     title.style.cssText = `font-size:${P ? 13 : 12}px;text-align:center;line-height:1.1`;
-    title.lastElementChild!.setAttribute('style', 'display:block;font-size:8px;margin-top:2px');
+    title.lastElementChild!.setAttribute('style', 'display:block;font-size:9.5px;margin-top:2px');
     title.remove();
     placeEl(title, { x: sign.x, y: sign.y + sign.h / 2 - 13, w: sign.w });
     this.dom.append(title);
@@ -114,7 +114,7 @@ export class ShopScreen extends BaseScreen {
   private statusLine(box: { x: number; y: number; w: number; h?: number }): HTMLElement {
     const run = this.g.run!;
     const st = statsOf(run);
-    const stat = h('div', { class: 'glass', style: 'font-size:9px;padding:3px 6px;text-align:center' }, fmt(L().shop.statusLine, { cores: st.cores, hand: st.handSize, tdp: st.tdp, watt: st.watt, cool: st.cooling, sw: swSlotsUsed(run), slots: st.swSlots }));
+    const stat = h('div', { class: 'glass', style: 'font-size:9.5px;padding:3px 6px;text-align:center' }, fmt(L().shop.statusLine, { cores: st.cores, hand: st.handSize, tdp: st.tdp, watt: st.watt, cool: st.cooling, sw: swSlotsUsed(run), slots: st.swSlots }));
     placeEl(stat, box);
     this.dom.append(stat);
     return stat;
@@ -214,10 +214,10 @@ export class ShopScreen extends BaseScreen {
     const colW = (w - (P ? 8 : 16)) / cols;
     const colX = (i: number) => (P ? 4 : 8) + colW * i + colW / 2;
     const labelH = Math.max(40, labelBottom - frontY);
-    const more = labelH >= 90; // room for stat lines under name and price
+    const more = labelH >= 90 && colW >= 100; // room for stat lines under name and price (not in narrow portrait: details are in the tap sheet)
     const label = (i: number, ...kids: (HTMLElement | string | null)[]) => {
-      const el = h('div', { class: 'glass pe counter-tag', style: 'display:flex;flex-direction:column;align-items:center;gap:1px;text-align:center;cursor:pointer;overflow:hidden;padding:2px 3px' }, ...kids);
-      placeEl(el, { x: colX(i) - colW / 2 + 3, y: frontY, w: colW - 6, h: labelH });
+      const el = h('div', { class: 'glass pe counter-tag', style: 'display:flex;flex-direction:column;align-items:center;gap:1px;text-align:center;cursor:pointer;overflow:hidden;padding:2px 2px' }, ...kids);
+      placeEl(el, { x: colX(i) - colW / 2 + 1, y: frontY, w: colW - 2, h: labelH });
       el.style.maxHeight = `${labelH}px`;
       el.style.height = 'auto';
       this.dom.append(el);
@@ -243,9 +243,9 @@ export class ShopScreen extends BaseScreen {
       ic.interactive = { onTap: open, onHover: (inside) => this.hoverLift(ic, inside, partCard(o.partId)) };
       const el = label(
         i,
-        h('div', { class: 't-title shadow', style: 'font-size:8px;line-height:1.15' }, partName(o.partId)),
+        h('div', { class: 'counter-name shadow' }, partName(o.partId)),
         h('div', { style: 'display:flex;flex-wrap:wrap;gap:0 5px;align-items:center;justify-content:center' }, this.badgeEl(badge), priceEl(o.price)),
-        ...(more ? [h('div', { class: 'dim', style: 'font-size:8px' }, t.cat[d.cat]), ...partLines(d).slice(0, labelH >= 130 ? 2 : 1).map((l) => h('div', { style: 'font-size:8px;line-height:1.12' }, l))] : []),
+        ...(more ? [h('div', { class: 'dim', style: 'font-size:9.5px' }, t.cat[d.cat]), ...partLines(d).slice(0, labelH >= 130 ? 2 : 1).map((l) => h('div', { style: 'font-size:9.5px;line-height:1.12' }, l))] : []),
       );
       el.addEventListener('click', open);
     });
@@ -258,7 +258,7 @@ export class ShopScreen extends BaseScreen {
         stand(ic, 2, 75);
         const open = () => this.openSoft(so);
         ic.interactive = { onTap: open, onHover: (inside) => this.hoverLift(ic, inside, info.tipEl()) };
-        const el = label(2, h('div', { class: 't-title shadow', style: 'font-size:8px;line-height:1.15' }, info.name), priceEl(so.price), more ? h('div', { style: 'font-size:8px;line-height:1.12' }, info.sub) : h('div', { class: 'dim', style: 'font-size:8px' }, t.ui.software));
+        const el = label(2, h('div', { class: 'counter-name shadow' }, info.name), priceEl(so.price), more ? h('div', { style: 'font-size:9.5px;line-height:1.12' }, info.sub) : h('div', { class: 'dim', style: 'font-size:9.5px' }, t.ui.software));
         el.addEventListener('click', open);
       }
     }
@@ -270,7 +270,7 @@ export class ShopScreen extends BaseScreen {
       stand(sp, i, sp.h);
       const open = () => this.openPackOffer(j, k);
       sp.interactive = { onTap: open, onHover: (inside) => this.hoverLift(sp, inside, packCard(k)) };
-      const el = label(i, h('div', { class: 't-title shadow', style: 'font-size:8px;line-height:1.15' }, t.packs[k].name), priceEl(PACK_PRICES[k]), more ? h('div', { class: 'dim', style: 'font-size:8px;line-height:1.12' }, t.packs[k].desc) : null);
+      const el = label(i, h('div', { class: 'counter-name shadow' }, t.packs[k].name), priceEl(PACK_PRICES[k]), more ? h('div', { class: 'dim', style: 'font-size:9.5px;line-height:1.12' }, t.packs[k].desc) : null);
       el.addEventListener('click', open);
     });
   }
@@ -293,7 +293,7 @@ export class ShopScreen extends BaseScreen {
     stamp.fit(64, 32).pos(box.x + box.w / 2, box.y + box.h / 2);
     stamp.rot = -0.15;
     this.root.add(stamp);
-    const tx = new Text(L().ui.soldOut, { font: 'title', size: 9, align: 'center', valign: 'middle', color: 0xe8432d, shadow: null });
+    const tx = new Text(L().ui.soldOut, { font: 'title', size: 9.5, align: 'center', valign: 'middle', color: 0xe8432d, shadow: null });
     tx.pos(stamp.x, stamp.y);
     tx.rot = -0.15;
     this.root.add(tx);
@@ -341,7 +341,7 @@ export class ShopScreen extends BaseScreen {
     let y = box.y + 8;
     const x0 = box.x + 8;
     // tools
-    const toolsLabel = h('div', { class: 't-title dim', style: 'font-size:7.5px' }, t.ui.tools);
+    const toolsLabel = h('div', { class: 't-title dim', style: 'font-size:9.5px' }, t.ui.tools);
     placeEl(toolsLabel, { x: x0, y });
     this.dom.append(toolsLabel);
     const swLabelX = P ? x0 + 76 : x0;
@@ -362,7 +362,7 @@ export class ShopScreen extends BaseScreen {
     // software
     const st = statsOf(run);
     const swY = P ? y : rowY + 34;
-    const swLabel = h('div', { class: 't-title dim', style: 'font-size:7.5px' }, `${t.ui.software} ${swSlotsUsed(run)}/${st.swSlots}`);
+    const swLabel = h('div', { class: 't-title dim', style: 'font-size:9.5px' }, `${t.ui.software} ${swSlotsUsed(run)}/${st.swSlots}`);
     placeEl(swLabel, { x: swLabelX, y: swY });
     this.dom.append(swLabel);
     const avail = box.x + box.w - 8 - swLabelX;
@@ -389,7 +389,7 @@ export class ShopScreen extends BaseScreen {
     }
     // storage
     y = (P ? rowY + 38 : swY + 12 + size + 8);
-    const stLabel = h('div', { class: 't-title dim', style: 'font-size:7.5px' }, fmt(t.wb.storageN, { n: run.storage.length }));
+    const stLabel = h('div', { class: 't-title dim', style: 'font-size:9.5px' }, fmt(t.wb.storageN, { n: run.storage.length }));
     placeEl(stLabel, { x: x0, y });
     this.dom.append(stLabel);
     const slotSize = P ? 40 : Math.min(40, (box.w - 24) / 3);
@@ -413,7 +413,7 @@ export class ShopScreen extends BaseScreen {
       const sumY = y + 12 + slotSize + 8;
       if (sumY + 30 < box.y + box.h) {
         const parts = installed(run.build).filter((x) => ['cpu', 'gpu', 'ram', 'board'].includes(part(x.inst.id).cat));
-        const line = h('div', { style: 'font-size:8.5px;line-height:1.25' }, h('span', { class: 't-title dim', style: 'font-size:7.5px' }, t.ui.yourBuild + ': '), parts.map((x) => partName(x.inst.id)).join(' · '));
+        const line = h('div', { style: 'font-size:9.5px;line-height:1.25' }, h('span', { class: 't-title dim', style: 'font-size:9.5px' }, t.ui.yourBuild + ': '), parts.map((x) => partName(x.inst.id)).join(' · '));
         placeEl(line, { x: x0, y: sumY, w: box.w - 16 });
         this.dom.append(line);
       }
@@ -434,8 +434,8 @@ export class ShopScreen extends BaseScreen {
       h('div', { style: 'margin-top:4px' }, this.badgeEl(badge), badge.issue ? h('div', { class: badge.status === 'bad' ? 'c-bad' : 'c-warn', style: 'font-size:9.5px' }, issueText(badge.issue)) : null),
       h('div', { style: 'margin-top:6px;padding-top:4px;border-top:1px solid rgba(255,255,255,.1)' },
         ...(cur.length
-          ? cur.slice(0, 2).map((x) => h('div', { style: 'font-size:9px;opacity:.85;margin-bottom:3px' }, h('div', { class: 'dim' }, fmt(t.shop.compare, { name: partName(x.inst.id) })), ...partLines(part(x.inst.id), x.inst).slice(0, 3).map((l) => h('div', {}, l))))
-          : [h('div', { class: 'dim', style: 'font-size:9px' }, t.shop.nothingInstalled)]),
+          ? cur.slice(0, 2).map((x) => h('div', { style: 'font-size:9.5px;opacity:.85;margin-bottom:3px' }, h('div', { class: 'dim' }, fmt(t.shop.compare, { name: partName(x.inst.id) })), ...partLines(part(x.inst.id), x.inst).slice(0, 3).map((l) => h('div', {}, l))))
+          : [h('div', { class: 'dim', style: 'font-size:9.5px' }, t.shop.nothingInstalled)]),
       ),
       h(
         'div',
@@ -675,7 +675,7 @@ export class ShopScreen extends BaseScreen {
     if (gone()) return;
     pk.options.forEach((o, i) => {
       const x = cx + (i - (n - 1) / 2) * step;
-      const lab = h('div', { class: 'pe', style: 'font-size:9px;text-align:center;line-height:1.15;z-index:6;cursor:pointer' }, this.optionLabel(o));
+      const lab = h('div', { class: 'pe', style: 'font-size:9.5px;text-align:center;line-height:1.15;z-index:6;cursor:pointer' }, this.optionLabel(o));
       lab.addEventListener('click', () => this.pickOption(i));
       placeEl(lab, { x: x - step / 2 + 4, y: cy + 52, w: step - 8 });
       this.dom.append(lab);
