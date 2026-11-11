@@ -1,6 +1,6 @@
 import { BaseScreen, placeEl } from './base';
 import { Sprite } from '../../render/scene';
-import { button, h, img } from '../dom';
+import { button, h, img, statChip } from '../dom';
 import { L, big, fmt, money } from '../../i18n';
 import { generationBenches, startBenchmark, statsOf } from '../../core/run';
 import { bossDef } from '../../core/data/content';
@@ -71,12 +71,12 @@ export class SelectScreen extends BaseScreen {
     const st = statsOf(run);
     const info = h(
       'div',
-      { class: 'glass', style: 'padding:4px 6px;font-size:9.5px;display:flex;flex-wrap:wrap;gap:3px 8px' },
-      h('span', {}, img('icon8_kerne', 'i8'), ` ${t.stat.cores} ${st.cores}`),
-      h('span', {}, img('icon16_handgroesse'), ` ${t.stat.hand} ${st.handSize}`),
-      h('span', {}, img('icon8_neuprio', 'i8'), ` ${t.stat.rerolls} ${st.rerolls}`),
-      h('span', {}, img('icon8_kuehlung', 'i8'), ` ${t.stat.cooling} ${st.cooling}`),
-      h('span', {}, img('icon8_watt', 'i8'), ` ${st.tdp}/${st.watt} W`),
+      { class: 'glass', style: 'padding:4px 6px;font-size:9.5px;display:flex;flex-wrap:wrap;align-items:center;gap:3px 8px' },
+      statChip('icon8_kerne', `${t.stat.cores} ${st.cores}`),
+      statChip('icon16_handgroesse', `${t.stat.hand} ${st.handSize}`),
+      statChip('icon8_neuprio', `${t.stat.rerolls} ${st.rerolls}`),
+      statChip('icon8_kuehlung', `${t.stat.cooling} ${st.cooling}`),
+      statChip('icon8_watt', `${st.tdp}/${st.watt} W`),
     );
     const startBtn = button(t.bench.startBench + ' ▶', () => {
       if (g.check(startBenchmark(run))) {

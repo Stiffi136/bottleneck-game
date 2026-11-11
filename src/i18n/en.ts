@@ -22,7 +22,7 @@ export const en = {
     start: 'Start',
     next: 'Next',
     buy: 'Buy',
-    buyInstall: 'Buy & install',
+    buyInstall: 'Buy + install',
     sell: 'Sell',
     sellFor: 'Sell ${n}',
     install: 'Install',

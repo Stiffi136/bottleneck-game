@@ -556,7 +556,8 @@ export class PcView extends Node {
   }
 
   /** Highlights slots: green ok, yellow warn, red bad, white selected. */
-  setGlows(list: { slot: SlotRef; color: number }[]): void {
+  /** `status` adds a shape (✔ / ⚠ / ✖) so that the state is not told by colour alone. */
+  setGlows(list: { slot: SlotRef; color: number; status?: 'ok' | 'warn' | 'bad' }[]): void {
     this.glowLayer.removeAll();
     this.glows = [];
     for (const it of list) {
@@ -571,6 +572,11 @@ export class PcView extends Node {
       this.glowLayer.add(fill);
       this.glowLayer.add(g);
       this.glows.push(g);
+      if (it.status) {
+        const ic = new Sprite(it.status === 'ok' ? 'icon16_kompat_ok' : it.status === 'warn' ? 'icon16_kompat_warn' : 'icon16_kompat_nein', { region: 'content' });
+        ic.fit(Math.min(12, r.w), Math.min(12, r.h)).pos(r.x + r.w / 2, r.y + r.h / 2);
+        this.glowLayer.add(ic);
+      }
     }
   }
 

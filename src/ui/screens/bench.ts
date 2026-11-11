@@ -347,7 +347,7 @@ export class BenchScreen extends BaseScreen {
 
     // ---------------------------------------------------------- combos (profile help)
     const combos = button(t.profileHelpUi.title, () => openProfileHelp((this.lastProfile.split(':')[0] ?? '') as ProfileId | ''), { color: 'gray', cls: 'small combos' });
-    placeEl(combos, this.portrait ? { x: 4, y: lay.profile.y + 14 } : { x: 8, y: lay.profile.y + lay.profile.h + 2 });
+    placeEl(combos, this.portrait ? { x: 4, y: lay.profile.y + 14 } : { x: lay.status.x + lay.status.w - 66, y: lay.status.y + 4 });
     this.dom.append(combos);
 
     // ---------------------------------------------------------- hand
@@ -511,7 +511,7 @@ export class BenchScreen extends BaseScreen {
   private makeCard(id: number, layer: Node): CardView {
     const run = this.g.run!;
     const cv = new CardView(card(run, id));
-    cv.setShowName(this.vp.s >= 1.5);
+    cv.setShowName(this.vp.s >= 1.75); // names are 5.5 vpx: readable only from ≈ 9.5 CSS px
     this.cards.set(id, cv);
     layer.add(cv);
     const lay = this.lay;
@@ -777,9 +777,10 @@ export class BenchScreen extends BaseScreen {
       await wait(0.06);
       void (async () => {
         await wait(0.12);
-        await tween(cv, { sx: 0 }, { dur: 0.06 });
+        // reveal without distortion (no scaleX flip): small uniform dip, then pop
+        await tween(cv, { sx: 0.88, sy: 0.88 }, { dur: 0.06 });
         cv.setFaceDown(false);
-        await tween(cv, { sx: 1 }, { dur: 0.08 });
+        await tween(cv, { sx: 1, sy: 1 }, { dur: 0.09, ease: ease.outBack });
       })();
     }
     await wait(0.2);
@@ -826,9 +827,10 @@ export class BenchScreen extends BaseScreen {
       sfx.deal(i);
       void (async () => {
         await wait(0.15);
-        await tween(cv, { sx: 0 }, { dur: 0.06 });
+        // reveal without distortion (no scaleX flip): small uniform dip, then pop
+        await tween(cv, { sx: 0.88, sy: 0.88 }, { dur: 0.06 });
         cv.setFaceDown(false);
-        await tween(cv, { sx: 1 }, { dur: 0.08 });
+        await tween(cv, { sx: 1, sy: 1 }, { dur: 0.09, ease: ease.outBack });
       })();
       await wait(0.07);
     }
@@ -1328,15 +1330,15 @@ export class BenchScreen extends BaseScreen {
     const pct = new Text('0%', { font: 'mono', size: 10, align: 'right', valign: 'top', color: 0xf4f4fa, shadow: null });
     pct.pos(pw / 2 - 10, -ph / 2 + 10);
     n.add(pct);
-    n.sy = 0.02;
+    n.sx = n.sy = 0.9; // uniform scale only (sprites are never squashed)
+    n.alpha = 0;
     this.playLayer.add(n);
-    await tween(n, { sy: 1 }, { dur: 0.12, ease: ease.outQuad });
+    await tween(n, { sx: 1, sy: 1, alpha: 1 }, { dur: 0.12, ease: ease.outQuad });
     const p = { v: 0 };
     void this.g.fx.glitch(n.x - pw / 2, n.y - ph / 2, pw, ph, 0.18, 0.6);
     await tween(p, { v: 100 }, { dur: 1.1, onUpdate: () => (pct.text = `${Math.floor(p.v)}%`) });
     void this.g.fx.glitch(n.x - pw / 2, n.y - ph / 2, pw, ph, 0.15, 0.8);
-    await tween(n, { sy: 0.02 }, { dur: 0.1, ease: ease.inQuad });
-    await tween(n, { sx: 0 }, { dur: 0.1, ease: ease.inQuad });
+    await tween(n, { sx: 0.94, sy: 0.94, alpha: 0 }, { dur: 0.18, ease: ease.inQuad });
     n.destroy();
   }
 

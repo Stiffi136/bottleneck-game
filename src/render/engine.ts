@@ -80,6 +80,11 @@ export class Engine {
   }
 
   private safeInsets(): { l: number; r: number; t: number; b: number } {
+    // dev only: `window.__safe = { t: 47, b: 34, l: 0, r: 0 }` + resize event simulates a notch
+    if (import.meta.env.DEV) {
+      const o = (window as unknown as { __safe?: { l: number; r: number; t: number; b: number } }).__safe;
+      if (o) return o;
+    }
     const probe = document.getElementById('safe-probe');
     if (!probe) return { l: 0, r: 0, t: 0, b: 0 };
     const cs = getComputedStyle(probe);

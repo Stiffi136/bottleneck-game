@@ -9,6 +9,7 @@
  */
 import { game } from '../game/game';
 import * as R from '../core/run';
+import { checkAspect, checkTextSize } from './aspectCheck';
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -73,7 +74,9 @@ function audit(): Audit {
       const rg = document.createRange();
       rg.selectNodeContents(el);
       const cr = rg.getBoundingClientRect();
-      if (cr.width > 0 && (cr.right > r.right + 1.5 || cr.left < r.left - 1.5 || cr.bottom > r.bottom + 1.5 || cr.top < r.top - 1.5)) out.over.push(`${(cr.right - r.right).toFixed(0)}/${(cr.bottom - r.bottom).toFixed(0)} ${tag}`);
+      const ox = Math.max(r.left - cr.left, cr.right - r.right); // sticking out horizontally (CSS px)
+      const oy = Math.max(r.top - cr.top, cr.bottom - r.bottom);
+      if (cr.width > 0 && (ox > 1.5 * s || oy > 3 * s)) out.over.push(`out ${(ox / s).toFixed(1)}/${(oy / s).toFixed(1)} vpx ${tag}`);
     }
     if (el.tagName === 'BUTTON' || el.classList.contains('hit') || el.tagName === 'INPUT') {
       // effective hit box: .btn::after extends to 44 vpx
@@ -112,4 +115,32 @@ async function all(langs: Array<'en' | 'de'> = ['en'], screens = ['title', 'sele
   return res;
 }
 
-Object.assign(window, { __st: st, __audit: audit, __all: all });
+Object.assign(window, { __st: st, __audit: audit, __all: all, __R: R });
+
+/**
+ * `__watch()` collects, every 400 ms while you (or `__autoplay`) play, all distinct findings of
+ * the current screen in `window.__log` (Map: finding → screen). Read it with `__log()`.
+ */
+const found = new Map<string, string>();
+let watching = 0;
+function watch(): string {
+  if (watching) return 'already running';
+  watching = window.setInterval(() => {
+    const scr = game.screenName + (document.querySelector('.sheet') ? '+sheet' : '');
+    const add = (kind: string, list: string[]) => {
+      for (const s of list) found.set(`${kind}: ${s.replace(/\d+(\.\d+)? px/g, 'N')}`, scr);
+    };
+    const root = game.engine.current?.root;
+    if (root) {
+      add('aspect', checkAspect(root, scr, 0.02, false).map((s) => s.split(' (')[0]!));
+      add('text', checkTextSize(root, 9.5, game.engine.vp.s));
+    }
+    const a = audit();
+    add('small', a.small);
+    add('tiny', a.tiny);
+    add('over', a.over);
+    add('overlap', a.overlap);
+  }, 400);
+  return 'watching';
+}
+Object.assign(window, { __watch: watch, __log: () => Object.fromEntries(found) });

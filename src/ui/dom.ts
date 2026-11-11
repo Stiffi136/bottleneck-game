@@ -28,6 +28,11 @@ export function img(frame: string, cls = 'i16'): HTMLImageElement {
   return i;
 }
 
+/** Icon + text chip with a common baseline: all icons get the same 11 px box, text is centred on it. */
+export function statChip(icon: string, text: string): HTMLElement {
+  return h('span', { class: 'statchip' }, img(icon, 'sc'), h('span', {}, text));
+}
+
 export type BtnColor = 'green' | 'red' | 'gray' | 'blue';
 
 export function button(label: Child | Child[], onClick: () => void, opts: { color?: BtnColor; cls?: string; disabled?: boolean; icon?: string; title?: string } = {}): HTMLButtonElement {

@@ -28,7 +28,7 @@ export class Thermo extends Node {
       this.frameS = new Sprite('ui_thermo_v_frame', { region: 'anim' });
       this.frameS.fit(30, length);
       this.fill = new Sprite('ui_thermo_v_fill', { region: 'content' });
-      this.fill.size(this.frameS.w * 0.3, this.frameS.h * 0.78);
+      this.fill.fit(99, this.frameS.h * 0.78); // natural aspect, height-limited
       this.fill.y = -this.frameS.h * 0.035;
     } else {
       this.frameS = new Sprite('ui_thermo_h_frame', { region: 'content' });

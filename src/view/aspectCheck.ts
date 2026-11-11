@@ -11,7 +11,7 @@ import { Node, Sprite, Text } from '../render/scene';
  * Runs only in dev builds (see callers); `window.__aspectCheck()` checks the
  * current screen on demand.
  */
-export function checkAspect(root: Node, where: string, tol = 0.02): string[] {
+export function checkAspect(root: Node, where: string, tol = 0.02, warn = true): string[] {
   const bad: string[] = [];
   const walk = (n: Node) => {
     if (!n.visible) return;
@@ -28,7 +28,7 @@ export function checkAspect(root: Node, where: string, tol = 0.02): string[] {
     for (const c of n.children) walk(c);
   };
   walk(root);
-  if (bad.length) console.warn(`[aspect] ${where}: ${bad.length} distorted sprite(s)\n` + bad.join('\n'));
+  if (warn && bad.length) console.warn(`[aspect] ${where}: ${bad.length} distorted sprite(s)\n` + bad.join('\n'));
   return bad;
 }
 
@@ -50,13 +50,13 @@ if (import.meta.env.DEV) {
  * Debug check: three.js text smaller than `min` virtual px (incl. parent
  * scales). `window.__textCheck()` lists them for the current screen.
  */
-export function checkTextSize(root: Node, min = 9.5): string[] {
+export function checkTextSize(root: Node, min = 9.5, scale = 1): string[] {
   const bad: string[] = [];
   const walk = (n: Node) => {
     if (!n.visible) return;
     if (n instanceof Text && n.text.trim() && n.walpha > 0.05) {
       const eff = n.size * Math.hypot(n.wm[0], n.wm[1]);
-      if (eff < min - 0.01) bad.push(`${eff.toFixed(1)} "${n.text.replace(/\n/g, ' ').slice(0, 28)}"`);
+      if (eff * scale < min - 0.01) bad.push(`${(eff * scale).toFixed(1)} "${n.text.replace(/\n/g, ' ').slice(0, 28)}"`);
     }
     for (const c of n.children) walk(c);
   };
@@ -66,8 +66,8 @@ export function checkTextSize(root: Node, min = 9.5): string[] {
 
 if (import.meta.env.DEV) {
   (window as unknown as { __textCheck: (min?: number) => string[] }).__textCheck = (min = 9.5) => {
-    const g = (window as unknown as { __game?: { engine: { current: { root: Node } | null } } }).__game;
+    const g = (window as unknown as { __game?: { engine: { current: { root: Node } | null; vp: { s: number } } } }).__game;
     const root = g?.engine.current?.root;
-    return root ? checkTextSize(root, min) : [];
+    return root ? checkTextSize(root, min, g!.engine.vp.s) : [];
   };
 }

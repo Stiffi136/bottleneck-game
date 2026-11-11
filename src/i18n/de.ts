@@ -19,7 +19,7 @@ export const de: Dict = {
     start: 'Start',
     next: 'Weiter',
     buy: 'Kaufen',
-    buyInstall: 'Kaufen & einbauen',
+    buyInstall: 'Kaufen + einbauen',
     sell: 'Verkaufen',
     sellFor: 'Verkaufen ${n}',
     install: 'Einbauen',

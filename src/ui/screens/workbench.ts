@@ -2,7 +2,7 @@ import { BaseScreen, placeEl, type Box } from './base';
 import { Node, Rect2, Sprite, Text } from '../../render/scene';
 import { PcView } from '../../view/pcView';
 import { checkAspectSoon } from '../../view/aspectCheck';
-import { button, h, hideTip, img, sheet, showTip, toast } from '../dom';
+import { button, h, hideTip, img, sheet, showTip, statChip, toast } from '../dom';
 import { L, fmt, money } from '../../i18n';
 import {
   backToShop,
@@ -130,13 +130,13 @@ export class WorkbenchScreen extends BaseScreen {
     placeEl(wattTxt, { x: stats.x + barW + 8, y: stats.y + 2 });
     const chips = h(
       'div',
-      { style: 'display:flex;flex-wrap:wrap;gap:2px 7px;font-size:9.5px' },
-      h('span', {}, img('icon8_kuehlung', 'i8'), ` ${st.cooling}`),
-      h('span', {}, img('icon8_lanes', 'i8'), ` ${st.lanesUsed}/${st.lanesAvail}`),
-      h('span', {}, img('icon8_kerne', 'i8'), ` ${t.stat.cores} ${st.cores}`),
-      h('span', {}, img('icon16_handgroesse'), ` ${t.stat.hand} ${st.handSize}`),
-      h('span', {}, img('icon16_softwareslot'), ` ${swSlotsUsed(run)}/${st.swSlots}`),
-      h('span', {}, img('icon8_neuprio', 'i8'), ` ${st.rerolls}`),
+      { style: 'display:flex;flex-wrap:wrap;align-items:center;gap:2px 7px;font-size:9.5px' },
+      statChip('icon8_kuehlung', `${st.cooling}`),
+      statChip('icon8_lanes', `${st.lanesUsed}/${st.lanesAvail}`),
+      statChip('icon8_kerne', `${t.stat.cores} ${st.cores}`),
+      statChip('icon16_handgroesse', `${t.stat.hand} ${st.handSize}`),
+      statChip('icon16_softwareslot', `${swSlotsUsed(run)}/${st.swSlots}`),
+      statChip('icon8_neuprio', `${st.rerolls}`),
       h('span', { class: 'c-gold t-title' }, money(run.money)),
     );
     placeEl(chips, { x: stats.x, y: stats.y + (P ? 38 : 18), w: stats.w });
@@ -228,7 +228,7 @@ export class WorkbenchScreen extends BaseScreen {
     });
 
     // buttons
-    const row = h('div', { style: 'display:flex;gap:5px;height:100%' });
+    const row = h('div', { class: 'lr', style: 'display:flex;gap:5px;height:100%' });
     const back = button(['◀ ', t.ui.shop], () => {
       if (g.check(backToShop(run))) {
         g.save();
@@ -304,7 +304,7 @@ export class WorkbenchScreen extends BaseScreen {
     if (!inst) return;
     const t = L();
     const color = { ok: 0x3fbf5f, warn: 0xffd23f, bad: 0xe8432d } as const;
-    this.pc.setGlows(this.options.map((o) => ({ slot: o.slot, color: color[o.status] })));
+    this.pc.setGlows(this.options.map((o) => ({ slot: o.slot, color: color[o.status], status: o.status })));
     // glows are interactive targets too
     for (const o of this.options) {
       const r = this.pc.slotRect(o.slot);
@@ -315,7 +315,7 @@ export class WorkbenchScreen extends BaseScreen {
       this.pc.glowLayer.add(hit);
     }
     const P = this.portrait;
-    const list = h('div', { class: 'glass scroll pe', style: 'padding:4px 5px;display:flex;flex-direction:column;gap:3px;max-height:100%' });
+    const list = h('div', { class: 'glass scroll pe', style: 'padding:4px 5px;display:flex;flex-direction:column;gap:4px;max-height:100%' });
     list.append(h('div', { class: 't-title', style: 'font-size:9.5px;color:var(--gold-l)' }, `${partName(inst.id)} · ${t.wb.pickSlot}`));
     // parts that leave the build besides the occupant (e.g. on a board swap)
     const extra = (o: SlotOption) => o.displaced.filter((p) => p.uid !== o.occupant?.uid);
@@ -335,22 +335,22 @@ export class WorkbenchScreen extends BaseScreen {
           ),
         ],
         () => void this.tryInstall(o),
-        { color: st === 'ok' ? 'green' : st === 'warn' ? 'gray' : 'gray', cls: 'small' },
+        { color: st === 'ok' ? 'green' : st === 'warn' ? 'gray' : 'gray' },
       );
       b.style.justifyContent = 'flex-start';
-      b.style.minHeight = '26px';
       if (st === 'bad') b.style.opacity = '0.7';
       list.append(b);
     }
-    const tools = h('div', { style: 'display:flex;gap:4px;margin-top:2px' });
-    tools.append(button(t.ui.cancel, () => this.select(null), { color: 'gray', cls: 'small' }));
+    const tools = h('div', { class: 'lr', style: 'display:flex;gap:6px;margin-top:2px' });
+    tools.append(button(t.ui.cancel, () => this.select(null), { color: 'gray' }));
     tools.append(button(fmt(t.ui.sellFor, { n: sellValue(inst.paid) }), () => {
       if (this.g.check(sellPart(run, inst.uid))) {
         sfx.coin();
         this.g.save();
         this.select(null);
       }
-    }, { color: 'red', cls: 'small' }));
+    }, { color: 'red' }));
+    for (const b of Array.from(tools.children) as HTMLElement[]) b.style.flex = '1';
     list.append(tools);
     const area = P
       ? { x: 8, y: this.caseArea.y + this.caseArea.h * 0.52, w: this.vp.w - 16, h: this.caseArea.h * 0.48 }
@@ -508,7 +508,7 @@ export class WorkbenchScreen extends BaseScreen {
       const run = this.g.run!;
       this.options = slotOptions(run.build, p, { software: swIds(run), pasteUses: run.pasteUses });
       const color = { ok: 0x3fbf5f, warn: 0xffd23f, bad: 0xe8432d } as const;
-      this.pc.setGlows(this.options.map((o) => ({ slot: o.slot, color: color[o.status] })));
+      this.pc.setGlows(this.options.map((o) => ({ slot: o.slot, color: color[o.status], status: o.status })));
     }
     hideTip();
     this.ghost = new Sprite(part(p.id).icon, { region: 'content' });

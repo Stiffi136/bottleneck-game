@@ -11,13 +11,15 @@ import digitsUrl from '@fontsource/jersey-15/files/jersey-15-latin-400-normal.wo
 export type FontId = 'body' | 'title' | 'mono';
 
 /**
- * Digits and number signs for the body font. In Pixelify Sans "8" looks like "S" (and "5" like "S",
- * "B" like "8"), so these code points (plus "B", e.g. board name "B560") come from Jersey 15 (SIL OFL 1.1). The face only covers this unicode-range and
- * stands in front of Pixelify Sans in the stack, for the DOM (`--font-body` in style.css) and the
- * bitmap font alike. `size-adjust` matches the digit height to the Pixelify capitals.
+ * Digits and number signs for the body font. In Pixelify Sans "8" looks like "S" and "5" like "S", so
+ * these code points come from Jersey 15 (SIL OFL 1.1) – digits and number signs only, NO letters (P5: "B" used
+ * to come from Jersey too and stood taller than "H" next to it). The face only covers this unicode-range and
+ * stands in front of Pixelify Sans in the stack, for the DOM (`--font-body` in style.css) and the bitmap font
+ * alike. `size-adjust` 112.5 % makes the digit height equal to the Pixelify capitals (cap ascent 36/56 px
+ * at 125 % it was 40/56, i.e. 11 % too tall); the baseline is shared, so words and numbers sit on one line.
  */
 export const DIGIT_FAMILY = 'BN Digits';
-const DIGIT_RANGE = 'U+0024-0025, U+002B-002E, U+0030-0039, U+0042, U+00B1, U+00D7, U+2212';
+const DIGIT_RANGE = 'U+0024-0025, U+002B-002E, U+0030-0039, U+00B1, U+00D7, U+2212';
 
 function registerDigitFont(): void {
   if (typeof FontFace === 'undefined' || !document.fonts) return;
@@ -25,7 +27,7 @@ function registerDigitFont(): void {
     unicodeRange: DIGIT_RANGE,
     weight: '100 900',
     display: 'block',
-    sizeAdjust: '125%',
+    sizeAdjust: '112.5%',
   } as FontFaceDescriptors);
   document.fonts.add(face);
 }
@@ -33,7 +35,7 @@ registerDigitFont();
 
 export const FONT_FAMILY: Record<FontId, string> = {
   body: `"${DIGIT_FAMILY}", "Pixelify Sans", system-ui, sans-serif`,
-  title: '"Silkscreen", "Pixelify Sans", monospace',
+  title: `"${DIGIT_FAMILY}", "Silkscreen", "Pixelify Sans", monospace`, // Silkscreen: 0 and O almost alike -> digits from Jersey 15 (same cap height at 112.5 %)
   mono: '"VT323", monospace',
 };
 const FONT_WEIGHT: Record<FontId, string> = { body: '500', title: '400', mono: '400' };

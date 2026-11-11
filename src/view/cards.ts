@@ -88,12 +88,14 @@ export class CardView extends Node {
     this.add(this.shadowS);
     this.add(this.body);
     this.highlight = new Sprite('ui_card_highlight', { region: 'anim' });
-    this.highlight.size(CARD_W + 8, CARD_H + 9).play(8);
+    cover(this.highlight, CARD_W + 8, CARD_H + 9);
+    this.highlight.play(8);
     this.highlight.visible = false;
     this.body.add(this.highlight);
     // gold glow for cards that form the detected profile
     this.glow = new Sprite('ui_card_highlight', { region: 'anim' });
-    this.glow.size(CARD_W + 12, CARD_H + 13).play(10);
+    cover(this.glow, CARD_W + 12, CARD_H + 13);
+    this.glow.play(10);
     this.glow.tint = [1, 0.82, 0.25];
     this.glow.visible = false;
     this.body.add(this.glow);
@@ -279,7 +281,8 @@ export class ItemCard extends Node {
     this.add(shadow);
     this.add(this.body);
     this.highlight = new Sprite('ui_card_highlight', { region: 'anim' });
-    this.highlight.size(w + 8, hh + 9).play(8);
+    cover(this.highlight, w + 8, hh + 9);
+    this.highlight.play(8);
     this.highlight.visible = false;
     this.body.add(this.highlight);
     this.frameS = new Sprite(frameName, { region: frameName.includes('software_l') ? 'anim' : 'content' });

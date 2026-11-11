@@ -60,7 +60,7 @@ export class GameOverScreen extends BaseScreen {
     this.dom.append(box);
     const btns = h(
       'div',
-      { style: 'display:flex;gap:8px' },
+      { class: 'lr', style: 'display:flex;gap:8px' },
       button(t.gameover.title2, () => {
         g.run = null;
         g.show('title');

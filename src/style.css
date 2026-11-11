@@ -27,7 +27,7 @@
   --gold-l: #ffe28a;
   /* 'BN Digits' = Jersey 15 for digits only (registered in src/render/font.ts) */
   --font-body: 'BN Digits', 'Pixelify Sans', system-ui, sans-serif;
-  --font-title: 'Silkscreen', 'Pixelify Sans', monospace;
+  --font-title: 'BN Digits', 'Silkscreen', 'Pixelify Sans', monospace; /* digits from Jersey 15: 0 ≠ O */
   --font-mono: 'VT323', monospace;
 }
 
@@ -739,4 +739,29 @@ input[type='range'] {
 }
 .prof-sheet {
   max-height: 92%;
+}
+
+/* ---- P5: left-handed mode mirrors every button row (primary action ends up on the left, under the left thumb) */
+body.lefty .lr,
+body.lefty .sheet .actions {
+  flex-direction: row-reverse;
+}
+
+/* ---- P5: stat chips (icon + text): same icon box and centre line, so "Hand 6" sits on the same line as "Cores 4" */
+.statchip {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  line-height: 1.2;
+  height: 13px;
+}
+.statchip > span {
+  display: block;
+  line-height: 13px;
+}
+img.sc {
+  width: 11px;
+  height: 11px;
+  object-fit: contain;
+  flex: none;
 }

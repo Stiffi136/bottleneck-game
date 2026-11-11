@@ -141,7 +141,7 @@ export class ShopScreen extends BaseScreen {
     const g = this.g;
     const run = g.run!;
     const t = L();
-    const row = h('div', { style: `display:flex;gap:6px;height:100%;${vertical ? 'flex-direction:column' : ''}` });
+    const row = h('div', { class: vertical ? '' : 'lr', style: `display:flex;gap:6px;height:100%;${vertical ? 'flex-direction:column' : ''}` });
     const reroll = button([img('icon16_neu_wuerfeln', 'ic'), fmt(t.shop.rerollN, { n: rerollCost(run) })], () => {
       if (g.check(rerollShop(run))) {
         sfx.deal();
