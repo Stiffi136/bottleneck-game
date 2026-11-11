@@ -57,14 +57,21 @@ function sheetName(path: string): string {
   return path.split('/').pop()!.replace(/\.(json|webp)$/, '');
 }
 
-function loadImage(url: string): Promise<HTMLImageElement> {
+function loadImageOnce(url: string, cors: boolean): Promise<HTMLImageElement> {
   return new Promise((res, rej) => {
     const img = new Image();
     img.decoding = 'async';
+    // anonymous CORS keeps the canvas untainted when the page has an opaque origin (sandboxed iframe)
+    if (cors) img.crossOrigin = 'anonymous';
     img.onload = () => res(img);
     img.onerror = () => rej(new Error('image failed: ' + url));
     img.src = url;
   });
+}
+
+function loadImage(url: string): Promise<HTMLImageElement> {
+  // fall back to a plain load if the server sends no CORS headers (frameURL() then degrades, see below)
+  return loadImageOnce(url, true).catch(() => loadImageOnce(url, false));
 }
 
 export function makeTexture(img: TexImageSource | HTMLCanvasElement, mip = false): THREE.Texture {
@@ -169,7 +176,12 @@ export function frameURL(name: string, mode: 'content' | 'cell' = 'content'): st
   c.width = Math.max(1, r.w);
   c.height = Math.max(1, r.h);
   c.getContext('2d')!.drawImage(f.img, r.x, r.y, r.w, r.h, 0, 0, r.w, r.h);
-  const url = c.toDataURL('image/png');
+  let url = '';
+  try {
+    url = c.toDataURL('image/png');
+  } catch {
+    /* tainted canvas (no CORS): UI sprites missing, game stays playable */
+  }
   urlCache.set(key, url);
   return url;
 }
