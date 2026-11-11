@@ -305,13 +305,38 @@ export function partTdp(b: Build, inst: PartInst, sw: readonly SoftwareId[] = []
   return d.tdp;
 }
 
+/** One contribution to the per-play cooling (shown in the thermometer tooltip). `id` is a part id where there is one. */
+export interface CoolSource {
+  kind: 'cooler' | 'norgb' | 'airflow' | 'fan' | 'builtin' | 'sw5' | 'paste';
+  id?: string;
+  value: number;
+}
+
+/** Cooling per play by source (GDD 7.3). `computeStats().cooling` is exactly the sum of these values. */
+export function coolingSources(b: Build, opts: StatOpts = {}): CoolSource[] {
+  const sw = opts.software ?? [];
+  const c = caseOf(b);
+  const cooler = coolerOf(b);
+  const out: CoolSource[] = [];
+  const add = (kind: CoolSource['kind'], value: number, id?: string) => {
+    if (value) out.push({ kind, value, ...(id ? { id } : {}) });
+  };
+  if (b.cooler) add('cooler', cooler?.cooling ?? 0, b.cooler.id);
+  if (cooler?.special === 'norgb' && rgbParts(b) === 0) add('norgb', 3, b.cooler!.id);
+  if (b.case) add('airflow', c?.airflow ?? 0, b.case.id);
+  for (const f of fans(b)) add('fan', partOf(f.id, 'fan').cooling, f.id);
+  if (c) for (const f of c.builtinFans) add('builtin', partOf(f, 'fan').cooling, f);
+  for (const s of sw) if (s === 'sw5') add('sw5', 4);
+  add('paste', 2 * (opts.pasteUses ?? 0));
+  return out;
+}
+
 export function computeStats(b: Build, opts: StatOpts = {}): BuildStats {
   const sw = opts.software ?? [];
   const cpu = cpuOf(b);
   const gpu = gpuOf(b);
   const gpuI = gpuInst(b);
   const c = caseOf(b);
-  const cooler = coolerOf(b);
   const psu = psuOf(b);
 
   const partTdpMap = new Map<number, number>();
@@ -333,12 +358,7 @@ export function computeStats(b: Build, opts: StatOpts = {}): BuildStats {
   const swSlots = Math.min(MAX_SW_SLOTS, drvDefs.reduce((s, d) => s + d.swSlots, 0));
 
   const rgb = rgbParts(b);
-  let cooling = (cooler?.cooling ?? 0) + (c?.airflow ?? 0);
-  if (cooler?.special === 'norgb' && rgb === 0) cooling += 3;
-  for (const f of fans(b)) cooling += partOf(f.id, 'fan').cooling;
-  if (c) for (const f of c.builtinFans) cooling += partOf(f, 'fan').cooling;
-  for (const s of sw) if (s === 'sw5') cooling += 4;
-  cooling += 2 * (opts.pasteUses ?? 0);
+  const cooling = coolingSources(b, opts).reduce((n, x) => n + x.value, 0);
 
   const lanes = allocateLanes(b);
   const video = !!(cpu && cpu.igpu > 0) || !!(gpu && !gpuI?.broken && lanes.devices.get(gpuI!.uid)?.status !== 'none');

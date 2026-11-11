@@ -27,7 +27,7 @@ import {
 } from './build';
 import { postOk, shopBadge, simulatePlace, slotOptions, validate, type Issue } from './compat';
 import { BENCH_KINDS, interestFor, isFinaleGen, rewardFor, sellValue, targetFor, tierWeights } from './difficulty';
-import { IDLE_TEMP, brownout, evaluatePlay, type PlayEval, type ScoreCtx } from './scoring';
+import { IDLE_TEMP, brownout, computeHeat, coolDown, evaluatePlay, forecastFromHeat, type HeatForecast, type PlayEval, type ScoreCtx } from './scoring';
 import type {
   BenchKind,
   BossId,
@@ -390,19 +390,20 @@ function drawUp(b: BenchState): number[] {
   return drawn;
 }
 
+/** Score context of the running benchmark; outside a benchmark: idle temperature, no boss (for card tooltips). */
 export function scoreCtx(run: RunState): ScoreCtx {
-  const b = run.bench!;
+  const b = run.bench;
   const sw = activeSoftware(run);
   return {
     build: run.build,
     stats: statsOf(run),
     software: sw,
     driverLevels: run.drivers,
-    boss: b.boss,
-    temp: b.temp,
-    disabled: new Set(b.disabled),
-    cpuBrownout: b.cpuBrownout,
-    captureSoFar: b.capture,
+    boss: b?.boss ?? null,
+    temp: b?.temp ?? IDLE_TEMP,
+    disabled: new Set(b?.disabled ?? []),
+    cpuBrownout: b?.cpuBrownout ?? false,
+    captureSoFar: b?.capture ?? 0,
     freeSwSlots: freeSwSlots(run),
   };
 }
@@ -412,6 +413,22 @@ export function previewPlay(run: RunState, ids: readonly number[]): PlayEval | n
   if (!run.bench || ids.length === 0) return null;
   const ordered = run.bench.hand.filter((id) => ids.includes(id)).map((id) => card(run, id));
   return evaluatePlay(scoreCtx(run), ordered);
+}
+
+/** Heat of one card played on its own (same `computeHeat` as a real play; the 6th–8th-card rule of E-cores is not applied). */
+export function cardHeat(run: RunState, c: Card): number {
+  return computeHeat(scoreCtx(run), [c]).perCard[0] ?? 0;
+}
+
+/**
+ * Heat outlook for a selection: peak after the heat step and temperature after the cooling step.
+ * Same calculation as `playCards` (`computeHeat` + `coolDown` with the benchmark's cooling), no side effects.
+ */
+export function forecastHeat(run: RunState, ids: readonly number[]): HeatForecast | null {
+  if (!run.bench || ids.length === 0) return null;
+  const b = run.bench;
+  const ordered = b.hand.filter((id) => ids.includes(id)).map((id) => card(run, id));
+  return forecastFromHeat(b.temp, computeHeat(scoreCtx(run), ordered), b.cooling);
 }
 
 export function requiredCards(run: RunState): number | null {
@@ -512,7 +529,7 @@ export function playCards(run: RunState, ids: readonly number[]): Result<{ out: 
     if (out.destroyed.includes(id)) run.deck = run.deck.filter((c) => c.id !== id);
     else b.pile.push(id);
   }
-  if (!out.shutdown) b.temp = Math.max(IDLE_TEMP, b.temp - b.cooling);
+  if (!out.shutdown) b.temp = coolDown(b.temp, b.cooling);
   out.tempAfter = b.temp;
 
   if (out.shutdown) {

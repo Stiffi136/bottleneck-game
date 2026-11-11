@@ -76,6 +76,35 @@ export const IDLE_TEMP = 35;
 export const THROTTLE_TEMP = 85;
 export const SHUTDOWN_TEMP = 100;
 
+/** Temperature after the cooling step of a play (GDD 7.3): never below idle. */
+export function coolDown(temp: number, cooling: number): number {
+  return Math.max(IDLE_TEMP, temp - cooling);
+}
+
+/** Heat outlook of a play: peak after the heat step, end value after cooling. Built from `computeHeat` + `coolDown`. */
+export interface HeatForecast {
+  start: number; // temperature before the play
+  add: number; // heat of the play (rounded up)
+  peak: number; // right after the heat step
+  afterCooling: number; // at the end of the turn; equals the peak after an emergency shutdown (no cooling happens)
+  cooled: number; // degrees removed by cooling (0 on shutdown)
+  throttled: boolean; // peak ≥ 85 °C: Clock ×0.5 for this play
+  crash: boolean; // peak ≥ 100 °C: emergency shutdown
+}
+
+export function forecastFromHeat(start: number, heat: HeatResult, cooling: number): HeatForecast {
+  const afterCooling = heat.shutdown ? heat.after : coolDown(heat.after, cooling);
+  return {
+    start,
+    add: heat.total,
+    peak: heat.after,
+    afterCooling,
+    cooled: heat.after - afterCooling,
+    throttled: heat.throttled,
+    crash: heat.shutdown,
+  };
+}
+
 const has = (sw: readonly SoftwareInst[], id: SoftwareId) => sw.some((s) => s.id === id);
 
 /** Lane / brownout / broken factor of a part (1, 0.5 or 0). */
