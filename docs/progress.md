@@ -54,3 +54,10 @@ Offen:
 - Hitzeflimmern ist ein Overlay (kein echter Verzerrungs-Shader).
 - Long-Press-Zoom nur per Code/Maus geprüft, nicht auf echtem Touch-Gerät.
 - „NEU PRIORISIEREN“ (DE) ist bei 360 px im Button zu breit (P5/P6).
+
+## P6 Übersetzung & Texte (Agent A)
+
+- „Neu-Prio“ heißt jetzt **Abwerfen / Discard** (Button), Zähler **Abwürfe / Discards**. „Durchlauf“ (gespielte Hand) heißt EN jetzt **Play/Plays** (vorher „Run“, kollidierte mit „New run“ = ganzer Lauf). Der Button „Neu priorisieren“ ist damit gelöst (8 statt 16 Zeichen).
+- DE: „Pfadverfolgung“ → „Pathtracing“, „Festgeld-Zinsen“ → „Sparzinsen“, „Ins Lager ausbauen“ → „Ausbauen“.
+- **Profil-Hilfe:** neue Schlüssel `profileHelp.<id>` (Erklärtext mit Beispiel, Basiswerten, Kern-Bedarf) und `profileHelpUi` (`title`, `intro`, `needCores`, `base`) in beiden Sprachdateien. Noch keine UI. Sinnvoll: Button „Kombis“ (Rangliste aller 10 Profile mit Stufe, Basis L×T, `profileHelp`-Text) im Benchmark-Header bzw. Deck-Dialog; Profil-Name im Spielfeld antippbar → öffnet denselben Eintrag.
+- Lizenzen in `public/licenses/` (4× OFL, three.js MIT, README). Credits (`settings.creditsText`) nennen Schriften, three.js, Parodie-Hinweis und `/licenses/README.txt`.
