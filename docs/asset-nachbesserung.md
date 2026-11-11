@@ -79,7 +79,7 @@ Nothing else in the image.
 
 ## 3. Neu: Logo (ersetzt S30)
 
-**Status: eingebaut** (`assets/hd/logo_v2.webp/.json`, Pipeline `tools/logo.mjs` via `build-all.mjs --only L01`, Ansicht `src/view/logo.ts`, Titelbildschirm). Genutzt: `logo_bottle`, `logo_neck`, PC-Frames 0, 1, 2, 3, 5(=4 identisch), jeweils als `logo_pc_0…4`; `logo_pc_extra` (cyan LEDs) als `logo_pc_5` im Atlas, in der Animation nicht genutzt. Reihenfolge: 0 → 1 → 2 → 3 → Glanzframe → 0, dann 1,5 s Pause. Taillenbreite (Anteil an der Gehäusebreite): 0 = 92 %, 1 = 75 %, 2 = 61 %, 3 = 75 %, Glanz = 79 %, extra = 78 %. **Noch nachliefern:** der Frame „maximale Quetschung, rote LEDs“ (Prompt unten): schmaler als 61 %, LEDs rot. Dann in `LOGO_SEQ` (`src/view/logo.ts`) zwischen Frame 2 und 3 einfügen. Ein neu geschicktes `logo_pc_4.png` war byte-identisch mit Frame 3.
+**Status: eingebaut** (`assets/hd/logo_v2.webp/.json`, Pipeline `tools/logo.mjs` via `build-all.mjs --only L01`, Ansicht `src/view/logo.ts`, Titelbildschirm). Genutzt: `logo_bottle`, `logo_neck`, PC-Frames 0–5 (0 ruhig, 1 Schraube, 2 Schweiß/gelb, 3 maximale Quetschung/rot, 4 Dampf+Funke, 5 Glanz; `logo_pc_extra` unbenutzt, nicht im Atlas). Reihenfolge: 0 → 1 → 2 → 3 → 4 → 5 → 0, dann 1,5 s Pause. Taillenbreite (Anteil an der Gehäusebreite): 0 = 92 %, 1 = 75 %, 2 = 61 %, 3 = 44 %, 4 = 75 %, 5 = 79 %. Der Frame „maximale Quetschung, rote LEDs“ ist nachgeliefert und eingebaut; nichts mehr offen.
 
 **Idee:** Die **Front eines PC-Gehäuses** steckt zwischen den Wörtern **BOTTLE** und **NECK** und wird von beiden Seiten zusammengequetscht – der PC ist der Flaschenhals. Animiert: Die Wörter drücken, der PC wird enger, schwitzt, die LEDs flackern rot, dann federt er zurück.
 

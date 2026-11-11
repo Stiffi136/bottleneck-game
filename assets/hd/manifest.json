@@ -1,11 +1,11 @@
 {
-  "generated": "2026-11-11T07:45:05.131Z",
+  "generated": "2026-11-11T07:48:29.842Z",
   "tool": "tools/build-all.mjs",
   "totals": {
     "sheets": 34,
     "singles": 12,
     "frames": 435,
-    "hdBytes": 3883787
+    "hdBytes": 3890121
   },
   "decisions": {
     "S16": {
@@ -2845,15 +2845,15 @@
         "webp": "logo_v2.webp",
         "json": "logo_v2.json",
         "previewDark": "../preview/logo_v2_hd_dark.png",
-        "bytes": 288245
+        "bytes": 294658
       },
       "atlas": {
         "w": 2048,
-        "h": 1042
+        "h": 1050
       },
       "frameSize": {
         "w": 2048,
-        "h": 1042
+        "h": 1050
       },
       "frames": 8,
       "animations": {},
@@ -2866,16 +2866,14 @@
         724
       ],
       "info": {
-        "duplicates": [
-          "5=4"
-        ],
+        "duplicates": [],
         "pcSources": [
           "0",
           "1",
           "2",
           "3",
           "4",
-          "extra"
+          "5"
         ],
         "wordScale": {
           "bottle": 0.4971,
@@ -2894,11 +2892,11 @@
         "pcScale": 0.4288,
         "pcCell": [
           311,
-          515
+          519
         ],
         "pcAnchor": [
           155.5,
-          514
+          518
         ],
         "waist": [
           {
@@ -2910,7 +2908,7 @@
             "bodyHeightRawPx": 1194,
             "left": 38.6,
             "right": 272.4,
-            "y": 208.3
+            "y": 212.3
           },
           {
             "src": "1",
@@ -2921,7 +2919,7 @@
             "bodyHeightRawPx": 1194,
             "left": 58.6,
             "right": 252.4,
-            "y": 219.4
+            "y": 223.4
           },
           {
             "src": "2",
@@ -2932,10 +2930,21 @@
             "bodyHeightRawPx": 1194,
             "left": 76.4,
             "right": 234.2,
-            "y": 217.3
+            "y": 221.3
           },
           {
             "src": "3",
+            "waistRawPx": 252,
+            "waistAtY": 0.48,
+            "maxWidthRawPx": 576,
+            "waistPct": 43.8,
+            "bodyHeightRawPx": 1205,
+            "left": 101.5,
+            "right": 209.5,
+            "y": 251.3
+          },
+          {
+            "src": "4",
             "waistRawPx": 450,
             "waistAtY": 0.42,
             "maxWidthRawPx": 599,
@@ -2943,10 +2952,10 @@
             "bodyHeightRawPx": 1194,
             "left": 58.8,
             "right": 251.8,
-            "y": 218.5
+            "y": 222.5
           },
           {
-            "src": "4",
+            "src": "5",
             "waistRawPx": 462,
             "waistAtY": 0.4,
             "maxWidthRawPx": 587,
@@ -2954,18 +2963,7 @@
             "bodyHeightRawPx": 1195,
             "left": 55.8,
             "right": 253.9,
-            "y": 207.4
-          },
-          {
-            "src": "extra",
-            "waistRawPx": 424,
-            "waistAtY": 0.42,
-            "maxWidthRawPx": 546,
-            "waistPct": 77.7,
-            "bodyHeightRawPx": 1193,
-            "left": 64.6,
-            "right": 246.4,
-            "y": 218.5
+            "y": 211.4
           }
         ],
         "notes": []
@@ -2975,11 +2973,9 @@
         "target": 2,
         "deviationPct": 50
       },
-      "warnings": [
-        "Duplikate verworfen: 5=4"
-      ],
+      "warnings": [],
       "status": "ok",
-      "autoStatus": "mängel",
+      "autoStatus": "ok",
       "review": "Logo-Atlas: BOTTLE/NECK/PC-Frames, gleicher Maßstab und Anker"
     }
   ]

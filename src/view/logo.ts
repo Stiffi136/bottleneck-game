@@ -14,8 +14,8 @@ const WAIST = META.waist; // index = logo_pc_<i>
 const AX = META.pcAnchor.x;
 const OVERLAP = 0.5; // art px: words reach slightly behind the PC outline
 
-/** Animation: [frame, hold in s]; afterwards REST seconds pause on frame 0. Frame 4 = highlight sweep (rebound). */
-export const LOGO_SEQ: ReadonlyArray<readonly [number, number]> = [[1, 0.14], [2, 0.18], [3, 0.15], [4, 0.15]];
+/** Animation: [frame, hold in s]; afterwards REST seconds pause on frame 0. Frame 3 = maximum squeeze (red), 4 = steam + spark, 5 = highlight sweep (rebound). */
+export const LOGO_SEQ: ReadonlyArray<readonly [number, number]> = [[1, 0.14], [2, 0.16], [3, 0.2], [4, 0.15], [5, 0.15]];
 export const LOGO_PAUSE = 1.5;
 
 export class LogoView extends Node {

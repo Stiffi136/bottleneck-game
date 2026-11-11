@@ -75,7 +75,7 @@ export const CONFIG = [
   { id: 'E10', raw: 'e10.png', name: 'bg_title_landscape', size: [800, 400], kind: 'background', group: 'single' },
   // L01: Logo-Atlas aus Einzelbildern (BOTTLE, NECK, PC-Frames); pc = Quellen in Animationsreihenfolge (Duplikate werden verworfen)
   { id: 'L01', raw: 'logo_bottle.png', name: 'logo_v2', size: [1024, 512], kind: 'logo', group: 'single',
-    logo: { words: ['logo_bottle.png', 'logo_neck.png'], pc: ['0', '1', '2', '3', '4', '5', 'extra'] } },
+    logo: { words: ['logo_bottle.png', 'logo_neck.png'], pc: ['0', '1', '2', '3', '4', '5'] } },
 ];
 export const GROUPS = [
   ['ui', 'UI'], ['icons', 'Icons'], ['cards', 'Karten, Booster, Bosse'], ['hardware', 'Hardware'],
