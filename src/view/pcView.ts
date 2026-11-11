@@ -325,10 +325,19 @@ export class PcView extends Node {
   }
 
   private addRadiatorFans(n: Node, r: Sprite, count: number, rgb: boolean): void {
+    // Painted fan centres/diameters measured in the radiator art (fractions of its contentBBox).
+    // The art has the tube fittings on the right, so the fans are NOT evenly spread over the width.
+    const RAD_FANS: Record<number, { cx: number[]; cy: number; d: number }> = {
+      3: { cx: [0.175, 0.449, 0.7225], cy: 0.451, d: 0.244 },
+      2: { cx: [0.258, 0.632], cy: 0.496, d: 0.381 },
+    };
+    const m = RAD_FANS[count];
     for (let i = 0; i < count; i++) {
-      const fx = -r.w / 2 + (r.w / count) * (i + 0.5) - (count === 3 ? 1.5 : 2) * (r.w / 120);
+      const fx = -r.w / 2 + r.w * m.cx[i];
+      const fy = -r.h / 2 + r.h * m.cy;
+      const size = r.w * m.d;
       const s = new Sprite(rgb ? 'case_fan_0' : 'icon_fan_1', { region: 'content' });
-      s.fit(r.h * 0.82, r.h * 0.82).pos(fx, 0);
+      s.fit(size, size).pos(fx, fy);
       s.mode = 'circle';
       s.param = 0.38;
       n.add(s);
