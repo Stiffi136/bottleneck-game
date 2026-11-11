@@ -79,3 +79,12 @@ Offen:
 - Office-Gehäuse: Blenden-Pitch 13,2 vs. Board 11,9 – tiefere Slots bis 4 px versetzt.
 - Doppeltipp-Zoom des Boards (GDD 18.6) nicht umgesetzt.
 - Touch-Long-Press auf echtem Gerät nicht geprüft.
+
+## P4 Audio (Agent A)
+
+Erledigt (`src/audio/{sfx,levels,music,ambient}.ts`, kleine Änderungen in `game.ts`, `storage.ts`, `settings.ts`, i18n):
+- Zentrale Pegeltabelle (dB), Kompressor/Tiefpass, Pentatonik-Leiter beim Werten, neue Sounds für ×Takt, Einrasten, POST-Beep, Bluescreen, Kauf.
+- Chiptune-Loop, getrennt schaltbar (Einstellung „Musik“/„Music“); Lüfter-Leerlauf in der Werkbank.
+- Robustheit: Context erst nach Geste, Mute sofort, Musik pausiert bei Tab-Wechsel, Node-Aufräumung (`window.__audio.stats`).
+- Browser-Test (Autoplay 4, ~1350 Stimmen, aktiv ≤ 18, 0 verworfen, keine Konsolenmeldungen). Klang selbst nicht gehört (nur Werte aus der Tabelle).
+Offen: Feinabstimmung nach Gehör (Tabelle `levels.ts`).

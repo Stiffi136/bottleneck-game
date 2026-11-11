@@ -82,3 +82,12 @@ Abweichungen vom GDD (`docs/game-design.md`) und Annahmen der Umsetzung. Das GDD
 - **POST-Beep-Codes je LED** (eigene Festlegung, an AMI/Award angelehnt): CPU 5× kurz, DRAM 3× kurz, VGA 1× lang + 3× kurz, BOOT 2× lang (`src/ui/postDialog.ts`). Das Netzteil (K6) meldet über die CPU-LED, wie im Core festgelegt.
 - **Lager voll beim Board-/Gehäusetausch:** Die Werkbank prüft vorher, ob verdrängte Teile ins Lager passen. Wenn nicht, zeigt ein Dialog die verdrängten Teile und erlaubt, Lagerteile direkt zu verkaufen; danach wird automatisch eingebaut. Core unverändert.
 - **Laden:** Angebote stehen in beiden Formaten auf der Theke des Hintergrundbilds, Preisschilder hängen an der Theke, der Titel steht im Ladenschild (Positionen aus der Cover-Skalierung des Hintergrunds, `bgRect()`). Stat-Zeilen erscheinen nur, wenn das Schild hoch genug ist (Hochformat).
+
+## Audio (P4)
+
+- **Pegeltabelle:** `src/audio/levels.ts` (`LEVELS_DB`, Spitzenpegel je Sound in dB vor Master). Nur dort Lautstärken ändern. Orientierung: ×Takt −6, Bluescreen −8, Slam −9, Einrasten −10, Kauf −12, POST-Beep −14, +Leistung −15, +Takt −16, Münze −16, UI-Klicks −21…−38, Zähl-Ticks −29, Lüfter max −23, Musik −25 (Bus).
+- **Signalweg:** Stimmen → SFX-Bus → Tiefpass 9 kHz → Kompressor (−14 dB, 4:1) → Master. Lüfter und Musik (eigener Bus) gehen direkt auf den Master. Master = `volume^1.6 × 0.8`.
+- **Tonleiter beim Werten:** `ladder(base, step)` in `sfx.ts`: Dur-Pentatonik, je Ereignis eine Stufe höher, zwei Oktaven, danach bleibt der Ton oben (`perf` ab C5, `clock` ab F4, `tick` ab G4).
+- **Musik:** prozeduraler Chiptune-Loop (`src/audio/music.ts`, a-Moll, 96 bpm, 8 Takte, Bass/Arpeggio/Lead/Hi-Hat, Lookahead-Scheduler). Neue Einstellung `Settings.music` (Standard an, alte Spielstände bekommen den Default). Getrennt von „Ton“ (alles stumm) und „Lüfterrauschen“. Neue Texte `settings.bgm`/`settings.fanNoise` (EN/DE).
+- **Lüfter in der Werkbank:** `src/audio/ambient.ts` prüft alle 400 ms: Phase `workbench` und kein POST-Fehler → leises Leerlaufrauschen (`FAN_IDLE` = 0,1); sonst 0. Der Benchmark steuert den Lüfter weiter selbst nach Temperatur.
+- **Robustheit:** `AudioContext` entsteht erst nach einer Geste (pointerdown/keydown/touchend bzw. `userActivation`). Stummschalten setzt den Master sofort auf 0 und stoppt die Musik. `visibilitychange` → Musik stoppt, Context `suspend`, danach `resume`. Jede Stimme räumt ihre Nodes in `onended` auf (`disconnect`), max. 40 gleichzeitige Stimmen (`MAX_VOICES`). Debug: `window.__audio.stats` (`active`, `created`, `dropped`, `peak`).
