@@ -5,7 +5,7 @@ import { HwChip, Odometer, ScoreBar, SwChip, Thermo, ValueBox, heatColor } from 
 import { HeatShimmer } from '../../render/fx';
 import { openProfileHelp } from '../profileSheet';
 import { button, h, hideTip, img, sheet, showTip, tip, toast } from '../dom';
-import { L, big, fmt, money, num } from '../../i18n';
+import { L, big, fmt, num } from '../../i18n';
 import {
   activeSoftware,
   card,
@@ -192,10 +192,14 @@ export class BenchScreen extends BaseScreen {
       pad: 4,
     };
     const title = h('div', { class: 't-title shadow', style: 'font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis' }, `${t.stat.gen} ${run.gen} · ${benchName.toUpperCase()}`);
-    const money$ = h('div', { class: 't-title c-gold shadow', style: 'font-size:12px' }, money(run.money));
+    const moneyNum = h('span', { class: 'wallet-n' }, num(run.money));
+    const money$ = h('div', { class: this.portrait ? 'wallet compact' : 'wallet' }, img('icon16_geld', 'wallet-ic'), moneyNum);
     this.els.money = money$;
+    this.shownMoney = run.money;
     tip(money$, () => t.tips.money);
-    const menu = button('', () => openSettings({ inRun: true }), { color: 'gray', cls: 'iconbtn', icon: 'icon16_einstellungen' });
+    const menu = button('', () => openSettings({ inRun: true }), { color: 'gray', cls: 'iconbtn hit44', icon: 'icon16_einstellungen', title: t.ui.settings });
+    const combos = button('', () => openProfileHelp((this.lastProfile.split(':')[0] ?? '') as ProfileId | ''), { color: 'gray', cls: 'iconbtn hit44', icon: 'icon16_info', title: t.profileHelpUi.title });
+    combos.setAttribute('aria-label', t.profileHelpUi.title);
     const target = h('div', { class: 'shadow', style: 'font-size:10px;white-space:nowrap' }, img('icon16_leistung'), ` ${t.stat.target} `, h('b', { class: 't-title', style: 'font-weight:400' }, big(b.target)));
     this.odo = new Odometer(big);
     this.odo.set(this.shownScore, false);
@@ -208,7 +212,7 @@ export class BenchScreen extends BaseScreen {
     if (this.portrait) {
       placeEl(target, { x: 42, y: 25 });
       this.dom.append(target);
-      const barEnd = barX + Math.max(80, lay.header.w - 250);
+      const barEnd = barX + Math.max(60, lay.header.w - 290);
       barX = 42 + Math.max(82, target.offsetWidth + 8);
       barLen = Math.max(40, barEnd - barX);
     }
@@ -218,12 +222,12 @@ export class BenchScreen extends BaseScreen {
 
     if (this.portrait) {
       this.bossIcon.pos(22, 22);
-      placeEl(title, { x: 42, y: 5, w: lay.header.w - 130 });
-      placeEl(money$, { x: lay.header.w - 92, y: 6, w: 52 });
-      money$.style.textAlign = 'right';
-      placeEl(menu, { x: lay.header.w - 34, y: 4 });
+      placeEl(title, { x: 42, y: 5, w: lay.header.w - 200 });
+      placeEl(money$, { x: lay.header.w - 150, y: 2, h: 28 });
+      placeEl(combos, { x: lay.header.w - 76, y: 4 });
+      placeEl(menu, { x: lay.header.w - 36, y: 4 });
       this.scoreBar.pos(barX + this.scoreBar.length / 2, 32);
-      placeEl(score, { x: lay.header.w - 124, y: 24, w: 84 });
+      placeEl(score, { x: lay.header.w - 164, y: 30, w: 84 });
     } else {
       this.bossIcon.pos(20, 20);
       placeEl(title, { x: 38, y: 6, w: 108 });
@@ -234,10 +238,11 @@ export class BenchScreen extends BaseScreen {
       placeEl(score, { x: 6, y: 70, w: 138 });
       score.style.textAlign = 'center';
       score.style.fontSize = '15px';
-      placeEl(money$, { x: 6, y: this.vp.h - 58, w: 60 });
-      placeEl(menu, { x: 116, y: this.vp.h - 34 });
+      placeEl(money$, { x: 6, y: this.vp.h - 38, h: 32 });
+      placeEl(combos, { x: 72, y: this.vp.h - 38 });
+      placeEl(menu, { x: 112, y: this.vp.h - 38 });
     }
-    this.dom.append(title, money$, menu, target, score);
+    this.dom.append(title, money$, combos, menu, target, score);
     // a long boss name never ends in an ellipsis: drop the generation prefix, then tighten the spacing
     if (this.portrait && title.scrollWidth > title.clientWidth + 1) {
       title.textContent = benchName.toUpperCase();
@@ -350,10 +355,6 @@ export class BenchScreen extends BaseScreen {
     this.els.sortBtn = sortBtn;
     this.dom.append(btnRow);
 
-    // ---------------------------------------------------------- combos (profile help)
-    const combos = button(t.profileHelpUi.title, () => openProfileHelp((this.lastProfile.split(':')[0] ?? '') as ProfileId | ''), { color: 'gray', cls: 'small combos' });
-    placeEl(combos, this.portrait ? { x: 4, y: lay.profile.y + 14 } : { x: lay.status.x + lay.status.w - 66, y: lay.status.y + 4 });
-    this.dom.append(combos);
 
     // ---------------------------------------------------------- hand
     for (const id of b.hand) this.makeCard(id, this.handLayer);
@@ -668,11 +669,37 @@ export class BenchScreen extends BaseScreen {
 
   // ------------------------------------------------------------ hud
 
+  private shownMoney = 0;
+  private moneyRaf = 0;
+
+  /** Wallet display: counts up/down to the new value and pulses on change. */
+  private setMoney(v: number, animate: boolean): void {
+    const el = this.els.money!;
+    const n = el.querySelector('.wallet-n') as HTMLElement;
+    cancelAnimationFrame(this.moneyRaf);
+    const from = this.shownMoney;
+    this.shownMoney = v;
+    if (!animate || from === v) {
+      n.textContent = num(v);
+      return;
+    }
+    el.classList.remove('pulse');
+    void el.offsetWidth;
+    el.classList.add('pulse');
+    const t0 = performance.now();
+    const step = (now: number): void => {
+      const k = Math.min(1, (now - t0) / 450);
+      n.textContent = num(Math.round(from + (v - from) * k));
+      if (k < 1) this.moneyRaf = requestAnimationFrame(step);
+    };
+    this.moneyRaf = requestAnimationFrame(step);
+  }
+
   private refreshHud(): void {
     const run = this.g.run!;
     const b = run.bench!;
     const t = L();
-    this.els.money!.textContent = money(run.money);
+    this.setMoney(run.money, false);
     (this.els.hands!.querySelector('b') as HTMLElement).textContent = String(b.hands);
     (this.els.discards!.querySelector('b') as HTMLElement).textContent = String(b.discards);
     (this.els.play!.querySelector('.badge-n') as HTMLElement).textContent = String(b.hands);
@@ -1113,7 +1140,7 @@ export class BenchScreen extends BaseScreen {
     }
     if (out.money) {
       sfx.coin();
-      this.els.money!.textContent = money(run.money);
+      this.setMoney(run.money, true);
     }
     await this.discardPlayed(played);
     await this.afterPlay(out);
