@@ -150,7 +150,8 @@ export class WorkbenchScreen extends BaseScreen {
       this.rebuild();
     }, { color: cablesOn() ? 'green' : 'gray', cls: 'small', title: t.wbx.cablesTip });
     cab.style.minWidth = '58px';
-    placeEl(cab, { x: stats.x + stats.w - 76 - 12 - 58, y: P ? stats.y + 2 : stats.y + 34 });
+    cab.style.height = cab.style.minHeight = '32px'; // same box as the icon buttons next to it
+    placeEl(cab, { x: stats.x + stats.w - 76 - 12 - 58, y: P ? stats.y : stats.y + 32 });
     this.dom.append(wattTxt, chips, menuBtns, cab);
 
     // POST status line
@@ -316,7 +317,7 @@ export class WorkbenchScreen extends BaseScreen {
       this.pc.glowLayer.add(hit);
     }
     const P = this.portrait;
-    const list = h('div', { class: 'glass scroll pe', style: 'padding:4px 5px;display:flex;flex-direction:column;gap:4px;max-height:100%' });
+    const list = h('div', { class: 'glass scroll pe', style: `padding:${P ? 4 : 3}px 5px;display:flex;flex-direction:column;gap:${P ? 4 : 2}px;max-height:100%` });
     list.append(h('div', { class: 't-title', style: 'font-size:9.5px;color:var(--gold-l)' }, `${partName(inst.id)} · ${t.wb.pickSlot}`));
     // parts that leave the build besides the occupant (e.g. on a board swap)
     const extra = (o: SlotOption) => o.displaced.filter((p) => p.uid !== o.occupant?.uid);
@@ -343,19 +344,19 @@ export class WorkbenchScreen extends BaseScreen {
       list.append(b);
     }
     const tools = h('div', { class: 'lr', style: 'display:flex;gap:6px;margin-top:2px' });
-    tools.append(button(t.ui.cancel, () => this.select(null), { color: 'gray' }));
+    tools.append(button(t.ui.cancel, () => this.select(null), { color: 'gray', cls: P ? '' : 'small' }));
     tools.append(button(fmt(t.ui.sellFor, { n: sellValue(inst.paid) }), () => {
       if (this.g.check(sellPart(run, inst.uid))) {
         sfx.coin();
         this.g.save();
         this.select(null);
       }
-    }, { color: 'red' }));
+    }, { color: 'red', cls: P ? '' : 'small' }));
     for (const b of Array.from(tools.children) as HTMLElement[]) b.style.flex = '1';
     list.append(tools);
     const area = P
-      ? { x: 8, y: this.caseArea.y + this.caseArea.h * 0.52, w: this.vp.w - 16, h: this.caseArea.h * 0.48 }
-      : { x: this.caseArea.x + this.caseArea.w + 8, y: 170, w: this.vp.w - this.caseArea.w - 20, h: this.vp.h - 170 - 104 };
+      ? { x: 8, y: this.caseArea.y + this.caseArea.h * 0.2, w: this.vp.w - 16, h: this.caseArea.h * 0.8 }
+      : { x: this.caseArea.x + this.caseArea.w + 8, y: 167, w: this.vp.w - this.caseArea.w - 20, h: this.vp.h - 167 - 47 };
     placeEl(list, area);
     list.style.height = 'auto';
     list.style.maxHeight = `${area.h}px`;
@@ -365,6 +366,20 @@ export class WorkbenchScreen extends BaseScreen {
     }
     this.slotList = list;
     this.dom.append(list);
+    // sub-pixel / button-shadow overshoot must not produce a scrollbar; only real overflow scrolls
+    if (list.scrollHeight - list.clientHeight <= 8) list.style.overflowY = 'hidden';
+    if (P) {
+      // portrait: shrink the case so the list does not cover its lower half
+      const lh = list.offsetHeight;
+      const ca = this.caseArea;
+      const free = ca.h - lh - 6;
+      const k0 = this.pc.sx;
+      const k = Math.min(k0, free / this.pc.ch);
+      if (lh > 0 && k < k0 && k > 0.3) {
+        this.pc.scale(k);
+        this.pc.pos(ca.x + (ca.w - this.pc.cw * k) / 2, ca.y + (free - this.pc.ch * k) / 2 + 2);
+      }
+    }
   }
 
   private slotLabel(s: SlotRef): string {

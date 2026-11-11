@@ -56,7 +56,11 @@ export class GameOverScreen extends BaseScreen {
       statRow(t.gameover.stats.seed, run.seed),
     );
     const bx = this.portrait ? 18 : 120;
-    placeEl(box, { x: bx, y: this.portrait ? 118 : 18, w: w - bx - 18 });
+    // stats scroll in their own area; the buttons keep a fixed strip at the bottom
+    const top = this.portrait ? 118 : 18;
+    const btnH = 46;
+    box.classList.add('scroll', 'pe', 'go-scroll');
+    placeEl(box, { x: bx, y: top, w: w - bx - 18, h: Math.max(40, H - btnH - 12 - top) });
     this.dom.append(box);
     const btns = h(
       'div',
@@ -67,7 +71,7 @@ export class GameOverScreen extends BaseScreen {
       }, { color: 'gray' }),
       button(t.gameover.again, () => g.newRun(), { color: 'green', cls: 'big' }),
     );
-    placeEl(btns, { x: bx, y: H - 54 });
+    placeEl(btns, { x: bx, y: H - btnH - 6, w: w - bx - 18 });
     this.dom.append(btns);
     void bossDef;
   }

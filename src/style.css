@@ -765,3 +765,40 @@ img.sc {
   object-fit: contain;
   flex: none;
 }
+
+/* slot picker: no scrollbar unless the list really overflows; then a slim themed one */
+.glass.scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--steel) transparent;
+}
+.glass.scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.glass.scroll::-webkit-scrollbar-thumb {
+  background: var(--steel);
+  border-radius: 2px;
+}
+.glass.scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* game-over stats: slim themed scrollbar, content padded so nothing sits under the edge */
+.go-scroll {
+  padding-right: 4px;
+  box-sizing: border-box;
+  overscroll-behavior: contain;
+}
+.go-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.go-scroll::-webkit-scrollbar-thumb {
+  background: #9bb4ff;
+  border-radius: 2px;
+}
+.go-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.go-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #9bb4ff transparent;
+}

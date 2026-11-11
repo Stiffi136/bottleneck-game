@@ -7,21 +7,20 @@ import { sfx } from '../audio/sfx';
 /** Settings bottom sheet (also the pause menu). */
 export function openSettings(opts: { inRun?: boolean } = {}): void {
   const s = game.settings;
-  const t = L();
   const seg = <T extends string | number | boolean>(values: T[], labels: string[], cur: T, set: (v: T) => void) => {
     const box = h('div', { class: 'seg' });
     values.forEach((v, i) => {
       const b = button(labels[i]!, () => {
         set(v);
         game.applySettings();
-        handle.close();
-        openSettings(opts);
+        handle.refresh();
       }, { color: 'gray' });
       if (v === cur) b.classList.add('on');
       box.append(b);
     });
     return box;
   };
+  let t = L();
   const onOff = (cur: boolean, set: (v: boolean) => void) => seg([true, false], [t.settings.on, t.settings.off], cur, set);
   const vol = h('input', { type: 'range', min: '0', max: '100', value: String(Math.round(s.volume * 100)) }) as HTMLInputElement;
   vol.addEventListener('input', () => {
@@ -29,7 +28,7 @@ export function openSettings(opts: { inRun?: boolean } = {}): void {
     game.applySettings();
   });
   vol.addEventListener('change', () => sfx.coin());
-  const handle = sheet((close) => [
+  const handle = sheet((close) => (t = L(), [
     h('h3', {}, t.settings.title),
     h('div', { class: 'setrow' }, h('span', {}, t.settings.language), seg<Lang>(Object.keys(LANGS) as Lang[], Object.values(LANGS).map((d) => d.langName), s.lang, (v) => (s.lang = v))),
     h('div', { class: 'setrow' }, h('span', {}, t.settings.sound), onOff(!s.muted, (v) => (s.muted = !v))),
@@ -53,5 +52,5 @@ export function openSettings(opts: { inRun?: boolean } = {}): void {
       : null,
     h('p', { class: 'dim', style: 'font-size:9.5px;margin:6px 0 0' }, `${t.settings.credits}: ${t.settings.creditsText}`),
     h('div', { class: 'actions' }, button(t.ui.close, close, { color: 'blue' })),
-  ], { onClose: () => game.engine.current && (game.engine.current as { refresh?: () => void }).refresh?.() });
+  ]), { onClose: () => game.engine.current && (game.engine.current as { refresh?: () => void }).refresh?.() });
 }

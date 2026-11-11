@@ -175,6 +175,8 @@ export function toast(text: string, kind: 'info' | 'bad' | 'good' = 'info', ms =
 export interface SheetHandle {
   el: HTMLElement;
   close: () => void;
+  /** Re-runs the build function in place (keeps panel, scroll position and focus; no open animation). */
+  refresh: () => void;
 }
 
 let openSheets: SheetHandle[] = [];
@@ -193,12 +195,25 @@ export function sheet(build: (close: () => void) => Child[], opts: { onClose?: (
     hideTip();
     opts.onClose?.();
   };
-  panel.append(h('div', { class: 'handle' }));
-  for (const c of build(close)) if (c !== null && c !== undefined && c !== false) panel.append(typeof c === 'number' ? String(c) : c);
+  const fill = () => {
+    panel.replaceChildren(h('div', { class: 'handle' }));
+    for (const c of build(close)) if (c !== null && c !== undefined && c !== false) panel.append(typeof c === 'number' ? String(c) : c);
+  };
+  fill();
+  const refresh = () => {
+    if (closed) return;
+    const top = panel.scrollTop;
+    const ae = document.activeElement as HTMLElement | null;
+    const focusIdx = ae && panel.contains(ae) ? [...panel.querySelectorAll('button,input')].indexOf(ae) : -1;
+    fill();
+    panel.scrollTop = top;
+    if (focusIdx >= 0) (panel.querySelectorAll('button,input')[focusIdx] as HTMLElement | undefined)?.focus({ preventScroll: true });
+    hideTip();
+  };
   if (opts.dismissable !== false) backdrop.addEventListener('click', close);
   panel.addEventListener('pointerdown', (e) => e.stopPropagation());
   ui.append(backdrop, panel);
-  const handle = { el: panel, close };
+  const handle = { el: panel, close, refresh };
   openSheets.push(handle);
   return handle;
 }

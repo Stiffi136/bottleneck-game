@@ -181,11 +181,16 @@ export class Fx {
     n.destroy();
   }
 
+  /** Overlapping pulses on one node share the original base scale (otherwise the node ratchets up). */
+  private pulseBase = new WeakMap<Node, { sx: number; sy: number; n: number }>();
   async pulse(n: Node, k = 1.2, dur = 0.18): Promise<void> {
-    const bx = n.sx;
-    const by = n.sy;
+    let b = this.pulseBase.get(n);
+    if (!b) this.pulseBase.set(n, (b = { sx: n.sx, sy: n.sy, n: 0 }));
+    b.n++;
+    const { sx: bx, sy: by } = b;
     await tween(n, { sx: bx * k, sy: by * k }, { dur: dur * 0.45, ease: ease.outQuad });
     await tween(n, { sx: bx, sy: by }, { dur: dur * 0.55, ease: ease.outBack });
+    if (--b.n === 0) this.pulseBase.delete(n);
   }
 }
 

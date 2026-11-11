@@ -10,10 +10,10 @@ import { sfx } from '../audio/sfx';
 /** Retro BIOS screen: overclocking and the silicon lottery (GDD 9). */
 export function openBios(onClose: () => void): void {
   const run = game.run!;
-  const t = L();
-  const open = () =>
-    sheet(
+  const hd: { h?: ReturnType<typeof sheet> } = {};
+  hd.h = sheet(
       (close) => {
+        const t = L();
         const st = statsOf(run);
         const rows: HTMLElement[] = [];
         const undervolt = swIds(run).includes('sw16');
@@ -33,8 +33,7 @@ export function openBios(onClose: () => void): void {
             if (game.check(setOc(run, inst.uid, inst.oc + dv))) {
               sfx.tick(inst.oc * 3);
               game.save();
-              close();
-              open();
+              hd.h?.refresh();
             }
           };
           rows.push(
@@ -55,8 +54,7 @@ export function openBios(onClose: () => void): void {
                       if (game.check(stabilityTest(run, inst.uid))) {
                         sfx.beep();
                         game.save();
-                        close();
-                        open();
+                        hd.h?.refresh();
                       }
                     }, { color: 'blue', cls: 'small', disabled: run.money < 1 })
                   : null,
@@ -81,6 +79,5 @@ export function openBios(onClose: () => void): void {
       },
       { onClose },
     );
-  open();
   void fmt;
 }

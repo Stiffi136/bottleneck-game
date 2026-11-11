@@ -38,8 +38,7 @@ export function openToolSheet(index: number, onDone: () => void): void {
         if (picked.has(cid)) picked.delete(cid);
         else if (picked.size < d.cards) picked.add(cid);
         sfx.select();
-        close();
-        open();
+        hd.refresh();
       });
       grid.append(el);
     }
@@ -56,8 +55,7 @@ export function openToolSheet(index: number, onDone: () => void): void {
             ...CARD_TYPES.map((ty) => {
               const b = button([img(`card_typeicon8_${ty}`, 'i8'), t.cardTypes[ty]], () => {
                 type = ty;
-                close();
-                open();
+                hd.refresh();
               }, { color: type === ty ? 'blue' : 'gray', cls: 'small' });
               return b;
             }),
@@ -84,6 +82,5 @@ export function openToolSheet(index: number, onDone: () => void): void {
       ),
     ];
   };
-  const open = () => sheet((close) => render(close));
-  open();
+  const hd = sheet((close) => render(close));
 }
