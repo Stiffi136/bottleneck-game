@@ -104,7 +104,8 @@ export class CardView extends Node {
     this.nameT.text = name;
     // shrink long names to fit the name plate
     let size = 5.5;
-    while (size > 4 && measure('body', name, size) > 36 * 2 - 6) size -= 0.25;
+    const longest = Math.max(...name.split(' ').map((w) => measure('body', w, 1)));
+    while (size > 3.6 && (measure('body', name, size) > 36 * 2 - 6 || longest * size > 37)) size -= 0.2;
     this.nameT.setSize(size);
     place(this.nameT, CARD_W, CARD_H, 0.506, 0.84);
     this.nameT.visible = !this.faceDown;

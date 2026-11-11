@@ -565,7 +565,7 @@ export class ShopScreen extends BaseScreen {
     const cx = w / 2;
     const cy = H / 2 - 20;
     if (animate) {
-      const fxs = this.g.fx.oneShot('fx_pack_open', cx, cy, { fps: 12, scale: 1.4 });
+      const fxs = this.g.fx.oneShot('fx_pack_open', cx, cy - 10, { fps: 12, scale: 2.6 });
       fxs.z = 200;
       sfx.pack();
       await wait(0.55);
@@ -610,8 +610,11 @@ export class ShopScreen extends BaseScreen {
 
   private optionNode(o: PackOption): Node {
     switch (o.kind) {
-      case 'card':
-        return new CardView({ id: -1, type: o.type, level: o.level, enh: o.enh });
+      case 'card': {
+        const cv = new CardView({ id: -1, type: o.type, level: o.level, enh: o.enh });
+        cv.setShowName(this.vp.s >= 1.5);
+        return cv;
+      }
       case 'driver':
         return new ItemCard('card_frame_treiber', profileDef(o.id).icon);
       case 'tool':
