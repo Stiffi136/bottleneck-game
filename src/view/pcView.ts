@@ -10,70 +10,98 @@ import { hexToRgb } from '../render/fx';
  * all installed parts. Coordinates are "case art px"; the whole node is
  * scaled to fit the screen. Positions of parts derive from the real sprite
  * bounds (contentBBox), not from nominal sizes.
+ *
+ * Alignment rules (measured from the case art, see CASE_LAYOUT):
+ * - The board's rear edge sits at the inner edge of the case's slot-bracket
+ *   column; the board scale makes the PCIe pitch equal to the bracket pitch,
+ *   so PCIe slot i lines up with case bracket i.
+ * - Expansion cards are anchored by their own bracket: the bracket covers the
+ *   case brackets of the slots the card occupies (1/2/3-slot cards).
+ * - Fans on the side/top walls are drawn in perspective (squashed), the
+ *   rotating blades are a circle-masked copy of frame 0.
  */
 
-interface CaseLayout {
-  board: { x: number; y: number; scale: number };
-  fans: { x: number; y: number; size: number }[]; // builtin first, then free slots
-  radiator: { x: number; y: number } | null;
-  psu: { x: number; y: number };
-  bays: { x: number; y: number }[];
+interface FanPos {
+  x: number;
+  y: number;
+  /** diameter (art px) before the perspective squash */
+  size: number;
+  /** perspective squash (side walls: sx < 1, top wall: sy < 1) */
+  sx?: number;
+  sy?: number;
 }
 
+interface CaseLayout {
+  /** slot-bracket column: inner (board side) x, top of bracket 0, pitch */
+  brackets: { x: number; y: number; pitch: number };
+  boardScale: number;
+  fans: FanPos[]; // builtin first, then free slots
+  /** top-mounted AIO radiator; `covers` = fan positions it takes (index in fans) */
+  radiator: { y: number; sy: number; r360: { x: number; w: number; covers: number[] }; r240: { x: number; w: number; covers: number[] } } | null;
+  psu: { x: number; y: number };
+  bays: { x: number; y: number; w: number; h: number }[];
+  /** parts of the case art drawn in front of the board (e.g. a drive cage) */
+  front: Rect[];
+}
+
+const SHROUD_BAYS = [
+  { x: 142, y: 262, w: 34, h: 22 },
+  { x: 180, y: 262, w: 34, h: 22 },
+  { x: 218, y: 262, w: 34, h: 22 },
+  { x: 142, y: 285, w: 34, h: 22 },
+  { x: 180, y: 285, w: 34, h: 22 },
+  { x: 218, y: 285, w: 34, h: 22 },
+];
+
 export const CASE_LAYOUT: Record<string, CaseLayout> = {
+  // office tower 240×300: 3× 5.25" bays top right, PSU chamber at the bottom
   CA1: {
-    board: { x: 34, y: 74, scale: 0.8 },
-    fans: [{ x: 21, y: 86, size: 26 }],
+    brackets: { x: 35, y: 152, pitch: 13.2 },
+    boardScale: 0.85,
+    fans: [{ x: 21, y: 87, size: 50, sx: 0.46 }],
     radiator: null,
-    psu: { x: 122, y: 268 },
+    psu: { x: 61, y: 265 },
     bays: [
-      { x: 197, y: 37 },
-      { x: 197, y: 63 },
-      { x: 197, y: 89 },
-      { x: 212, y: 150 },
-      { x: 212, y: 178 },
-      { x: 212, y: 206 },
+      { x: 198, y: 35, w: 46, h: 17 },
+      { x: 198, y: 60, w: 46, h: 17 },
+      { x: 198, y: 85, w: 46, h: 17 },
+      { x: 127, y: 266, w: 36, h: 24 },
+      { x: 165, y: 266, w: 36, h: 24 },
+      { x: 203, y: 266, w: 36, h: 24 },
     ],
+    front: [{ x: 153, y: 18, w: 80, h: 96 }],
   },
+  // mesh airflow 260×320: rear fan, 3 front fans, top mesh for a radiator
   CA3: {
-    board: { x: 40, y: 66, scale: 0.85 },
+    brackets: { x: 44, y: 150, pitch: 11.95 },
+    boardScale: 0.85,
     fans: [
-      { x: 28, y: 90, size: 30 },
-      { x: 230, y: 72, size: 40 },
-      { x: 230, y: 142, size: 40 },
-      { x: 230, y: 210, size: 40 },
+      { x: 28, y: 85, size: 66, sx: 0.27 },
+      { x: 232, y: 72, size: 62, sx: 0.44 },
+      { x: 232, y: 141, size: 62, sx: 0.44 },
+      { x: 232, y: 210, size: 62, sx: 0.44 },
     ],
-    radiator: { x: 122, y: 25 },
-    psu: { x: 78, y: 272 },
-    bays: [
-      { x: 168, y: 262 },
-      { x: 208, y: 262 },
-      { x: 168, y: 286 },
-      { x: 208, y: 286 },
-      { x: 128, y: 286 },
-      { x: 128, y: 262 },
-    ],
+    radiator: { y: 25, sy: 0.42, r360: { x: 122, w: 160, covers: [] }, r240: { x: 108, w: 118, covers: [] } },
+    psu: { x: 64, y: 273 },
+    bays: SHROUD_BAYS,
+    front: [],
   },
+  // glass showcase 260×320: 3 front fans built in, 3 top fan places
   CA4: {
-    board: { x: 36, y: 70, scale: 0.85 },
+    brackets: { x: 37, y: 152, pitch: 11.87 },
+    boardScale: 0.85,
     fans: [
-      { x: 232, y: 75, size: 40 },
-      { x: 232, y: 142, size: 40 },
-      { x: 232, y: 210, size: 40 },
-      { x: 63, y: 30, size: 38 },
-      { x: 130, y: 30, size: 38 },
-      { x: 196, y: 30, size: 38 },
+      { x: 233, y: 75, size: 62, sx: 0.47 },
+      { x: 233, y: 142, size: 62, sx: 0.47 },
+      { x: 233, y: 209, size: 62, sx: 0.47 },
+      { x: 65, y: 33, size: 56, sy: 0.4 },
+      { x: 131, y: 33, size: 56, sy: 0.4 },
+      { x: 196, y: 33, size: 56, sy: 0.4 },
     ],
-    radiator: { x: 130, y: 30 },
-    psu: { x: 78, y: 272 },
-    bays: [
-      { x: 168, y: 262 },
-      { x: 208, y: 262 },
-      { x: 168, y: 286 },
-      { x: 208, y: 286 },
-      { x: 128, y: 286 },
-      { x: 128, y: 262 },
-    ],
+    radiator: { y: 33, sy: 0.45, r360: { x: 130, w: 186, covers: [3, 4, 5] }, r240: { x: 163, w: 126, covers: [4, 5] } },
+    psu: { x: 62, y: 273 },
+    bays: SHROUD_BAYS,
+    front: [],
   },
 };
 
@@ -83,8 +111,25 @@ const BRAND_COLOR: Record<string, number> = { veridia: 0x3fbf5f, rubeon: 0xe8432
 // board-space constants (art px, before board scale)
 const PCIE_Y0 = 96;
 const PCIE_PITCH = 14;
-const SLOT_X = 22;
+/** left edge of an expansion card (its bracket) relative to the board edge */
+const CARD_X = -11;
+/** PCIe slot start: the contacts of all cards begin ~17 px right of their bracket */
+const SLOT_X = CARD_X + 17;
+const SLOT_X16_W = 66;
+const SLOT_X1_W = 18;
 const SOCKET = { x: 58, y: 46 };
+
+/** GPU art: contact start (fraction of content width), fan centres. */
+const GPU_ART = {
+  S: { name: 'gpu_s', w: 112, ar: 76 / 448, fans: [] as number[], fy: 0 },
+  M: { name: 'gpu_m_0', w: 176, ar: 151 / 704, fans: [0.338, 0.731], fy: 0.434 },
+  L: { name: 'gpu_l_0', w: 216, ar: 232 / 865, fans: [0.288, 0.553, 0.8], fy: 0.473 },
+} as const;
+
+/** Shown height of a card: the slots it occupies, squashed at most to 70 % (perspective). */
+function cardHeight(natH: number, slots: number): number {
+  return Math.max(natH * 0.7, Math.min(natH, slots * PCIE_PITCH - 1.5));
+}
 
 export interface SlotGeom {
   slot: SlotRef;
@@ -102,6 +147,8 @@ export class PcView extends Node {
   readonly glowLayer = new Node();
   readonly fanSpinners: { s: Sprite; speed: number }[] = [];
   fanSpeed = 1;
+  /** draw power cables and AIO tubes (cosmetic, can be switched off) */
+  cables = true;
 
   rebuildFrom(b: Build): void {
     this.removeAll();
@@ -121,26 +168,29 @@ export class PcView extends Node {
       if (b.case) this.partNodes.set(b.case.uid, c);
     }
     this.slotGeoms.push({ slot: { kind: 'case', index: 0 }, rect: { x: 0, y: 0, w: this.cw, h: this.ch } });
-    // fans (builtin + free slots)
+    // radiator (AIO) takes fan places
+    const cooler = b.cooler ? partOf(b.cooler.id, 'cooler') : null;
+    const rad = cooler?.radiator && L.radiator ? (cooler.radiator === 360 ? L.radiator.r360 : L.radiator.r240) : null;
+    // fans (builtin + free slots); free slots skip places under the radiator
     const builtin = cs?.builtinFans ?? [];
     const freeN = cs ? caseFreeFanSlots(cs) : 0;
-    L.fans.forEach((pos, i) => {
-      if (i < builtin.length) {
-        this.add(this.fanNode(builtin[i]!, pos.size)).pos(pos.x, pos.y);
-      } else {
-        const fi = i - builtin.length;
-        if (fi >= freeN) return;
-        const inst = b.fans[fi];
-        if (inst) {
-          const n = this.fanNode(inst.id, pos.size);
-          n.pos(pos.x, pos.y);
-          this.add(n);
-          this.partNodes.set(inst.uid, n);
-        }
-        this.slotGeoms.push({ slot: { kind: 'fan', index: fi }, rect: { x: pos.x - pos.size / 2, y: pos.y - pos.size / 2, w: pos.size, h: pos.size } });
+    L.fans.slice(0, builtin.length).forEach((pos, i) => this.add(this.fanNode(builtin[i]!, pos)));
+    const freePos = L.fans.slice(builtin.length).map((p, i) => ({ p, i: i + builtin.length }));
+    const order = [...freePos.filter((f) => !rad?.covers.includes(f.i)), ...freePos.filter((f) => rad?.covers.includes(f.i))];
+    for (let fi = 0; fi < freeN; fi++) {
+      const pos = order[fi]?.p;
+      if (!pos) continue;
+      const inst = b.fans[fi];
+      if (inst) {
+        const n = this.fanNode(inst.id, pos);
+        this.add(n);
+        this.partNodes.set(inst.uid, n);
       }
-    });
-    // PSU
+      const w = pos.size * (pos.sx ?? 1);
+      const h = pos.size * (pos.sy ?? 1);
+      this.slotGeoms.push({ slot: { kind: 'fan', index: fi }, rect: { x: pos.x - w / 2, y: pos.y - h / 2, w, h } });
+    }
+    // PSU (bottom, rear)
     const psuRect = { x: L.psu.x - 38, y: L.psu.y - 20, w: 76, h: 40 };
     if (b.psu) {
       const pd = partOf(b.psu.id, 'psu');
@@ -150,13 +200,28 @@ export class PcView extends Node {
       this.partNodes.set(b.psu.uid, s);
     }
     this.slotGeoms.push({ slot: { kind: 'psu', index: 0 }, rect: psuRect });
+    // board
+    const bs = L.boardScale;
+    this.add(this.board);
+    this.board.pos(L.brackets.x, L.brackets.y - (PCIE_Y0 + 1) * bs).scale(bs);
+    this.buildBoard(b, L);
+    // case parts in front of the board (drive cage)
+    for (const r of L.front) {
+      if (!cs) break;
+      const f = new Sprite(cs.sprite, { region: 'cell', ax: 0, ay: 0 });
+      f.regionRect = { ...r };
+      f.size(r.w, r.h).pos(r.x, r.y);
+      this.add(f);
+    }
+    // cables in front of the board, behind drives (they vanish into the shroud)
+    if (this.cables) this.addCables(b, L, cooler?.radiator && L.radiator && rad ? { x: rad.x - rad.w / 2 + 12, y: L.radiator.y + 8 } : null);
     // SATA drives in bays
     b.sata.forEach((inst, i) => {
       const pos = L.bays[i] ?? L.bays[L.bays.length - 1]!;
       if (inst) {
         const d = partOf(inst.id, 'drive');
         const s = new Sprite(d.kind === 'hdd' ? 'drive_hdd' : 'drive_sata_ssd', { region: 'anim' });
-        s.fit(36, 24).pos(pos.x, pos.y);
+        s.fit(pos.w, pos.h).pos(pos.x, pos.y);
         if (d.kind === 'hdd') {
           s.tick = () => {
             s.frameIndex = Math.random() < 0.04 ? 1 : 0;
@@ -165,28 +230,83 @@ export class PcView extends Node {
         this.add(s);
         this.partNodes.set(inst.uid, s);
       }
-      this.slotGeoms.push({ slot: { kind: 'sata', index: i }, rect: { x: pos.x - 18, y: pos.y - 12, w: 36, h: 24 } });
+      this.slotGeoms.push({ slot: { kind: 'sata', index: i }, rect: { x: pos.x - pos.w / 2, y: pos.y - pos.h / 2, w: pos.w, h: pos.h } });
     });
-    // board
-    this.add(this.board);
-    this.board.pos(L.board.x, L.board.y).scale(L.board.scale);
-    this.buildBoard(b, L);
-    // radiator (AIO)
-    if (b.cooler && L.radiator) {
-      const cd = partOf(b.cooler.id, 'cooler');
-      if (cd.radiator) {
-        const r = new Sprite(cd.radiator === 360 ? 'radiator_360' : 'radiator_240', { region: 'content' });
-        r.fit(cd.radiator === 360 ? 120 : 84, 34).pos(L.radiator.x, L.radiator.y);
-        this.add(r);
-        this.addRadiatorFans(r, cd.radiator === 360 ? 3 : 2, !!cd.rgb);
-      }
+    // radiator (AIO, top)
+    if (cooler?.radiator && L.radiator && rad) {
+      const n = new Node();
+      n.pos(rad.x, L.radiator.y);
+      n.sy = L.radiator.sy;
+      const r = new Sprite(cooler.radiator === 360 ? 'radiator_360' : 'radiator_240', { region: 'content' });
+      r.size(rad.w, (rad.w * r.natH) / r.natW);
+      n.add(r);
+      this.addRadiatorFans(n, r, cooler.radiator === 360 ? 3 : 2, !!cooler.rgb);
+      this.add(n);
     }
     this.add(this.glowLayer);
   }
 
-  private fanNode(id: string, size: number): Node {
+  /**
+   * Cosmetic cabling: 24-pin from the board edge into the grommet, EPS up
+   * through the top grommet, PCIe power from the GPU end down to the PSU
+   * shroud and the AIO tubes from the pump to the radiator.
+   */
+  private addCables(b: Build, L: CaseLayout, radEnd: { x: number; y: number } | null): void {
+    const bd = boardOf(b);
+    if (!bd) return;
+    const bs = this.board.sx;
+    const H = bd.form === 'ATX' || bd.form === 'EATX' ? 200 : 160;
+    const floor = L.psu.y - 22; // top of the PSU shroud / chamber
+    const right = this.board.x + 160 * bs;
+    const SLEEVE = 0x1c1c26;
+    if (b.psu) {
+      const a = this.toCase(151, 52);
+      this.cable([{ x: a.x - 2, y: a.y }, { x: right + 7, y: a.y }], 6, SLEEVE); // into the grommet
+      const e = this.toCase(18, 8);
+      this.cable([e, { x: e.x, y: this.board.y - 7 }], 3.5, SLEEVE);
+      // GPU power
+      b.pcie.forEach((p, i) => {
+        if (!p) return;
+        const d = part(p.id);
+        if (d.cat !== 'gpu' || d.len === 'S') return;
+        const g = GPU_ART[d.len];
+        const h = cardHeight((g.w * g.ar), d.width);
+        const end = this.toCase(CARD_X + g.w * 0.9, PCIE_Y0 + i * PCIE_PITCH + 1 + h);
+        const yMax = this.board.y + H * bs;
+        this.cable([end, { x: end.x, y: Math.max(end.y + 4, Math.min(yMax + 4, floor - 6)) }, { x: end.x - 6, y: floor + 4 }], 4, SLEEVE);
+      });
+    }
+    if (radEnd && b.cooler) {
+      const p = this.toCase(SOCKET.x - 6, SOCKET.y - 12);
+      for (const dx of [0, 5]) this.cable([{ x: p.x + dx, y: p.y }, { x: p.x + dx, y: radEnd.y + 10 }, { x: radEnd.x + dx, y: radEnd.y }], 3, 0x23232e);
+    }
+  }
+
+  /** A thick polyline with a highlight stripe (sleeved cable / tube). */
+  private cable(pts: { x: number; y: number }[], w: number, color: number): void {
+    const n = new Node();
+    const seg = (a: { x: number; y: number }, c: { x: number; y: number }, width: number, col: number, alpha: number, off: number) => {
+      const len = Math.hypot(c.x - a.x, c.y - a.y);
+      const r = new Rect2(len + width, width, col, alpha);
+      r.ax = 0;
+      r.ay = 0.5;
+      r.rot = Math.atan2(c.y - a.y, c.x - a.x);
+      r.pos(a.x - Math.cos(r.rot) * width * 0.5 - Math.sin(r.rot) * off, a.y - Math.sin(r.rot) * width * 0.5 + Math.cos(r.rot) * off);
+      n.add(r);
+    };
+    for (let i = 1; i < pts.length; i++) seg(pts[i - 1]!, pts[i]!, w, 0x0a0a10, 1, 0);
+    for (let i = 1; i < pts.length; i++) seg(pts[i - 1]!, pts[i]!, w - 1.2, color, 1, 0);
+    for (let i = 1; i < pts.length; i++) seg(pts[i - 1]!, pts[i]!, Math.max(0.8, w * 0.22), 0x5a5a70, 0.8, -w * 0.18);
+    this.add(n);
+  }
+
+  private fanNode(id: string, pos: FanPos): Node {
     const d = part(id);
     const n = new Node();
+    n.pos(pos.x, pos.y);
+    n.sx = pos.sx ?? 1;
+    n.sy = pos.sy ?? 1;
+    const size = pos.size;
     const frameName = d.rgb ? 'case_fan_0' : 'icon_fan_1';
     const base = new Sprite(frameName, { region: 'content' });
     base.fit(size, size);
@@ -198,19 +318,19 @@ export class PcView extends Node {
     spin.mode = 'circle';
     spin.param = d.rgb ? 0.36 : 0.4;
     n.add(spin);
+    n.hit = { x: -size / 2, y: -size / 2, w: size, h: size };
     this.fanSpinners.push({ s: spin, speed: 9 + Math.random() * 3 });
     return n;
   }
 
-  private addRadiatorFans(r: Sprite, n: number, rgb: boolean): void {
-    for (let i = 0; i < n; i++) {
-      const fx = r.x - r.w / 2 + (r.w / n) * (i + 0.5) - (n === 3 ? 1.5 : 2);
+  private addRadiatorFans(n: Node, r: Sprite, count: number, rgb: boolean): void {
+    for (let i = 0; i < count; i++) {
+      const fx = -r.w / 2 + (r.w / count) * (i + 0.5) - (count === 3 ? 1.5 : 2) * (r.w / 120);
       const s = new Sprite(rgb ? 'case_fan_0' : 'icon_fan_1', { region: 'content' });
-      s.fit(r.h * 0.82, r.h * 0.82).pos(fx, r.y);
+      s.fit(r.h * 0.82, r.h * 0.82).pos(fx, 0);
       s.mode = 'circle';
       s.param = 0.38;
-      if (rgb) s.mode = 'circle';
-      this.add(s);
+      n.add(s);
       this.fanSpinners.push({ s, speed: 8 + Math.random() * 2 });
     }
   }
@@ -277,6 +397,7 @@ export class PcView extends Node {
           if (rd.look === 'rgb') s.mode = 'rgb';
           n.add(s);
         }
+        n.hit = { x: x0 - 5, y: 9, w: 18, h: 82 };
         B.add(n);
         this.partNodes.set(kit.uid, n);
       }
@@ -296,15 +417,16 @@ export class PcView extends Node {
       }
       this.slotGeoms.push({ slot: { kind: 'm2', index: i }, rect: this.boardRect(58, y - 6, 52, 12) });
     }
-    // PCIe slots + cards (cards hang below their slot)
+    // PCIe slots + cards (cards hang below their slot, their bracket on the case brackets)
     const cards: { inst: PartInst; i: number }[] = [];
     bd.pcie.forEach((sd, i) => {
       const y = PCIE_Y0 + i * PCIE_PITCH;
-      const s = add(sd.size === 16 ? 'slot_pcie_x16' : 'slot_pcie_x1', SLOT_X, y, sd.size === 16 ? 56 : 17, 8, { ax: 0 });
+      const s = add(sd.size === 16 ? 'slot_pcie_x16' : 'slot_pcie_x1', SLOT_X, y, undefined, undefined, { ax: 0 });
+      s.size(sd.size === 16 ? SLOT_X16_W : SLOT_X1_W, 8);
       if (sd.size === 16 && sd.lanes < 16) s.tint = [0.75, 0.75, 0.85];
       const inst = b.pcie[i];
       if (inst) cards.push({ inst, i });
-      this.slotGeoms.push({ slot: { kind: 'pcie', index: i }, rect: this.boardRect(SLOT_X - 2, y - 6, sd.size === 16 ? 60 : 24, 12) });
+      this.slotGeoms.push({ slot: { kind: 'pcie', index: i }, rect: this.boardRect(SLOT_X - 2, y - 6, (sd.size === 16 ? SLOT_X16_W : SLOT_X1_W) + 4, 12) });
     });
     // CPU / cooler
     if (b.cpu) {
@@ -337,8 +459,9 @@ export class PcView extends Node {
       this.partNodes.set(b.cooler.uid, s);
     }
     this.slotGeoms.push({ slot: { kind: 'cooler', index: 0 }, rect: coolerRect });
-    // cards last (they cover slots below)
-    for (const { inst, i } of cards) {
+    // cards last (they cover the slots below); lower slots on top so that an
+    // upper card's bottom edge never hides the contacts of the card below
+    for (const { inst, i } of cards.sort((a, b2) => a.i - b2.i)) {
       const n = this.cardNode(inst, PCIE_Y0 + i * PCIE_PITCH);
       B.add(n);
       this.partNodes.set(inst.uid, n);
@@ -361,54 +484,64 @@ export class PcView extends Node {
     this.fanSpinners.push({ s: spin, speed: 10 });
   }
 
+  /**
+   * An expansion card "folded open" below its slot: contacts at the top,
+   * bracket at the left on the case brackets. Its height equals the slots it
+   * occupies (GPU width 1/2/3), so the art is squashed slightly (perspective).
+   */
   private cardNode(inst: PartInst, slotY: number): Node {
     const d = part(inst.id);
     const n = new Node();
+    const c = new Node(); // flipped + squashed card space (art orientation)
+    n.add(c);
+    let w: number;
+    let natH: number;
+    let slots: number;
+    let s: Sprite;
     if (d.cat === 'gpu') {
       const g = partOf(inst.id, 'gpu');
-      const name = g.len === 'S' ? 'gpu_s' : g.len === 'M' ? 'gpu_m_0' : 'gpu_l_0';
-      const s = new Sprite(name, { region: 'content', ax: 0, ay: 0 });
-      const w = g.len === 'S' ? 112 : g.len === 'M' ? 176 : 216;
-      s.size(w, (w * s.natH) / s.natW);
-      const contact = g.len === 'S' ? 0.15 : g.len === 'M' ? 0.18 : 0.17;
-      // hang below the slot: flip vertically, contacts at the top
-      s.sy = -1;
-      s.pos(SLOT_X - contact * w + 3, slotY + s.h + 1);
+      const art = GPU_ART[g.len];
+      s = new Sprite(art.name, { region: 'content', ax: 0, ay: 0 });
+      w = art.w;
+      natH = (w * s.natH) / s.natW;
+      slots = g.width;
+      s.size(w, natH);
       if (g.len !== 'S') {
         s.mode = 'brand';
         s.swap = hexToRgb(BRAND_COLOR[g.brand] ?? 0x3fbf5f);
       }
       if (inst.broken) s.tint = [0.55, 0.45, 0.45];
-      n.add(s);
-      // rotating fans (frame 0 + code rotation, the frames do not rotate cleanly)
-      const fans = g.len === 'M' ? [0.34, 0.727] : g.len === 'L' ? [0.3, 0.554, 0.8] : [];
-      const fy = g.len === 'M' ? 0.417 : 0.453;
-      for (const fx of fans) {
-        const spin = new Sprite(name, { region: 'content' });
+      c.add(s);
+      // rotating fans: frame 0 + code rotation (the sheet frames do not rotate cleanly)
+      for (const fx of art.fans) {
+        const spin = new Sprite(art.name, { region: 'content' });
         const rr = s.regionRect;
         const rad = 0.41 * rr.h;
-        spin.regionRect = { x: rr.x + fx * rr.w - rad, y: rr.y + fy * rr.h - rad, w: rad * 2, h: rad * 2 };
-        const k = s.w / rr.w;
+        spin.regionRect = { x: rr.x + fx * rr.w - rad, y: rr.y + art.fy * rr.h - rad, w: rad * 2, h: rad * 2 };
+        const k = w / rr.w;
         spin.size(rad * 2 * k, rad * 2 * k);
-        spin.sy = -1;
-        spin.pos(s.x + fx * s.w, s.y - fy * s.h);
+        spin.pos(fx * w, art.fy * natH);
         spin.mode = 'circle';
         spin.param = 0.47;
-        spin.swap = s.swap;
-        n.add(spin);
+        if (inst.broken) spin.tint = s.tint;
+        c.add(spin);
         if (!inst.broken) this.fanSpinners.push({ s: spin, speed: 7 + Math.random() });
       }
     } else {
       const e = partOf(inst.id, 'exp');
       const name = e.effect === 'nic' ? 'exp_nic' : e.effect === 'sound' ? 'exp_sound' : 'exp_capture';
-      const s = new Sprite(name, { region: 'content', ax: 0, ay: 0 });
-      const w = e.effect === 'nic' ? 40 : 50;
-      s.size(w, (w * s.natH) / s.natW);
-      const contact = e.effect === 'nic' ? 0.45 : 0.33;
-      s.sy = -1;
-      s.pos(SLOT_X - contact * w + 2, slotY + s.h + 1);
-      n.add(s);
+      s = new Sprite(name, { region: 'content', ax: 0, ay: 0 });
+      w = e.effect === 'nic' ? 40 : 50;
+      natH = (w * s.natH) / s.natW;
+      slots = 1;
+      s.size(w, natH);
+      c.add(s);
     }
+    // squash to the occupied slots (but never below 70 % – keeps the art readable)
+    const h = cardHeight(natH, slots);
+    c.sy = -h / natH;
+    c.pos(CARD_X, slotY + 1 + h);
+    n.hit = { x: CARD_X, y: slotY + 1, w, h };
     return n;
   }
 
