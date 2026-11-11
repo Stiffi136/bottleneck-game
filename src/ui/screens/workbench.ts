@@ -1,18 +1,547 @@
-import { BaseScreen, placeEl } from './base';
-import { button } from '../dom';
-import { L } from '../../i18n';
-import { leaveWorkbench } from '../../core/run';
+import { BaseScreen, placeEl, type Box } from './base';
+import { Node, Rect2, Sprite, Text } from '../../render/scene';
+import { PcView } from '../../view/pcView';
+import { button, h, hideTip, img, sheet, showTip, toast } from '../dom';
+import { L, fmt, money } from '../../i18n';
+import {
+  backToShop,
+  installPart,
+  leaveWorkbench,
+  postIssues,
+  sellPart,
+  statsOf,
+  swIds,
+  swSlotsUsed,
+  uninstallPart,
+} from '../../core/run';
+import { slotOptions, type Issue, type SlotOption } from '../../core/compat';
+import { part } from '../../core/data/hardware';
+import { installed, findSlotOf } from '../../core/build';
+import type { PartInst, SlotRef } from '../../core/types';
+import { issueText, partCard, partName } from '../describe';
+import { openBios } from '../bios';
+import { openDeck } from '../deckSheet';
+import { openSettings } from '../settings';
+import { sfx } from '../../audio/sfx';
+import { ease, tween, wait } from '../../render/tween';
+import { sellValue } from '../../core/difficulty';
+import { hexToRgb } from '../../render/fx';
+
+const LED_ORDER = ['cpu', 'dram', 'vga', 'boot'] as const;
 
 export class WorkbenchScreen extends BaseScreen {
+  private pc = new PcView();
+  private caseArea!: Box;
+  private storageNodes: { node: Sprite; inst: PartInst; x: number; y: number }[] = [];
+  private sel: number | null = null;
+  private options: SlotOption[] = [];
+  slotList: HTMLElement | null = null;
+  private leds: Sprite[] = [];
+  private busy = false;
+  private ghost: Sprite | null = null;
+
+  override enter(): void {
+    super.enter();
+    const p = this.g.pendingInstall;
+    this.g.pendingInstall = null;
+    if (p !== null && this.g.run!.storage.some((s) => s.uid === p)) this.select(p);
+  }
+
   build(): void {
-    this.g.setBg('esd');
-    const b = button(L().wb.postRun, () => {
-      if (this.g.check(leaveWorkbench(this.g.run!))) {
-        this.g.save();
-        this.g.route();
+    const g = this.g;
+    const run = g.run!;
+    g.setBg('esd');
+    const t = L();
+    const { w, h: H } = this.vp;
+    const P = this.portrait;
+    this.storageNodes = [];
+    this.leds = [];
+    this.slotList = null;
+
+    // regions
+    let stats: Box;
+    let storage: Box;
+    let buttons: Box;
+    let status: Box;
+    let leds: Box;
+    if (P) {
+      stats = { x: 4, y: 4, w: w - 8, h: 38 };
+      buttons = { x: 6, y: H - 48, w: w - 12, h: 42 };
+      storage = { x: 6, y: buttons.y - 56, w: w - 12, h: 52 };
+      status = { x: 6, y: storage.y - 22, w: w - 12, h: 20 };
+      leds = { x: w - 112, y: storage.y + 6, w: 106, h: 40 };
+      this.caseArea = { x: 4, y: stats.y + stats.h + 4, w: w - 8, h: status.y - (stats.y + stats.h + 4) - 2 };
+    } else {
+      const caseW = Math.min(w * 0.46, (H - 8) * (260 / 320));
+      this.caseArea = { x: 4, y: 4, w: caseW, h: H - 8 };
+      const rx = caseW + 12;
+      const rw = w - rx - 6;
+      stats = { x: rx, y: 4, w: rw, h: 60 };
+      status = { x: rx, y: 70, w: rw, h: 34 };
+      storage = { x: rx, y: 110, w: rw, h: 56 };
+      leds = { x: rx + rw - 110, y: H - 96, w: 106, h: 40 };
+      buttons = { x: rx, y: H - 46, w: rw, h: 40 };
+    }
+
+    // PC view
+    this.pc = new PcView();
+    this.pc.rebuildFrom(run.build);
+    const k = Math.min(this.caseArea.w / this.pc.cw, this.caseArea.h / this.pc.ch);
+    this.pc.scale(k);
+    this.pc.pos(this.caseArea.x + (this.caseArea.w - this.pc.cw * k) / 2, this.caseArea.y + (this.caseArea.h - this.pc.ch * k) / 2);
+    this.root.add(this.pc);
+    this.makePartsInteractive();
+
+    // stats
+    const st = statsOf(run);
+    const load = st.watt ? st.tdp / st.watt : 1;
+    const wattFrame = new Sprite('ui_wattbar_frame', { region: 'content' });
+    const barW = P ? 120 : Math.min(150, stats.w - 70);
+    wattFrame.size(barW, barW * (46 / 496));
+    const fill = new Sprite(`ui_wattbar_fill_${load < 0.7 ? 0 : load <= 0.9 ? 1 : 2}`, { region: 'content', ax: 0 });
+    fill.size(barW * 0.86, wattFrame.h * 0.5);
+    fill.cropR = Math.min(1, load);
+    const wattNode = new Node();
+    wattNode.add(wattFrame);
+    fill.x = -barW * 0.41;
+    wattNode.add(fill);
+    wattNode.pos(stats.x + barW / 2 + 2, stats.y + 8);
+    this.root.add(wattNode);
+    const wattTxt = h('div', { class: `t-title shadow ${load > 1 ? 'c-bad' : load > 0.9 ? 'c-warn' : ''}`, style: 'font-size:9px' }, `${st.tdp}/${st.watt} W`);
+    placeEl(wattTxt, { x: stats.x + barW + 8, y: stats.y + 2 });
+    const chips = h(
+      'div',
+      { style: 'display:flex;flex-wrap:wrap;gap:2px 7px;font-size:9px' },
+      h('span', {}, img('icon8_kuehlung', 'i8'), ` ${st.cooling}`),
+      h('span', {}, img('icon8_lanes', 'i8'), ` ${st.lanesUsed}/${st.lanesAvail}`),
+      h('span', {}, img('icon8_kerne', 'i8'), ` ${t.stat.cores} ${st.cores}`),
+      h('span', {}, img('icon16_handgroesse'), ` ${t.stat.hand} ${st.handSize}`),
+      h('span', {}, img('icon16_softwareslot'), ` ${swSlotsUsed(run)}/${st.swSlots}`),
+      h('span', {}, img('icon8_neuprio', 'i8'), ` ${st.rerolls}`),
+      h('span', { class: 'c-gold t-title' }, money(run.money)),
+    );
+    placeEl(chips, { x: stats.x, y: stats.y + 18, w: stats.w });
+    const menuBtns = h('div', { style: 'display:flex;gap:3px' }, button('', () => openDeck(), { color: 'gray', cls: 'iconbtn', icon: 'icon16_deck' }), button('', () => openSettings({ inRun: true }), { color: 'gray', cls: 'iconbtn', icon: 'icon16_einstellungen' }));
+    placeEl(menuBtns, { x: stats.x + stats.w - 60, y: stats.y });
+    if (!P) placeEl(menuBtns, { x: stats.x + stats.w - 60, y: stats.y + 32 });
+    this.dom.append(wattTxt, chips, menuBtns);
+
+    // POST status line
+    const issues = postIssues(run);
+    const err = issues.find((i) => i.severity === 'error');
+    const warns = issues.filter((i) => i.severity === 'warn');
+    const statusEl = h(
+      'div',
+      { class: 'glass', style: 'font-size:9px;padding:2px 5px;line-height:1.2;overflow:hidden' },
+      err
+        ? h('span', { class: 'c-bad' }, img('icon16_kompat_nein', 'i8'), ' ' + issueText(err))
+        : h('span', { class: 'c-ok' }, img('icon16_kompat_ok', 'i8'), ' ' + t.wb.postOk),
+      warns.length ? h('span', { class: 'c-warn' }, ' · ', img('icon16_kompat_warn', 'i8'), ' ' + issueText(warns[0]!)) : null,
+    );
+    placeEl(statusEl, status);
+    statusEl.style.height = `${status.h}px`;
+    this.dom.append(statusEl);
+
+    // storage tray
+    this.panel(storage, 'dark');
+    const sl = h('div', { class: 't-title dim', style: 'font-size:7.5px' }, fmt(t.wb.storageN, { n: run.storage.length }));
+    placeEl(sl, { x: storage.x + 7, y: storage.y + 3 });
+    this.dom.append(sl);
+    const ss = 38;
+    for (let i = 0; i < 3; i++) {
+      const x = storage.x + 10 + ss / 2 + i * (ss + 6);
+      const y = storage.y + 12 + ss / 2 - 2;
+      const slot = new Sprite('ui_slot_empty_lager', { region: 'content' });
+      slot.size(ss, ss).pos(x, y);
+      this.root.add(slot);
+      const p = run.storage[i];
+      if (!p) continue;
+      const d = part(p.id);
+      const ic = new Sprite(d.icon, { region: 'content' });
+      ic.fit(ss - 6, ss - 6).pos(x, y);
+      if (d.rgb) ic.mode = 'rgb';
+      if (this.sel === p.uid) {
+        ic.flash = 0.25;
+        const hl = new Sprite('ui_card_highlight', { region: 'anim' });
+        hl.size(ss + 6, ss + 6).pos(x, y).play(8);
+        this.root.add(hl);
       }
-    }, { color: 'green', cls: 'big' });
-    placeEl(b, { x: 20, y: this.vp.h - 60 });
-    this.dom.append(b);
+      this.root.add(ic);
+      this.storageNodes.push({ node: ic, inst: p, x, y });
+      ic.interactive = {
+        onTap: () => this.select(this.sel === p.uid ? null : p.uid),
+        onHover: (inside) => (inside ? showTip(partCard(p.id, p), this.rectOf(ic), ic) : hideTip(ic)),
+        onLongPress: () => this.openStored(p),
+        onDragStart: () => this.dragStart(p, ic),
+        onDrag: (e) => this.dragMove(e.x, e.y),
+        onDragEnd: (e) => void this.dragEnd(e.x, e.y),
+      };
+    }
+    if (!run.storage.length) {
+      const hint = h('div', { class: 'dim', style: 'font-size:8.5px;line-height:1.2' }, t.wb.clickPart);
+      placeEl(hint, { x: storage.x + 150, y: storage.y + 12, w: storage.w - 160 });
+      if (P) hint.style.width = `${Math.max(60, leds.x - storage.x - 156)}px`;
+      this.dom.append(hint);
+    }
+
+    // POST LEDs
+    LED_ORDER.forEach((led, i) => {
+      const x = leds.x + 13 + i * 27;
+      const s = new Sprite(`fx_post_led_${i * 2}`, { region: 'content' });
+      s.fit(10, 10).pos(x, leds.y + 14);
+      this.root.add(s);
+      this.leds.push(s);
+      const lab = new Text(t.led[led], { font: 'title', size: 6, align: 'center', valign: 'middle', color: 0x9b9bb4 });
+      lab.pos(x, leds.y + 27);
+      this.root.add(lab);
+    });
+
+    // buttons
+    const row = h('div', { style: 'display:flex;gap:5px;height:100%' });
+    const back = button(['◀ ', t.ui.shop], () => {
+      if (g.check(backToShop(run))) {
+        g.save();
+        g.route();
+      }
+    }, { color: 'blue' });
+    const bios = button(t.ui.bios, () => openBios(() => this.rebuild()), { color: 'gray', icon: 'icon16_bios' });
+    const post = button(t.wb.postRun, () => void this.runPost(), { color: err ? 'red' : 'green', cls: 'big' });
+    post.style.flex = '1';
+    row.append(back, bios, post);
+    placeEl(row, buttons);
+    this.dom.append(row);
+
+    if (this.sel !== null) this.showSlotList();
+    void Rect2;
+  }
+
+  private rectOf(n: Node): Box {
+    return n.worldRect() ?? { x: 0, y: 0, w: 0, h: 0 };
+  }
+
+  /** Case coords → screen (virtual) coords. */
+  private caseToScreen(x: number, y: number): { x: number; y: number } {
+    return { x: this.pc.x + x * this.pc.sx, y: this.pc.y + y * this.pc.sy };
+  }
+
+  private makePartsInteractive(): void {
+    const run = this.g.run!;
+    for (const { inst } of installed(run.build)) {
+      const n = this.pc.partNode(inst.uid);
+      if (!n) continue;
+      const d = part(inst.id);
+      if (d.cat === 'case' || d.cat === 'board') continue; // via slot list / detail
+      n.interactive = {
+        onTap: () => (this.sel !== null ? this.tapSlotAt(inst.uid) : this.openInstalled(inst)),
+        onHover: (inside) => (inside ? showTip(partCard(inst.id, inst), this.rectOf(n), n) : hideTip(n)),
+        pad: 1,
+      };
+    }
+    // board & case: hit areas on the PCB
+    if (run.build.board) {
+      const bn = this.pc.partNode(run.build.board.uid);
+      if (bn) {
+        bn.z = -1;
+        bn.interactive = { onTap: () => (this.sel !== null ? this.tapSlotAt(run.build.board!.uid) : this.openInstalled(run.build.board!)) };
+      }
+    }
+  }
+
+  private tapSlotAt(uid: number): void {
+    const run = this.g.run!;
+    const slot = findSlotOf(run.build, uid);
+    if (!slot) return;
+    const o = this.options.find((x) => x.slot.kind === slot.kind && x.slot.index === slot.index);
+    if (o) void this.tryInstall(o);
+  }
+
+  // ------------------------------------------------------------ selection
+
+  private select(uid: number | null): void {
+    this.sel = uid;
+    const run = this.g.run!;
+    const inst = run.storage.find((p) => p.uid === uid);
+    this.options = inst ? slotOptions(run.build, inst, { software: swIds(run), pasteUses: run.pasteUses }) : [];
+    if (uid !== null) sfx.select();
+    this.rebuild();
+  }
+
+  private showSlotList(): void {
+    const run = this.g.run!;
+    const inst = run.storage.find((p) => p.uid === this.sel);
+    if (!inst) return;
+    const t = L();
+    const color = { ok: 0x3fbf5f, warn: 0xffd23f, bad: 0xe8432d } as const;
+    this.pc.setGlows(this.options.map((o) => ({ slot: o.slot, color: color[o.status] })));
+    // glows are interactive targets too
+    for (const o of this.options) {
+      const r = this.pc.slotRect(o.slot);
+      if (!r) continue;
+      const hit = new Node();
+      hit.hit = { x: r.x, y: r.y, w: r.w, h: r.h };
+      hit.interactive = { onTap: () => void this.tryInstall(o), pad: 2 };
+      this.pc.glowLayer.add(hit);
+    }
+    const P = this.portrait;
+    const list = h('div', { class: 'glass scroll pe', style: 'padding:4px 5px;display:flex;flex-direction:column;gap:3px;max-height:100%' });
+    list.append(h('div', { class: 't-title', style: 'font-size:8.5px;color:var(--gold-l)' }, `${partName(inst.id)} · ${t.wb.pickSlot}`));
+    if (!this.options.length) list.append(h('div', { class: 'c-warn', style: 'font-size:9px' }, t.wb.noSlot));
+    for (const o of this.options) {
+      const label = this.slotLabel(o.slot);
+      const st = o.status;
+      const b = button(
+        [
+          img(st === 'ok' ? 'icon16_kompat_ok' : st === 'warn' ? 'icon16_kompat_warn' : 'icon16_kompat_nein', 'ic'),
+          h('span', { style: 'font-family:var(--font-body);font-size:9.5px;white-space:normal;text-align:left;flex:1' }, label + (o.occupant ? ` · ${fmt(t.slot.occupied, { name: partName(o.occupant.id) })}` : ''), o.issue ? h('div', { class: st === 'bad' ? 'c-bad' : 'c-warn', style: 'font-size:8.5px' }, issueText(o.issue)) : null),
+        ],
+        () => void this.tryInstall(o),
+        { color: st === 'ok' ? 'green' : st === 'warn' ? 'gray' : 'gray', cls: 'small' },
+      );
+      b.style.justifyContent = 'flex-start';
+      b.style.minHeight = '26px';
+      if (st === 'bad') b.style.opacity = '0.7';
+      list.append(b);
+    }
+    const tools = h('div', { style: 'display:flex;gap:4px;margin-top:2px' });
+    tools.append(button(t.ui.cancel, () => this.select(null), { color: 'gray', cls: 'small' }));
+    tools.append(button(fmt(t.ui.sellFor, { n: sellValue(inst.paid) }), () => {
+      if (this.g.check(sellPart(run, inst.uid))) {
+        sfx.coin();
+        this.g.save();
+        this.select(null);
+      }
+    }, { color: 'red', cls: 'small' }));
+    list.append(tools);
+    const area = P
+      ? { x: 8, y: this.caseArea.y + this.caseArea.h * 0.52, w: this.vp.w - 16, h: this.caseArea.h * 0.48 }
+      : { x: this.caseArea.x + this.caseArea.w + 8, y: 170, w: this.vp.w - this.caseArea.w - 20, h: this.vp.h - 170 - 104 };
+    placeEl(list, area);
+    list.style.height = 'auto';
+    list.style.maxHeight = `${area.h}px`;
+    if (P) {
+      list.style.top = 'auto';
+      list.style.bottom = `${this.vp.h - (area.y + area.h)}px`;
+    }
+    this.slotList = list;
+    this.dom.append(list);
+  }
+
+  private slotLabel(s: SlotRef): string {
+    const t = L();
+    const bd = this.g.run!.build.board ? part(this.g.run!.build.board.id) : null;
+    switch (s.kind) {
+      case 'ram':
+        return fmt(t.slot.ram, { a: s.index * 2 + 1, b: s.index * 2 + 2 });
+      case 'pcie': {
+        const sd = bd && bd.cat === 'board' ? bd.pcie[s.index] : undefined;
+        if (!sd) return `PCIe #${s.index + 1}`;
+        return fmt(sd.lanes < sd.size ? t.slot.pcieLanes : t.slot.pcie, { size: sd.size, lanes: sd.lanes, n: s.index + 1 });
+      }
+      case 'm2':
+        return fmt(bd && bd.cat === 'board' && s.index < bd.m2Gen5 ? t.slot.m2gen5 : t.slot.m2, { n: s.index + 1 });
+      case 'sata':
+        return fmt(t.slot.sata, { n: s.index + 1 });
+      case 'fan':
+        return fmt(t.slot.fan, { n: s.index + 1 });
+      default:
+        return t.slot[s.kind];
+    }
+  }
+
+  private async tryInstall(o: SlotOption): Promise<void> {
+    if (this.busy || this.sel === null) return;
+    const run = this.g.run!;
+    if (o.status === 'bad') {
+      if (o.issue) toast(issueText(o.issue), 'bad');
+      const r = this.pc.slotRect(o.slot);
+      if (r) {
+        const p = this.caseToScreen(r.x + r.w / 2, r.y + r.h / 2);
+        this.g.fx.burst(p.x, p.y, 'spark', 0.8);
+      }
+      return;
+    }
+    const uid = this.sel;
+    const from = this.storageNodes.find((s) => s.inst.uid === uid);
+    const res = installPart(run, uid, o.slot);
+    if (!this.g.check(res)) return;
+    this.busy = true;
+    hideTip();
+    // fly animation
+    const r = this.pc.slotRect(o.slot);
+    const target = r ? this.caseToScreen(r.x + r.w / 2, r.y + r.h / 2) : { x: this.vp.w / 2, y: this.vp.h / 2 };
+    if (from) {
+      const ghost = new Sprite(part(from.inst.id).icon, { region: 'content' });
+      ghost.fit(34, 34).pos(from.x, from.y);
+      ghost.z = 100;
+      this.root.add(ghost);
+      await tween(ghost, { x: target.x, y: target.y - 10, sx: 1.25, sy: 1.25 }, { dur: 0.28, ease: ease.inOutQuad });
+      await tween(ghost, { y: target.y, sx: 0.9, sy: 0.9, alpha: 0.3 }, { dur: 0.08, ease: ease.inQuad });
+      ghost.destroy();
+    }
+    this.sel = null;
+    this.options = [];
+    this.g.save();
+    this.rebuild();
+    // snap effect
+    sfx.snap();
+    this.g.engine.shake(1.5, 0.12);
+    this.g.fx.burst(target.x, target.y, 'click', 1);
+    const n = this.pc.partNode(uid);
+    if (n) {
+      const by = n.y;
+      n.y = by - 3;
+      void tween(n, { y: by }, { dur: 0.18, ease: ease.outBounce });
+      if (n instanceof Sprite) {
+        n.flash = 0.8;
+        const o2 = { f: 0.8 };
+        void tween(o2, { f: 0 }, { dur: 0.35, onUpdate: () => (n.flash = o2.f) });
+      }
+    }
+    if (res.displaced.length) toast(`${L().ui.storage}: ${res.displaced.map((p) => partName(p.id)).join(', ')}`, 'info');
+    this.busy = false;
+  }
+
+  // ------------------------------------------------------------ drag & drop
+
+  private dragStart(p: PartInst, ic: Sprite): void {
+    if (this.sel !== p.uid) {
+      this.sel = p.uid;
+      const run = this.g.run!;
+      this.options = slotOptions(run.build, p, { software: swIds(run), pasteUses: run.pasteUses });
+      const color = { ok: 0x3fbf5f, warn: 0xffd23f, bad: 0xe8432d } as const;
+      this.pc.setGlows(this.options.map((o) => ({ slot: o.slot, color: color[o.status] })));
+    }
+    hideTip();
+    this.ghost = new Sprite(part(p.id).icon, { region: 'content' });
+    this.ghost.fit(36, 36).pos(ic.x, ic.y);
+    this.ghost.alpha = 0.85;
+    this.ghost.z = 200;
+    this.root.add(this.ghost);
+    ic.alpha = 0.35;
+  }
+
+  private dragMove(x: number, y: number): void {
+    if (this.ghost) this.ghost.pos(x, y);
+  }
+
+  private async dragEnd(x: number, y: number): Promise<void> {
+    this.ghost?.destroy();
+    this.ghost = null;
+    const lx = (x - this.pc.x) / this.pc.sx;
+    const ly = (y - this.pc.y) / this.pc.sy;
+    const hit = this.options
+      .map((o) => ({ o, r: this.pc.slotRect(o.slot)! }))
+      .filter(({ r }) => r && lx >= r.x - 4 && lx <= r.x + r.w + 4 && ly >= r.y - 4 && ly <= r.y + r.h + 4)
+      .sort((a, b) => a.r.w * a.r.h - b.r.w * b.r.h)[0];
+    if (hit) await this.tryInstall(hit.o);
+    else this.rebuild();
+  }
+
+  // ------------------------------------------------------------ sheets
+
+  private openInstalled(inst: PartInst): void {
+    const run = this.g.run!;
+    const t = L();
+    const d = part(inst.id);
+    const canRemove = d.cat !== 'board' && d.cat !== 'case';
+    const oc = d.cat === 'cpu' || d.cat === 'gpu' || d.cat === 'ram';
+    sheet((close) => [
+      partCard(inst.id, inst, inst.oc ? [h('div', { class: 'c-warn' }, `OC ${inst.oc}`)] : []),
+      h(
+        'div',
+        { class: 'actions' },
+        button(t.ui.close, close, { color: 'gray' }),
+        oc ? button(t.ui.bios, () => {
+          close();
+          openBios(() => this.rebuild());
+        }, { color: 'blue', icon: 'icon16_bios' }) : null,
+        canRemove
+          ? button(t.wb.removeToStorage, () => {
+              if (this.g.check(uninstallPart(run, inst.uid))) {
+                sfx.thud();
+                this.g.save();
+                close();
+                this.rebuild();
+              }
+            }, { color: 'red', disabled: run.storage.length >= 3 })
+          : null,
+      ),
+    ]);
+  }
+
+  private openStored(p: PartInst): void {
+    hideTip();
+    showTip(partCard(p.id, p), this.rectOf(this.storageNodes.find((s) => s.inst.uid === p.uid)!.node), p);
+    setTimeout(() => hideTip(p), 2000);
+  }
+
+  // ------------------------------------------------------------ POST
+
+  private async runPost(): Promise<void> {
+    if (this.busy) return;
+    const run = this.g.run!;
+    const t = L();
+    this.busy = true;
+    this.select(null);
+    this.busy = true;
+    const issues = postIssues(run);
+    const err: Issue | undefined = issues.find((i) => i.severity === 'error');
+    const failAt = err ? LED_ORDER.indexOf(err.led) : 99;
+    sfx.beep();
+    for (let i = 0; i < 4; i++) {
+      const led = this.leds[i]!;
+      led.setFrame(`fx_post_led_${i * 2 + 1}`);
+      led.flash = 0.6;
+      void tween(led, { flash: 0 }, { dur: 0.25 });
+      this.g.fx.sparks(led.x, led.y, 3, [0xe8432d, 0xffd23f, 0xf4f4fa, 0x3fbf5f][i]!, 30);
+      sfx.tick(i * 3);
+      await wait(0.32);
+      if (i === failAt) {
+        // failure: this LED stays lit and blinks
+        led.tick = () => (led.flash = Math.floor(performance.now() / 180) % 2 ? 0.7 : 0);
+        sfx.beepCode(1, 3);
+        this.g.engine.shake(2, 0.2);
+        for (const uid of err!.uids) {
+          const n = this.pc.partNode(uid);
+          const r = n?.worldRect();
+          if (r) this.g.fx.burst(r.x + r.w / 2, r.y + r.h / 2, 'spark', 1.2);
+        }
+        const red = new Rect2(this.caseArea.w, this.caseArea.h, 0xe8432d, 0.0);
+        red.pos(this.caseArea.x, this.caseArea.y);
+        this.root.add(red);
+        await tween(red, { alpha: 0.25 }, { dur: 0.1 });
+        void tween(red, { alpha: 0 }, { dur: 0.4 }).then(() => red.destroy());
+        sheet((close) => [
+          h('h3', { class: 'c-bad' }, `${t.wb.postFail} · ${t.led[err!.led]}`),
+          h('div', { class: 't-mono', style: 'font-size:14px;margin:2px 0' }, `${t.wb.beep}: — · · ·`),
+          h('div', { style: 'font-size:10.5px' }, issueText(err!)),
+          h('div', { class: 'actions' }, button(t.ui.ok, close, { color: 'blue' })),
+        ]);
+        this.busy = false;
+        return;
+      }
+      led.setFrame(`fx_post_led_${i * 2}`);
+    }
+    // success: all LEDs off, BOOT green
+    this.leds[3]!.setFrame('fx_post_led_7');
+    sfx.boot();
+    this.g.fx.confetti(this.caseArea.x + this.caseArea.w / 2, this.caseArea.y + this.caseArea.h / 2, 18, 120);
+    this.pc.fanSpeed = 3;
+    await wait(0.7);
+    const r = leaveWorkbench(run);
+    this.busy = false;
+    if (!this.g.check(r)) return;
+    this.g.save();
+    toast(t.wb.postOk, 'good', 1500);
+    this.g.route();
+  }
+
+  refresh(): void {
+    this.rebuild();
+  }
+
+  override exit(): void {
+    super.exit();
+    void hexToRgb;
   }
 }

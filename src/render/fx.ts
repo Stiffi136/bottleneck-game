@@ -122,7 +122,7 @@ export class Fx {
 
   /** Floating text that pops and rises. */
   async float(x: number, y: number, text: string, opts: TextOpts & { rise?: number; dur?: number; pop?: number } = {}): Promise<void> {
-    const t = new Text(text, { font: 'title', size: 10, align: 'center', valign: 'middle', ...opts });
+    const t = new Text(text, { font: 'title', align: 'center', valign: 'middle', outline: 0x0b0b12, ...opts, size: (opts.size ?? 10) * 1.25 });
     t.pos(x, y);
     t.scale(0.2);
     this.layer.add(t);

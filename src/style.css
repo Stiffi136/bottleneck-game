@@ -76,7 +76,7 @@ body {
   font-size: 10px;
   line-height: 1.15;
 }
-#ui > * {
+#ui > .screen {
   position: absolute;
   inset: 0;
 }
@@ -537,4 +537,14 @@ img.i8 {
 input[type='range'] {
   width: 90px;
   accent-color: var(--gpu);
+}
+.sheet h4 {
+  margin: 0 0 3px;
+  font-family: var(--font-title);
+  font-weight: 400;
+  font-size: 11px;
+  color: var(--gold-l);
+}
+.sheet {
+  font-size: 10px;
 }

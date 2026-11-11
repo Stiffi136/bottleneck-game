@@ -240,10 +240,10 @@ export class BenchScreen extends BaseScreen {
     this.tBox = new ValueBox('clock', this.portrait ? 96 : 116);
     const times = new Text('×', { font: 'title', size: 14, align: 'center', valign: 'middle', color: 0xe8432d });
     if (lay.boxes.vertical) {
-      this.profileText.pos(lay.boxes.x, lay.profile.y + 10);
-      this.lBox.pos(lay.boxes.x, lay.profile.y + 34);
-      times.pos(lay.boxes.x, lay.profile.y + 52);
-      this.tBox.pos(lay.boxes.x, lay.profile.y + 70);
+      this.profileText.pos(lay.boxes.x, lay.profile.y + 8);
+      this.lBox.pos(lay.boxes.x, lay.profile.y + 22 + this.lBox.h / 2);
+      times.pos(lay.boxes.x, this.lBox.y + this.lBox.h / 2 + 7);
+      this.tBox.pos(lay.boxes.x, times.y + 7 + this.tBox.h / 2);
       this.profileText.maxWidth = 140;
     } else {
       this.profileText.pos(lay.boxes.x, lay.profile.y + 8);
@@ -919,7 +919,6 @@ export class BenchScreen extends BaseScreen {
       if (!n) return;
       if (n instanceof HwChip || n instanceof SwChip) {
         n.setFlash(1);
-        void tween({ f: 1 }, { f: 0 }, { dur: 0.3, onUpdate: function (this: void) {} });
         const o = { f: 1 };
         void tween(o, { f: 0 }, { dur: 0.35, onUpdate: () => n.setFlash(o.f) });
         void fx.pulse(n, 1.3, 0.22);

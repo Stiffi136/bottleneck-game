@@ -20,6 +20,8 @@ export class Game {
   run: RunState | null = null;
   private factories = new Map<string, ScreenFactory>();
   screenName = '';
+  /** part uid to preselect when the workbench opens ("buy & install") */
+  pendingInstall: number | null = null;
 
   init(host: HTMLElement): void {
     this.engine = new Engine(host);
