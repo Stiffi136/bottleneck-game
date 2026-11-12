@@ -1,5 +1,7 @@
 # BOTTLENECK
 
+**▶ Play it live: https://stiffi136.github.io/bottleneck-game/**
+
 Roguelike-Deckbuilder zum Thema PC-Hardware (Parodie-Marken). Du baust einen PC, deine Teile sind das Deck, Benchmarks sind die Runden. Mehr Takt und Kerne bedeuten mehr Punkte, mehr Hitze bedeutet Throttling, Shutdown oder Bluescreen. Läuft im Browser (Hoch- und Querformat, EN/DE). Vite + TypeScript + three.js (2D-Sprite-Batch), Audio per WebAudio-Synth.
 
 ## Befehle
